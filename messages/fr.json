@@ -1,0 +1,214 @@
+{
+  "portal": {
+    "kicker": "Sodexo Spark · Interne",
+    "title": "Comment souhaitez-vous explorer le portefeuille ?",
+    "lead": "Deux lectures du même écosystème : une feuille de route business pour les appels d’offres et le CoDesign, ou un catalogue expérience centré personas et moments.",
+    "business": {
+      "title": "Business & feuille de route",
+      "body": "Offre standard, logique d’investissement 70/20/10, trois couches Spark et preuves — pour les équipes compte, RFP et comités de direction.",
+      "badge": "Offre standard · Prêt CoDesign",
+      "cta": "Ouvrir la plaquette commerciale"
+    },
+    "experience": {
+      "title": "Expérience & parcours",
+      "body": "90+ solutions digitales rattachées à des personnes et des moments de parcours — le portefeuille complet, innovations incluses.",
+      "badge": "Catalogue XP · Parcours d’abord",
+      "cta": "Ouvrir le catalogue expérience"
+    },
+    "footnote": "Les 25 solutions standard sont un sous-ensemble du catalogue. Les innovations pilotes (10 %) y figurent avec accès limité aux clients concernés."
+  },
+  "nav": {
+    "home": "Plaquette",
+    "explore": "Explorer",
+    "layers": "Couches",
+    "caseStudies": "Références",
+    "codesign": "CoDesign",
+    "search": "Rechercher",
+    "subtitle": "Plaquette commerciale TDDI"
+  },
+  "deck": {
+    "nav": {
+      "aria": "Sections de la plaquette",
+      "ariaMobile": "Aller à la section",
+      "intro": "Ouverture",
+      "context": "Contexte macro",
+      "ambition": "Ambition",
+      "roadmap": "70 / 20 / 10",
+      "layers": "Trois couches",
+      "offerings": "Notre offre",
+      "proof": "Preuves",
+      "ecosystem": "Échelle"
+    },
+    "intro": {
+      "kicker": "Sodexo Spark · TDDI",
+      "titleSolid": "Sodexo Spark",
+      "titleOutline": "Tech · Data · Digital · Innovation",
+      "lead": "Un même écosystème, trois expériences pour les clients, les usagers et les opérateurs : intelligence, expérience et performance opérationnelle — pensées pour gagner les appels d’offres, les RFP et les ateliers CoDesign.",
+      "scroll": "Découvrir le récit"
+    },
+    "context": {
+      "kicker": "Contexte macro",
+      "headline": "Le cadre dans lequel évoluent les services aux entreprises",
+      "sub": "Des repères que les dirigeants partagent : croissance modérée, inflation structurelle, tension sur les talents et attentes croissantes en matière de bien-être et d’expérience.",
+      "stats": {
+        "stat1": {
+          "value": "3,3 %",
+          "label": "Perspectives de croissance du PIB mondial",
+          "hint": "Un plancher modeste ; l’efficience et la différenciation priment sur le volume."
+        },
+        "stat2": {
+          "value": "4,2 %",
+          "label": "Pression inflationniste",
+          "hint": "Maîtrise des coûts et productivité : incontournables dans les contrats."
+        },
+        "stat3": {
+          "value": "402 M",
+          "label": "Écart d’emplois mondiaux d’ici 2030",
+          "hint": "Pénurie de talents : prévision, staffing et rétention sont au cœur du jeu."
+        },
+        "stat4": {
+          "value": "86 %",
+          "label": "Des salariés attendent davantage d’investissements bien-être",
+          "hint": "La qualité d’expérience fait partie de la valeur créée, pas d’un catalogue d’avantages."
+        }
+      }
+    },
+    "ambition": {
+      "kicker": "Notre ambition",
+      "headline": "Où nous menons Sodexo",
+      "pillars": {
+        "p1": {
+          "title": "Expériences élevées, à la hauteur des attentes",
+          "body": "Des expériences humaines, digitales et physiques mesurables — reproductibles et alignées sur les résultats clients."
+        },
+        "p2": {
+          "title": "Performance continue avec IA intégrée",
+          "body": "Des données exploitables, du prévisionnel et de l’automation dans les opérations — pour libérer le temps des équipes sur le jugement et l’action."
+        },
+        "p3": {
+          "title": "La valeur du partenariat, démontrée",
+          "body": "ROI transparent, références de service et innovation présentables en comité — pas seulement sur des slides."
+        }
+      }
+    },
+    "layers": {
+      "kicker": "Architecture",
+      "headline": "Trois couches d’audience, un seul portefeuille",
+      "sub": "Spark IQ, Spark XP et Spark OS structurent intelligence, expérience et performance opérationnelle — et la manière de raconter l’histoire en rendez-vous.",
+      "iq": {
+        "title": "Spark IQ",
+        "body": "Intelligence client et insight temps réel — prévision, lecture de la demande et décision sur le réseau de sites."
+      },
+      "xp": {
+        "title": "Spark XP",
+        "body": "Expériences du quotidien élevées — parcours « face client » qui améliorent satisfaction, adoption et image."
+      },
+      "os": {
+        "title": "Spark OS",
+        "body": "La plateforme opérateur — processus, conformité, efficience et ROI auditables et industrialisables."
+      }
+    },
+    "offerings": {
+      "kicker": "Dans la salle",
+      "headline": "Ce que nous plaçons devant les clients",
+      "highlightMetric": "25+",
+      "highlightLabel": "Solutions nommées — Food, Hospitality, Workplace / FM — filtrables par enjeu.",
+      "items": {
+        "o1": {
+          "title": "Des lignes d’offre centrées sur l’impact",
+          "body": "Chaque récit s’appuie sur l’impact métier : rétention et productivité, efficience et ROI, RSE et durabilité, cycle de vie d’actifs — avec des KPI soutenables face aux achats."
+        },
+        "o2": {
+          "title": "CoDesign en 90 jours",
+          "body": "Un parcours Design Thinking structuré du cadrage au prototype — pour sortir d’ateliers avec des décisions, pas seulement des post-it."
+        },
+        "o3": {
+          "title": "Intelligence collective industrialisée",
+          "body": "Usines digitales et métiers reliés par des outils communs — pour que la livraison épouse le discours, partout dans le monde."
+        },
+        "o4": {
+          "title": "Data-centric par conception",
+          "body": "Plateformes compatibles Azure et services exposés en API — fait pour s’insérer dans l’architecture d’entreprise, pas à côté."
+        }
+      }
+    },
+    "proof": {
+      "kicker": "Preuves",
+      "headline": "Ce que disent les clients en rendez-vous",
+      "quotes": {
+        "q1": {
+          "quote": "Un partenaire qui réunit données, design et exécution — pas un fournisseur de slides, un plan commun.",
+          "attribution": "Compte enterprise global, secteur technologique"
+        },
+        "q2": {
+          "quote": "Enfin une même lecture des chiffres pour les opérations, les RH et les achats — et une feuille de route partagée.",
+          "attribution": "Programme workplace et services généraux"
+        },
+        "q3": {
+          "quote": "Le sprint CoDesign a transformé une exigence d’appel d’offres en pilote avec sponsors — en un trimestre.",
+          "attribution": "Client services publics et institutionnels"
+        }
+      }
+    },
+    "ecosystem": {
+      "kicker": "Échelle",
+      "headline": "Le moteur derrière le discours",
+      "body": "Des milliers d’experts, des plateformes partagées et des playbooks répétables — pour que l’expérience en salle soit celle de la mise en œuvre.",
+      "m1": {
+        "value": "1000+",
+        "label": "Experts data, digital, IA et transformation"
+      },
+      "m2": {
+        "value": "4",
+        "label": "Usines digitales et IA dans les grandes régions"
+      },
+      "m3": {
+        "value": "43",
+        "label": "Pays où le modèle se déploie"
+      },
+      "closing": "Utilisez cette plaquette pour aligner la salle : un récit, trois couches, des résultats qui tiennent en diligence — et des millions de petits moments qui comptent."
+    },
+    "roadmap": {
+      "kicker": "Logique portefeuille",
+      "headline": "Des concepts à une feuille de route alignée",
+      "sub": "Une approche équilibrée Innovation, Digital et IA : impact immédiat, adaptation client et pilotes sélectifs — sur les horizons court, moyen et long terme.",
+      "outcome": "Livrable : feuille de route priorisée, business case par initiative et plan de mise en œuvre (quick wins / moyen terme / long terme).",
+      "tiers": {
+        "70": {
+          "title": "Offre standard",
+          "body": "Services Sodexo existants, déployables maintenant. Prouvés, chiffrés, socle de la plupart des feuilles de route clients.",
+          "focus": "Initiatives pragmatiques à fort impact, digital et IA déjà sur le marché.",
+          "cta": "Voir les solutions standard dans le catalogue"
+        },
+        "20": {
+          "title": "Standard adapté",
+          "body": "Personnalisation légère — configuration site, modèle de service et couche digitale ajustés au client.",
+          "focus": "Renforcer l’existant et l’engagement sans refondre la stack.",
+          "cta": "Voir les solutions adaptées dans le catalogue"
+        },
+        "10": {
+          "title": "Innovation / pilote",
+          "body": "Une ou deux nouvelles solutions testées sur site pilote — incertitude plus forte, potentiel plus élevé, protocole de test défini.",
+          "focus": "Avec certains clients uniquement ; via CoDesign et catalogue (accès restreint).",
+          "cta": "Voir la piste innovation & pilote"
+        }
+      }
+    },
+    "journeyStrip": {
+      "kicker": "Dans le parcours",
+      "headline": "Solutions standard sur de vrais personas",
+      "sub": "{count} solutions dans le bucket 70 % — chacune s’ouvre dans le catalogue au bon persona et moment.",
+      "tier70": "70 %",
+      "persona": "Persona",
+      "moment": "Moment",
+      "openMoment": "Ouvrir le moment de parcours",
+      "openSolution": "Fiche solution",
+      "exploreAll": "Explorer le catalogue complet (90+ solutions)"
+    }
+  },
+  "footer": {
+    "tagline": "Plaquette commerciale interne TDDI",
+    "linksTitle": "Accès rapide",
+    "rights": "Usage interne uniquement."
+  }
+}

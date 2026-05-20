@@ -1,0 +1,224 @@
+[
+  {
+    "slug": "4site-real-time-consumer-insights",
+    "name": "4site — Real-time consumer insights",
+    "catalogueId": "4site",
+    "roadmapTier": "70",
+    "layer": "iq",
+    "serviceLines": ["food", "hospitality"],
+    "journeyRefs": [
+      {
+        "area": "work",
+        "personaId": "white-collar",
+        "momentId": "food-beverage-work",
+        "momentLabel": "Food & beverage at work"
+      }
+    ]
+  },
+  {
+    "slug": "ai-powered-menu-generation",
+    "name": "AI-powered Menu generation",
+    "catalogueId": "menuai",
+    "roadmapTier": "70",
+    "layer": "os",
+    "serviceLines": ["food"],
+    "journeyRefs": [
+      {
+        "area": "work",
+        "personaId": "white-collar",
+        "momentId": "food-beverage-work",
+        "momentLabel": "Food & beverage at work"
+      }
+    ]
+  },
+  {
+    "slug": "frictionless-retail-autonomous-stores",
+    "name": "Frictionless retail / Autonomous stores",
+    "catalogueId": "aifi",
+    "roadmapTier": "70",
+    "layer": "xp",
+    "serviceLines": ["food"],
+    "journeyRefs": [
+      {
+        "area": "work",
+        "personaId": "white-collar",
+        "momentId": "food-beverage-work",
+        "momentLabel": "Food & beverage at work"
+      }
+    ]
+  },
+  {
+    "slug": "hotel-grade-concierge-circles",
+    "name": "Hotel-grade Concierge (Circles)",
+    "catalogueId": "circles",
+    "roadmapTier": "70",
+    "layer": "xp",
+    "serviceLines": ["workplace"],
+    "journeyRefs": [
+      {
+        "area": "work",
+        "personaId": "white-collar",
+        "momentId": "wellbeing-break",
+        "momentLabel": "Wellbeing break"
+      }
+    ]
+  },
+  {
+    "slug": "integrated-employee-experience-wrx",
+    "name": "Integrated Employee Experience (WRX)",
+    "catalogueId": "sodexoWrx",
+    "roadmapTier": "70",
+    "layer": "xp",
+    "serviceLines": ["workplace"],
+    "journeyRefs": [
+      {
+        "area": "work",
+        "personaId": "white-collar",
+        "momentId": "welcome-area",
+        "momentLabel": "Welcome area"
+      }
+    ]
+  },
+  {
+    "slug": "workplace-experience-index-shape",
+    "name": "Workplace Experience Index (SHAPE)",
+    "catalogueId": "qualtrics",
+    "roadmapTier": "70",
+    "layer": "iq",
+    "serviceLines": ["workplace"],
+    "journeyRefs": [
+      {
+        "area": "work",
+        "personaId": "client-work",
+        "momentId": "workplace",
+        "momentLabel": "Workplace"
+      }
+    ]
+  },
+  {
+    "slug": "sustainability-sea",
+    "name": "Sustainability (SEA)",
+    "catalogueId": "kikleo",
+    "roadmapTier": "70",
+    "layer": "os",
+    "serviceLines": ["food"],
+    "journeyRefs": [
+      {
+        "area": "work",
+        "personaId": "white-collar",
+        "momentId": "food-beverage-work",
+        "momentLabel": "Food & beverage at work"
+      }
+    ]
+  },
+  {
+    "slug": "food-waste-leanpath",
+    "name": "Food waste intelligence",
+    "catalogueId": "leanpath",
+    "roadmapTier": "70",
+    "layer": "os",
+    "serviceLines": ["food"],
+    "journeyRefs": [
+      {
+        "area": "heal",
+        "personaId": "nurse",
+        "momentId": "meal-service",
+        "momentLabel": "Meal service"
+      }
+    ]
+  },
+  {
+    "slug": "smart-catering-powerchef",
+    "name": "Smart catering operations",
+    "catalogueId": "powerchef",
+    "roadmapTier": "70",
+    "layer": "os",
+    "serviceLines": ["food"],
+    "journeyRefs": []
+  },
+  {
+    "slug": "robotic-delivery-starship",
+    "name": "Autonomous delivery",
+    "catalogueId": "starship",
+    "roadmapTier": "20",
+    "layer": "xp",
+    "serviceLines": ["food", "workplace"],
+    "journeyRefs": [
+      {
+        "area": "learn",
+        "personaId": "student",
+        "momentId": "lunch-break",
+        "momentLabel": "Lunch break"
+      }
+    ]
+  },
+  {
+    "slug": "occupancy-affluences",
+    "name": "Occupancy & footfall",
+    "catalogueId": "affluences",
+    "roadmapTier": "70",
+    "layer": "iq",
+    "serviceLines": ["hospitality", "workplace"],
+    "journeyRefs": []
+  },
+  {
+    "slug": "water-stations-aquablu",
+    "name": "Sustainable hydration",
+    "catalogueId": "aquablu",
+    "roadmapTier": "70",
+    "layer": "xp",
+    "serviceLines": ["workplace"],
+    "journeyRefs": [
+      {
+        "area": "work",
+        "personaId": "white-collar",
+        "momentId": "wellbeing-break",
+        "momentLabel": "Wellbeing break"
+      }
+    ]
+  },
+  {
+    "slug": "hygiene-inspection-inspekly",
+    "name": "Digital hygiene inspection",
+    "catalogueId": "inspekly",
+    "roadmapTier": "20",
+    "layer": "os",
+    "serviceLines": ["food", "hospitality"],
+    "journeyRefs": []
+  },
+  {
+    "slug": "client-adapted-portal",
+    "name": "B2B client portal (adapted)",
+    "catalogueId": null,
+    "roadmapTier": "20",
+    "layer": "xp",
+    "serviceLines": ["workplace"],
+    "journeyRefs": []
+  },
+  {
+    "slug": "dynamic-services-platform",
+    "name": "Dynamic Services Platform",
+    "catalogueId": null,
+    "roadmapTier": "70",
+    "layer": "os",
+    "serviceLines": ["workplace"],
+    "journeyRefs": [
+      {
+        "area": "work",
+        "personaId": "operator-work",
+        "momentId": "workplace",
+        "momentLabel": "Workplace operations"
+      }
+    ]
+  },
+  {
+    "slug": "pilot-innovation-embed",
+    "name": "Embed Innovation (pilot)",
+    "catalogueId": null,
+    "roadmapTier": "10",
+    "layer": "os",
+    "serviceLines": ["workplace"],
+    "journeyRefs": [],
+    "clientOnly": true
+  }
+]

@@ -1,0 +1,214 @@
+{
+  "portal": {
+    "kicker": "Sodexo Spark · Internal",
+    "title": "How do you want to explore the portfolio?",
+    "lead": "Two lenses on the same ecosystem: a business roadmap for pitches and CoDesign, or a journey-first experience catalogue for personas and moments.",
+    "business": {
+      "title": "Business & roadmap",
+      "body": "Standard offer, 70/20/10 investment logic, three Spark layers, and proof — built for account teams, RFPs, and executive conversations.",
+      "badge": "Standard offer · CoDesign-ready",
+      "cta": "Open the selling deck"
+    },
+    "experience": {
+      "title": "Experience & journeys",
+      "body": "90+ digital solutions mapped to real people and journey moments — the full portfolio including innovations tested in market.",
+      "badge": "XP Catalogue · Persona-first",
+      "cta": "Open Experience Catalogue"
+    },
+    "footnote": "The 25 standard solutions are a subset of the catalogue. Pilot innovations (10%) appear in the catalogue with client-scoped access."
+  },
+  "nav": {
+    "home": "Deck",
+    "explore": "Explore",
+    "layers": "Layers",
+    "caseStudies": "Case studies",
+    "codesign": "CoDesign",
+    "search": "Search",
+    "subtitle": "TDDI selling deck"
+  },
+  "deck": {
+    "nav": {
+      "aria": "Deck sections",
+      "ariaMobile": "Jump to section",
+      "intro": "Opening",
+      "context": "Macro context",
+      "ambition": "Ambition",
+      "roadmap": "70 / 20 / 10",
+      "layers": "Three layers",
+      "offerings": "How we deliver",
+      "proof": "Proof",
+      "ecosystem": "Scale"
+    },
+    "intro": {
+      "kicker": "Sodexo Spark · TDDI",
+      "titleSolid": "Sodexo Spark",
+      "titleOutline": "Tech · Data · Digital · Innovation",
+      "lead": "One ecosystem, three experiences for clients, consumers, and operators: intelligence, experience, and operating performance — designed to win pitches, RFPs, and CoDesign workshops.",
+      "scroll": "See the story"
+    },
+    "context": {
+      "kicker": "Macro context",
+      "headline": "The backdrop corporate services operate in",
+      "sub": "Numbers leaders recognise: slower growth, persistent inflation, workforce pressure, and rising expectations on wellbeing and experience.",
+      "stats": {
+        "stat1": {
+          "value": "3.3%",
+          "label": "Global GDP growth outlook",
+          "hint": "A modest baseline; efficiency and differentiation matter more than volume."
+        },
+        "stat2": {
+          "value": "4.2%",
+          "label": "Inflation pressure",
+          "hint": "Cost discipline and productivity are non-negotiable in contracts."
+        },
+        "stat3": {
+          "value": "402M",
+          "label": "Global job gap by 2030",
+          "hint": "Labour scarcity makes forecasting, staffing precision, and retention critical."
+        },
+        "stat4": {
+          "value": "86%",
+          "label": "Employees expect more wellbeing investment",
+          "hint": "Experience quality is now part of value, not a perk."
+        }
+      }
+    },
+    "ambition": {
+      "kicker": "Our ambition",
+      "headline": "Where we are taking Sodexo",
+      "pillars": {
+        "p1": {
+          "title": "Pioneering elevated experiences",
+          "body": "Human, digital, and physical experiences that employees and guests actually feel — measured, repeatable, and aligned to client outcomes."
+        },
+        "p2": {
+          "title": "Continuous performance with embedded AI",
+          "body": "Decision-grade data, forecasting, and automation woven into operations — so teams spend time on judgment, not spreadsheets."
+        },
+        "p3": {
+          "title": "Proving the value of partnership",
+          "body": "Transparent ROI, service benchmarks, and innovation you can take to the board — not slide-deck promises."
+        }
+      }
+    },
+    "layers": {
+      "kicker": "Architecture",
+      "headline": "Three audience layers, one portfolio",
+      "sub": "Spark IQ, Spark XP, and Spark OS map how we win intelligence, experience, and operator outcomes — and how stories should be told in the room.",
+      "iq": {
+        "title": "Spark IQ",
+        "body": "Client intelligence and real-time insight — forecasting, sensing demand, and turning data into decisions across sites."
+      },
+      "xp": {
+        "title": "Spark XP",
+        "body": "Elevated everyday experiences — front-stage journeys that improve satisfaction, adoption, and brand perception."
+      },
+      "os": {
+        "title": "Spark OS",
+        "body": "The operator’s platform — workflow, compliance, efficiency, and ROI you can audit and scale."
+      }
+    },
+    "offerings": {
+      "kicker": "In the pitch",
+      "headline": "What we put in front of clients",
+      "highlightMetric": "25+",
+      "highlightLabel": "Named solutions across Food, Hospitality, and Workplace / FM — filterable by outcome.",
+      "items": {
+        "o1": {
+          "title": "Outcome-led solution lines",
+          "body": "Each storyline is built around business impact: retention and productivity, efficiency and ROI, CSR and sustainability, asset life — with KPIs you can defend in procurement."
+        },
+        "o2": {
+          "title": "CoDesign in 90 days",
+          "body": "A structured Design Thinking path from problem framing to prototype, so workshops produce decisions — not sticky notes."
+        },
+        "o3": {
+          "title": "Collective intelligence at scale",
+          "body": "Global factories and domain experts connected through common tooling — so delivery matches the narrative in every region."
+        },
+        "o4": {
+          "title": "Data-centric by default",
+          "body": "Azure-aligned platforms and API-ready services — built to sit inside enterprise architecture, not beside it."
+        }
+      }
+    },
+    "proof": {
+      "kicker": "Proof",
+      "headline": "What clients say in the room",
+      "quotes": {
+        "q1": {
+          "quote": "A partner who brings data, design, and delivery together — not a vendor deck, a joint plan.",
+          "attribution": "Global enterprise account, technology sector"
+        },
+        "q2": {
+          "quote": "We finally had operations, HR, and procurement looking at the same numbers — and the same roadmap.",
+          "attribution": "FM and workplace transformation programme"
+        },
+        "q3": {
+          "quote": "The CoDesign sprint turned a tender requirement into a pilot with owners — in a single quarter.",
+          "attribution": "Public and institutional services client"
+        }
+      }
+    },
+    "ecosystem": {
+      "kicker": "Scale",
+      "headline": "The engine behind the story",
+      "body": "Thousands of experts, shared platforms, and repeatable playbooks — so the experience in the pitch is the experience in delivery.",
+      "m1": {
+        "value": "1000+",
+        "label": "Experts in data, digital, AI, and transformation"
+      },
+      "m2": {
+        "value": "4",
+        "label": "Digital and AI factories across major regions"
+      },
+      "m3": {
+        "value": "43",
+        "label": "Countries where the model deploys"
+      },
+      "closing": "Use this deck to align the room: one narrative, three layers, outcomes that survive diligence — making millions of small moments matter."
+    },
+    "roadmap": {
+      "kicker": "Portfolio logic",
+      "headline": "From concepts to a matched roadmap",
+      "sub": "A balanced approach for Innovation, Digital, and AI: immediate impact, tailored delivery, and selective pilots — aligned to short, mid, and long-term horizons.",
+      "outcome": "Output: prioritised roadmap, business case per initiative, and implementation plan (quick wins / mid-term / long-term).",
+      "tiers": {
+        "70": {
+          "title": "Standard offer",
+          "body": "Sodexo existing services, deployable now. Proven, costed, and the backbone of most client roadmaps.",
+          "focus": "Pragmatic, high-impact initiatives with digital and AI already in market.",
+          "cta": "Browse standard solutions in catalogue"
+        },
+        "20": {
+          "title": "Adapted standard",
+          "body": "Light customisation of existing services — site configuration, service model, and digital layer tuned to the client.",
+          "focus": "Enhance core capabilities and engagement without reinventing the stack.",
+          "cta": "Browse adapted solutions in catalogue"
+        },
+        "10": {
+          "title": "Innovation / pilot",
+          "body": "One or two new solutions tested on a pilot site — lower certainty, higher upside, with a defined test protocol.",
+          "focus": "Available with selected clients; explore via CoDesign and catalogue (gated).",
+          "cta": "View pilot & innovation track"
+        }
+      }
+    },
+    "journeyStrip": {
+      "kicker": "In the journey",
+      "headline": "Standard solutions on real personas",
+      "sub": "{count} solutions in the 70% bucket — each can be opened in the Experience Catalogue at the right persona and moment.",
+      "tier70": "70%",
+      "persona": "Persona",
+      "moment": "Moment",
+      "openMoment": "Open journey moment",
+      "openSolution": "Solution detail",
+      "exploreAll": "Explore full catalogue (90+ solutions)"
+    }
+  },
+  "footer": {
+    "tagline": "Internal TDDI selling deck",
+    "linksTitle": "Jump to",
+    "rights": "Internal use only."
+  }
+}
