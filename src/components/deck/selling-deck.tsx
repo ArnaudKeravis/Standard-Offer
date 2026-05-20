@@ -247,8 +247,6 @@ export function SellingDeck() {
         </div>
       </section>
 
-      <Roadmap702010 />
-
       {/* Three layers */}
       <section
         id="layers"
@@ -285,6 +283,8 @@ export function SellingDeck() {
           </div>
         </div>
       </section>
+
+      <Roadmap702010 />
 
       {/* Offerings (selling highlights, not catalogue) */}
       <section id="offerings" className="relative bg-white">

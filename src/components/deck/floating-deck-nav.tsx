@@ -9,8 +9,8 @@ const SECTION_IDS = [
   "intro",
   "context",
   "ambition",
-  "roadmap",
   "layers",
+  "roadmap",
   "offerings",
   "proof",
   "ecosystem",
@@ -29,8 +29,8 @@ export function FloatingDeckNav() {
         intro: "intro",
         context: "context",
         ambition: "ambition",
-        roadmap: "roadmap",
         layers: "layers",
+        roadmap: "roadmap",
         offerings: "offerings",
         proof: "proof",
         ecosystem: "ecosystem",
@@ -136,9 +136,9 @@ export function FloatingDeckNav() {
                 ? "02"
                 : id === "ambition"
                   ? "03"
-                  : id === "roadmap"
+                  : id === "layers"
                     ? "04"
-                    : id === "layers"
+                    : id === "roadmap"
                       ? "05"
                       : id === "offerings"
                         ? "06"
