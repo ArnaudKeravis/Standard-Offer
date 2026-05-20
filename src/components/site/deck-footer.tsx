@@ -33,7 +33,7 @@ export function DeckFooter() {
             {anchors.map((a) => (
               <li key={a.id}>
                 <a
-                  href={`/${locale}/deck#${a.id}`}
+                  href={`/${locale}#${a.id}`}
                   className="hover:text-[var(--spark-ink)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--spark-amber)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                 >
                   {tNav(a.key)}

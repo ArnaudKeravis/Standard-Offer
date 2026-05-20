@@ -11,7 +11,7 @@ export default function ExploreRedirectPage() {
 
   useEffect(() => {
     const locale = params.locale ?? "en";
-    window.location.replace(`/${locale}/deck#offerings`);
+    window.location.replace(`/${locale}#offerings`);
   }, [params.locale]);
 
   return (

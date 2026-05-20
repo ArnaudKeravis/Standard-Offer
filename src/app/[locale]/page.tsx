@@ -1,5 +1,6 @@
-import { SparkPortal } from "@/components/spark/spark-portal";
+import { SellingDeck } from "@/components/deck/selling-deck";
 
-export default function SparkHomePage() {
-  return <SparkPortal />;
+/** Standard Offer — single-page selling deck (app entry). */
+export default function StandardOfferPage() {
+  return <SellingDeck />;
 }

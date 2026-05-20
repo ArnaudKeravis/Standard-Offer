@@ -3,6 +3,8 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { LenisProvider } from "@/components/providers/lenis-provider";
+import { DeckFooter } from "@/components/site/deck-footer";
+import { DeckTopBar } from "@/components/site/deck-top-bar";
 import { locales, type Locale } from "@/i18n/routing";
 
 export default async function LocaleLayout({
@@ -27,7 +29,12 @@ export default async function LocaleLayout({
           >
             Skip to content
           </a>
-          {children}
+
+          <DeckTopBar />
+          <main id="content" className="flex-1">
+            {children}
+          </main>
+          <DeckFooter />
         </div>
       </LenisProvider>
     </NextIntlClientProvider>

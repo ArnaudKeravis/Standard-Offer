@@ -1,22 +1,4 @@
 {
-  "portal": {
-    "kicker": "Sodexo Spark · Interne",
-    "title": "Comment souhaitez-vous explorer le portefeuille ?",
-    "lead": "Deux lectures du même écosystème : une feuille de route business pour les appels d’offres et le CoDesign, ou un catalogue expérience centré personas et moments.",
-    "business": {
-      "title": "Business & feuille de route",
-      "body": "Offre standard, logique d’investissement 70/20/10, trois couches Spark et preuves — pour les équipes compte, RFP et comités de direction.",
-      "badge": "Offre standard · Prêt CoDesign",
-      "cta": "Ouvrir la plaquette commerciale"
-    },
-    "experience": {
-      "title": "Expérience & parcours",
-      "body": "90+ solutions digitales rattachées à des personnes et des moments de parcours — le portefeuille complet, innovations incluses.",
-      "badge": "Catalogue XP · Parcours d’abord",
-      "cta": "Ouvrir le catalogue expérience"
-    },
-    "footnote": "Les 25 solutions standard sont un sous-ensemble du catalogue. Les innovations pilotes (10 %) y figurent avec accès limité aux clients concernés."
-  },
   "nav": {
     "home": "Plaquette",
     "explore": "Explorer",
@@ -24,7 +6,7 @@
     "caseStudies": "Références",
     "codesign": "CoDesign",
     "search": "Rechercher",
-    "subtitle": "Plaquette commerciale TDDI"
+    "subtitle": "Offre standard · TDDI"
   },
   "deck": {
     "nav": {
@@ -33,7 +15,7 @@
       "intro": "Ouverture",
       "context": "Contexte macro",
       "ambition": "Ambition",
-      "roadmap": "70 / 20 / 10",
+      "roadmap": "Portefeuille",
       "layers": "Trois couches",
       "offerings": "Notre offre",
       "proof": "Preuves",
@@ -172,6 +154,24 @@
       "kicker": "Logique portefeuille",
       "headline": "Des concepts à une feuille de route alignée",
       "sub": "Une approche équilibrée Innovation, Digital et IA : impact immédiat, adaptation client et pilotes sélectifs — sur les horizons court, moyen et long terme.",
+      "tiersLabel": "Offre standard — répartition 70 / 20 / 10",
+      "pathChoice": {
+        "title": "Comment souhaitez-vous explorer le portefeuille ?",
+        "lead": "Deux lectures du même écosystème : objectifs business et offre standard ci-dessous, ou catalogue expérience centré personas et moments.",
+        "business": {
+          "title": "Business & feuille de route",
+          "body": "Offre standard, logique 70/20/10, trois couches Spark et preuves — pour les équipes compte, RFP et comités de direction.",
+          "badge": "Offre standard · Prêt CoDesign",
+          "cta": "Continuer avec 70 / 20 / 10"
+        },
+        "experience": {
+          "title": "Expérience & parcours",
+          "body": "90+ solutions digitales rattachées à des personnes et des moments de parcours — le portefeuille complet, innovations incluses.",
+          "badge": "Catalogue XP · Parcours d’abord",
+          "cta": "Ouvrir le catalogue expérience"
+        },
+        "footnote": "Les 25 solutions standard sont un sous-ensemble du catalogue. Les innovations pilotes (10 %) y figurent avec accès limité aux clients concernés."
+      },
       "outcome": "Livrable : feuille de route priorisée, business case par initiative et plan de mise en œuvre (quick wins / moyen terme / long terme).",
       "tiers": {
         "70": {

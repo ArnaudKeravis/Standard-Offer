@@ -1,22 +1,4 @@
 {
-  "portal": {
-    "kicker": "Sodexo Spark · Internal",
-    "title": "How do you want to explore the portfolio?",
-    "lead": "Two lenses on the same ecosystem: a business roadmap for pitches and CoDesign, or a journey-first experience catalogue for personas and moments.",
-    "business": {
-      "title": "Business & roadmap",
-      "body": "Standard offer, 70/20/10 investment logic, three Spark layers, and proof — built for account teams, RFPs, and executive conversations.",
-      "badge": "Standard offer · CoDesign-ready",
-      "cta": "Open the selling deck"
-    },
-    "experience": {
-      "title": "Experience & journeys",
-      "body": "90+ digital solutions mapped to real people and journey moments — the full portfolio including innovations tested in market.",
-      "badge": "XP Catalogue · Persona-first",
-      "cta": "Open Experience Catalogue"
-    },
-    "footnote": "The 25 standard solutions are a subset of the catalogue. Pilot innovations (10%) appear in the catalogue with client-scoped access."
-  },
   "nav": {
     "home": "Deck",
     "explore": "Explore",
@@ -24,7 +6,7 @@
     "caseStudies": "Case studies",
     "codesign": "CoDesign",
     "search": "Search",
-    "subtitle": "TDDI selling deck"
+    "subtitle": "Standard offer · TDDI"
   },
   "deck": {
     "nav": {
@@ -33,7 +15,7 @@
       "intro": "Opening",
       "context": "Macro context",
       "ambition": "Ambition",
-      "roadmap": "70 / 20 / 10",
+      "roadmap": "Portfolio",
       "layers": "Three layers",
       "offerings": "How we deliver",
       "proof": "Proof",
@@ -172,6 +154,24 @@
       "kicker": "Portfolio logic",
       "headline": "From concepts to a matched roadmap",
       "sub": "A balanced approach for Innovation, Digital, and AI: immediate impact, tailored delivery, and selective pilots — aligned to short, mid, and long-term horizons.",
+      "tiersLabel": "Standard offer — 70 / 20 / 10 investment split",
+      "pathChoice": {
+        "title": "How do you want to explore the portfolio?",
+        "lead": "Two lenses on the same ecosystem: business objectives and the standard offer below, or the journey-first experience catalogue.",
+        "business": {
+          "title": "Business & roadmap",
+          "body": "Standard offer, 70/20/10 investment logic, three Spark layers, and proof — built for account teams, RFPs, and executive conversations.",
+          "badge": "Standard offer · CoDesign-ready",
+          "cta": "Continue with 70 / 20 / 10"
+        },
+        "experience": {
+          "title": "Experience & journeys",
+          "body": "90+ digital solutions mapped to real people and journey moments — the full portfolio including innovations tested in market.",
+          "badge": "XP Catalogue · Persona-first",
+          "cta": "Open Experience Catalogue"
+        },
+        "footnote": "The 25 standard solutions are a subset of the catalogue. Pilot innovations (10%) appear in the catalogue with client-scoped access."
+      },
       "outcome": "Output: prioritised roadmap, business case per initiative, and implementation plan (quick wins / mid-term / long-term).",
       "tiers": {
         "70": {

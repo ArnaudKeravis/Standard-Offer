@@ -1,5 +1,11 @@
-import { SellingDeck } from "@/components/deck/selling-deck";
+import { redirect } from "next/navigation";
 
-export default function DeckPage() {
-  return <SellingDeck />;
+/** Legacy URL — Standard Offer lives at `/[locale]`. */
+export default async function DeckRedirectPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  redirect(`/${locale}`);
 }

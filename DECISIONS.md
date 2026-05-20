@@ -14,7 +14,8 @@
 - **Dark surface**: supported via `.dark` class for cinematic sections (hero + deep dives); full toggle will be added when we introduce those sections.
 
 ### Spark portal & XP Catalogue linking (Phase 0–2)
-- **Gateway**: `/[locale]` chooses Business deck (`/[locale]/deck`) vs Experience Catalogue (external `xpcatalogue.vercel.app`).
+- **App entry**: `/[locale]` is the Standard Offer selling deck. `/[locale]/deck` redirects home.
+- **Path choice**: Business vs Experience Catalogue lives in deck section `#roadmap` (Portfolio logic), not a separate landing page.
 - **Registry**: `data/solution-links.json` maps standard slugs ↔ catalogue IDs ↔ `roadmapTier` (70/20/10) ↔ journey deep links.
 - **Catalogue URLs**: `NEXT_PUBLIC_XP_CATALOGUE_URL` (default `https://xpcatalogue.vercel.app`); tier filter `?tier=70|20|10` (to be implemented on catalogue).
 
