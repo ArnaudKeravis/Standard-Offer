@@ -17,6 +17,8 @@
       "ambition": "Ambition",
       "roadmap": "Portefeuille",
       "layers": "Trois couches",
+      "businessGoals": "Enjeux clients",
+      "journey": "Dans le parcours",
       "offerings": "Notre offre",
       "proof": "Preuves",
       "ecosystem": "Échelle"
@@ -90,6 +92,34 @@
         "body": "La plateforme opérateur — processus, conformité, efficience et ROI auditables et industrialisables."
       }
     },
+    "businessGoals": {
+      "kicker": "Relier la stratégie aux solutions",
+      "headline": "Les enjeux que les clients cherchent à résoudre",
+      "sub": "D’après l’offre standard : les bonnes expériences au service de la stratégie client — réparties entre Spark IQ, Spark XP et Spark OS.",
+      "bridge": "Ci-dessous, les solutions standard du bucket 70 % sont reliées aux personas et moments de parcours du catalogue expérience.",
+      "goals": {
+        "g1": {
+          "title": "Fidéliser et accroître la productivité",
+          "body": "Des expériences du quotidien que les collaborateurs et les usagers ressentent — bien-être, engagement et résultats talents mesurables.",
+          "hint": "Spark XP · parcours face client"
+        },
+        "g2": {
+          "title": "Efficience de service & ROI",
+          "body": "Discipline opérationnelle, performance transparente et maîtrise des coûts — avec des gains ROI et productivité soutenables face aux achats.",
+          "hint": "Spark OS · plateforme opérateur"
+        },
+        "g3": {
+          "title": "RSE & durabilité",
+          "body": "Performance environnementale et sociale visible au niveau site — scoring, reporting et amélioration continue auditables.",
+          "hint": "Spark IQ · insight & reporting"
+        },
+        "g4": {
+          "title": "Prolonger la vie des actifs & réduire le TCO",
+          "body": "Données équipements, espaces et processus réunies pour des opérations fiables et un coût total de possession maîtrisé.",
+          "hint": "Spark OS · workplace & FM"
+        }
+      }
+    },
     "offerings": {
       "kicker": "Dans la salle",
       "headline": "Ce que nous plaçons devant les clients",
@@ -155,22 +185,25 @@
       "headline": "Des concepts à une feuille de route alignée",
       "sub": "Une approche équilibrée Innovation, Digital et IA : impact immédiat, adaptation client et pilotes sélectifs — sur les horizons court, moyen et long terme.",
       "tiersLabel": "Offre standard — répartition 70 / 20 / 10",
+      "tiersNote": "La même logique s’applique au catalogue XP : ~25 solutions standard dans le 70 %, variantes adaptées dans le 20 %, innovations testées dans le 10 % — toutes explorables par persona et moment de parcours.",
       "pathChoice": {
         "title": "Comment souhaitez-vous explorer le portefeuille ?",
-        "lead": "Deux lectures du même écosystème : objectifs business et offre standard ci-dessous, ou catalogue expérience centré personas et moments.",
+        "lead": "Pour les équipes commerciales : choisissez le point d’entrée selon la façon dont le client raisonne — même portefeuille, même répartition 70 / 20 / 10 derrière les deux parcours.",
         "business": {
-          "title": "Business & feuille de route",
-          "body": "Offre standard, logique 70/20/10, trois couches Spark et preuves — pour les équipes compte, RFP et comités de direction.",
-          "badge": "Offre standard · Prêt CoDesign",
-          "cta": "Continuer avec 70 / 20 / 10"
+          "label": "1",
+          "title": "Partir des objectifs business",
+          "body": "Ouvrir sur les enjeux clients et les couches Spark — puis les solutions standard 70 %, la logique portefeuille, les preuves et CoDesign dans cette plaquette.",
+          "badge": "Offre standard · Business d’abord",
+          "cta": "Continuer vers les enjeux clients"
         },
         "experience": {
-          "title": "Expérience & parcours",
-          "body": "90+ solutions digitales rattachées à des personnes et des moments de parcours — le portefeuille complet, innovations incluses.",
-          "badge": "Catalogue XP · Parcours d’abord",
-          "cta": "Ouvrir le catalogue expérience"
+          "label": "2",
+          "title": "Partir de l’expérience (XP)",
+          "body": "Ouvrir sur les personas et les moments de parcours — puis parcourir 90+ solutions dans le catalogue XP (standard, adapté et innovation sur la même base 70 / 20 / 10).",
+          "badge": "Catalogue XP · Expérience d’abord",
+          "cta": "Ouvrir le catalogue XP"
         },
-        "footnote": "Les 25 solutions standard sont un sous-ensemble du catalogue. Les innovations pilotes (10 %) y figurent avec accès limité aux clients concernés."
+        "footnote": "Les deux parcours couvrent le même portefeuille. Les 25 solutions standard sont le cœur 70 % ; les innovations pilotes (10 %) sont dans le catalogue avec accès limité aux clients concernés."
       },
       "outcome": "Livrable : feuille de route priorisée, business case par initiative et plan de mise en œuvre (quick wins / moyen terme / long terme).",
       "tiers": {
@@ -197,7 +230,7 @@
     "journeyStrip": {
       "kicker": "Dans le parcours",
       "headline": "Solutions standard sur de vrais personas",
-      "sub": "{count} solutions dans le bucket 70 % — chacune s’ouvre dans le catalogue au bon persona et moment.",
+      "sub": "Après IQ, XP, OS et les enjeux ci-dessus — {count} solutions dans le bucket 70 %, chacune ouvrable dans le catalogue XP au bon persona et moment.",
       "tier70": "70 %",
       "persona": "Persona",
       "moment": "Moment",

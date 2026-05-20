@@ -19,7 +19,11 @@ export function SolutionJourneyStrip() {
   ).slice(0, 6);
 
   return (
-    <div className="deck-fade-up mt-16 border-t border-[var(--spark-line)] pt-14">
+    <section
+      id="journey"
+      className="deck-fade-up border-t border-[var(--spark-line)] bg-[var(--spark-paper)]"
+    >
+      <div className="relative mx-auto max-w-6xl px-6 py-24 md:px-12 md:py-28 lg:py-32">
       <div className="mb-8 max-w-3xl">
         <p className="text-xs font-semibold tracking-[0.18em] text-[color:color-mix(in_oklab,var(--spark-ink),transparent_45%)]">
           {t("kicker")}
@@ -105,6 +109,7 @@ export function SolutionJourneyStrip() {
         {t("exploreAll")}
         <ExternalLink className="h-4 w-4" aria-hidden />
       </a>
-    </div>
+      </div>
+    </section>
   );
 }

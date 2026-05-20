@@ -17,6 +17,8 @@
       "ambition": "Ambition",
       "roadmap": "Portfolio",
       "layers": "Three layers",
+      "businessGoals": "Business outcomes",
+      "journey": "In the journey",
       "offerings": "How we deliver",
       "proof": "Proof",
       "ecosystem": "Scale"
@@ -90,6 +92,34 @@
         "body": "The operator’s platform — workflow, compliance, efficiency, and ROI you can audit and scale."
       }
     },
+    "businessGoals": {
+      "kicker": "Connecting strategy with solutions",
+      "headline": "What clients are solving for",
+      "sub": "From the Standard Offer: the right experiences to support each client’s strategy — mapped across Spark IQ, Spark XP, and Spark OS.",
+      "bridge": "Below, standard solutions in the 70% bucket are linked to real personas and journey moments in the Experience Catalogue.",
+      "goals": {
+        "g1": {
+          "title": "Drive retention & productivity",
+          "body": "Elevated everyday experiences that employees and guests feel — wellbeing, engagement, and talent outcomes clients can measure.",
+          "hint": "Spark XP · front-stage journeys"
+        },
+        "g2": {
+          "title": "Service efficiency & ROI",
+          "body": "Operational discipline, transparent performance, and cost control — with ROI and productivity gains you can defend in procurement.",
+          "hint": "Spark OS · operator platform"
+        },
+        "g3": {
+          "title": "CSR & sustainability",
+          "body": "Environmental and social performance made visible at site level — scoring, reporting, and continuous improvement clients can audit.",
+          "hint": "Spark IQ · insight & reporting"
+        },
+        "g4": {
+          "title": "Extend asset life & reduce TCO",
+          "body": "Device, space, and workflow data brought together for reliable operations and lower total cost of ownership across the estate.",
+          "hint": "Spark OS · workplace & FM"
+        }
+      }
+    },
     "offerings": {
       "kicker": "In the pitch",
       "headline": "What we put in front of clients",
@@ -155,22 +185,25 @@
       "headline": "From concepts to a matched roadmap",
       "sub": "A balanced approach for Innovation, Digital, and AI: immediate impact, tailored delivery, and selective pilots — aligned to short, mid, and long-term horizons.",
       "tiersLabel": "Standard offer — 70 / 20 / 10 investment split",
+      "tiersNote": "The same logic applies across the XP Catalogue: ~25 standard solutions in the 70% bucket, adapted variants in 20%, and tested innovations in 10% — all discoverable by persona and journey moment.",
       "pathChoice": {
         "title": "How do you want to explore the portfolio?",
-        "lead": "Two lenses on the same ecosystem: business objectives and the standard offer below, or the journey-first experience catalogue.",
+        "lead": "For sales: pick the entry point that matches how the client thinks — same portfolio, same 70 / 20 / 10 split behind both paths.",
         "business": {
-          "title": "Business & roadmap",
-          "body": "Standard offer, 70/20/10 investment logic, three Spark layers, and proof — built for account teams, RFPs, and executive conversations.",
-          "badge": "Standard offer · CoDesign-ready",
-          "cta": "Continue with 70 / 20 / 10"
+          "label": "1",
+          "title": "Start from business objectives",
+          "body": "Open with client outcomes and Spark layers — then the 70% standard solutions, roadmap logic, proof, and CoDesign in this deck.",
+          "badge": "Standard offer · Business-first",
+          "cta": "Continue to client outcomes"
         },
         "experience": {
-          "title": "Experience & journeys",
-          "body": "90+ digital solutions mapped to real people and journey moments — the full portfolio including innovations tested in market.",
-          "badge": "XP Catalogue · Persona-first",
-          "cta": "Open Experience Catalogue"
+          "label": "2",
+          "title": "Start from experience (XP)",
+          "body": "Open with personas and journey moments — then browse 90+ solutions in the XP Catalogue (standard, adapted, and innovation on the same 70 / 20 / 10 basis).",
+          "badge": "XP Catalogue · Experience-first",
+          "cta": "Open XP Catalogue"
         },
-        "footnote": "The 25 standard solutions are a subset of the catalogue. Pilot innovations (10%) appear in the catalogue with client-scoped access."
+        "footnote": "Both paths cover the same portfolio. The 25 standard solutions are the 70% core; pilot innovations (10%) sit in the catalogue with client-scoped access."
       },
       "outcome": "Output: prioritised roadmap, business case per initiative, and implementation plan (quick wins / mid-term / long-term).",
       "tiers": {
@@ -197,7 +230,7 @@
     "journeyStrip": {
       "kicker": "In the journey",
       "headline": "Standard solutions on real personas",
-      "sub": "{count} solutions in the 70% bucket — each can be opened in the Experience Catalogue at the right persona and moment.",
+      "sub": "After IQ, XP, and OS and the business outcomes above — {count} solutions in the 70% bucket, each open in the XP Catalogue at the right persona and moment.",
       "tier70": "70%",
       "persona": "Persona",
       "moment": "Moment",

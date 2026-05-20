@@ -54,11 +54,12 @@ export function Roadmap702010() {
           </p>
         </div>
 
-        <PortfolioPathChoice />
-
         <div id="roadmap-tiers" className="scroll-mt-28">
-          <p className="deck-fade-up mb-8 mt-16 text-xs font-semibold tracking-[0.18em] text-[color:color-mix(in_oklab,var(--spark-ink),transparent_45%)]">
+          <p className="deck-fade-up mb-8 mt-14 text-xs font-semibold tracking-[0.18em] text-[color:color-mix(in_oklab,var(--spark-ink),transparent_45%)]">
             {t("tiersLabel")}
+          </p>
+          <p className="deck-fade-up mb-8 max-w-3xl text-sm leading-relaxed text-[color:color-mix(in_oklab,var(--spark-ink),transparent_38%)]">
+            {t("tiersNote")}
           </p>
 
           <div className="grid gap-6 lg:grid-cols-3">
@@ -99,6 +100,8 @@ export function Roadmap702010() {
             ))}
           </div>
         </div>
+
+        <PortfolioPathChoice />
 
         <p className="deck-fade-up mt-10 text-sm text-[color:color-mix(in_oklab,var(--spark-ink),transparent_40%)]">
           {t("outcome")}

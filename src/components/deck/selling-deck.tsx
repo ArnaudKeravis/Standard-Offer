@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ChevronDown } from "lucide-react";
 import { OutlinedHeadline } from "@/components/brand/outlined-headline";
 import { FloatingDeckNav } from "@/components/deck/floating-deck-nav";
+import { BusinessGoals } from "@/components/deck/business-goals";
 import { Roadmap702010 } from "@/components/deck/roadmap-702010";
 import { SolutionJourneyStrip } from "@/components/deck/solution-journey-strip";
 import { useLenisContext } from "@/components/providers/lenis-context";
@@ -284,6 +285,9 @@ export function SellingDeck() {
         </div>
       </section>
 
+      <BusinessGoals />
+      <SolutionJourneyStrip />
+
       <Roadmap702010 />
 
       {/* Offerings (selling highlights, not catalogue) */}
@@ -332,8 +336,6 @@ export function SellingDeck() {
               </article>
             ))}
           </div>
-
-          <SolutionJourneyStrip />
         </div>
       </section>
 

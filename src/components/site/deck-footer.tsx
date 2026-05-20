@@ -5,6 +5,8 @@ import { useLocale, useTranslations } from "next-intl";
 const anchors = [
   { id: "intro", key: "intro" as const },
   { id: "layers", key: "layers" as const },
+  { id: "businessGoals", key: "businessGoals" as const },
+  { id: "journey", key: "journey" as const },
   { id: "roadmap", key: "roadmap" as const },
   { id: "offerings", key: "offerings" as const },
   { id: "proof", key: "proof" as const },

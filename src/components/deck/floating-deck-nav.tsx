@@ -10,6 +10,8 @@ const SECTION_IDS = [
   "context",
   "ambition",
   "layers",
+  "businessGoals",
+  "journey",
   "roadmap",
   "offerings",
   "proof",
@@ -30,6 +32,8 @@ export function FloatingDeckNav() {
         context: "context",
         ambition: "ambition",
         layers: "layers",
+        businessGoals: "businessGoals",
+        journey: "journey",
         roadmap: "roadmap",
         offerings: "offerings",
         proof: "proof",
@@ -130,21 +134,9 @@ export function FloatingDeckNav() {
             aria-current={active === id ? "true" : undefined}
             title={t(labelKeys[id])}
           >
-            {id === "intro"
-              ? "01"
-              : id === "context"
-                ? "02"
-                : id === "ambition"
-                  ? "03"
-                  : id === "layers"
-                    ? "04"
-                    : id === "roadmap"
-                      ? "05"
-                      : id === "offerings"
-                        ? "06"
-                        : id === "proof"
-                          ? "07"
-                          : "08"}
+            {SECTION_IDS.indexOf(id) + 1 < 10
+              ? `0${SECTION_IDS.indexOf(id) + 1}`
+              : String(SECTION_IDS.indexOf(id) + 1)}
           </button>
         ))}
       </nav>
