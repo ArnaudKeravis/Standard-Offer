@@ -10,7 +10,7 @@ export function PortfolioPathChoice() {
   const { lenis, reducedMotion } = useLenisContext();
 
   const scrollToBusinessPath = () => {
-    const el = document.getElementById("business-goals");
+    const el = document.getElementById("journey");
     if (!el) return;
     if (reducedMotion || !lenis) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });

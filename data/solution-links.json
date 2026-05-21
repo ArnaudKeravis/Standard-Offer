@@ -6,6 +6,7 @@
     "roadmapTier": "70",
     "layer": "iq",
     "serviceLines": ["food", "hospitality"],
+    "businessGoal": "g1",
     "journeyRefs": [
       {
         "area": "work",
@@ -22,6 +23,7 @@
     "roadmapTier": "70",
     "layer": "os",
     "serviceLines": ["food"],
+    "businessGoal": "g2",
     "journeyRefs": [
       {
         "area": "work",
@@ -38,6 +40,7 @@
     "roadmapTier": "70",
     "layer": "xp",
     "serviceLines": ["food"],
+    "businessGoal": "g1",
     "journeyRefs": [
       {
         "area": "work",
@@ -54,6 +57,7 @@
     "roadmapTier": "70",
     "layer": "xp",
     "serviceLines": ["workplace"],
+    "businessGoal": "g1",
     "journeyRefs": [
       {
         "area": "work",
@@ -70,6 +74,7 @@
     "roadmapTier": "70",
     "layer": "xp",
     "serviceLines": ["workplace"],
+    "businessGoal": "g1",
     "journeyRefs": [
       {
         "area": "work",
@@ -86,6 +91,7 @@
     "roadmapTier": "70",
     "layer": "iq",
     "serviceLines": ["workplace"],
+    "businessGoal": "g1",
     "journeyRefs": [
       {
         "area": "work",
@@ -102,6 +108,7 @@
     "roadmapTier": "70",
     "layer": "os",
     "serviceLines": ["food"],
+    "businessGoal": "g3",
     "journeyRefs": [
       {
         "area": "work",
@@ -118,6 +125,7 @@
     "roadmapTier": "70",
     "layer": "os",
     "serviceLines": ["food"],
+    "businessGoal": "g3",
     "journeyRefs": [
       {
         "area": "heal",
@@ -134,6 +142,7 @@
     "roadmapTier": "70",
     "layer": "os",
     "serviceLines": ["food"],
+    "businessGoal": "g2",
     "journeyRefs": []
   },
   {
@@ -143,6 +152,7 @@
     "roadmapTier": "20",
     "layer": "xp",
     "serviceLines": ["food", "workplace"],
+    "businessGoal": "g1",
     "journeyRefs": [
       {
         "area": "learn",
@@ -159,6 +169,7 @@
     "roadmapTier": "70",
     "layer": "iq",
     "serviceLines": ["hospitality", "workplace"],
+    "businessGoal": "g4",
     "journeyRefs": []
   },
   {
@@ -168,6 +179,7 @@
     "roadmapTier": "70",
     "layer": "xp",
     "serviceLines": ["workplace"],
+    "businessGoal": "g3",
     "journeyRefs": [
       {
         "area": "work",
@@ -184,6 +196,7 @@
     "roadmapTier": "20",
     "layer": "os",
     "serviceLines": ["food", "hospitality"],
+    "businessGoal": "g2",
     "journeyRefs": []
   },
   {
@@ -193,6 +206,7 @@
     "roadmapTier": "20",
     "layer": "xp",
     "serviceLines": ["workplace"],
+    "businessGoal": "g1",
     "journeyRefs": []
   },
   {
@@ -202,6 +216,7 @@
     "roadmapTier": "70",
     "layer": "os",
     "serviceLines": ["workplace"],
+    "businessGoal": "g4",
     "journeyRefs": [
       {
         "area": "work",
@@ -218,6 +233,7 @@
     "roadmapTier": "10",
     "layer": "os",
     "serviceLines": ["workplace"],
+    "businessGoal": "g2",
     "journeyRefs": [],
     "clientOnly": true
   }

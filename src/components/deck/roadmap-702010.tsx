@@ -102,10 +102,6 @@ export function Roadmap702010() {
         </div>
 
         <PortfolioPathChoice />
-
-        <p className="deck-fade-up mt-10 text-sm text-[color:color-mix(in_oklab,var(--spark-ink),transparent_40%)]">
-          {t("outcome")}
-        </p>
       </div>
     </section>
   );

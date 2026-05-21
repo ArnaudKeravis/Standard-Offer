@@ -1,30 +1,16 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import {
+  BUSINESS_GOAL_IDS,
+  BUSINESS_GOAL_STYLES,
+} from "@/lib/business-goals";
 import { cn } from "@/lib/utils";
 
-const GOALS = [
-  {
-    id: "g1" as const,
-    barClass: "bg-[var(--spark-xp)]",
-    accentClass: "text-[var(--spark-xp)]",
-  },
-  {
-    id: "g2" as const,
-    barClass: "bg-[var(--spark-os)]",
-    accentClass: "text-[var(--spark-os)]",
-  },
-  {
-    id: "g3" as const,
-    barClass: "bg-[var(--spark-iq)]",
-    accentClass: "text-[var(--spark-iq)]",
-  },
-  {
-    id: "g4" as const,
-    barClass: "bg-[var(--spark-amber)]",
-    accentClass: "text-[var(--spark-amber)]",
-  },
-] as const;
+const GOALS = BUSINESS_GOAL_IDS.map((id) => ({
+  id,
+  ...BUSINESS_GOAL_STYLES[id],
+}));
 
 const sectionFrame =
   "relative mx-auto max-w-6xl px-6 py-24 md:px-12 md:py-28 lg:py-32";

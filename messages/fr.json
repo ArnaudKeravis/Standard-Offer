@@ -230,12 +230,14 @@
     "journeyStrip": {
       "kicker": "Dans le parcours",
       "headline": "Solutions standard sur de vrais personas",
-      "sub": "Après IQ, XP, OS et les enjeux ci-dessus — {count} solutions dans le bucket 70 %, chacune ouvrable dans le catalogue XP au bon persona et moment.",
+      "sub": "Regroupées par enjeu client ci-dessus — {count} solutions dans le bucket 70 %, chacune rattachée à un persona et un moment de parcours dans le catalogue XP lorsque disponible.",
+      "goalCount": "{count} solutions",
       "tier70": "70 %",
       "persona": "Persona",
       "moment": "Moment",
       "openMoment": "Ouvrir le moment de parcours",
       "openSolution": "Fiche solution",
+      "catalogueOnly": "Fiche catalogue — rattachement parcours à venir",
       "exploreAll": "Explorer le catalogue complet (90+ solutions)"
     }
   },

@@ -230,12 +230,14 @@
     "journeyStrip": {
       "kicker": "In the journey",
       "headline": "Standard solutions on real personas",
-      "sub": "After IQ, XP, and OS and the business outcomes above — {count} solutions in the 70% bucket, each open in the XP Catalogue at the right persona and moment.",
+      "sub": "Grouped by the client outcomes above — {count} solutions in the 70% bucket, each mapped to a persona and journey moment in the XP Catalogue where available.",
+      "goalCount": "{count} solutions",
       "tier70": "70%",
       "persona": "Persona",
       "moment": "Moment",
       "openMoment": "Open journey moment",
       "openSolution": "Solution detail",
+      "catalogueOnly": "Catalogue detail — journey mapping coming soon",
       "exploreAll": "Explore full catalogue (90+ solutions)"
     }
   },

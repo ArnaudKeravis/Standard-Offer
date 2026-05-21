@@ -286,9 +286,8 @@ export function SellingDeck() {
       </section>
 
       <BusinessGoals />
-      <SolutionJourneyStrip />
-
       <Roadmap702010 />
+      <SolutionJourneyStrip />
 
       {/* Offerings (selling highlights, not catalogue) */}
       <section id="offerings" className="relative bg-white">
