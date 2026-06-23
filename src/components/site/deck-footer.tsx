@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { MapPin } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
 const anchors = [
@@ -15,6 +17,7 @@ const anchors = [
 export function DeckFooter() {
   const t = useTranslations("footer");
   const tNav = useTranslations("deck.nav");
+  const tNav2 = useTranslations("nav");
   const locale = useLocale();
 
   return (
@@ -42,6 +45,19 @@ export function DeckFooter() {
                 </a>
               </li>
             ))}
+          </ul>
+
+          <p className="mt-6 font-medium text-[var(--spark-ink)]">{t("demosTitle")}</p>
+          <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-[color:color-mix(in_oklab,var(--spark-ink),transparent_35%)]">
+            <li>
+              <Link
+                href={`/${locale}/demos/thales`}
+                className="inline-flex items-center gap-1.5 hover:text-[var(--spark-ink)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--spark-amber)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+              >
+                <MapPin className="size-3.5" aria-hidden />
+                {tNav2("thalesMap")}
+              </Link>
+            </li>
           </ul>
         </div>
 

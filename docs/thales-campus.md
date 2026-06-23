@@ -4,11 +4,14 @@ Application web premium pour écran 16:9 affichée dans le campus Thales. Permet
 
 ## Accès
 
+Depuis le menu **Interactive Map Thales** dans la barre de navigation Standard Offer, ou directement :
+
 ```
-http://localhost:3000/thales
+https://standard-offer.vercel.app/fr/demos/thales
+https://standard-offer.vercel.app/en/demos/thales
 ```
 
-Route fullscreen, hors i18n — optimisée pour kiosque tactile 16:9.
+Raccourci legacy : `/thales` redirige vers `/en/demos/thales`.
 
 ## Architecture
 

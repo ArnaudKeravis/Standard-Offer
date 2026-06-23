@@ -1,6 +1,8 @@
 "use client";
 
 import { AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { useMemo } from "react";
 import { CampusMap } from "@/components/Map";
 import { Filters } from "@/components/Filters";
@@ -12,7 +14,7 @@ import { useLiveData } from "@/hooks/use-live-data";
 import { useThalesStore } from "@/lib/thales/store";
 import { isRestaurantOpen, matchesFilter } from "@/lib/thales/utils";
 
-export function ThalesCampusApp() {
+export function ThalesCampusApp({ backHref }: { backHref?: string }) {
   useLiveData();
 
   const restaurants = useThalesStore((s) => s.restaurants);
@@ -57,6 +59,15 @@ export function ThalesCampusApp() {
           </p>
         </div>
         <div className="flex items-center gap-3">
+          {backHref && (
+            <Link
+              href={backHref}
+              className="flex items-center gap-2 rounded-full bg-white/8 px-3 py-2 text-xs font-medium text-white/70 ring-1 ring-white/10 hover:bg-white/12 hover:text-white transition-colors touch-manipulation"
+            >
+              <ArrowLeft className="size-3.5" />
+              Standard Offer
+            </Link>
+          )}
           <KioskMode restaurants={restaurants} />
           <div className="hidden md:flex items-center gap-2 rounded-full bg-white/5 px-4 py-2 ring-1 ring-white/10">
             <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />

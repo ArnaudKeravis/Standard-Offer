@@ -6,7 +6,11 @@
     "caseStudies": "Case studies",
     "codesign": "CoDesign",
     "search": "Search",
-    "subtitle": "Standard offer · TDDI"
+    "subtitle": "Standard offer · TDDI",
+    "aria": "Main navigation",
+    "thalesMap": "Interactive Map Thales",
+    "thalesMapShort": "Thales Map",
+    "demos": "Demos"
   },
   "deck": {
     "nav": {
@@ -244,6 +248,7 @@
   "footer": {
     "tagline": "Internal TDDI selling deck",
     "linksTitle": "Jump to",
+    "demosTitle": "Interactive demos",
     "rights": "Internal use only."
   }
 }
