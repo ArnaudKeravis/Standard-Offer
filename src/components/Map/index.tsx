@@ -64,7 +64,7 @@ export function CampusMap({ restaurants, hoveredId = null }: CampusMapProps) {
             fill
             priority
             unoptimized={isExternalImage}
-            className="object-cover object-center"
+            className="object-contain object-center"
             sizes="(max-width: 768px) 100vw, 75vw"
           />
 
