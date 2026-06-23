@@ -1,0 +1,215 @@
+[
+  {
+    "id": "self-helios-2",
+    "nom": "Self Hélios 2",
+    "positionX": 62,
+    "positionY": 42,
+    "type": "food-court",
+    "batiment": "Hélios II",
+    "concept": "Food Court premium — 8 univers culinaires sous un même toit, pour une expérience fluide et conviviale.",
+    "description": "Le cœur gastronomique du campus. Un food court moderne réunissant cuisines du monde, healthy, grill et desserts dans un espace lumineux et optimisé.",
+    "photo": "/thales/helios-2.jpg",
+    "horaires": [
+      { "jour": "Lundi - Vendredi", "ouverture": "11:30", "fermeture": "14:00" },
+      { "jour": "Lundi - Vendredi", "ouverture": "18:00", "fermeture": "20:00" }
+    ],
+    "capacite": 320,
+    "attenteTempsReel": 4,
+    "affluence": "moderee",
+    "tags": ["food-court", "healthy", "vegetarien", "street-food", "desserts", "grill", "italien", "sushi"],
+    "offres": ["Bella Italia", "Tadayuki Sushi", "Green District", "Fast Corner", "Oh My Cake", "Sweet District", "Bar BQ", "D'ici D'ailleurs"],
+    "offreDuJour": "Menu Green District — Bowl quinoa & légumes de saison",
+    "services": ["Auto-encaissement x4", "Végé-Table", "Bar à pains", "Zone desserts"],
+    "localisation": "RDC Hélios II — Accès convives principal",
+    "floorPlan": {
+      "viewBox": "0 0 800 500",
+      "stands": [
+        { "id": "bella-italia", "nom": "Bella Italia", "categorie": "italien", "positionX": 120, "positionY": 80, "width": 100, "height": 70 },
+        { "id": "tadayuki", "nom": "Tadayuki Sushi", "categorie": "sushi", "positionX": 250, "positionY": 80, "width": 100, "height": 70 },
+        { "id": "green-district", "nom": "Green District", "categorie": "healthy", "positionX": 380, "positionY": 80, "width": 100, "height": 70 },
+        { "id": "fast-corner", "nom": "Fast Corner", "categorie": "fast-corner", "positionX": 510, "positionY": 80, "width": 90, "height": 70 },
+        { "id": "bar-bq", "nom": "Bar BQ", "categorie": "grill", "positionX": 620, "positionY": 80, "width": 120, "height": 70 },
+        { "id": "dici-dailleurs", "nom": "D'ici D'ailleurs", "categorie": "street-food", "positionX": 120, "positionY": 200, "width": 130, "height": 70 },
+        { "id": "oh-my-cake", "nom": "Oh My Cake", "categorie": "desserts", "positionX": 280, "positionY": 200, "width": 100, "height": 70 },
+        { "id": "sweet-district", "nom": "Sweet District", "categorie": "desserts", "positionX": 410, "positionY": 200, "width": 110, "height": 70 }
+      ]
+    }
+  },
+  {
+    "id": "bomie",
+    "nom": "Bo&Mie",
+    "positionX": 72,
+    "positionY": 28,
+    "type": "boulangerie",
+    "batiment": "Hélios II",
+    "concept": "Boulangerie artisanale — créativité, gourmandise et plaisir du fait-maison.",
+    "description": "Viennoiseries, gâteaux de voyage, formules buffet chaud et froid. L'adresse boulangerie du campus pour un déjeuner rapide et savoureux.",
+    "photo": "/thales/bomie.jpg",
+    "horaires": [
+      { "jour": "Lundi - Vendredi", "ouverture": "07:00", "fermeture": "16:00" }
+    ],
+    "capacite": 48,
+    "attenteTempsReel": 2,
+    "affluence": "faible",
+    "tags": ["boulangerie", "coffee-shop", "snacking", "desserts"],
+    "offres": ["Viennoiseries", "Gâteaux de voyage", "Buffet chaud", "Buffet froid", "Café"],
+    "offreDuJour": "Formule panini + dessert du jour",
+    "services": ["Caisse café", "Micro-ondes", "Fontaine", "Frigo connecté"],
+    "localisation": "RDC Hélios II — Accès depuis le restaurant"
+  },
+  {
+    "id": "solarium",
+    "nom": "Solarium",
+    "positionX": 48,
+    "positionY": 22,
+    "type": "brasserie",
+    "batiment": "Hélios I",
+    "concept": "Espace lumineux toute la journée — modernité et convivialité en terrasse abritée.",
+    "description": "Restaurant avec terrasse abritée du vent, épicerie fine et restauration rapide. Idéal pour un déjeuner en plein air.",
+    "photo": "/thales/solarium.jpg",
+    "horaires": [
+      { "jour": "Lundi - Vendredi", "ouverture": "11:30", "fermeture": "14:30" }
+    ],
+    "capacite": 86,
+    "attenteTempsReel": 6,
+    "affluence": "moderee",
+    "tags": ["brasserie", "snacking", "desserts", "coffee-shop"],
+    "offres": ["Snacking chaud", "Desserts", "Épicerie", "Boissons chaudes", "Viennoiseries"],
+    "offreDuJour": "Plat du jour Solarium — Poisson du marché",
+    "services": ["Caisse assistée", "Terrasse 30 places", "Fontaine café", "Frigo connecté"],
+    "localisation": "RDC Hélios I — Terrasse abritée"
+  },
+  {
+    "id": "foodtruck",
+    "nom": "Foodtruck",
+    "positionX": 35,
+    "positionY": 58,
+    "type": "street-food",
+    "batiment": "Place de village",
+    "concept": "Street food saisonnière — partage, tradition et convivialité éphémère.",
+    "description": "Concept mobile renouvelé selon les saisons. Street food authentique au cœur du campus pour une pause gourmande en extérieur.",
+    "photo": "/thales/foodtruck.jpg",
+    "horaires": [
+      { "jour": "Mardi & Jeudi", "ouverture": "11:30", "fermeture": "14:00" }
+    ],
+    "capacite": 30,
+    "attenteTempsReel": 3,
+    "affluence": "faible",
+    "tags": ["street-food", "snacking"],
+    "offres": ["Burger du jour", "Tacos", "Frites maison"],
+    "offreDuJour": "Burger Thales — bœuf local, sauce maison",
+    "services": ["Paiement CB", "Terrasse extérieure"],
+    "localisation": "Place de village — Emplacement mobile"
+  },
+  {
+    "id": "lenvol",
+    "nom": "L'Envol",
+    "positionX": 28,
+    "positionY": 38,
+    "type": "food-market",
+    "batiment": "Place de village",
+    "concept": "Place de village — toute la journée, accessibilité et modernité.",
+    "description": "Espace polyvalent ouvert toute la journée. Coffee, snacking et formules légères dans une ambiance village moderne.",
+    "photo": "/thales/lenvol.jpg",
+    "horaires": [
+      { "jour": "Lundi - Vendredi", "ouverture": "07:30", "fermeture": "18:00" }
+    ],
+    "capacite": 60,
+    "attenteTempsReel": 1,
+    "affluence": "faible",
+    "tags": ["coffee-shop", "snacking", "food-market"],
+    "offres": ["Café", "Snacking", "Formules", "Boissons"],
+    "offreDuJour": "Croissant + café — formule matin",
+    "services": ["Caisse assistée", "Fontaine", "Micro-ondes"],
+    "localisation": "Place de village — Accès principal"
+  },
+  {
+    "id": "self-marcel-dassault",
+    "nom": "Self Marcel Dassault",
+    "positionX": 18,
+    "positionY": 52,
+    "type": "food-court",
+    "batiment": "Marcel Dassault",
+    "concept": "Self efficace et convivial — fluidité optimisée pour 106 places assises.",
+    "description": "Grand self-service avec 7 stands thématiques, jardin divers et bar à jus. Le repère déjeuner du bâtiment Marcel Dassault.",
+    "photo": "/thales/marcel-self.jpg",
+    "horaires": [
+      { "jour": "Lundi - Vendredi", "ouverture": "11:30", "fermeture": "14:00" }
+    ],
+    "capacite": 106,
+    "attenteTempsReel": 7,
+    "affluence": "forte",
+    "tags": ["food-court", "healthy", "vegetarien", "sushi", "grill"],
+    "offres": ["Coup de Coeur", "P'tit Bistrot", "Saveurs du Sud", "A Point", "Chrono", "Potager Urbain", "Sushis"],
+    "offreDuJour": "Potager Urbain — Assiette végétale du jour",
+    "services": ["Auto-encaissement x2", "Bar à jus", "Bar à soupe", "Jardin divers"],
+    "localisation": "RDC Marcel Dassault — Hall principal",
+    "floorPlan": {
+      "viewBox": "0 0 900 550",
+      "stands": [
+        { "id": "coup-de-coeur", "nom": "Coup de Coeur", "categorie": "brasserie", "positionX": 80, "positionY": 100, "width": 110, "height": 75 },
+        { "id": "ptit-bistrot", "nom": "P'tit Bistrot", "categorie": "brasserie", "positionX": 220, "positionY": 100, "width": 110, "height": 75 },
+        { "id": "saveurs-du-sud", "nom": "Saveurs du Sud", "categorie": "street-food", "positionX": 360, "positionY": 100, "width": 120, "height": 75 },
+        { "id": "a-point", "nom": "A Point", "categorie": "grill", "positionX": 510, "positionY": 100, "width": 100, "height": 75 },
+        { "id": "chrono", "nom": "Chrono", "categorie": "fast-corner", "positionX": 640, "positionY": 100, "width": 100, "height": 75 },
+        { "id": "potager-urbain", "nom": "Potager Urbain", "categorie": "healthy", "positionX": 200, "positionY": 250, "width": 130, "height": 75 },
+        { "id": "sushis", "nom": "Sushis", "categorie": "sushi", "positionX": 400, "positionY": 250, "width": 110, "height": 75 }
+      ]
+    }
+  },
+  {
+    "id": "rest-alt-marcel-dassault",
+    "nom": "Restaurant Alternatif Marcel Dassault",
+    "positionX": 22,
+    "positionY": 68,
+    "type": "brasserie",
+    "batiment": "Marcel Dassault",
+    "concept": "Bistrot accessible — culinarité et convivialité dans un cadre chaleureux.",
+    "description": "Restaurant traditionnel avec terrasse 72 places. Formules complètes, café libre-service et restauration alternative.",
+    "photo": "/thales/marcel-rr.jpg",
+    "horaires": [
+      { "jour": "Lundi - Vendredi", "ouverture": "11:30", "fermeture": "14:30" }
+    ],
+    "capacite": 72,
+    "attenteTempsReel": 8,
+    "affluence": "moderee",
+    "tags": ["brasserie", "coffee-shop"],
+    "offres": ["Formules", "Restauration alternative", "Café libre-service", "Terrasse"],
+    "offreDuJour": "Formule bistrot — Entrée + Plat + Dessert",
+    "services": ["Caisse assistée", "Terrasse 42 places", "Micro-ondes", "Frigo connecté"],
+    "localisation": "RDC Marcel Dassault — Vers restaurant"
+  },
+  {
+    "id": "avs",
+    "nom": "AVS",
+    "positionX": 78,
+    "positionY": 72,
+    "type": "brasserie",
+    "batiment": "AVS",
+    "concept": "Restaurant d'entreprise premium — L'Emblématique et ses univers gastronomiques.",
+    "description": "Le restaurant AVS propose une expérience brasserie haut de gamme avec bar à légumes, spécialités du jour et espaces sucré & salé.",
+    "photo": "/thales/avs.jpg",
+    "horaires": [
+      { "jour": "Lundi - Vendredi", "ouverture": "11:45", "fermeture": "14:15" }
+    ],
+    "capacite": 180,
+    "attenteTempsReel": 5,
+    "affluence": "moderee",
+    "tags": ["brasserie", "healthy", "vegetarien", "desserts"],
+    "offres": ["L'Emblématique", "La Suggestion", "La Spécialité", "Les Petites Assiettes", "Bar à Légumes", "Coup de Feu"],
+    "offreDuJour": "La Suggestion — Filet de bar, beurre blanc",
+    "services": ["Auto-encaissement", "Bar sucré & salé", "Tri participatif", "Dépose plateaux"],
+    "localisation": "RDC AVS — Accès convives",
+    "floorPlan": {
+      "viewBox": "0 0 850 480",
+      "stands": [
+        { "id": "emblematique", "nom": "L'Emblématique", "categorie": "brasserie", "positionX": 60, "positionY": 90, "width": 130, "height": 80 },
+        { "id": "suggestion", "nom": "La Suggestion", "categorie": "brasserie", "positionX": 220, "positionY": 90, "width": 120, "height": 80 },
+        { "id": "specialite", "nom": "La Spécialité", "categorie": "brasserie", "positionX": 370, "positionY": 90, "width": 120, "height": 80 },
+        { "id": "petites-assiettes", "nom": "Les Petites Assiettes", "categorie": "healthy", "positionX": 520, "positionY": 90, "width": 140, "height": 80 },
+        { "id": "bar-legumes", "nom": "Bar à Légumes", "categorie": "healthy", "positionX": 150, "positionY": 230, "width": 130, "height": 80 },
+        { "id": "coup-de-feu", "nom": "Coup de Feu", "categorie": "grill", "positionX": 350, "positionY": 230, "width": 120, "height": 80 }
+      ]
+    }
+  }
+]

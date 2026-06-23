@@ -1,0 +1,16 @@
+[
+  { "id": "brasserie", "label": "Brasserie", "icon": "utensils" },
+  { "id": "food-court", "label": "Food Court", "icon": "layout-grid" },
+  { "id": "healthy", "label": "Healthy", "icon": "leaf" },
+  { "id": "vegetarien", "label": "Végétarien", "icon": "sprout" },
+  { "id": "street-food", "label": "Street Food", "icon": "truck" },
+  { "id": "boulangerie", "label": "Boulangerie", "icon": "croissant" },
+  { "id": "coffee-shop", "label": "Coffee Shop", "icon": "coffee" },
+  { "id": "sushi", "label": "Sushi", "icon": "fish" },
+  { "id": "grill", "label": "Grill", "icon": "flame" },
+  { "id": "italien", "label": "Italien", "icon": "pizza" },
+  { "id": "fast-corner", "label": "Fast Corner", "icon": "zap" },
+  { "id": "food-market", "label": "Food Market", "icon": "shopping-basket" },
+  { "id": "snacking", "label": "Snacking", "icon": "sandwich" },
+  { "id": "desserts", "label": "Desserts", "icon": "cake" }
+]
