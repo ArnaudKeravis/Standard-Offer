@@ -6,14 +6,18 @@ import { useMemo } from "react";
 import { MapCallout } from "./MapCallout";
 import { useThalesStore } from "@/lib/thales/store";
 import type { Restaurant } from "@/lib/thales/types";
+import { CAMPUS_MAP_IMAGE } from "@/lib/thales/campus-image";
 import { MAP_CALLOUTS, THEME_STYLES } from "@/lib/thales/map-layout";
 import { getWaitColor, isRestaurantOpen, matchesFilter } from "@/lib/thales/utils";
 
 interface CampusMapProps {
   restaurants: Restaurant[];
+  hoveredId?: string | null;
 }
 
-export function CampusMap({ restaurants }: CampusMapProps) {
+const isExternalImage = CAMPUS_MAP_IMAGE.startsWith("http");
+
+export function CampusMap({ restaurants, hoveredId = null }: CampusMapProps) {
   const selectedId = useThalesStore((s) => s.selectedId);
   const selectRestaurant = useThalesStore((s) => s.selectRestaurant);
   const mapZoom = useThalesStore((s) => s.mapZoom);
@@ -40,7 +44,7 @@ export function CampusMap({ restaurants }: CampusMapProps) {
   return (
     <div className="relative h-full w-full overflow-hidden bg-[#1a2332]">
       <motion.div
-        className="absolute inset-0 flex items-center justify-center"
+        className="absolute inset-0 flex items-center justify-center pr-0 md:pr-[19rem]"
         animate={{
           scale: mapZoom.scale,
           x: `${(50 - mapZoom.x) * (mapZoom.scale - 1) * 0.8}%`,
@@ -53,21 +57,19 @@ export function CampusMap({ restaurants }: CampusMapProps) {
           duration: kioskMode ? 1.2 : 0.8,
         }}
       >
-        {/* 16:9 map stage */}
-        <div className="relative aspect-video w-full max-h-full max-w-[100vw]">
+        <div className="relative aspect-video w-full max-h-full">
           <Image
-            src="/thales/campus-aerial.png"
+            src={CAMPUS_MAP_IMAGE}
             alt="Vue aérienne du campus Thales"
             fill
             priority
+            unoptimized={isExternalImage}
             className="object-cover object-center"
-            sizes="100vw"
+            sizes="(max-width: 768px) 100vw, 75vw"
           />
 
-          {/* Subtle edge vignette */}
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(0,0,0,0.35)_100%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_50%,rgba(0,0,0,0.25)_100%)]" />
 
-          {/* Leader lines + pins */}
           <svg
             className="pointer-events-none absolute inset-0 h-full w-full"
             viewBox="0 0 100 100"
@@ -79,6 +81,7 @@ export function CampusMap({ restaurants }: CampusMapProps) {
               if (!restaurant) return null;
               const visible = filteredIds.has(layout.id) || kioskMode;
               const selected = selectedId === layout.id;
+              const hovered = hoveredId === layout.id;
               const theme = THEME_STYLES[layout.theme];
               const waitColor = getWaitColor(restaurant.attenteTempsReel);
               const dotColors = { green: "#34d399", orange: "#fbbf24", red: "#f87171" };
@@ -94,16 +97,16 @@ export function CampusMap({ restaurants }: CampusMapProps) {
                     x2={layout.pinX}
                     y2={layout.pinY}
                     stroke={theme.line}
-                    strokeWidth={selected ? 0.35 : 0.2}
-                    strokeOpacity={selected ? 0.9 : 0.55}
+                    strokeWidth={selected || hovered ? 0.35 : 0.2}
+                    strokeOpacity={selected || hovered ? 0.95 : 0.55}
                   />
-                  {selected && (
+                  {(selected || hovered) && (
                     <circle
                       cx={layout.pinX}
                       cy={layout.pinY}
                       r="2.5"
                       fill="none"
-                      stroke="rgba(255,184,28,0.5)"
+                      stroke={selected ? "rgba(255,184,28,0.6)" : "rgba(255,255,255,0.4)"}
                       strokeWidth="0.3"
                     >
                       <animate
@@ -125,26 +128,26 @@ export function CampusMap({ restaurants }: CampusMapProps) {
                   <circle
                     cx={layout.pinX}
                     cy={layout.pinY}
-                    r={selected ? 1.1 : 0.75}
+                    r={selected || hovered ? 1.1 : 0.75}
                     fill={dotColors[waitColor]}
-                    stroke={selected ? "#ffb81c" : "#fff"}
-                    strokeWidth={selected ? 0.35 : 0.2}
+                    stroke={selected ? "#ffb81c" : hovered ? "#fff" : "#fff"}
+                    strokeWidth={selected || hovered ? 0.35 : 0.2}
                   />
                 </g>
               );
             })}
           </svg>
 
-          {/* Interactive callout cards */}
           {restaurants.map((r) => {
             const layout = layoutById.get(r.id);
             if (!layout) return null;
+            const highlighted = selectedId === r.id || hoveredId === r.id;
             return (
               <MapCallout
                 key={r.id}
                 restaurant={r}
                 layout={layout}
-                selected={selectedId === r.id}
+                selected={highlighted}
                 visible={filteredIds.has(r.id)}
                 isOpen={isRestaurantOpen(r.horaires)}
                 onClick={() => selectRestaurant(selectedId === r.id ? null : r.id)}
@@ -153,19 +156,6 @@ export function CampusMap({ restaurants }: CampusMapProps) {
           })}
         </div>
       </motion.div>
-
-      {/* Title overlay — matches mapping PDF */}
-      {!selectedId && (
-        <div className="pointer-events-none absolute left-[2%] top-[3%] z-10 max-w-md">
-          <h2 className="text-xl font-extrabold uppercase tracking-tight text-white drop-shadow-lg md:text-2xl lg:text-3xl">
-            Mapping des espaces
-          </h2>
-          <p className="mt-1 max-w-sm text-[10px] leading-snug text-white/80 drop-shadow md:text-xs">
-            Un lieu de vie gourmand, convivial et créatif où chaque espace a sa
-            personnalité et ses usages.
-          </p>
-        </div>
-      )}
     </div>
   );
 }
