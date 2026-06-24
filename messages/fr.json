@@ -10,6 +10,10 @@
     "aria": "Navigation principale",
     "thalesMap": "Interactive Map Thales",
     "thalesMapShort": "Map Thales",
+    "sparkOsWireframe": "Wireframe Spark OS",
+    "sparkOsWireframeShort": "Wireframe OS",
+    "sparkXpWireframe": "Wireframe WRX",
+    "sparkXpWireframeShort": "Wireframe WRX",
     "demos": "Démos"
   },
   "deck": {
@@ -250,5 +254,108 @@
     "linksTitle": "Accès rapide",
     "demosTitle": "Démos interactives",
     "rights": "Usage interne uniquement."
+  },
+  "sparkOsWireframe": {
+    "legend": {
+      "kicker": "Expérimentation · Mise en page SharePoint",
+      "title": "Où placer persona, expérience et parcours",
+      "sub": "Reconstitution fil de fer de la page SharePoint Spark OS. Trois zones en pointillés montrent nos emplacements recommandés — basculez chaque aperçu pour voir ce qu'on ajouterait."
+    },
+    "page": {
+      "heroLead": "Opérations digitales, automatisation IA et performance site — la couche plateforme sur laquelle les opérateurs s'appuient au quotidien.",
+      "stat1": "Marché mondial FM & workplace — l'efficacité à l'échelle compte.",
+      "stat2": "Des opérateurs citent la fragmentation des outils comme frustration majeure.",
+      "stat3": "Gain de productivité potentiel lorsque les workflows sont unifiés sur une plateforme.",
+      "introHeadline": "Nouvelles pressions. Nouvelles priorités. Nouvelles façons d'opérer.",
+      "introBody": "Les clients attendent un ROI mesurable, des opérations conformes et des expériences élevées — souvent avec moins de personnes sur le terrain. Spark OS répond avec intelligence, automatisation et design centré opérateur.",
+      "prioritiesLabel": "Ce que les équipes opérations priorisent aujourd'hui :",
+      "transitionBody": "Les domaines de capacité se mappent à des solutions modulaires — mais n'ont de sens que rattachés à qui les utilise et quand.",
+      "ctaTitle": "Un autre défi à résoudre ?",
+      "ctaBody": "Explorez Spark IQ pour l'intelligence client ou Spark OS pour les workflows opérateur — chaque couche se connecte au même parcours."
+    },
+    "zones": {
+      "persona": {
+        "rationale": "Insérer ici — juste après les stats macro, avant que le récit s'approfondisse. Humanise Spark OS immédiatement : qui est l'opérateur, de quoi a-t-il besoin, pourquoi le lecteur doit s'y intéresser ?",
+        "role": "Opérateur",
+        "title": "Site Manager · Food & FM",
+        "description": "Gère plusieurs sites clients — orchestre équipes, plannings, conformité et relation client. Sur site la majeure partie du temps ; a besoin d'une plateforme, pas de trois outils qui ne communiquent pas.",
+        "quote": "Quand il y a un problème, j'ai besoin d'infos et de solutions rapides. Je n'ai pas le temps pour des outils qui ne se synchronisent pas."
+      },
+      "experience": {
+        "rationale": "Insérer dans la section intro — passer des pressions marché aux enjeux clients. Les mots-clés ancrent chaque objectif business (G1–G4) pour que les solutions ne flottent pas dans le vide.",
+        "kicker": "Cadrage expérience",
+        "headline": "Les bonnes expériences pour chaque enjeu business",
+        "body": "Avant de lister les capacités, nommer ce que les clients cherchent à résoudre — puis mapper les modules Spark OS à ces outcomes.",
+        "goals": {
+          "g1": "Expériences quotidiennes élevées → bien-être, engagement, KPIs rétention.",
+          "g2": "Discipline opérationnelle → ROI, productivité, maîtrise des coûts.",
+          "g3": "RSE au niveau site → scoring, reporting, amélioration continue.",
+          "g4": "Données actifs & workflows → ops fiables, TCO réduit sur le parc."
+        }
+      },
+      "journey": {
+        "rationale": "Insérer entre la grille de capacités et Our Solutions — le pivot de ce qu'on propose à comment ça s'inscrit dans une journée de travail. Relie modules et moments : trajet, kick-off, rondes, planning, service.",
+        "kicker": "Plateforme d'expérience modulaire",
+        "headline": "Explorer chaque moment de la journée de travail :",
+        "body": "Le parcours puzzle connecte les moments Opérateur aux modules Spark OS — choisir quoi implémenter et composer des expériences fluides."
+      }
+    }
+  },
+  "sparkXpWireframe": {
+    "legend": {
+      "kicker": "Expérimentation · Mise en page produit",
+      "title": "Où placer persona, expérience et parcours sur WRX",
+      "sub": "Reconstitution fil de fer de la page produit Sodexo WRX (Spark XP). Trois zones en pointillés montrent les emplacements recommandés — basculez chaque aperçu pour voir ce qu'on ajouterait."
+    },
+    "page": {
+      "heroLead": "Une expérience digitale du lieu de travail conçue pour simplifier le quotidien et stimuler l'engagement.",
+      "whyTitle": "Pourquoi Sodexo WRX ?",
+      "whyBody1": "Les collaborateurs attendent au travail la même fluidité digitale qu'en tant que consommateurs. WRX regroupe restauration, espaces, accès et bien-être dans une app mobile-first.",
+      "whyBody2": "Pour les clients : adoption accrue des services sur site, satisfaction mesurable et données utiles aux décisions opérationnelles — pas un outil de plus en silo.",
+      "makesPossibleTitle": "Ce que Sodexo WRX rend possible",
+      "featuresTitle": "Fonctionnalités",
+      "impactTitle": "Impact business",
+      "resourcesTitle": "Ressources & outils commerciaux",
+      "resourcesSub": "Tout ce dont les équipes vente et delivery ont besoin pour pitcher, démo et implémenter WRX.",
+      "connectedTitle": "Produits connectés",
+      "faqTitle": "Questions fréquentes",
+      "faq": {
+        "q1": "En quoi Sodexo WRX diffère-t-il d'une simple app ?",
+        "a1": "WRX est une plateforme d'expérience modulaire — pas une app mono-fonction. Il connecte commande repas, réservation d'espaces, accès bâtiment et bien-être en un parcours, avec des modules adoptables progressivement.",
+        "q2": "À qui s'adresse Sodexo WRX ?",
+        "a2": "Utilisateurs principaux : collaborateurs et visiteurs sur campus corporate (cols blancs, hybrides, labo). WRX se vend aux clients visant rétention, productivité et expérience workplace élevée.",
+        "q3": "Comment WRX se connecte au catalogue expérience ?",
+        "a3": "Chaque module WRX se mappe à un moment persona du catalogue XP — trajet, accueil, workplace, F&B, bien-être — pour ancrer les pitches dans de vrais parcours."
+      },
+      "ctaTitle": "Un autre défi à résoudre ?",
+      "ctaBody": "Explorez les solutions Spark XP associées ou le cross-sell vers Spark IQ et Spark OS."
+    },
+    "zones": {
+      "persona": {
+        "rationale": "Insérer ici — juste après « Pourquoi Sodexo WRX ? », avant les piliers de valeur. Ancre le produit dans un utilisateur réel : qui mange, réserve et traverse le campus chaque jour.",
+        "role": "Consommateur",
+        "title": "Fonction Admin · Col blanc",
+        "description": "Travaille dans un centre R&D international — labo et nomade (~50 %), bureau et ABW (~40 %), un peu de télétravail. Veut de la nourriture saine et rapide et des services fluides, sinon il part ailleurs.",
+        "quote": "J'ai besoin de repas rapides, sains et abordables au travail, avec des petits plus qui facilitent ma journée — sinon je vais ailleurs."
+      },
+      "experience": {
+        "rationale": "Insérer dans « Ce que WRX rend possible » — aux côtés Fonctionnalités et Impact business. Nommer les outcomes expérience et mots-clés avant les capacités ; relie WRX aux enjeux clients.",
+        "kicker": "Cadrage expérience",
+        "headline": "Le facteur expérience — pourquoi WRX gagne",
+        "body": "WRX n'est pas que des features — c'est l'expérience front-stage qui drive rétention, adoption et outcomes clients mesurables.",
+        "goals": {
+          "g1": "Rétention & productivité → repas sains, focus, équilibre vie pro/perso les jours chargés.",
+          "g1b": "Adoption & satisfaction → outils digitaux réellement utilisés ; NPS et utilisateurs actifs.",
+          "g3": "RSE & durabilité → options durables, alignement valeurs attendu par les collaborateurs.",
+          "g1c": "Expérience digitale fluide → une app pour repas, espaces, accès — pas de silos buggés."
+        }
+      },
+      "journey": {
+        "rationale": "Insérer entre « Ce que rend possible » et Ressources — fait le lien capacités produit ↔ moments quotidiens. Montre quels modules WRX s'activent au trajet, accueil, workplace, F&B, bien-être.",
+        "kicker": "Plateforme d'expérience modulaire",
+        "headline": "Explorer chaque moment de la journée de travail :",
+        "body": "Le puzzle connecte les moments Consommateur aux modules WRX — commande digitale, vending, conciergerie, livraison, bien-être — choisir quoi implémenter."
+      }
+    }
   }
 }

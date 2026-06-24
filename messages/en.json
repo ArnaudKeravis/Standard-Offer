@@ -10,6 +10,10 @@
     "aria": "Main navigation",
     "thalesMap": "Interactive Map Thales",
     "thalesMapShort": "Thales Map",
+    "sparkOsWireframe": "Spark OS Wireframe",
+    "sparkOsWireframeShort": "OS Wireframe",
+    "sparkXpWireframe": "WRX Wireframe",
+    "sparkXpWireframeShort": "WRX Wireframe",
     "demos": "Demos"
   },
   "deck": {
@@ -250,5 +254,108 @@
     "linksTitle": "Jump to",
     "demosTitle": "Interactive demos",
     "rights": "Internal use only."
+  },
+  "sparkOsWireframe": {
+    "legend": {
+      "kicker": "Experiment · SharePoint layout",
+      "title": "Where persona, experience & journey belong",
+      "sub": "A wireframe recreation of the Spark OS SharePoint page. Three dashed zones show our recommended insert points — toggle each preview to see what we'd add."
+    },
+    "page": {
+      "heroLead": "Digital operations, AI automation, and site performance — the platform layer operators rely on every day.",
+      "stat1": "Global FM & workplace services market — efficiency at scale matters.",
+      "stat2": "Of operators cite tool fragmentation as a top frustration.",
+      "stat3": "Potential productivity gain when workflows are unified on one platform.",
+      "introHeadline": "New pressures. New priorities. New ways to operate.",
+      "introBody": "Clients expect measurable ROI, compliant operations, and elevated experiences — often with fewer people on the ground. Spark OS answers with intelligence, automation, and operator-first design.",
+      "prioritiesLabel": "What operations teams are prioritizing today:",
+      "transitionBody": "Capability areas map to modular solutions — but only make sense when tied to who uses them and when.",
+      "ctaTitle": "Looking for another challenge to solve?",
+      "ctaBody": "Explore Spark IQ for client intelligence or Spark OS for operator workflows — each layer connects to the same journey."
+    },
+    "zones": {
+      "persona": {
+        "rationale": "Insert here — right after the macro stats, before the narrative deepens. Humanises Spark OS immediately: who is the operator, what do they need, why should the reader care?",
+        "role": "Operator",
+        "title": "Site Manager · Food & FM",
+        "description": "Runs multiple client sites — orchestrating teams, schedules, compliance, and client relationships. On-site most of the day; needs one platform, not three tools that don't talk.",
+        "quote": "When there's a problem, I need quick info and quick solutions. I don't have time for tools that don't sync."
+      },
+      "experience": {
+        "rationale": "Insert inside the intro section — bridge from market pressures to client outcomes. Keywords anchor each business goal (G1–G4) so solutions aren't presented in a vacuum.",
+        "kicker": "Experience framing",
+        "headline": "The right experiences for each business goal",
+        "body": "Before listing capabilities, name what clients are solving for — then map Spark OS modules to those outcomes.",
+        "goals": {
+          "g1": "Elevated everyday experiences → wellbeing, engagement, retention KPIs.",
+          "g2": "Operational discipline → ROI, productivity, cost control clients can defend.",
+          "g3": "Site-level CSR → scoring, reporting, continuous improvement.",
+          "g4": "Asset & workflow data → reliable ops, lower TCO across the estate."
+        }
+      },
+      "journey": {
+        "rationale": "Insert between the capability grid and Our Solutions — the pivot from what we offer to how it fits a working day. Links modules to moments: commute, kick-off, rounds, planning, service.",
+        "kicker": "Modular experience platform",
+        "headline": "Explore each moment of the working day:",
+        "body": "The puzzle path connects Operator moments to Spark OS modules — choose what to implement and craft seamless experiences."
+      }
+    }
+  },
+  "sparkXpWireframe": {
+    "legend": {
+      "kicker": "Experiment · Product page layout",
+      "title": "Where persona, experience & journey belong on WRX",
+      "sub": "A wireframe recreation of the Sodexo WRX product page (Spark XP). Three dashed zones show recommended insert points — toggle each preview to see what we'd add."
+    },
+    "page": {
+      "heroLead": "A digital workspace experience built to simplify daily life and drive engagement.",
+      "whyTitle": "Why Sodexo WRX?",
+      "whyBody1": "Employees expect the same seamless digital experience at work that they get as consumers. WRX brings food, space, access, and wellbeing services into one mobile-first app.",
+      "whyBody2": "For clients, it means higher adoption of on-site services, measurable satisfaction, and data that feeds operational decisions — not another siloed tool.",
+      "makesPossibleTitle": "What Sodexo WRX makes possible",
+      "featuresTitle": "Features",
+      "impactTitle": "Business Impact",
+      "resourcesTitle": "Resources & Sales Tools",
+      "resourcesSub": "Everything sales and delivery teams need to pitch, demo, and implement WRX.",
+      "connectedTitle": "Connected Products",
+      "faqTitle": "Frequently asked questions",
+      "faq": {
+        "q1": "How does Sodexo WRX differ from a simple app?",
+        "a1": "WRX is a modular experience platform — not a single feature app. It connects food ordering, space booking, building access, and wellbeing into one journey, with modules clients can adopt progressively.",
+        "q2": "Who is Sodexo WRX meant for?",
+        "a2": "Primary users are employees and guests on corporate campuses (white-collar, hybrid, lab-based). WRX is sold to clients solving for retention, productivity, and elevated workplace experience.",
+        "q3": "How does WRX connect to the Experience Catalogue?",
+        "a3": "Each WRX module maps to a persona moment in the XP Catalogue — commute, welcome, workplace, F&B, wellbeing — so pitches stay grounded in real journeys."
+      },
+      "ctaTitle": "Looking for another challenge to solve?",
+      "ctaBody": "Explore related Spark XP solutions or cross-sell into Spark IQ and Spark OS layers."
+    },
+    "zones": {
+      "persona": {
+        "rationale": "Insert here — right after \"Why Sodexo WRX?\", before value pillars. Grounds the product in a real user: who eats, books, and moves through the campus every day.",
+        "role": "Consumer",
+        "title": "Admin Function · White Collar",
+        "description": "Works at an international R&D centre — lab-based and nomadic (~50%), desk and ABW (~40%), some remote. Needs quick, healthy food and seamless services or he'll go elsewhere.",
+        "quote": "I need quick, healthy, and affordable food at work, with little extras that make my day easier — otherwise I'll just go elsewhere."
+      },
+      "experience": {
+        "rationale": "Insert inside \"What WRX makes possible\" — alongside Features and Business Impact. Name the experience outcomes and keywords before listing capabilities; ties WRX to client business goals.",
+        "kicker": "Experience framing",
+        "headline": "The experience factor — why WRX wins",
+        "body": "WRX isn't just features — it's the front-stage experience that drives retention, adoption, and measurable client outcomes.",
+        "goals": {
+          "g1": "Retention & productivity → healthy meals, focus, work-life balance on busy days.",
+          "g1b": "Adoption & satisfaction → digital tools people actually use; NPS and daily active users.",
+          "g3": "CSR & sustainability → sustainable meal options, values alignment employees expect.",
+          "g1c": "Seamless digital experience → one app for food, space, access — no buggy silos."
+        }
+      },
+      "journey": {
+        "rationale": "Insert between \"What makes possible\" and Resources — bridges product capabilities to daily moments. Shows which WRX modules activate at commute, welcome, workplace, F&B, wellbeing.",
+        "kicker": "Modular experience platform",
+        "headline": "Explore each moment of the working day:",
+        "body": "The puzzle connects Consumer moments to WRX modules — digital ordering, vending, concierge, delivery, wellbeing — pick what to implement."
+      }
+    }
   }
 }
