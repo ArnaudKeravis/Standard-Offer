@@ -56,8 +56,8 @@ const JOURNEY_MOMENTS = [
   "Commute",
   "Welcome area",
   "Workplace",
-  "Food & Beverage",
-  "Well-being & break",
+  "Well-being & break time",
+  "Food & Beverage area",
 ];
 
 export function SharePointWrxWireframe() {
@@ -309,13 +309,14 @@ export function SharePointWrxWireframe() {
                   {t("zones.journey.body")}
                 </p>
               </div>
-              <div className="relative aspect-[16/9] w-full bg-[color:color-mix(in_oklab,var(--spark-xp),transparent_94%)]">
+              <div className="relative aspect-[21/10] w-full bg-[#e8f4f8]">
                 <Image
                   src="/demos/journey-consumer.png"
                   alt=""
                   fill
-                  className="object-contain p-4"
+                  className="object-contain object-center p-2 md:p-3"
                   sizes="(max-width: 768px) 100vw, 1152px"
+                  priority
                 />
               </div>
               <div className="flex flex-wrap justify-center gap-2 border-t border-[var(--spark-line)] px-4 py-4">

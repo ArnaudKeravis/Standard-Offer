@@ -33,11 +33,11 @@ const EXPERIENCE_KEYWORDS = [
 
 const JOURNEY_MOMENTS = [
   "Commute",
-  "Kick-off & daily check",
-  "Kitchen / FM round",
+  "Kick-off & early check",
+  "Order, planning & maintenance",
+  "Kitchen / back kitchen FM round",
   "Office time",
-  "Order & planning",
-  "F&B area",
+  "Food & Beverage area",
 ];
 
 export function SharePointOsWireframe() {
@@ -272,13 +272,14 @@ export function SharePointOsWireframe() {
                   {t("zones.journey.body")}
                 </p>
               </div>
-              <div className="relative aspect-[16/9] w-full bg-[color:color-mix(in_oklab,var(--spark-iq),transparent_94%)]">
+              <div className="relative aspect-[21/10] w-full bg-[#e8f4f8]">
                 <Image
-                  src="/demos/journey-platform.png"
+                  src="/demos/journey-operator.png"
                   alt=""
                   fill
-                  className="object-contain p-4"
+                  className="object-contain object-center p-2 md:p-3"
                   sizes="(max-width: 768px) 100vw, 1152px"
+                  priority
                 />
               </div>
               <div className="flex flex-wrap justify-center gap-2 border-t border-[var(--spark-line)] px-4 py-4">
