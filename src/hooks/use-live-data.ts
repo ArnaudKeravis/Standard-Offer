@@ -19,10 +19,7 @@ export function useLiveData() {
         const res = await fetch("/api/thales/wait-times");
         const data = await res.json();
         for (const live of data.restaurants) {
-          updateLiveData(live.id, {
-            attenteTempsReel: live.attenteTempsReel,
-            affluence: live.affluence,
-          });
+          updateLiveData(live.id, { affluence: live.affluence });
         }
       } catch {
         /* keep static data on failure */

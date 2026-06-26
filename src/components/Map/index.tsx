@@ -8,7 +8,7 @@ import { useThalesStore } from "@/lib/thales/store";
 import type { Restaurant } from "@/lib/thales/types";
 import { CAMPUS_MAP_IMAGE } from "@/lib/thales/campus-image";
 import { MAP_CALLOUTS, THEME_STYLES } from "@/lib/thales/map-layout";
-import { getWaitColor, isRestaurantOpen, matchesFilter } from "@/lib/thales/utils";
+import { getAffluenceColor, isRestaurantOpen } from "@/lib/thales/utils";
 
 interface CampusMapProps {
   restaurants: Restaurant[];
@@ -21,20 +21,7 @@ export function CampusMap({ restaurants, hoveredId = null }: CampusMapProps) {
   const selectedId = useThalesStore((s) => s.selectedId);
   const selectRestaurant = useThalesStore((s) => s.selectRestaurant);
   const mapZoom = useThalesStore((s) => s.mapZoom);
-  const activeFilters = useThalesStore((s) => s.activeFilters);
   const kioskMode = useThalesStore((s) => s.kioskMode);
-
-  const filteredIds = useMemo(() => {
-    if (activeFilters.length === 0) return new Set(restaurants.map((r) => r.id));
-    return new Set(
-      restaurants
-        .filter((r) => {
-          const open = isRestaurantOpen(r.horaires);
-          return activeFilters.every((f) => matchesFilter(r, f, open));
-        })
-        .map((r) => r.id),
-    );
-  }, [restaurants, activeFilters]);
 
   const layoutById = useMemo(
     () => new Map(MAP_CALLOUTS.map((l) => [l.id, l])),
@@ -79,18 +66,19 @@ export function CampusMap({ restaurants, hoveredId = null }: CampusMapProps) {
             {MAP_CALLOUTS.map((layout) => {
               const restaurant = restaurants.find((r) => r.id === layout.id);
               if (!restaurant) return null;
-              const visible = filteredIds.has(layout.id) || kioskMode;
               const selected = selectedId === layout.id;
               const hovered = hoveredId === layout.id;
               const theme = THEME_STYLES[layout.theme];
-              const waitColor = getWaitColor(restaurant.attenteTempsReel);
-              const dotColors = { green: "#34d399", orange: "#fbbf24", red: "#f87171" };
+              const open = isRestaurantOpen(restaurant.horaires);
+              const dotColor = open
+                ? getAffluenceColor(restaurant.affluence)
+                : "#9ca3af";
 
               const cardCenterX = layout.cardX + (layout.cardWidth ?? 15) / 2;
               const cardCenterY = layout.cardY + 5;
 
               return (
-                <g key={layout.id} opacity={visible ? 1 : 0.15}>
+                <g key={layout.id}>
                   <line
                     x1={cardCenterX}
                     y1={cardCenterY}
@@ -129,7 +117,7 @@ export function CampusMap({ restaurants, hoveredId = null }: CampusMapProps) {
                     cx={layout.pinX}
                     cy={layout.pinY}
                     r={selected || hovered ? 1.1 : 0.75}
-                    fill={dotColors[waitColor]}
+                    fill={dotColor}
                     stroke={selected ? "#ffb81c" : hovered ? "#fff" : "#fff"}
                     strokeWidth={selected || hovered ? 0.35 : 0.2}
                   />
@@ -148,7 +136,7 @@ export function CampusMap({ restaurants, hoveredId = null }: CampusMapProps) {
                 restaurant={r}
                 layout={layout}
                 selected={highlighted}
-                visible={filteredIds.has(r.id)}
+                visible
                 isOpen={isRestaurantOpen(r.horaires)}
                 onClick={() => selectRestaurant(selectedId === r.id ? null : r.id)}
               />

@@ -37,16 +37,6 @@ export const MAP_CALLOUTS: MapCalloutLayout[] = [
     cardWidth: 15,
   },
   {
-    id: "avs",
-    pinX: 40,
-    pinY: 58,
-    cardX: 2,
-    cardY: 44,
-    theme: "purple",
-    keywords: ["BRASSERIE", "SPÉCIALITÉS", "PREMIUM"],
-    cardWidth: 13,
-  },
-  {
     id: "rest-alt-marcel-dassault",
     pinX: 22,
     pinY: 86,

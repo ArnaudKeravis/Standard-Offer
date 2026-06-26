@@ -1,15 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Clock, Users } from "lucide-react";
 import type { Restaurant } from "@/lib/thales/types";
-import {
-  AFFLUENCE_CONFIG,
-  getWaitColor,
-  getWaitLabel,
-  OFFRE_LABELS,
-  WAIT_COLORS,
-} from "@/lib/thales/utils";
+import { AFFLUENCE_CONFIG, OFFRE_LABELS } from "@/lib/thales/utils";
 
 interface RestaurantCardProps {
   restaurant: Restaurant;
@@ -24,8 +17,6 @@ export function RestaurantCard({
   compact,
   onClick,
 }: RestaurantCardProps) {
-  const waitColor = getWaitColor(restaurant.attenteTempsReel);
-  const waitStyle = WAIT_COLORS[waitColor];
   const affluence = AFFLUENCE_CONFIG[restaurant.affluence];
 
   return (
@@ -49,7 +40,9 @@ export function RestaurantCard({
               {restaurant.nom}
             </h3>
             {isOpen ? (
-              <span className="shrink-0 size-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
+              <span className="shrink-0 rounded-full bg-emerald-500/20 px-2 py-0.5 text-[10px] font-medium text-emerald-400">
+                Ouvert
+              </span>
             ) : (
               <span className="shrink-0 rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-medium text-white/50">
                 Fermé
@@ -61,34 +54,29 @@ export function RestaurantCard({
           </p>
         </div>
 
-        <div
-          className={`shrink-0 flex items-center gap-1.5 rounded-full px-2.5 py-1 ${waitStyle.bg} ring-1 ${waitStyle.ring}`}
-        >
-          <Clock className={`size-3 ${waitStyle.text}`} />
-          <span className={`text-xs font-semibold tabular-nums ${waitStyle.text}`}>
-            {getWaitLabel(restaurant.attenteTempsReel)}
-          </span>
-        </div>
+        {isOpen && (
+          <div className="shrink-0 flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-1 ring-1 ring-white/15">
+            <span className="text-xs" aria-hidden>
+              {affluence.emoji}
+            </span>
+            <span className="text-xs font-semibold text-white/90">{affluence.label}</span>
+          </div>
+        )}
       </div>
 
-      {!compact && (
-        <div className="mt-3 flex items-center gap-3">
-          <div className="flex-1">
-            <div className="flex items-center justify-between text-[10px] text-white/40 mb-1">
-              <span className="flex items-center gap-1">
-                <Users className="size-3" />
-                Affluence
-              </span>
-              <span>{affluence.label}</span>
-            </div>
-            <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
-              <motion.div
-                className={`h-full rounded-full ${affluence.color}`}
-                initial={{ width: 0 }}
-                animate={{ width: `${affluence.value}%` }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-              />
-            </div>
+      {!compact && isOpen && (
+        <div className="mt-3">
+          <div className="flex items-center justify-between text-[10px] text-white/40 mb-1">
+            <span>Affluence</span>
+            <span>{affluence.label}</span>
+          </div>
+          <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
+            <motion.div
+              className={`h-full rounded-full ${affluence.color}`}
+              initial={{ width: 0 }}
+              animate={{ width: `${affluence.value}%` }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            />
           </div>
         </div>
       )}

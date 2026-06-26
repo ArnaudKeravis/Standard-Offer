@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Monitor, X } from "lucide-react";
 import { useThalesStore } from "@/lib/thales/store";
 import type { Restaurant } from "@/lib/thales/types";
-import { getWaitColor, getWaitLabel, OFFRE_LABELS, WAIT_COLORS } from "@/lib/thales/utils";
+import { AFFLUENCE_CONFIG, isRestaurantOpen, OFFRE_LABELS } from "@/lib/thales/utils";
 
 const KIOSK_INTERVAL = 60_000;
 
@@ -78,8 +78,8 @@ function KioskHighlight({
   restaurant: Restaurant;
   onClose: () => void;
 }) {
-  const waitColor = getWaitColor(restaurant.attenteTempsReel);
-  const waitStyle = WAIT_COLORS[waitColor];
+  const isOpen = isRestaurantOpen(restaurant.horaires);
+  const affluence = AFFLUENCE_CONFIG[restaurant.affluence];
 
   return (
     <div className="rounded-2xl bg-white/10 backdrop-blur-2xl p-6 ring-1 ring-white/20 shadow-2xl">
@@ -89,7 +89,7 @@ function KioskHighlight({
             À la une
           </p>
           <h3 className="mt-1 text-xl font-bold text-white">{restaurant.nom}</h3>
-          <p className="mt-1 text-sm text-white/60">{restaurant.offreDuJour}</p>
+          <p className="mt-1 text-sm text-white/60 line-clamp-2">{restaurant.description}</p>
         </div>
         <button
           type="button"
@@ -100,11 +100,21 @@ function KioskHighlight({
         </button>
       </div>
       <div className="mt-4 flex items-center gap-4">
-        <div className={`flex items-center gap-2 rounded-full px-3 py-1.5 ${waitStyle.bg} ring-1 ${waitStyle.ring}`}>
-          <span className={`text-sm font-bold tabular-nums ${waitStyle.text}`}>
-            {getWaitLabel(restaurant.attenteTempsReel)}
+        <span
+          className={`rounded-full px-3 py-1.5 text-xs font-medium ${
+            isOpen
+              ? "bg-emerald-500/20 text-emerald-300 ring-1 ring-emerald-400/30"
+              : "bg-white/10 text-white/50 ring-1 ring-white/15"
+          }`}
+        >
+          {isOpen ? "Ouvert" : "Fermé"}
+        </span>
+        {isOpen && (
+          <span className="flex items-center gap-1.5 text-sm font-semibold text-white/90">
+            <span aria-hidden>{affluence.emoji}</span>
+            {affluence.label}
           </span>
-        </div>
+        )}
         <span className="text-xs text-white/50">{OFFRE_LABELS[restaurant.type]}</span>
       </div>
     </div>

@@ -1,18 +1,17 @@
 "use client";
 
-import { AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { useMemo, useState } from "react";
+import { AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import { CampusMap } from "@/components/Map";
-import { Filters } from "@/components/Filters";
 import { KioskMode } from "@/components/KioskMode";
 import { RestaurantDetail } from "@/components/RestaurantDetail";
 import { RestaurantListSidebar } from "@/components/RestaurantListSidebar";
 import { FloorPlanViewer } from "@/components/FloorPlanViewer";
 import { useLiveData } from "@/hooks/use-live-data";
 import { useThalesStore } from "@/lib/thales/store";
-import { isRestaurantOpen, matchesFilter } from "@/lib/thales/utils";
+import { isRestaurantOpen } from "@/lib/thales/utils";
 
 export function ThalesCampusApp({ backHref }: { backHref?: string }) {
   useLiveData();
@@ -20,18 +19,9 @@ export function ThalesCampusApp({ backHref }: { backHref?: string }) {
   const restaurants = useThalesStore((s) => s.restaurants);
   const selectedId = useThalesStore((s) => s.selectedId);
   const selectRestaurant = useThalesStore((s) => s.selectRestaurant);
-  const activeFilters = useThalesStore((s) => s.activeFilters);
   const showFloorPlan = useThalesStore((s) => s.showFloorPlan);
   const kioskMode = useThalesStore((s) => s.kioskMode);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
-
-  const filtered = useMemo(() => {
-    if (activeFilters.length === 0) return restaurants;
-    return restaurants.filter((r) => {
-      const open = isRestaurantOpen(r.horaires);
-      return activeFilters.every((f) => matchesFilter(r, f, open));
-    });
-  }, [restaurants, activeFilters]);
 
   const selected = restaurants.find((r) => r.id === selectedId);
 
@@ -42,7 +32,6 @@ export function ThalesCampusApp({ backHref }: { backHref?: string }) {
 
   return (
     <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-[#1a2332] text-white select-none">
-      {/* Header */}
       <header className="relative z-30 shrink-0 bg-gradient-to-b from-black/60 to-black/20 px-4 py-3 md:px-6">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
@@ -63,7 +52,7 @@ export function ThalesCampusApp({ backHref }: { backHref?: string }) {
                 Mapping des espaces
               </h1>
               <p className="text-[11px] text-white/50">
-                {timeStr} · {filtered.length} espace{filtered.length > 1 ? "s" : ""}
+                {timeStr} · {restaurants.length} espace{restaurants.length > 1 ? "s" : ""}
               </p>
             </div>
           </div>
@@ -76,28 +65,17 @@ export function ThalesCampusApp({ backHref }: { backHref?: string }) {
             </div>
           </div>
         </div>
-
-        {/* Filters — top bar */}
-        {!kioskMode && (
-          <div className="mt-3 overflow-hidden">
-            <Filters />
-          </div>
-        )}
       </header>
 
-      {/* Main: map + optional right list */}
       <div className="relative flex min-h-0 flex-1">
         <div className="relative min-w-0 flex-1">
-          <CampusMap
-            restaurants={restaurants}
-            hoveredId={hoveredId}
-          />
+          <CampusMap restaurants={restaurants} hoveredId={hoveredId} />
         </div>
 
         {showList && (
           <div className="absolute right-0 top-0 z-20 hidden h-full p-3 pl-0 md:block">
             <RestaurantListSidebar
-              restaurants={filtered}
+              restaurants={restaurants}
               selectedId={selectedId}
               onSelect={(id) => selectRestaurant(id)}
               onHover={setHoveredId}
@@ -106,12 +84,11 @@ export function ThalesCampusApp({ backHref }: { backHref?: string }) {
         )}
       </div>
 
-      {/* Mobile list — bottom sheet style */}
       {showList && (
         <div className="shrink-0 border-t border-white/10 bg-[#0a1628]/90 p-3 backdrop-blur-xl md:hidden">
           <p className="mb-2 text-[11px] font-medium text-white/50">Espaces</p>
           <div className="flex gap-2 overflow-x-auto pb-1">
-            {filtered.map((r) => (
+            {restaurants.map((r) => (
               <button
                 key={r.id}
                 type="button"
@@ -125,7 +102,6 @@ export function ThalesCampusApp({ backHref }: { backHref?: string }) {
         </div>
       )}
 
-      {/* Detail panel */}
       <AnimatePresence>
         {selected && !showFloorPlan && (
           <RestaurantDetail
@@ -135,7 +111,6 @@ export function ThalesCampusApp({ backHref }: { backHref?: string }) {
         )}
       </AnimatePresence>
 
-      {/* Floor plan */}
       <AnimatePresence>
         {selected && showFloorPlan && selected.floorPlan && (
           <FloorPlanViewer restaurant={selected} />

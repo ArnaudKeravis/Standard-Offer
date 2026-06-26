@@ -4,7 +4,7 @@ import { ThalesCampusApp } from "@/components/thales-campus-app";
 export const metadata: Metadata = {
   title: "Interactive Map Thales — Sodexo Spark Demos",
   description:
-    "Carte interactive de l'offre restauration du campus Thales. Comparez les espaces, consultez les temps d'attente et explorez les plans détaillés.",
+    "Carte interactive de l'offre restauration du campus Thales. Consultez l'affluence des espaces et explorez les fiches détaillées.",
 };
 
 export const viewport: Viewport = {

@@ -1,23 +1,10 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  ArrowLeft,
-  Clock,
-  MapPin,
-  Sparkles,
-  Users,
-  X,
-} from "lucide-react";
+import { ArrowLeft, MapPin, X } from "lucide-react";
 import { useThalesStore } from "@/lib/thales/store";
 import type { Restaurant } from "@/lib/thales/types";
-import {
-  AFFLUENCE_CONFIG,
-  getWaitColor,
-  getWaitLabel,
-  OFFRE_LABELS,
-  WAIT_COLORS,
-} from "@/lib/thales/utils";
+import { AFFLUENCE_CONFIG } from "@/lib/thales/utils";
 
 interface RestaurantDetailProps {
   restaurant: Restaurant;
@@ -27,9 +14,6 @@ interface RestaurantDetailProps {
 export function RestaurantDetail({ restaurant, isOpen }: RestaurantDetailProps) {
   const selectRestaurant = useThalesStore((s) => s.selectRestaurant);
   const setShowFloorPlan = useThalesStore((s) => s.setShowFloorPlan);
-
-  const waitColor = getWaitColor(restaurant.attenteTempsReel);
-  const waitStyle = WAIT_COLORS[waitColor];
   const affluence = AFFLUENCE_CONFIG[restaurant.affluence];
 
   return (
@@ -43,23 +27,10 @@ export function RestaurantDetail({ restaurant, isOpen }: RestaurantDetailProps) 
         className="absolute right-0 top-0 z-40 flex h-full w-[420px] max-w-[40vw] flex-col
           border-l border-white/10 bg-[#0a1628]/85 backdrop-blur-2xl shadow-2xl"
       >
-        <div className="relative h-48 shrink-0 overflow-hidden">
-          <div
-            className="absolute inset-0 bg-gradient-to-br from-[#1e3a8a] via-[#0f2847] to-[#0a1628]"
-            style={{
-              backgroundImage: `linear-gradient(135deg, rgba(30,58,138,0.9), rgba(10,22,40,0.95))`,
-            }}
-          />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,184,28,0.15),transparent_60%)]" />
-          <div className="absolute inset-0 flex flex-col justify-end p-6">
-            <span className="text-xs font-medium uppercase tracking-widest text-amber-400/80">
-              {OFFRE_LABELS[restaurant.type]}
-            </span>
-            <h2 className="mt-1 text-2xl font-bold text-white tracking-tight">
-              {restaurant.nom}
-            </h2>
-            <p className="mt-1 text-sm text-white/60 line-clamp-2">{restaurant.concept}</p>
-          </div>
+        <div className="relative shrink-0 overflow-hidden border-b border-white/10 p-6">
+          <h2 className="text-2xl font-bold text-white tracking-tight pr-10">
+            {restaurant.nom}
+          </h2>
           <button
             type="button"
             onClick={() => selectRestaurant(null)}
@@ -72,41 +43,51 @@ export function RestaurantDetail({ restaurant, isOpen }: RestaurantDetailProps) 
         </div>
 
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
-          <div className="grid grid-cols-2 gap-3">
-            <div className={`rounded-xl p-4 ${waitStyle.bg} ring-1 ${waitStyle.ring}`}>
-              <div className="flex items-center gap-2 text-white/60 text-xs mb-1">
-                <Clock className="size-3.5" />
-                Temps d&apos;attente
-              </div>
-              <p className={`text-2xl font-bold tabular-nums ${waitStyle.text}`}>
-                {getWaitLabel(restaurant.attenteTempsReel)}
-              </p>
-            </div>
-            <div className="rounded-xl bg-white/5 p-4 ring-1 ring-white/10">
-              <div className="flex items-center gap-2 text-white/60 text-xs mb-2">
-                <Users className="size-3.5" />
-                Affluence · {affluence.label}
-              </div>
-              <div className="h-2 rounded-full bg-white/10 overflow-hidden">
-                <motion.div
-                  className={`h-full rounded-full ${affluence.color}`}
-                  initial={{ width: 0 }}
-                  animate={{ width: `${affluence.value}%` }}
-                  transition={{ duration: 0.8 }}
-                />
-              </div>
-            </div>
-          </div>
+          <section>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-2">
+              Descriptif
+            </h3>
+            <p className="text-sm text-white/80 leading-relaxed">{restaurant.description}</p>
+          </section>
 
           <section>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-2">
-              Offre du jour
+              Statut
             </h3>
-            <div className="flex items-start gap-3 rounded-xl bg-amber-500/10 p-4 ring-1 ring-amber-400/20">
-              <Sparkles className="size-5 shrink-0 text-amber-400 mt-0.5" />
-              <p className="text-sm text-white/90 leading-relaxed">{restaurant.offreDuJour}</p>
-            </div>
+            <span
+              className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium ${
+                isOpen
+                  ? "bg-emerald-500/15 text-emerald-400 ring-1 ring-emerald-400/30"
+                  : "bg-white/5 text-white/50 ring-1 ring-white/10"
+              }`}
+            >
+              {isOpen ? "Ouvert" : "Fermé"}
+            </span>
           </section>
+
+          {isOpen && (
+            <section>
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-2">
+                Affluence
+              </h3>
+              <div className="rounded-xl bg-white/5 p-4 ring-1 ring-white/10">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg" aria-hidden>
+                    {affluence.emoji}
+                  </span>
+                  <span className="text-sm font-semibold text-white/90">{affluence.label}</span>
+                </div>
+                <div className="h-2 rounded-full bg-white/10 overflow-hidden">
+                  <motion.div
+                    className={`h-full rounded-full ${affluence.color}`}
+                    initial={{ width: 0 }}
+                    animate={{ width: `${affluence.value}%` }}
+                    transition={{ duration: 0.8 }}
+                  />
+                </div>
+              </div>
+            </section>
+          )}
 
           <section>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-2">
@@ -130,45 +111,33 @@ export function RestaurantDetail({ restaurant, isOpen }: RestaurantDetailProps) 
             </h3>
             <div className="space-y-1.5">
               {restaurant.horaires.map((h, i) => (
-                <div key={i} className="flex justify-between text-sm">
+                <div key={i} className="flex justify-between gap-4 text-sm">
                   <span className="text-white/50">{h.jour}</span>
-                  <span className="text-white/90 tabular-nums">
-                    {h.ouverture} – {h.fermeture}
-                  </span>
+                  {h.ouverture && h.fermeture ? (
+                    <span className="text-white/90 tabular-nums shrink-0">
+                      {h.ouverture} – {h.fermeture}
+                    </span>
+                  ) : null}
                 </div>
               ))}
-              <p className={`text-xs mt-2 ${isOpen ? "text-emerald-400" : "text-white/40"}`}>
-                {isOpen ? "● Ouvert maintenant" : "○ Actuellement fermé"}
-              </p>
             </div>
           </section>
 
-          <section>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-2">
-              Services
-            </h3>
-            <ul className="space-y-1">
-              {restaurant.services.map((s) => (
-                <li key={s} className="text-sm text-white/70 flex items-center gap-2">
-                  <span className="size-1 rounded-full bg-amber-400/60" />
-                  {s}
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section className="flex items-center justify-between text-sm">
-            <div className="flex items-center gap-2 text-white/50">
-              <Users className="size-4" />
-              Capacité
-            </div>
-            <span className="text-white/90 font-medium">{restaurant.capacite} places</span>
-          </section>
-
-          <section className="flex items-start gap-2 text-sm">
-            <MapPin className="size-4 shrink-0 text-white/40 mt-0.5" />
-            <span className="text-white/70">{restaurant.localisation}</span>
-          </section>
+          {isOpen && restaurant.services.length > 0 && (
+            <section>
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-2">
+                Services
+              </h3>
+              <ul className="space-y-1">
+                {restaurant.services.map((s) => (
+                  <li key={s} className="text-sm text-white/70 flex items-center gap-2">
+                    <span className="size-1 rounded-full bg-amber-400/60" />
+                    {s}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
         </div>
 
         {restaurant.floorPlan && (

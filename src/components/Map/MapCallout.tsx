@@ -1,11 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Clock } from "lucide-react";
-import type { Restaurant } from "@/lib/thales/types";
 import type { MapCalloutLayout } from "@/lib/thales/map-layout";
 import { THEME_STYLES } from "@/lib/thales/map-layout";
-import { getWaitColor, getWaitLabel, WAIT_COLORS } from "@/lib/thales/utils";
+import type { Restaurant } from "@/lib/thales/types";
+import { AFFLUENCE_CONFIG } from "@/lib/thales/utils";
 
 interface MapCalloutProps {
   restaurant: Restaurant;
@@ -25,28 +23,18 @@ export function MapCallout({
   onClick,
 }: MapCalloutProps) {
   const theme = THEME_STYLES[layout.theme];
-  const waitColor = getWaitColor(restaurant.attenteTempsReel);
-  const waitStyle = WAIT_COLORS[waitColor];
+  const affluence = AFFLUENCE_CONFIG[restaurant.affluence];
   const isWhite = layout.theme === "white";
 
   return (
-    <motion.button
+    <button
       type="button"
       onClick={onClick}
-      initial={{ opacity: 0, y: 8 }}
-      animate={{
-        opacity: visible ? 1 : 0.25,
-        y: 0,
-        scale: selected ? 1.04 : 1,
-      }}
-      whileHover={{ scale: selected ? 1.04 : 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      transition={{ type: "spring", damping: 22, stiffness: 280 }}
       className={`
-        absolute z-10 text-left touch-manipulation
-        ${selected ? "z-20 ring-2 ring-amber-400/60 shadow-2xl shadow-black/30" : "shadow-lg shadow-black/20"}
+        absolute z-10 text-left touch-manipulation transition-all duration-200
+        ${selected ? "z-20 ring-2 ring-amber-400/60 shadow-2xl shadow-black/30 scale-[1.04]" : "shadow-lg shadow-black/20 hover:scale-[1.02]"}
         rounded-sm overflow-hidden border ${theme.border}
-        ${!visible ? "pointer-events-none" : ""}
+        ${!visible ? "pointer-events-none opacity-25" : "opacity-100"}
       `}
       style={{
         left: `${layout.cardX}%`,
@@ -55,7 +43,7 @@ export function MapCallout({
         minWidth: "140px",
         maxWidth: "220px",
       }}
-      aria-label={`${restaurant.nom} — ${getWaitLabel(restaurant.attenteTempsReel)} d'attente`}
+      aria-label={`${restaurant.nom} — ${isOpen ? affluence.label : "Fermé"}`}
     >
       <div
         className={`px-2.5 py-1.5 ${theme.header} ${isWhite ? "text-[#1a7a6e]" : "text-white"}`}
@@ -80,21 +68,19 @@ export function MapCallout({
         </div>
 
         <div className="mt-2 flex items-center justify-between gap-2 border-t border-gray-100 pt-2">
-          <div
-            className={`flex items-center gap-1 rounded-full px-2 py-0.5 ${waitStyle.bg}`}
-          >
-            <Clock className={`size-2.5 ${waitStyle.text}`} />
-            <span className={`text-[9px] font-bold tabular-nums ${waitStyle.text}`}>
-              {getWaitLabel(restaurant.attenteTempsReel)}
-            </span>
-          </div>
           {isOpen ? (
-            <span className="size-1.5 rounded-full bg-emerald-500" title="Ouvert" />
+            <span className="flex items-center gap-1 text-[9px] font-semibold text-[#333]">
+              <span aria-hidden>{affluence.emoji}</span>
+              {affluence.label}
+            </span>
           ) : (
-            <span className="text-[8px] font-medium text-gray-400">Fermé</span>
+            <span className="text-[9px] font-semibold text-gray-400">Fermé</span>
           )}
+          {isOpen ? (
+            <span className="text-[8px] font-medium text-emerald-600">Ouvert</span>
+          ) : null}
         </div>
       </div>
-    </motion.button>
+    </button>
   );
 }

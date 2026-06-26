@@ -1,4 +1,4 @@
-export type Affluence = "faible" | "moderee" | "forte";
+export type Affluence = "fluide" | "modere" | "sature";
 
 export interface Horaire {
   jour: string;
@@ -28,16 +28,12 @@ export interface Restaurant {
   positionY: number;
   type: string;
   batiment: string;
-  concept: string;
   description: string;
   photo: string;
   horaires: Horaire[];
-  capacite: number;
-  attenteTempsReel: number;
   affluence: Affluence;
   tags: string[];
   offres: string[];
-  offreDuJour: string;
   services: string[];
   localisation: string;
   floorPlan?: FloorPlan;
@@ -49,20 +45,8 @@ export interface OffreType {
   icon: string;
 }
 
-export type FilterId =
-  | "healthy"
-  | "rapide"
-  | "sans-attente"
-  | "vegetarien"
-  | "coffee"
-  | "dessert"
-  | "street-food"
-  | "food-court"
-  | "ouvert";
-
 export interface LiveRestaurantData {
   id: string;
-  attenteTempsReel: number;
   affluence: Affluence;
   ouvert: boolean;
 }

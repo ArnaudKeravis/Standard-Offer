@@ -58,7 +58,7 @@ export function RestaurantListSidebar({
 
         {restaurants.length === 0 && (
           <p className="py-10 text-center text-sm text-white/40">
-            Aucun espace ne correspond aux filtres
+            Aucun espace disponible
           </p>
         )}
       </div>
