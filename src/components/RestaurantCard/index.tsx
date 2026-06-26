@@ -2,21 +2,16 @@
 
 import { motion } from "framer-motion";
 import type { Restaurant } from "@/lib/thales/types";
-import { AFFLUENCE_CONFIG, OFFRE_LABELS } from "@/lib/thales/utils";
+import { AFFLUENCE_CONFIG, getRestaurantOpenState, OFFRE_LABELS } from "@/lib/thales/utils";
 
 interface RestaurantCardProps {
   restaurant: Restaurant;
-  isOpen: boolean;
   compact?: boolean;
   onClick: () => void;
 }
 
-export function RestaurantCard({
-  restaurant,
-  isOpen,
-  compact,
-  onClick,
-}: RestaurantCardProps) {
+export function RestaurantCard({ restaurant, compact, onClick }: RestaurantCardProps) {
+  const openState = getRestaurantOpenState(restaurant);
   const affluence = AFFLUENCE_CONFIG[restaurant.affluence];
 
   return (
@@ -35,26 +30,25 @@ export function RestaurantCard({
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <h3 className={`font-semibold text-white truncate ${compact ? "text-sm" : "text-base"}`}>
               {restaurant.nom}
             </h3>
-            {isOpen ? (
+            {openState.isOpen && (
               <span className="shrink-0 rounded-full bg-emerald-500/20 px-2 py-0.5 text-[10px] font-medium text-emerald-400">
                 Ouvert
               </span>
-            ) : (
-              <span className="shrink-0 rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-medium text-white/50">
-                Fermé
-              </span>
             )}
           </div>
+          {!openState.isOpen && (
+            <p className="mt-1 text-[10px] leading-snug text-white/60">{openState.statusLabel}</p>
+          )}
           <p className="mt-0.5 text-xs text-white/50 truncate">
             {OFFRE_LABELS[restaurant.type] ?? restaurant.type} · {restaurant.batiment}
           </p>
         </div>
 
-        {isOpen && (
+        {openState.showAffluence && (
           <div className="shrink-0 flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-1 ring-1 ring-white/15">
             <span className="text-xs" aria-hidden>
               {affluence.emoji}
@@ -64,7 +58,7 @@ export function RestaurantCard({
         )}
       </div>
 
-      {!compact && isOpen && (
+      {!compact && openState.showAffluence && (
         <div className="mt-3">
           <div className="flex items-center justify-between text-[10px] text-white/40 mb-1">
             <span>Affluence</span>

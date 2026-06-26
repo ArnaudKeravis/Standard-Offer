@@ -4,16 +4,16 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, MapPin, X } from "lucide-react";
 import { useThalesStore } from "@/lib/thales/store";
 import type { Restaurant } from "@/lib/thales/types";
-import { AFFLUENCE_CONFIG } from "@/lib/thales/utils";
+import { AFFLUENCE_CONFIG, getRestaurantOpenState } from "@/lib/thales/utils";
 
 interface RestaurantDetailProps {
   restaurant: Restaurant;
-  isOpen: boolean;
 }
 
-export function RestaurantDetail({ restaurant, isOpen }: RestaurantDetailProps) {
+export function RestaurantDetail({ restaurant }: RestaurantDetailProps) {
   const selectRestaurant = useThalesStore((s) => s.selectRestaurant);
   const setShowFloorPlan = useThalesStore((s) => s.setShowFloorPlan);
+  const openState = getRestaurantOpenState(restaurant);
   const affluence = AFFLUENCE_CONFIG[restaurant.affluence];
 
   return (
@@ -56,16 +56,16 @@ export function RestaurantDetail({ restaurant, isOpen }: RestaurantDetailProps) 
             </h3>
             <span
               className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium ${
-                isOpen
+                openState.isOpen
                   ? "bg-emerald-500/15 text-emerald-400 ring-1 ring-emerald-400/30"
-                  : "bg-white/5 text-white/50 ring-1 ring-white/10"
+                  : "bg-white/5 text-white/60 ring-1 ring-white/10"
               }`}
             >
-              {isOpen ? "Ouvert" : "Fermé"}
+              {openState.statusLabel}
             </span>
           </section>
 
-          {isOpen && (
+          {openState.showAffluence && (
             <section>
               <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-2">
                 Affluence
@@ -105,25 +105,27 @@ export function RestaurantDetail({ restaurant, isOpen }: RestaurantDetailProps) 
             </div>
           </section>
 
-          <section>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-2">
-              Horaires
-            </h3>
-            <div className="space-y-1.5">
-              {restaurant.horaires.map((h, i) => (
-                <div key={i} className="flex justify-between gap-4 text-sm">
-                  <span className="text-white/50">{h.jour}</span>
-                  {h.ouverture && h.fermeture ? (
-                    <span className="text-white/90 tabular-nums shrink-0">
-                      {h.ouverture} – {h.fermeture}
-                    </span>
-                  ) : null}
-                </div>
-              ))}
-            </div>
-          </section>
+          {openState.showHoraires && (
+            <section>
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-2">
+                Horaires
+              </h3>
+              <div className="space-y-1.5">
+                {restaurant.horaires.map((h, i) => (
+                  <div key={i} className="flex justify-between gap-4 text-sm">
+                    <span className="text-white/50">{h.jour}</span>
+                    {h.ouverture && h.fermeture ? (
+                      <span className="text-white/90 tabular-nums shrink-0">
+                        {h.ouverture} – {h.fermeture}
+                      </span>
+                    ) : null}
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
 
-          {isOpen && restaurant.services.length > 0 && (
+          {openState.showServices && restaurant.services.length > 0 && (
             <section>
               <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-2">
                 Services

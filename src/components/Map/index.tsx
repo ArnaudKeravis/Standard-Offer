@@ -8,7 +8,7 @@ import { useThalesStore } from "@/lib/thales/store";
 import type { Restaurant } from "@/lib/thales/types";
 import { CAMPUS_MAP_IMAGE } from "@/lib/thales/campus-image";
 import { MAP_CALLOUTS, THEME_STYLES } from "@/lib/thales/map-layout";
-import { getAffluenceColor, isRestaurantOpen } from "@/lib/thales/utils";
+import { getAffluenceColor, getRestaurantOpenState } from "@/lib/thales/utils";
 
 interface CampusMapProps {
   restaurants: Restaurant[];
@@ -69,8 +69,8 @@ export function CampusMap({ restaurants, hoveredId = null }: CampusMapProps) {
               const selected = selectedId === layout.id;
               const hovered = hoveredId === layout.id;
               const theme = THEME_STYLES[layout.theme];
-              const open = isRestaurantOpen(restaurant.horaires);
-              const dotColor = open
+              const openState = getRestaurantOpenState(restaurant);
+              const dotColor = openState.showAffluence
                 ? getAffluenceColor(restaurant.affluence)
                 : "#9ca3af";
 
@@ -137,7 +137,6 @@ export function CampusMap({ restaurants, hoveredId = null }: CampusMapProps) {
                 layout={layout}
                 selected={highlighted}
                 visible
-                isOpen={isRestaurantOpen(r.horaires)}
                 onClick={() => selectRestaurant(selectedId === r.id ? null : r.id)}
               />
             );

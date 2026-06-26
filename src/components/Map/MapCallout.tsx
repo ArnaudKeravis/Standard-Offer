@@ -3,14 +3,13 @@
 import type { MapCalloutLayout } from "@/lib/thales/map-layout";
 import { THEME_STYLES } from "@/lib/thales/map-layout";
 import type { Restaurant } from "@/lib/thales/types";
-import { AFFLUENCE_CONFIG } from "@/lib/thales/utils";
+import { AFFLUENCE_CONFIG, getRestaurantOpenState } from "@/lib/thales/utils";
 
 interface MapCalloutProps {
   restaurant: Restaurant;
   layout: MapCalloutLayout;
   selected: boolean;
   visible: boolean;
-  isOpen: boolean;
   onClick: () => void;
 }
 
@@ -19,12 +18,14 @@ export function MapCallout({
   layout,
   selected,
   visible,
-  isOpen,
   onClick,
 }: MapCalloutProps) {
   const theme = THEME_STYLES[layout.theme];
+  const openState = getRestaurantOpenState(restaurant);
   const affluence = AFFLUENCE_CONFIG[restaurant.affluence];
   const isWhite = layout.theme === "white";
+
+  const ariaStatus = openState.showAffluence ? affluence.label : openState.statusLabel;
 
   return (
     <button
@@ -43,7 +44,7 @@ export function MapCallout({
         minWidth: "140px",
         maxWidth: "220px",
       }}
-      aria-label={`${restaurant.nom} — ${isOpen ? affluence.label : "Fermé"}`}
+      aria-label={`${restaurant.nom} — ${ariaStatus}`}
     >
       <div
         className={`px-2.5 py-1.5 ${theme.header} ${isWhite ? "text-[#1a7a6e]" : "text-white"}`}
@@ -67,18 +68,20 @@ export function MapCallout({
           ))}
         </div>
 
-        <div className="mt-2 flex items-center justify-between gap-2 border-t border-gray-100 pt-2">
-          {isOpen ? (
-            <span className="flex items-center gap-1 text-[9px] font-semibold text-[#333]">
-              <span aria-hidden>{affluence.emoji}</span>
-              {affluence.label}
-            </span>
+        <div className="mt-2 flex items-start justify-between gap-2 border-t border-gray-100 pt-2">
+          {openState.showAffluence ? (
+            <>
+              <span className="flex items-center gap-1 text-[9px] font-semibold text-[#333]">
+                <span aria-hidden>{affluence.emoji}</span>
+                {affluence.label}
+              </span>
+              <span className="text-[8px] font-medium text-emerald-600 shrink-0">Ouvert</span>
+            </>
           ) : (
-            <span className="text-[9px] font-semibold text-gray-400">Fermé</span>
+            <span className="text-[8px] font-medium leading-snug text-gray-500">
+              {openState.statusLabel}
+            </span>
           )}
-          {isOpen ? (
-            <span className="text-[8px] font-medium text-emerald-600">Ouvert</span>
-          ) : null}
         </div>
       </div>
     </button>

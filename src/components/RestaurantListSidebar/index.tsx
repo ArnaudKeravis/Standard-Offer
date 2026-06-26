@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import type { Restaurant } from "@/lib/thales/types";
 import { RestaurantCard } from "@/components/RestaurantCard";
-import { isRestaurantOpen } from "@/lib/thales/utils";
 
 interface RestaurantListSidebarProps {
   restaurants: Restaurant[];
@@ -48,7 +47,6 @@ export function RestaurantListSidebar({
             >
               <RestaurantCard
                 restaurant={r}
-                isOpen={isRestaurantOpen(r.horaires)}
                 compact
                 onClick={() => onSelect(r.id)}
               />

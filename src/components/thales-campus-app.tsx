@@ -11,7 +11,6 @@ import { RestaurantListSidebar } from "@/components/RestaurantListSidebar";
 import { FloorPlanViewer } from "@/components/FloorPlanViewer";
 import { useLiveData } from "@/hooks/use-live-data";
 import { useThalesStore } from "@/lib/thales/store";
-import { isRestaurantOpen } from "@/lib/thales/utils";
 
 export function ThalesCampusApp({ backHref }: { backHref?: string }) {
   useLiveData();
@@ -104,10 +103,7 @@ export function ThalesCampusApp({ backHref }: { backHref?: string }) {
 
       <AnimatePresence>
         {selected && !showFloorPlan && (
-          <RestaurantDetail
-            restaurant={selected}
-            isOpen={isRestaurantOpen(selected.horaires)}
-          />
+          <RestaurantDetail restaurant={selected} />
         )}
       </AnimatePresence>
 

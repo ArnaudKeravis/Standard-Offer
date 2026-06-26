@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Monitor, X } from "lucide-react";
 import { useThalesStore } from "@/lib/thales/store";
 import type { Restaurant } from "@/lib/thales/types";
-import { AFFLUENCE_CONFIG, isRestaurantOpen, OFFRE_LABELS } from "@/lib/thales/utils";
+import { AFFLUENCE_CONFIG, getRestaurantOpenState, OFFRE_LABELS } from "@/lib/thales/utils";
 
 const KIOSK_INTERVAL = 60_000;
 
@@ -78,7 +78,7 @@ function KioskHighlight({
   restaurant: Restaurant;
   onClose: () => void;
 }) {
-  const isOpen = isRestaurantOpen(restaurant.horaires);
+  const openState = getRestaurantOpenState(restaurant);
   const affluence = AFFLUENCE_CONFIG[restaurant.affluence];
 
   return (
@@ -102,14 +102,14 @@ function KioskHighlight({
       <div className="mt-4 flex items-center gap-4">
         <span
           className={`rounded-full px-3 py-1.5 text-xs font-medium ${
-            isOpen
+            openState.isOpen
               ? "bg-emerald-500/20 text-emerald-300 ring-1 ring-emerald-400/30"
               : "bg-white/10 text-white/50 ring-1 ring-white/15"
           }`}
         >
-          {isOpen ? "Ouvert" : "Fermé"}
+          {openState.statusLabel}
         </span>
-        {isOpen && (
+        {openState.showAffluence && (
           <span className="flex items-center gap-1.5 text-sm font-semibold text-white/90">
             <span aria-hidden>{affluence.emoji}</span>
             {affluence.label}
