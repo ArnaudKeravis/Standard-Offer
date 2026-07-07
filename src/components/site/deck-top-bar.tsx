@@ -15,6 +15,7 @@ const NAV_ITEMS = [
   { href: "/demos/spark-os-wireframe", labelKey: "sparkOsWireframe" as const, match: (path: string) => path.includes("/demos/spark-os-wireframe"), icon: "wireframe" as const },
   { href: "/demos/spark-xp-wireframe", labelKey: "sparkXpWireframe" as const, match: (path: string) => path.includes("/demos/spark-xp-wireframe"), icon: "wireframe" as const },
   { href: "/demos/thales", labelKey: "thalesMap" as const, match: (path: string) => path.includes("/demos/thales"), icon: "map" as const },
+  { href: "/demos/lenotre", labelKey: "lenotreMap" as const, match: (path: string) => path.includes("/demos/lenotre"), icon: "map" as const },
 ];
 
 export function DeckTopBar() {
