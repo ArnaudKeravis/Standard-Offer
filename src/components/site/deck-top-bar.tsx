@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
-import { MapPin, LayoutTemplate } from "lucide-react";
+import { MapPin, LayoutTemplate, Sparkles } from "lucide-react";
 import { LocaleSwitcher } from "@/components/site/locale-switcher";
 import { cn } from "@/lib/utils";
 
@@ -12,6 +12,7 @@ const NAV_ITEMS = [
     const home = `/${locale}`;
     return path === home || path === `${home}/`;
   }},
+  { href: "/codesign", labelKey: "codesign" as const, match: (path: string) => path.includes("/codesign"), icon: "codesign" as const },
   { href: "/demos/spark-os-wireframe", labelKey: "sparkOsWireframe" as const, match: (path: string) => path.includes("/demos/spark-os-wireframe"), icon: "wireframe" as const },
   { href: "/demos/spark-xp-wireframe", labelKey: "sparkXpWireframe" as const, match: (path: string) => path.includes("/demos/spark-xp-wireframe"), icon: "wireframe" as const },
   { href: "/demos/thales", labelKey: "thalesMap" as const, match: (path: string) => path.includes("/demos/thales"), icon: "map" as const },
@@ -62,6 +63,7 @@ export function DeckTopBar() {
               >
                 {isDemo && item.icon === "map" && <MapPin className="size-3.5" aria-hidden />}
                 {isDemo && item.icon === "wireframe" && <LayoutTemplate className="size-3.5" aria-hidden />}
+                {item.icon === "codesign" && <Sparkles className="size-3.5" aria-hidden />}
                 {t(item.labelKey)}
               </Link>
             );
