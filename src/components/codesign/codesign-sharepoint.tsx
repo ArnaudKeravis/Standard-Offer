@@ -206,8 +206,8 @@ const TEAM = [
     email: null,
   },
   {
-    name: "Alexandre Leboeuf",
-    role: "Global Innovation — Partnerships & Open Innovation",
+    name: "Gabriel De Roquefeuil",
+    role: "Sodexo Labs Service Designer",
     email: null,
   },
 ];
