@@ -1,33 +1,31 @@
-import { Quote } from "lucide-react";
+import { MapPin, Quote, Tag } from "lucide-react";
 import type { Persona } from "@/lib/persona-studio/ai/schemas/persona";
-import type { QuoteType } from "@/lib/persona-studio/ai/schemas/common";
 import type { SourceDocument } from "@/lib/persona-studio/ai/schemas/evidence";
-import {
-  familyLabel,
-  orderedSections,
-} from "@/lib/persona-studio/utils/persona-view";
+import { orderedSections } from "@/lib/persona-studio/utils/persona-view";
 import {
   collectStatements,
   evidenceBreakdown,
 } from "@/lib/persona-studio/utils/confidence";
+import {
+  tBreakdown,
+  tFamily,
+  tQuoteType,
+  tUI,
+  type StudioLang,
+} from "@/lib/persona-studio/utils/i18n";
 import { ConfidenceBadge } from "@/components/persona-studio/shared/confidence-badge";
 import { CoverageMeter } from "@/components/persona-studio/shared/coverage-meter";
 import { PersonaPortrait } from "@/components/persona-studio/shared/persona-portrait";
 import { SectionCard } from "@/components/persona-studio/shared/section-card";
 
-const QUOTE_TYPE_LABEL: Record<QuoteType, string> = {
-  VERBATIM: "Verbatim quote",
-  COMPOSITE: "Composite quote",
-  DRAFTED_HYPOTHESIS: "Drafted hypothesis — to validate",
-  NONE: "No quote available",
-};
-
 export function PersonaDetail({
   persona,
   sources,
+  lang = "en",
 }: {
   persona: Persona;
   sources: SourceDocument[];
+  lang?: StudioLang;
 }) {
   const sourcesById = new Map(sources.map((s) => [s.id, s]));
   const sections = orderedSections(persona);
@@ -50,16 +48,19 @@ export function PersonaDetail({
             {persona.oneLineEssence}
           </p>
 
-          <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-[var(--studio-muted)]">
+          <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-[var(--studio-muted)]">
             <span className="rounded-full studio-accent-soft px-2.5 py-1 font-medium">
-              {familyLabel(persona.family)}
+              {tFamily(lang, persona.family)}
             </span>
             {persona.category && <span>{persona.category}</span>}
             {persona.demographicContext.ageRange && (
-              <span>· Age {persona.demographicContext.ageRange}</span>
+              <span>{tUI(lang, "age")} {persona.demographicContext.ageRange}</span>
             )}
             {persona.demographicContext.location && (
-              <span>· {persona.demographicContext.location}</span>
+              <span className="inline-flex items-center gap-1">
+                <MapPin aria-hidden className="size-3.5 text-[var(--studio-accent)]" />
+                {persona.demographicContext.location}
+              </span>
             )}
           </div>
 
@@ -68,8 +69,9 @@ export function PersonaDetail({
               {persona.behaviouralTags.map((tag) => (
                 <li
                   key={tag}
-                  className="rounded-md border border-[var(--studio-line)] px-2 py-0.5 text-xs text-[var(--studio-muted)]"
+                  className="inline-flex items-center gap-1 rounded-md border border-[var(--studio-line)] px-2 py-0.5 text-xs text-[var(--studio-muted)]"
                 >
+                  <Tag aria-hidden className="size-3 text-[var(--studio-accent)]" />
                   {tag}
                 </li>
               ))}
@@ -80,8 +82,10 @@ export function PersonaDetail({
         <div className="order-1 md:order-2">
           <PersonaPortrait
             name={persona.name}
+            src={persona.portraitUrl}
             className="aspect-[4/5] w-full"
             rounded="rounded-3xl"
+            sizes="(max-width: 768px) 100vw, 288px"
           />
         </div>
       </div>
@@ -94,7 +98,7 @@ export function PersonaDetail({
             {persona.quote}
           </p>
           <footer className="mt-2 text-xs font-medium uppercase tracking-wide text-[var(--studio-muted)]">
-            {QUOTE_TYPE_LABEL[persona.quoteType]}
+            {tQuoteType(lang, persona.quoteType)}
           </footer>
         </blockquote>
       )}
@@ -102,16 +106,15 @@ export function PersonaDetail({
       {/* Confidence + coverage strip */}
       <div className="mt-8 grid gap-4 rounded-3xl border border-[var(--studio-line)] bg-[var(--studio-paper)] p-6 sm:grid-cols-[auto_1fr] sm:items-center">
         <div className="flex flex-col gap-2">
-          <ConfidenceBadge level={persona.confidenceLevel} />
-          <CoverageMeter coverage={persona.evidenceCoverage} className="w-48" />
+          <ConfidenceBadge level={persona.confidenceLevel} lang={lang} />
+          <CoverageMeter coverage={persona.evidenceCoverage} lang={lang} className="w-48" />
         </div>
         <div className="sm:border-l sm:border-[var(--studio-line)] sm:pl-6">
           <p className="text-sm leading-relaxed text-[var(--studio-ink)]/85">
             {persona.confidenceExplanation}
           </p>
           <p className="mt-2 text-xs text-[var(--studio-muted)]">
-            {breakdown.evidence} evidence · {breakdown.assumption} assumptions ·{" "}
-            {breakdown.toValidate} to validate ({breakdown.total} statements)
+            {tBreakdown(lang, breakdown)}
           </p>
         </div>
       </div>
@@ -123,6 +126,7 @@ export function PersonaDetail({
             key={section.id}
             section={section}
             sourcesById={sourcesById}
+            lang={lang}
             className={section.type === "text" ? "md:col-span-2" : undefined}
           />
         ))}
@@ -130,9 +134,7 @@ export function PersonaDetail({
 
       {/* Simulation note (chat lands in Phase 3) */}
       <p className="mt-8 rounded-2xl border border-dashed border-[var(--studio-line)] p-4 text-xs text-[var(--studio-muted)]">
-        “Talk to this persona” is a research-grounded simulation built from the
-        evidence above — not a real customer or employee. It arrives in a later
-        phase.
+        {tUI(lang, "simulationNote")}
       </p>
     </article>
   );

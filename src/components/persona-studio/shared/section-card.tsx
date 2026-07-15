@@ -1,6 +1,8 @@
 import { cn } from "@/lib/utils";
 import type { PersonaSection } from "@/lib/persona-studio/ai/schemas/section";
 import type { SourceDocument } from "@/lib/persona-studio/ai/schemas/evidence";
+import type { StudioLang } from "@/lib/persona-studio/utils/i18n";
+import { sectionIcon } from "@/lib/persona-studio/utils/section-icon";
 import { StatementList } from "./statement-list";
 
 /**
@@ -11,13 +13,16 @@ import { StatementList } from "./statement-list";
 export function SectionCard({
   section,
   sourcesById,
+  lang = "en",
   className,
 }: {
   section: PersonaSection;
   sourcesById?: Map<string, SourceDocument>;
+  lang?: StudioLang;
   className?: string;
 }) {
   const isText = section.type === "text" || section.type === "quote";
+  const Icon = sectionIcon(section.key);
 
   return (
     <section
@@ -27,8 +32,13 @@ export function SectionCard({
       )}
       aria-labelledby={`sec-${section.id}`}
     >
-      <div className="mb-3 flex items-center gap-2">
-        <span aria-hidden className="h-4 w-1 rounded-full studio-accent-bar" />
+      <div className="mb-3 flex items-center gap-2.5">
+        <span
+          aria-hidden
+          className="flex size-8 shrink-0 items-center justify-center rounded-lg studio-accent-soft text-[var(--studio-accent)]"
+        >
+          <Icon className="size-4" />
+        </span>
         <h3
           id={`sec-${section.id}`}
           className="studio-display text-sm font-semibold uppercase tracking-wider text-[var(--studio-ink)]"
@@ -64,6 +74,7 @@ export function SectionCard({
           statements={section.statements}
           sourcesById={sourcesById}
           variant={section.type === "moments" ? "moments" : "bullets"}
+          lang={lang}
         />
       )}
     </section>

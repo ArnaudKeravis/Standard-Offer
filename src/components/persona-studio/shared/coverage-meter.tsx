@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { coveragePct } from "@/lib/persona-studio/utils/persona-view";
+import { tUI, type StudioLang } from "@/lib/persona-studio/utils/i18n";
 
 /**
  * Evidence-coverage meter. The numeric value is always shown as text, so the
@@ -7,19 +8,22 @@ import { coveragePct } from "@/lib/persona-studio/utils/persona-view";
  */
 export function CoverageMeter({
   coverage,
+  lang = "en",
   className,
   showLabel = true,
 }: {
   coverage: number;
+  lang?: StudioLang;
   className?: string;
   showLabel?: boolean;
 }) {
   const pct = Math.round(coverage * 100);
+  const label = tUI(lang, "evidenceCoverage");
   return (
     <div className={cn("w-full", className)}>
       {showLabel && (
         <div className="mb-1 flex items-center justify-between text-xs text-[var(--studio-muted)]">
-          <span>Evidence coverage</span>
+          <span>{label}</span>
           <span className="font-semibold tabular-nums text-[var(--studio-ink)]">
             {coveragePct(coverage)}
           </span>
@@ -30,7 +34,7 @@ export function CoverageMeter({
         aria-valuenow={pct}
         aria-valuemin={0}
         aria-valuemax={100}
-        aria-label={`Evidence coverage ${pct} percent`}
+        aria-label={`${label} ${pct}%`}
         className="h-1.5 w-full overflow-hidden rounded-full bg-[var(--studio-line)]"
       >
         <div

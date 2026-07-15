@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Quote } from "lucide-react";
+import { Frown, Quote, Target } from "lucide-react";
 import type { Persona } from "@/lib/persona-studio/ai/schemas/persona";
 import {
   FRUSTRATION_KEYS,
@@ -7,6 +7,7 @@ import {
   familyTheme,
   topStatements,
 } from "@/lib/persona-studio/utils/persona-view";
+import { tUI, type StudioLang } from "@/lib/persona-studio/utils/i18n";
 import { ConfidenceBadge } from "@/components/persona-studio/shared/confidence-badge";
 import { CoverageMeter } from "@/components/persona-studio/shared/coverage-meter";
 import { PersonaPortrait } from "@/components/persona-studio/shared/persona-portrait";
@@ -14,9 +15,11 @@ import { PersonaPortrait } from "@/components/persona-studio/shared/persona-port
 export function PersonaGalleryCard({
   persona,
   projectId,
+  lang = "en",
 }: {
   persona: Persona;
   projectId: string;
+  lang?: StudioLang;
 }) {
   const needs = topStatements(persona, NEEDS_KEYS, 3);
   const frustrations = topStatements(persona, FRUSTRATION_KEYS, 3);
@@ -31,8 +34,10 @@ export function PersonaGalleryCard({
       <div className="flex gap-4 p-5">
         <PersonaPortrait
           name={persona.name}
+          src={persona.portraitUrl}
           className="size-20 shrink-0"
           rounded="rounded-2xl"
+          sizes="80px"
         />
         <div className="min-w-0 flex-1">
           <p className="text-xs font-semibold uppercase tracking-wider text-[var(--studio-accent)]">
@@ -56,8 +61,9 @@ export function PersonaGalleryCard({
 
       <div className="grid grid-cols-2 gap-4 p-5 pt-4">
         <div>
-          <h3 className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--studio-muted)]">
-            Top needs
+          <h3 className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--studio-muted)]">
+            <Target aria-hidden className="size-3.5 text-[var(--studio-accent)]" />
+            {tUI(lang, "topNeeds")}
           </h3>
           <ul className="space-y-1 text-sm text-[var(--studio-ink)]">
             {needs.map((s) => (
@@ -71,8 +77,9 @@ export function PersonaGalleryCard({
           </ul>
         </div>
         <div>
-          <h3 className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--studio-muted)]">
-            Top frustrations
+          <h3 className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--studio-muted)]">
+            <Frown aria-hidden className="size-3.5 text-[var(--studio-accent)]" />
+            {tUI(lang, "topFrustrations")}
           </h3>
           <ul className="space-y-1 text-sm text-[var(--studio-ink)]">
             {frustrations.map((s) => (
@@ -88,9 +95,10 @@ export function PersonaGalleryCard({
       </div>
 
       <div className="mt-auto flex items-center justify-between gap-3 border-t border-[var(--studio-line)] p-5 pt-4">
-        <ConfidenceBadge level={persona.confidenceLevel} />
+        <ConfidenceBadge level={persona.confidenceLevel} lang={lang} />
         <CoverageMeter
           coverage={persona.evidenceCoverage}
+          lang={lang}
           showLabel={false}
           className="max-w-28"
         />

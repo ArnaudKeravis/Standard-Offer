@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { LayoutTemplate, Plus } from "lucide-react";
 import { getRepository } from "@/lib/persona-studio/repository";
 import { StudioNav } from "@/components/persona-studio/shared/studio-nav";
 import { ProjectLibrary } from "@/components/persona-studio/projects/project-library";
@@ -8,7 +10,26 @@ export default async function StudioLibraryPage() {
 
   return (
     <>
-      <StudioNav />
+      <StudioNav
+        actions={
+          <>
+            <Link
+              href="/studio/templates"
+              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium text-[var(--studio-muted)] transition-colors hover:text-[var(--studio-ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
+            >
+              <LayoutTemplate aria-hidden className="size-4" />
+              Templates
+            </Link>
+            <Link
+              href="/studio/projects/new"
+              className="inline-flex items-center gap-1.5 rounded-full bg-[var(--studio-ink)] px-3.5 py-1.5 text-sm font-medium text-[var(--studio-paper)] transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
+            >
+              <Plus aria-hidden className="size-4" />
+              New project
+            </Link>
+          </>
+        }
+      />
       <main className="mx-auto max-w-7xl px-4 pb-24 pt-10 sm:px-6">
         <p className="text-sm font-semibold uppercase tracking-widest text-[var(--studio-accent)]">
           Persona Studio

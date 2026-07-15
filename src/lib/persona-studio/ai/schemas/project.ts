@@ -8,6 +8,13 @@ import {
 } from "./common";
 
 /**
+ * Sharing posture for a published project. Optional so that seed data (created
+ * before the publish step existed) stays valid; the publish wizard sets it.
+ */
+export const ProjectVisibility = z.enum(["PRIVATE", "TEAM", "CLIENT_SHARED"]);
+export type ProjectVisibility = z.infer<typeof ProjectVisibility>;
+
+/**
  * A project is the container for a body of research and the personas built from
  * it. It also carries the workshop-facing metadata (client, segment, region)
  * used by the library filters.
@@ -30,6 +37,9 @@ export const Project = z.object({
   templateId: Id.optional(),
   ownerId: Id,
   status: LifecycleStatus.default("DRAFT"),
+  /** Sharing settings, set at publish time (optional for legacy/seed data). */
+  visibility: ProjectVisibility.optional(),
+  shareNote: z.string().optional(),
   /** Denormalised counters for fast library rendering. */
   personaCount: z.number().int().nonnegative().default(0),
   sourceCount: z.number().int().nonnegative().default(0),

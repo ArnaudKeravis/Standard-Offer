@@ -81,7 +81,7 @@ describe("Seed data integrity", () => {
       (s) => s.key === "frustrations",
     );
     const hasWaiting = frustrations?.statements.some((s) =>
-      /wait/i.test(s.content),
+      /attente|attend/i.test(s.content),
     );
     expect(hasWaiting).toBe(true);
   });

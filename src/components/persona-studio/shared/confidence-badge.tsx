@@ -1,23 +1,21 @@
 import { CircleCheck, CircleDot, CircleHelp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { ConfidenceLevel } from "@/lib/persona-studio/ai/schemas/common";
+import { tConfidence, type StudioLang } from "@/lib/persona-studio/utils/i18n";
 
 const META: Record<
   ConfidenceLevel,
-  { label: string; Icon: typeof CircleCheck; className: string }
+  { Icon: typeof CircleCheck; className: string }
 > = {
   HIGH: {
-    label: "High confidence",
     Icon: CircleCheck,
     className: "text-emerald-700 bg-emerald-50 border-emerald-200",
   },
   MEDIUM: {
-    label: "Medium confidence",
     Icon: CircleDot,
     className: "text-amber-700 bg-amber-50 border-amber-200",
   },
   LOW: {
-    label: "Low confidence",
     Icon: CircleHelp,
     className: "text-rose-700 bg-rose-50 border-rose-200",
   },
@@ -29,12 +27,15 @@ const META: Record<
  */
 export function ConfidenceBadge({
   level,
+  lang = "en",
   className,
 }: {
   level: ConfidenceLevel;
+  lang?: StudioLang;
   className?: string;
 }) {
-  const { label, Icon, className: tone } = META[level];
+  const { Icon, className: tone } = META[level];
+  const label = tConfidence(lang, level);
   return (
     <span
       className={cn(

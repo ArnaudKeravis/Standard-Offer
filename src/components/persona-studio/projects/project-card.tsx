@@ -1,17 +1,17 @@
 import Link from "next/link";
 import { ArrowRight, FileText, Users } from "lucide-react";
 import type { Project } from "@/lib/persona-studio/ai/schemas/project";
-import { familyLabel, familyTheme } from "@/lib/persona-studio/utils/persona-view";
+import { familyTheme } from "@/lib/persona-studio/utils/persona-view";
+import {
+  langFromProject,
+  tFamily,
+  tStatus,
+  tUI,
+} from "@/lib/persona-studio/utils/i18n";
 import { CORPORATE_TEMPLATE, TDF_TEMPLATE } from "@/lib/persona-studio/data/templates";
 
-const STATUS_LABEL: Record<Project["status"], string> = {
-  DRAFT: "Draft",
-  IN_REVIEW: "In review",
-  PUBLISHED: "Published",
-  ARCHIVED: "Archived",
-};
-
 export function ProjectCard({ project }: { project: Project }) {
+  const lang = langFromProject(project);
   const accent =
     project.family === "CORPORATE"
       ? CORPORATE_TEMPLATE.accentColor
@@ -26,10 +26,10 @@ export function ProjectCard({ project }: { project: Project }) {
     >
       <div className="flex items-center justify-between">
         <span className="inline-flex items-center gap-1.5 rounded-full studio-accent-soft px-2.5 py-1 text-xs font-medium">
-          {familyLabel(project.family)}
+          {tFamily(lang, project.family)}
         </span>
         <span className="text-xs font-medium text-[var(--studio-muted)]">
-          {STATUS_LABEL[project.status]}
+          {tStatus(lang, project.status)}
         </span>
       </div>
 
@@ -45,13 +45,13 @@ export function ProjectCard({ project }: { project: Project }) {
       <dl className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-xs text-[var(--studio-muted)]">
         <div className="flex items-center gap-1.5">
           <Users aria-hidden className="size-3.5" />
-          <dt className="sr-only">Personas</dt>
-          <dd>{project.personaCount} personas</dd>
+          <dt className="sr-only">{tUI(lang, "personas")}</dt>
+          <dd>{project.personaCount} {tUI(lang, "personas")}</dd>
         </div>
         <div className="flex items-center gap-1.5">
           <FileText aria-hidden className="size-3.5" />
-          <dt className="sr-only">Sources</dt>
-          <dd>{project.sourceCount} sources</dd>
+          <dt className="sr-only">{tUI(lang, "sources")}</dt>
+          <dd>{project.sourceCount} {tUI(lang, "sources").toLowerCase()}</dd>
         </div>
         <div>
           <dt className="sr-only">Segment</dt>
@@ -64,7 +64,7 @@ export function ProjectCard({ project }: { project: Project }) {
       </dl>
 
       <span className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-[var(--studio-accent)]">
-        Open project
+        {tUI(lang, "openProject")}
         <ArrowRight
           aria-hidden
           className="size-4 transition-transform group-hover:translate-x-0.5"

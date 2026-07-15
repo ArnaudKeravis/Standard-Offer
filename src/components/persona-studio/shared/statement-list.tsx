@@ -2,6 +2,7 @@ import { FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { PersonaStatement } from "@/lib/persona-studio/ai/schemas/statement";
 import type { SourceDocument } from "@/lib/persona-studio/ai/schemas/evidence";
+import { tUI, type StudioLang } from "@/lib/persona-studio/utils/i18n";
 import { EvidenceTag } from "./evidence-tag";
 
 /**
@@ -13,17 +14,19 @@ export function StatementList({
   statements,
   sourcesById,
   variant = "bullets",
+  lang = "en",
   className,
 }: {
   statements: PersonaStatement[];
   sourcesById?: Map<string, SourceDocument>;
   variant?: "bullets" | "plain" | "moments";
+  lang?: StudioLang;
   className?: string;
 }) {
   if (statements.length === 0) {
     return (
       <p className="text-sm italic text-[var(--studio-muted)]">
-        Nothing recorded yet.
+        {tUI(lang, "nothingRecorded")}
       </p>
     );
   }
@@ -47,7 +50,7 @@ export function StatementList({
               )}
               {s.content}
             </span>
-            <EvidenceTag status={s.evidenceStatus} />
+            <EvidenceTag status={s.evidenceStatus} lang={lang} />
           </div>
 
           {s.sourceIds.length > 0 && sourcesById && (

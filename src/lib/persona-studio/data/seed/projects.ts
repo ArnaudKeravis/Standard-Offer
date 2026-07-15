@@ -20,18 +20,18 @@ export const SEED_USER: User = {
 
 export const TDF_PROJECT: Project = {
   id: TDF_PROJECT_ID,
-  name: "Tour de France Hospitality Personas",
-  client: "Tour de France Hospitality",
+  name: "Personas Hospitalité Tour de France",
+  client: "Hospitalité Tour de France",
   family: "SPORTS_HOSPITALITY",
-  segment: "Sports & Leisure",
+  segment: "Sports & Loisirs",
   region: "France",
-  language: "English",
+  language: "Français",
   researchMode: "RESEARCH_GROUNDED",
   description:
-    "Four hospitality guest personas — VIP business client, family guest, sports enthusiast and sponsor — to design differentiated stage-day experiences.",
+    "Quatre personas d'invités de l'hospitalité — client VIP business, invité famille, invité sportif et sponsor — pour concevoir des expériences de journée d'étape différenciées.",
   workshopObjective:
-    "Design a hospitality offer that works across four very different guest types.",
-  audience: ["VIP clients", "Families", "Sports fans", "Sponsors"],
+    "Concevoir une offre d'hospitalité qui fonctionne pour quatre types d'invités très différents.",
+  audience: ["Clients VIP", "Familles", "Passionnés de sport", "Sponsors"],
   desiredPersonaCount: 4,
   templateId: "tpl-tdf-hospitality",
   ownerId: SEED_USER.id,

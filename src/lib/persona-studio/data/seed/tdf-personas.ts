@@ -7,13 +7,14 @@ import {
 } from "@/lib/persona-studio/utils/confidence";
 
 /**
- * Tour de France hospitality personas.
+ * Personas Hospitalité Tour de France (contenu en français).
  *
- * The supplied persona brief is treated as the initial source of truth, so
- * described traits are tagged EVIDENCE against that document. Genuine unknowns
- * (party size, dietary needs, ROI definition…) are tagged TO_VALIDATE so the
- * evidence-coverage figure stays honest and Discovery has clear targets. No
- * facts beyond the supplied data are invented.
+ * Le brief de personas fourni fait office de source de vérité initiale : les
+ * traits décrits sont donc tagués EVIDENCE contre ce document. Les véritables
+ * inconnues (taille du groupe, besoins alimentaires, définition du ROI…) sont
+ * taguées TO_VALIDATE pour que la couverture des preuves reste honnête et que
+ * la Discovery ait des cibles claires. Aucun fait au-delà des données fournies
+ * n'est inventé.
  */
 
 export const TDF_PROJECT_ID = "proj-tdf-hospitality";
@@ -21,13 +22,13 @@ export const TDF_PROJECT_ID = "proj-tdf-hospitality";
 const BRIEF: SourceDocument = {
   id: "src-tdf-brief",
   projectId: TDF_PROJECT_ID,
-  name: "Tour de France Hospitality — Persona Profiles (May 2026)",
+  name: "Hospitalité Tour de France — Profils de personas (mai 2026)",
   type: "pdf",
   date: SEED_TIMESTAMP,
   author: "CoDesign Services",
   category: "EXISTING_PERSONA",
   extractedText:
-    "Structured persona profiles for four Tour de France hospitality guest archetypes: International VIP business client, Family guest, Sports enthusiast guest and Sponsor / Tour partner.",
+    "Profils de personas structurés pour quatre archétypes d'invités de l'hospitalité du Tour de France : client VIP business international, invité famille, invité sportif et sponsor / partenaire du Tour.",
   processingStatus: "READY",
   confidentiality: "CLIENT_CONFIDENTIAL",
   createdAt: SEED_TIMESTAMP,
@@ -36,10 +37,8 @@ const BRIEF: SourceDocument = {
 export const TDF_SOURCES: SourceDocument[] = [BRIEF];
 const S = [BRIEF.id];
 
-/** Finalise a persona: compute evidence coverage from its statements. */
-function finalise(
-  persona: Omit<Persona, "evidenceCoverage">,
-): Persona {
+/** Finalise un persona : calcule la couverture des preuves à partir des affirmations. */
+function finalise(persona: Omit<Persona, "evidenceCoverage">): Persona {
   const statements = collectStatements([
     ...persona.commonSections,
     ...persona.domainSections,
@@ -51,27 +50,27 @@ const david = finalise({
   id: "persona-david-richardson",
   projectId: TDF_PROJECT_ID,
   name: "David Richardson",
-  archetype: "The International VIP",
-  category: "International VIP business client",
+  archetype: "Le Client VIP International",
+  category: "Client VIP business international",
   family: "SPORTS_HOSPITALITY",
-  segment: "Sports & Leisure",
+  segment: "Sports & Loisirs",
   oneLineEssence:
-    "A time-poor global executive who uses the Tour as a premium, authentic stage to host strategic clients.",
+    "Un dirigeant international au temps compté qui utilise le Tour comme une scène premium et authentique pour recevoir ses clients stratégiques.",
   portraitUrl: "/persona-studio/tdf/david-richardson.png",
   accentColor: "#ffb81c",
   quote:
-    "The Tour de France is one of the rare events capable of bringing together clients, partners and executives in a prestigious and authentic setting.",
+    "Le Tour de France est l'un des rares événements capables de réunir clients, partenaires et dirigeants dans un cadre prestigieux et authentique.",
   quoteType: "COMPOSITE",
   confidenceLevel: "MEDIUM",
   confidenceExplanation:
-    "Built from a structured hospitality persona brief, not primary interviews. Traits are consistent and sourced, but individual guest behaviours and preferences remain unvalidated.",
+    "Construit à partir d'un brief de personas d'hospitalité structuré, et non d'entretiens de terrain. Les traits sont cohérents et sourcés, mais les comportements et préférences individuels des invités restent à valider.",
   demographicContext: {
     ageRange: "54",
-    location: "London, United Kingdom",
+    location: "Londres, Royaume-Uni",
     relevanceNote:
-      "CEO-level authority shapes expectations of frictionless, discreet premium service — recorded because it drives behaviour, not as a stereotype.",
+      "Un niveau de décision de PDG façonne l'attente d'un service premium, fluide et discret — noté parce qu'il oriente le comportement, pas comme un stéréotype.",
   },
-  behaviouralTags: ["host", "time-poor", "prestige-seeking", "relationship-builder"],
+  behaviouralTags: ["hôte", "temps compté", "recherche le prestige", "bâtisseur de relations"],
   sourceIds: S,
   status: "PUBLISHED",
   version: 1,
@@ -86,7 +85,7 @@ const david = finalise({
       items: [
         {
           content:
-            "CEO of an international technology group who attends 2–4 stages a year, 1–2 days each and sometimes consecutive stages, as the guest of a major Tour partner.",
+            "PDG d'un groupe technologique international, il assiste à 2 à 4 étapes par an, 1 à 2 jours chacune et parfois des étapes consécutives, en tant qu'invité d'un partenaire majeur du Tour.",
           sourceIds: S,
           confidence: "HIGH",
         },
@@ -94,13 +93,13 @@ const david = finalise({
     }),
     section("persona-david-richardson", {
       key: "context",
-      title: "Context",
+      title: "Contexte",
       type: "bullets",
       order: 1,
       items: [
-        { content: "CEO of an international technology group.", sourceIds: S, confidence: "HIGH" },
-        { content: "Based in London, United Kingdom.", sourceIds: S, confidence: "HIGH" },
-        { content: "Attends 2–4 stages per year, 1–2 days per stage, sometimes consecutive.", sourceIds: S, confidence: "HIGH" },
+        { content: "PDG d'un groupe technologique international.", sourceIds: S, confidence: "HIGH" },
+        { content: "Basé à Londres, Royaume-Uni.", sourceIds: S, confidence: "HIGH" },
+        { content: "Participe à 2 à 4 étapes par an, 1 à 2 jours par étape, parfois consécutives.", sourceIds: S, confidence: "HIGH" },
       ],
     }),
     section("persona-david-richardson", {
@@ -109,11 +108,11 @@ const david = finalise({
       type: "bullets",
       order: 6,
       items: [
-        { content: "International prestige.", sourceIds: S },
-        { content: "Business development.", sourceIds: S },
-        { content: "Exclusive experience.", sourceIds: S },
-        { content: "Shared emotions with guests.", sourceIds: S },
-        { content: "Discovery of French territories.", sourceIds: S },
+        { content: "Prestige international.", sourceIds: S },
+        { content: "Développement commercial.", sourceIds: S },
+        { content: "Expérience exclusive.", sourceIds: S },
+        { content: "Émotions partagées avec ses invités.", sourceIds: S },
+        { content: "Découverte des territoires français.", sourceIds: S },
       ],
     }),
     section("persona-david-richardson", {
@@ -122,75 +121,75 @@ const david = finalise({
       type: "bullets",
       order: 7,
       items: [
-        { content: "Lack of personalisation.", sourceIds: S, confidence: "HIGH" },
-        { content: "Complex logistics or transport.", sourceIds: S, confidence: "HIGH" },
-        { content: "Waiting times.", sourceIds: S, confidence: "HIGH" },
-        { content: "Programme insufficiently adapted across stages.", sourceIds: S },
-        { content: "Difficulty understanding the value of premium options.", sourceIds: S },
+        { content: "Manque de personnalisation.", sourceIds: S, confidence: "HIGH" },
+        { content: "Logistique ou transport complexes.", sourceIds: S, confidence: "HIGH" },
+        { content: "Temps d'attente.", sourceIds: S, confidence: "HIGH" },
+        { content: "Programme insuffisamment adapté d'une étape à l'autre.", sourceIds: S },
+        { content: "Difficulté à comprendre la valeur des options premium.", sourceIds: S },
       ],
     }),
     section("persona-david-richardson", {
       key: "questions_to_validate",
-      title: "Questions to validate",
+      title: "Questions à valider",
       type: "bullets",
       order: 12,
       items: [
-        { content: "Typical guest party size and seniority per stage.", status: "TO_VALIDATE", confidence: "LOW" },
-        { content: "Specific dietary and wine preferences.", status: "TO_VALIDATE", confidence: "LOW" },
-        { content: "How he defines a successful invitation (ROI).", status: "TO_VALIDATE", confidence: "LOW" },
+        { content: "Taille et niveau de séniorité typiques du groupe d'invités par étape.", status: "TO_VALIDATE", confidence: "LOW" },
+        { content: "Préférences précises en matière de mets et de vins.", status: "TO_VALIDATE", confidence: "LOW" },
+        { content: "Comment il définit une invitation réussie (ROI).", status: "TO_VALIDATE", confidence: "LOW" },
       ],
     }),
   ],
   domainSections: [
     section("persona-david-richardson", {
       key: "reasons_for_attending",
-      title: "Reasons for attending",
+      title: "Raisons de sa venue",
       type: "bullets",
       order: 20,
       items: [
-        { content: "Invited by a major Tour partner.", sourceIds: S, confidence: "HIGH" },
-        { content: "Receives strategic clients.", sourceIds: S },
-        { content: "Develops international network.", sourceIds: S },
-        { content: "Strengthens existing partnerships.", sourceIds: S },
-        { content: "Experiences a premium representation of French know-how.", sourceIds: S },
+        { content: "Invité par un partenaire majeur du Tour.", sourceIds: S, confidence: "HIGH" },
+        { content: "Reçoit des clients stratégiques.", sourceIds: S },
+        { content: "Développe son réseau international.", sourceIds: S },
+        { content: "Renforce des partenariats existants.", sourceIds: S },
+        { content: "Vit une représentation premium du savoir-faire français.", sourceIds: S },
       ],
     }),
     section("persona-david-richardson", {
       key: "key_expectations",
-      title: "Key expectations",
+      title: "Attentes clés",
       type: "needs",
       order: 21,
       items: [
-        { content: "Privileged access and VIP spaces.", sourceIds: S, confidence: "HIGH" },
-        { content: "Frictionless experience.", sourceIds: S, confidence: "HIGH" },
-        { content: "Premium hospitality.", sourceIds: S, confidence: "HIGH" },
-        { content: "High-level networking.", sourceIds: S },
-        { content: "Multilingual service.", sourceIds: S },
-        { content: "Simplified logistics.", sourceIds: S },
+        { content: "Accès privilégié et espaces VIP.", sourceIds: S, confidence: "HIGH" },
+        { content: "Expérience fluide et sans friction.", sourceIds: S, confidence: "HIGH" },
+        { content: "Hospitalité premium.", sourceIds: S, confidence: "HIGH" },
+        { content: "Networking de haut niveau.", sourceIds: S },
+        { content: "Service multilingue.", sourceIds: S },
+        { content: "Logistique simplifiée.", sourceIds: S },
       ],
     }),
     section("persona-david-richardson", {
       key: "food_hospitality",
-      title: "Food & hospitality expectations",
+      title: "Attentes restauration & hospitalité",
       type: "bullets",
       order: 22,
       items: [
-        { content: "Traditional menus that are explained.", sourceIds: S },
-        { content: "Selection of regional wines.", sourceIds: S },
-        { content: "Exclusive culinary experiences.", sourceIds: S },
-        { content: "Fast and discreet service.", sourceIds: S },
-        { content: "Gastronomic signature linked to the territory.", sourceIds: S },
+        { content: "Menus traditionnels expliqués.", sourceIds: S },
+        { content: "Sélection de vins régionaux.", sourceIds: S },
+        { content: "Expériences culinaires exclusives.", sourceIds: S },
+        { content: "Service rapide et discret.", sourceIds: S },
+        { content: "Signature gastronomique liée au territoire.", sourceIds: S },
       ],
     }),
     section("persona-david-richardson", {
       key: "ideal_experience",
-      title: "Ideal experience",
+      title: "Expérience idéale",
       type: "text",
       order: 24,
       items: [
         {
           content:
-            "Introduce clients to French excellence while sharing the emotion of the Tour in a privileged environment.",
+            "Faire découvrir l'excellence française à ses clients tout en partageant l'émotion du Tour dans un cadre privilégié.",
           sourceIds: S,
         },
       ],
@@ -202,27 +201,27 @@ const sophie = finalise({
   id: "persona-sophie-lambert",
   projectId: TDF_PROJECT_ID,
   name: "Sophie Lambert",
-  archetype: "The Family Guest",
-  category: "Family guest",
+  archetype: "L'Invitée Famille",
+  category: "Invitée famille",
   family: "SPORTS_HOSPITALITY",
-  segment: "Sports & Leisure",
+  segment: "Sports & Loisirs",
   oneLineEssence:
-    "A senior manager turning a rare partner invitation into an exceptional, easy day out with her partner and children.",
+    "Une cadre supérieure qui transforme une rare invitation partenaire en une journée exceptionnelle et sans complication avec son conjoint et ses enfants.",
   portraitUrl: "/persona-studio/tdf/sophie-lambert.png",
   accentColor: "#ec4899",
   quote:
-    "We are experiencing an exceptional family moment, far beyond a simple sporting competition.",
+    "Nous vivons un moment exceptionnel en famille, bien au-delà d'une simple compétition sportive.",
   quoteType: "COMPOSITE",
   confidenceLevel: "MEDIUM",
   confidenceExplanation:
-    "Built from the hospitality persona brief. Family-context traits are sourced but the specific needs of accompanying children are assumptions to validate.",
+    "Construit à partir du brief de personas d'hospitalité. Les traits liés au contexte familial sont sourcés, mais les besoins spécifiques des enfants accompagnants sont des hypothèses à valider.",
   demographicContext: {
     ageRange: "42",
     location: "Lyon, France",
     relevanceNote:
-      "Attends with partner and children — the family group, not the age, is what shapes her needs (comfort, child activities, sightlines).",
+      "Elle vient avec son conjoint et ses enfants — c'est le groupe familial, et non l'âge, qui façonne ses besoins (confort, activités enfants, visibilité sur la course).",
   },
-  behaviouralTags: ["family-first", "memory-maker", "comfort-seeking", "occasional"],
+  behaviouralTags: ["famille d'abord", "créatrice de souvenirs", "recherche le confort", "occasionnelle"],
   sourceIds: S,
   status: "PUBLISHED",
   version: 1,
@@ -237,7 +236,7 @@ const sophie = finalise({
       items: [
         {
           content:
-            "Senior manager attending with her partner and children for a full day, roughly once every 2–3 years, as the guest of a Tour partner.",
+            "Cadre supérieure, elle assiste à une étape environ tous les 2 à 3 ans, sur une journée complète, avec son conjoint et ses enfants, en tant qu'invitée d'un partenaire du Tour.",
           sourceIds: S,
           confidence: "HIGH",
         },
@@ -245,13 +244,13 @@ const sophie = finalise({
     }),
     section("persona-sophie-lambert", {
       key: "context",
-      title: "Context",
+      title: "Contexte",
       type: "bullets",
       order: 1,
       items: [
-        { content: "Senior manager attending with partner and children.", sourceIds: S, confidence: "HIGH" },
-        { content: "Based in Lyon, France.", sourceIds: S, confidence: "HIGH" },
-        { content: "Attends one stage every 2–3 years, for a full day.", sourceIds: S, confidence: "HIGH" },
+        { content: "Cadre supérieure, présente avec son conjoint et ses enfants.", sourceIds: S, confidence: "HIGH" },
+        { content: "Basée à Lyon, France.", sourceIds: S, confidence: "HIGH" },
+        { content: "Participe à une étape tous les 2 à 3 ans, sur une journée complète.", sourceIds: S, confidence: "HIGH" },
       ],
     }),
     section("persona-sophie-lambert", {
@@ -260,11 +259,11 @@ const sophie = finalise({
       type: "bullets",
       order: 6,
       items: [
-        { content: "Quality family time.", sourceIds: S, confidence: "HIGH" },
-        { content: "Tour atmosphere.", sourceIds: S },
-        { content: "Memorable moments.", sourceIds: S },
-        { content: "Exceptional event.", sourceIds: S },
-        { content: "Discovery of French regions.", sourceIds: S },
+        { content: "Temps de qualité en famille.", sourceIds: S, confidence: "HIGH" },
+        { content: "Ambiance du Tour.", sourceIds: S },
+        { content: "Moments mémorables.", sourceIds: S },
+        { content: "Événement exceptionnel.", sourceIds: S },
+        { content: "Découverte des régions françaises.", sourceIds: S },
       ],
     }),
     section("persona-sophie-lambert", {
@@ -273,73 +272,73 @@ const sophie = finalise({
       type: "bullets",
       order: 7,
       items: [
-        { content: "Excessive waiting.", sourceIds: S, confidence: "HIGH" },
-        { content: "Complex journey.", sourceIds: S },
-        { content: "Lack of child activities.", sourceIds: S, confidence: "HIGH" },
-        { content: "Catering poorly adapted to families.", sourceIds: S },
-        { content: "Difficulty seeing the riders.", sourceIds: S, confidence: "HIGH" },
+        { content: "Attente excessive.", sourceIds: S, confidence: "HIGH" },
+        { content: "Parcours complexe.", sourceIds: S },
+        { content: "Manque d'activités pour les enfants.", sourceIds: S, confidence: "HIGH" },
+        { content: "Restauration peu adaptée aux familles.", sourceIds: S },
+        { content: "Difficulté à voir les coureurs.", sourceIds: S, confidence: "HIGH" },
       ],
     }),
     section("persona-sophie-lambert", {
       key: "questions_to_validate",
-      title: "Questions to validate",
+      title: "Questions à valider",
       type: "bullets",
       order: 12,
       items: [
-        { content: "Ages of the children and which activities actually engage them.", status: "TO_VALIDATE", confidence: "LOW" },
-        { content: "Tolerance for queues and heat with young children.", status: "TO_VALIDATE", confidence: "LOW" },
+        { content: "Âge des enfants et activités qui les captivent réellement.", status: "TO_VALIDATE", confidence: "LOW" },
+        { content: "Tolérance aux files d'attente et à la chaleur avec de jeunes enfants.", status: "TO_VALIDATE", confidence: "LOW" },
       ],
     }),
   ],
   domainSections: [
     section("persona-sophie-lambert", {
       key: "reasons_for_attending",
-      title: "Reasons for attending",
+      title: "Raisons de sa venue",
       type: "bullets",
       order: 20,
       items: [
-        { content: "Invited by a Tour partner.", sourceIds: S, confidence: "HIGH" },
-        { content: "Seeks a memorable shared experience.", sourceIds: S },
-        { content: "Accessible event for the whole family.", sourceIds: S },
-        { content: "Unique memories.", sourceIds: S },
-        { content: "Immersion in the Tour atmosphere.", sourceIds: S },
+        { content: "Invitée par un partenaire du Tour.", sourceIds: S, confidence: "HIGH" },
+        { content: "Recherche une expérience mémorable à partager.", sourceIds: S },
+        { content: "Événement accessible à toute la famille.", sourceIds: S },
+        { content: "Souvenirs uniques.", sourceIds: S },
+        { content: "Immersion dans l'ambiance du Tour.", sourceIds: S },
       ],
     }),
     section("persona-sophie-lambert", {
       key: "key_expectations",
-      title: "Key expectations",
+      title: "Attentes clés",
       type: "needs",
       order: 21,
       items: [
-        { content: "Simplicity and comfort.", sourceIds: S, confidence: "HIGH" },
-        { content: "Child-friendly activities.", sourceIds: S, confidence: "HIGH" },
-        { content: "Immersive experience.", sourceIds: S },
-        { content: "Interactive entertainment.", sourceIds: S },
-        { content: "Souvenirs to take home.", sourceIds: S },
+        { content: "Simplicité et confort.", sourceIds: S, confidence: "HIGH" },
+        { content: "Activités adaptées aux enfants.", sourceIds: S, confidence: "HIGH" },
+        { content: "Expérience immersive.", sourceIds: S },
+        { content: "Animations interactives.", sourceIds: S },
+        { content: "Souvenirs à rapporter.", sourceIds: S },
       ],
     }),
     section("persona-sophie-lambert", {
       key: "food_hospitality",
-      title: "Food & hospitality expectations",
+      title: "Attentes restauration & hospitalité",
       type: "bullets",
       order: 22,
       items: [
-        { content: "Varied buffet.", sourceIds: S },
-        { content: "Children's choices.", sourceIds: S, confidence: "HIGH" },
-        { content: "Regional products.", sourceIds: S },
-        { content: "Snacks and culinary activities.", sourceIds: S },
-        { content: "Fast service.", sourceIds: S },
+        { content: "Buffet varié.", sourceIds: S },
+        { content: "Choix pour les enfants.", sourceIds: S, confidence: "HIGH" },
+        { content: "Produits régionaux.", sourceIds: S },
+        { content: "Goûters et animations culinaires.", sourceIds: S },
+        { content: "Service rapide.", sourceIds: S },
       ],
     }),
     section("persona-sophie-lambert", {
       key: "ideal_experience",
-      title: "Ideal experience",
+      title: "Expérience idéale",
       type: "text",
       order: 24,
       items: [
         {
           content:
-            "Children discover the Tour de France while the family creates memories they will share for years.",
+            "Les enfants découvrent le Tour de France pendant que la famille crée des souvenirs qu'elle partagera pendant des années.",
           sourceIds: S,
         },
       ],
@@ -351,27 +350,27 @@ const thomas = finalise({
   id: "persona-thomas-garcia",
   projectId: TDF_PROJECT_ID,
   name: "Thomas Garcia",
-  archetype: "The Sports Enthusiast",
-  category: "Sports enthusiast guest",
+  archetype: "L'Invité Sportif",
+  category: "Invité sportif",
   family: "SPORTS_HOSPITALITY",
-  segment: "Sports & Leisure",
+  segment: "Sports & Loisirs",
   oneLineEssence:
-    "A cycling fan who accepts the invitation to be close to the race — the hospitality is a bonus, the sport is the point.",
+    "Un passionné de cyclisme qui accepte l'invitation pour être au plus près de la course — l'hospitalité est un bonus, le sport est l'essentiel.",
   portraitUrl: "/persona-studio/tdf/thomas-garcia.png",
   accentColor: "#ef4444",
   quote:
-    "Honestly, I am mainly here to see them pass. Everything else is a bonus.",
+    "Honnêtement, je suis surtout là pour les voir passer. Tout le reste est un bonus.",
   quoteType: "COMPOSITE",
   confidenceLevel: "MEDIUM",
   confidenceExplanation:
-    "Built from the hospitality persona brief. His sporting priorities are clearly stated; depth of cycling knowledge and desired level of analysis are assumptions to validate.",
+    "Construit à partir du brief de personas d'hospitalité. Ses priorités sportives sont clairement établies ; sa connaissance du cyclisme et le niveau d'analyse attendu restent des hypothèses à valider.",
   demographicContext: {
     ageRange: "45",
     location: "Toulouse, France",
     relevanceNote:
-      "Sales executive invited by a partner — the invited-fan behaviour matters, not the job title.",
+      "Cadre commercial invité par un partenaire — c'est le comportement de fan invité qui compte, pas l'intitulé du poste.",
   },
-  behaviouralTags: ["fan-first", "proximity-seeking", "anti-corporate", "sport-focused"],
+  behaviouralTags: ["fan avant tout", "recherche la proximité", "anti-corporate", "centré sport"],
   sourceIds: S,
   status: "PUBLISHED",
   version: 1,
@@ -386,7 +385,7 @@ const thomas = finalise({
       items: [
         {
           content:
-            "Sales executive and cycling fan, invited by a Tour partner for a full day 1–2 times a year, who comes above all for the race itself.",
+            "Cadre commercial et passionné de cyclisme, invité par un partenaire du Tour pour une journée complète 1 à 2 fois par an, il vient avant tout pour la course elle-même.",
           sourceIds: S,
           confidence: "HIGH",
         },
@@ -394,13 +393,13 @@ const thomas = finalise({
     }),
     section("persona-thomas-garcia", {
       key: "context",
-      title: "Context",
+      title: "Contexte",
       type: "bullets",
       order: 1,
       items: [
-        { content: "Sales executive invited by a Tour partner.", sourceIds: S, confidence: "HIGH" },
-        { content: "Based in Toulouse, France.", sourceIds: S, confidence: "HIGH" },
-        { content: "Attends 1–2 stages per year, for a full day.", sourceIds: S, confidence: "HIGH" },
+        { content: "Cadre commercial invité par un partenaire du Tour.", sourceIds: S, confidence: "HIGH" },
+        { content: "Basé à Toulouse, France.", sourceIds: S, confidence: "HIGH" },
+        { content: "Participe à 1 à 2 étapes par an, sur une journée complète.", sourceIds: S, confidence: "HIGH" },
       ],
     }),
     section("persona-thomas-garcia", {
@@ -409,11 +408,11 @@ const thomas = finalise({
       type: "bullets",
       order: 6,
       items: [
-        { content: "Seeing riders close up.", sourceIds: S, confidence: "HIGH" },
-        { content: "Understanding race strategy.", sourceIds: S },
-        { content: "Experiencing the peloton atmosphere.", sourceIds: S },
-        { content: "Discovering behind-the-scenes activity.", sourceIds: S },
-        { content: "Sharing passion for cycling.", sourceIds: S },
+        { content: "Voir les coureurs de près.", sourceIds: S, confidence: "HIGH" },
+        { content: "Comprendre la stratégie de course.", sourceIds: S },
+        { content: "Vivre l'ambiance du peloton.", sourceIds: S },
+        { content: "Découvrir les coulisses.", sourceIds: S },
+        { content: "Partager sa passion du cyclisme.", sourceIds: S },
       ],
     }),
     section("persona-thomas-garcia", {
@@ -422,74 +421,74 @@ const thomas = finalise({
       type: "bullets",
       order: 7,
       items: [
-        { content: "Long waiting periods.", sourceIds: S, confidence: "HIGH" },
-        { content: "Insufficient race explanation.", sourceIds: S, confidence: "HIGH" },
-        { content: "Entertainment disconnected from sport.", sourceIds: S, confidence: "HIGH" },
-        { content: "Experience sometimes too corporate.", sourceIds: S, confidence: "HIGH" },
-        { content: "Difficulty following the action between passages.", sourceIds: S, confidence: "HIGH" },
+        { content: "Longues périodes d'attente.", sourceIds: S, confidence: "HIGH" },
+        { content: "Explications de course insuffisantes.", sourceIds: S, confidence: "HIGH" },
+        { content: "Animations déconnectées du sport.", sourceIds: S, confidence: "HIGH" },
+        { content: "Expérience parfois trop corporate.", sourceIds: S, confidence: "HIGH" },
+        { content: "Difficulté à suivre l'action entre deux passages.", sourceIds: S, confidence: "HIGH" },
       ],
     }),
     section("persona-thomas-garcia", {
       key: "questions_to_validate",
-      title: "Questions to validate",
+      title: "Questions à valider",
       type: "bullets",
       order: 12,
       items: [
-        { content: "His depth of cycling knowledge and desired level of analysis.", status: "TO_VALIDATE", confidence: "LOW" },
-        { content: "Whether he would leave hospitality to reach the roadside.", status: "TO_VALIDATE", confidence: "LOW" },
+        { content: "Sa connaissance du cyclisme et le niveau d'analyse qu'il souhaite.", status: "TO_VALIDATE", confidence: "LOW" },
+        { content: "S'il quitterait l'espace hospitalité pour rejoindre le bord de route.", status: "TO_VALIDATE", confidence: "LOW" },
       ],
     }),
   ],
   domainSections: [
     section("persona-thomas-garcia", {
       key: "reasons_for_attending",
-      title: "Reasons for attending",
+      title: "Raisons de sa venue",
       type: "bullets",
       order: 20,
       items: [
-        { content: "Invited by a Tour partner.", sourceIds: S, confidence: "HIGH" },
-        { content: "Proximity to the race.", sourceIds: S, confidence: "HIGH" },
-        { content: "Immersion in cycling.", sourceIds: S },
-        { content: "Unique Tour atmosphere.", sourceIds: S },
-        { content: "Access to teams and behind-the-scenes moments.", sourceIds: S },
-        { content: "Authentic sports moments.", sourceIds: S },
+        { content: "Invité par un partenaire du Tour.", sourceIds: S, confidence: "HIGH" },
+        { content: "Proximité avec la course.", sourceIds: S, confidence: "HIGH" },
+        { content: "Immersion dans le cyclisme.", sourceIds: S },
+        { content: "Ambiance unique du Tour.", sourceIds: S },
+        { content: "Accès aux équipes et aux coulisses.", sourceIds: S },
+        { content: "Moments sportifs authentiques.", sourceIds: S },
       ],
     }),
     section("persona-thomas-garcia", {
       key: "key_expectations",
-      title: "Key expectations",
+      title: "Attentes clés",
       type: "needs",
       order: 21,
       items: [
-        { content: "Proximity to riders.", sourceIds: S, confidence: "HIGH" },
-        { content: "Access to paddocks and teams.", sourceIds: S },
-        { content: "Race information and analysis.", sourceIds: S, confidence: "HIGH" },
-        { content: "Sports commentary.", sourceIds: S },
-        { content: "Feeling the intensity of the competition.", sourceIds: S },
+        { content: "Proximité avec les coureurs.", sourceIds: S, confidence: "HIGH" },
+        { content: "Accès aux paddocks et aux équipes.", sourceIds: S },
+        { content: "Informations et analyses de course.", sourceIds: S, confidence: "HIGH" },
+        { content: "Commentaire sportif.", sourceIds: S },
+        { content: "Ressentir l'intensité de la compétition.", sourceIds: S },
       ],
     }),
     section("persona-thomas-garcia", {
       key: "food_hospitality",
-      title: "Food & hospitality expectations",
+      title: "Attentes restauration & hospitalité",
       type: "bullets",
       order: 22,
       items: [
-        { content: "Premium grab-and-go.", sourceIds: S, confidence: "HIGH" },
-        { content: "Regional products.", sourceIds: S },
-        { content: "Fast service.", sourceIds: S, confidence: "HIGH" },
-        { content: "Cold drinks that are easy to access.", sourceIds: S },
-        { content: "Lunch compatible with following the race.", sourceIds: S, confidence: "HIGH" },
+        { content: "Grab-and-go premium.", sourceIds: S, confidence: "HIGH" },
+        { content: "Produits régionaux.", sourceIds: S },
+        { content: "Service rapide.", sourceIds: S, confidence: "HIGH" },
+        { content: "Boissons fraîches faciles d'accès.", sourceIds: S },
+        { content: "Déjeuner compatible avec le suivi de la course.", sourceIds: S, confidence: "HIGH" },
       ],
     }),
     section("persona-thomas-garcia", {
       key: "ideal_experience",
-      title: "Ideal experience",
+      title: "Expérience idéale",
       type: "text",
       order: 24,
       items: [
         {
           content:
-            "Enjoy the full day without losing track of the race and experience the Tour as close to the sporting action as possible.",
+            "Profiter pleinement de la journée sans perdre le fil de la course et vivre le Tour au plus près de l'action sportive.",
           sourceIds: S,
         },
       ],
@@ -501,27 +500,27 @@ const claire = finalise({
   id: "persona-claire-dubois",
   projectId: TDF_PROJECT_ID,
   name: "Claire Dubois",
-  archetype: "The Sponsor",
-  category: "Sponsor / Tour partner",
+  archetype: "La Partenaire / Sponsor",
+  category: "Sponsor / Partenaire du Tour",
   family: "SPORTS_HOSPITALITY",
-  segment: "Sports & Leisure",
+  segment: "Sports & Loisirs",
   oneLineEssence:
-    "A partnerships director running a season-long hospitality programme who must make every invitation pay back.",
+    "Une directrice partenariats qui pilote un programme d'hospitalité sur toute la saison et doit rentabiliser chaque invitation.",
   portraitUrl: "/persona-studio/tdf/claire-dubois.png",
   accentColor: "#22c55e",
   quote:
-    "Every invitation must create value for our clients and strengthen our partnership with the Tour.",
+    "Chaque invitation doit créer de la valeur pour nos clients et renforcer notre partenariat avec le Tour.",
   quoteType: "COMPOSITE",
   confidenceLevel: "MEDIUM",
   confidenceExplanation:
-    "Built from the hospitality persona brief. Her operational goals are well described; the metrics she uses to prove ROI are a key unknown to validate.",
+    "Construit à partir du brief de personas d'hospitalité. Ses objectifs opérationnels sont bien décrits ; les indicateurs qu'elle utilise pour prouver le ROI sont un inconnu clé à valider.",
   demographicContext: {
     ageRange: "48",
-    location: "Lausanne, Switzerland",
+    location: "Lausanne, Suisse",
     relevanceNote:
-      "Partnerships & events director for a major partner brand — the season-long operator role drives her needs.",
+      "Directrice partenariats & événementiel d'une grande marque partenaire — c'est le rôle d'opératrice sur toute la saison qui oriente ses besoins.",
   },
-  behaviouralTags: ["operator", "roi-driven", "differentiation-seeking", "endurance"],
+  behaviouralTags: ["opératrice", "orientée ROI", "recherche la différenciation", "endurance"],
   sourceIds: S,
   status: "PUBLISHED",
   version: 1,
@@ -536,7 +535,7 @@ const claire = finalise({
       items: [
         {
           content:
-            "Partnerships and events director for a major partner brand, present across 15–21 stages throughout the Tour, running the brand's hospitality programme.",
+            "Directrice partenariats et événementiel d'une grande marque partenaire, présente sur 15 à 21 étapes tout au long du Tour, elle pilote le programme d'hospitalité de la marque.",
           sourceIds: S,
           confidence: "HIGH",
         },
@@ -544,13 +543,13 @@ const claire = finalise({
     }),
     section("persona-claire-dubois", {
       key: "context",
-      title: "Context",
+      title: "Contexte",
       type: "bullets",
       order: 1,
       items: [
-        { content: "Partnerships and events director for a major partner brand.", sourceIds: S, confidence: "HIGH" },
-        { content: "Based in Lausanne, Switzerland.", sourceIds: S, confidence: "HIGH" },
-        { content: "Present across 15–21 stages, throughout the Tour.", sourceIds: S, confidence: "HIGH" },
+        { content: "Directrice partenariats et événementiel d'une grande marque partenaire.", sourceIds: S, confidence: "HIGH" },
+        { content: "Basée à Lausanne, Suisse.", sourceIds: S, confidence: "HIGH" },
+        { content: "Présente sur 15 à 21 étapes, tout au long du Tour.", sourceIds: S, confidence: "HIGH" },
       ],
     }),
     section("persona-claire-dubois", {
@@ -559,11 +558,11 @@ const claire = finalise({
       type: "bullets",
       order: 6,
       items: [
-        { content: "Client loyalty.", sourceIds: S, confidence: "HIGH" },
-        { content: "Business development.", sourceIds: S },
-        { content: "Brand enhancement.", sourceIds: S },
-        { content: "Creation of exclusive moments.", sourceIds: S },
-        { content: "Measurable return on investment.", sourceIds: S, confidence: "HIGH" },
+        { content: "Fidélisation des clients.", sourceIds: S, confidence: "HIGH" },
+        { content: "Développement commercial.", sourceIds: S },
+        { content: "Valorisation de la marque.", sourceIds: S },
+        { content: "Création de moments exclusifs.", sourceIds: S },
+        { content: "Retour sur investissement mesurable.", sourceIds: S, confidence: "HIGH" },
       ],
     }),
     section("persona-claire-dubois", {
@@ -572,73 +571,73 @@ const claire = finalise({
       type: "bullets",
       order: 7,
       items: [
-        { content: "Fatigue after several stages.", sourceIds: S, confidence: "HIGH" },
-        { content: "Repetitive experience.", sourceIds: S, confidence: "HIGH" },
-        { content: "Difficulty renewing surprises.", sourceIds: S, confidence: "HIGH" },
-        { content: "Lack of personalisation.", sourceIds: S },
-        { content: "Perceived cost higher than visible value.", sourceIds: S, confidence: "HIGH" },
+        { content: "Lassitude après plusieurs étapes.", sourceIds: S, confidence: "HIGH" },
+        { content: "Expérience répétitive.", sourceIds: S, confidence: "HIGH" },
+        { content: "Difficulté à renouveler les surprises.", sourceIds: S, confidence: "HIGH" },
+        { content: "Manque de personnalisation.", sourceIds: S },
+        { content: "Coût perçu supérieur à la valeur visible.", sourceIds: S, confidence: "HIGH" },
       ],
     }),
     section("persona-claire-dubois", {
       key: "questions_to_validate",
-      title: "Questions to validate",
+      title: "Questions à valider",
       type: "bullets",
       order: 12,
       items: [
-        { content: "The exact metrics she uses to prove ROI to her leadership.", status: "TO_VALIDATE", confidence: "LOW" },
-        { content: "Her decision latitude to customise stage-by-stage.", status: "TO_VALIDATE", confidence: "LOW" },
+        { content: "Les indicateurs précis qu'elle utilise pour prouver le ROI à sa direction.", status: "TO_VALIDATE", confidence: "LOW" },
+        { content: "Sa marge de décision pour personnaliser étape par étape.", status: "TO_VALIDATE", confidence: "LOW" },
       ],
     }),
   ],
   domainSections: [
     section("persona-claire-dubois", {
       key: "reasons_for_attending",
-      title: "Reasons for attending",
+      title: "Raisons de sa venue",
       type: "bullets",
       order: 20,
       items: [
-        { content: "Manages the brand's hospitality programme.", sourceIds: S, confidence: "HIGH" },
-        { content: "Satisfies invited guests.", sourceIds: S },
-        { content: "Generates business.", sourceIds: S },
-        { content: "Enhances the brand.", sourceIds: S },
-        { content: "Demonstrates return on investment.", sourceIds: S, confidence: "HIGH" },
+        { content: "Pilote le programme d'hospitalité de la marque.", sourceIds: S, confidence: "HIGH" },
+        { content: "Satisfait les invités.", sourceIds: S },
+        { content: "Génère du business.", sourceIds: S },
+        { content: "Valorise la marque.", sourceIds: S },
+        { content: "Démontre le retour sur investissement.", sourceIds: S, confidence: "HIGH" },
       ],
     }),
     section("persona-claire-dubois", {
       key: "key_expectations",
-      title: "Key expectations",
+      title: "Attentes clés",
       type: "needs",
       order: 21,
       items: [
-        { content: "Maximum guest satisfaction.", sourceIds: S, confidence: "HIGH" },
-        { content: "Differentiation between stages.", sourceIds: S, confidence: "HIGH" },
-        { content: "Personalisation.", sourceIds: S },
-        { content: "Operational simplicity.", sourceIds: S, confidence: "HIGH" },
-        { content: "Dedicated support.", sourceIds: S },
+        { content: "Satisfaction maximale des invités.", sourceIds: S, confidence: "HIGH" },
+        { content: "Différenciation entre les étapes.", sourceIds: S, confidence: "HIGH" },
+        { content: "Personnalisation.", sourceIds: S },
+        { content: "Simplicité opérationnelle.", sourceIds: S, confidence: "HIGH" },
+        { content: "Accompagnement dédié.", sourceIds: S },
       ],
     }),
     section("persona-claire-dubois", {
       key: "food_hospitality",
-      title: "Food & hospitality expectations",
+      title: "Attentes restauration & hospitalité",
       type: "bullets",
       order: 22,
       items: [
-        { content: "Different menus by territory.", sourceIds: S, confidence: "HIGH" },
-        { content: "Exclusive experiences.", sourceIds: S },
-        { content: "Meetings with producers or chefs.", sourceIds: S },
-        { content: "Premium entertainment.", sourceIds: S },
-        { content: "Moments supporting business conversations.", sourceIds: S, confidence: "HIGH" },
+        { content: "Menus différents selon les territoires.", sourceIds: S, confidence: "HIGH" },
+        { content: "Expériences exclusives.", sourceIds: S },
+        { content: "Rencontres avec producteurs ou chefs.", sourceIds: S },
+        { content: "Animations premium.", sourceIds: S },
+        { content: "Moments favorisant les échanges business.", sourceIds: S, confidence: "HIGH" },
       ],
     }),
     section("persona-claire-dubois", {
       key: "ideal_experience",
-      title: "Ideal experience",
+      title: "Expérience idéale",
       type: "text",
       order: 24,
       items: [
         {
           content:
-            "Every stage creates a different and memorable experience that justifies the investment in the Tour.",
+            "Chaque étape offre une expérience différente et mémorable qui justifie pleinement l'investissement dans le Tour.",
           sourceIds: S,
         },
       ],
