@@ -1,0 +1,23 @@
+---
+description: Persona Studio AI grounding & safety rules
+globs: src/lib/persona-studio/ai/**,src/app/api/ai/**
+alwaysApply: false
+---
+
+# Persona Studio — AI grounding rules
+
+- **Structured output only.** Every AI workflow returns Zod-validated data — no
+  Markdown-to-parse.
+- **Server-side only.** Never expose `OPENAI_API_KEY` (or any secret) to the
+  browser. Read env via `validation/env.ts`.
+- **Prompts live in versioned files** under `lib/persona-studio/ai/prompts/` —
+  never inline in route handlers or UI components.
+- **Never fabricate evidence.** The persona must not invent biography, stats,
+  brand/medical/income data, scores, past experiences or quotes unless present
+  in the source material.
+- **Insufficient evidence** → say so verbatim and offer a labelled hypothesis +
+  one research question. Never fall back to demographic stereotypes.
+- Every chat answer carries a `basis` object (statement IDs, source IDs,
+  excerpts, assumptions, missing info, confidence).
+
+See `docs/persona-studio/AI_GROUNDING.md`.

@@ -1,0 +1,22 @@
+---
+description: Persona Studio product principles (grounding, evidence, anti-stereotype)
+globs: src/app/studio/**,src/components/persona-studio/**,src/lib/persona-studio/**
+alwaysApply: false
+---
+
+# Persona Studio — product rules
+
+Persona Studio is a premium research + design tool, NOT a generic AI dashboard.
+
+- **Behaviour first.** Differentiate personas by behaviour/needs/tensions, not
+  by age, gender or job title.
+- **Evidence transparency.** Every persona claim is a `PersonaStatement` tagged
+  `EVIDENCE | ASSUMPTION | TO_VALIDATE`. Never render an untagged claim.
+- **No fake research.** Never present assumptions as findings.
+- **Quote integrity.** Respect `quoteType` (verbatim / composite / drafted
+  hypothesis / none). Never upgrade a drafted quote to verbatim.
+- **Confidence is explained**, never a bare badge.
+- **AI is a grounded simulation**, never described as a real person.
+- **Every screen helps a team decide.**
+
+See `docs/persona-studio/PRODUCT.md`.

@@ -1,0 +1,18 @@
+---
+description: Persona Studio security & data-governance rules
+globs: src/lib/persona-studio/**,src/app/studio/**,src/app/api/**
+alwaysApply: false
+---
+
+# Persona Studio — security rules
+
+- **Never give an agent production DB credentials, unscoped infra tokens, or
+  production deletion access.** Work against local/seed/non-production data.
+- No secrets in source control; validate env with `validation/env.ts`.
+- Keep three identities separate: fictional persona, real participant, anonymous
+  reference. Real participant names never appear on persona-facing screens by
+  default.
+- Apply the correct `ConfidentialityLabel` to sources. Minimise personal data.
+- Never run destructive database operations or edit production data.
+
+See `docs/persona-studio/SECURITY.md`.

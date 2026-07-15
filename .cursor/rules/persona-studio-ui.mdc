@@ -1,0 +1,18 @@
+---
+description: Persona Studio UI, theming and accessibility rules
+globs: src/app/studio/**,src/components/persona-studio/**,src/app/globals.css
+alwaysApply: false
+---
+
+# Persona Studio — UI rules
+
+- **One component set, two families.** Differ via `data-studio-theme` +
+  `--persona-accent` and CSS variables. Never fork the layout per family.
+- Editorial, spacious, presentation-ready. Avoid dashboard chrome, tiny cards,
+  dense tables, random gradients and AI-sparkle overload.
+- **Accessibility (WCAG AA):** never communicate evidence status or confidence
+  with colour alone — always include an icon + text label. Keyboard-navigable,
+  visible focus states, semantic HTML, reduced-motion friendly.
+- Consume tokens: `var(--studio-ink|paper|panel|muted|line|accent)`. Use the
+  shared components in `components/persona-studio/shared` (ConfidenceBadge,
+  EvidenceTag, CoverageMeter, StatementList, SectionCard).

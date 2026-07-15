@@ -168,3 +168,53 @@
     touch-action: manipulation;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Persona Studio theme layer
+   ---------------------------------------------------------------------------
+   Two families share one component set and differ only through these tokens,
+   set on a container via `data-studio-theme="corporate" | "tdf"`. A per-persona
+   accent is injected inline as `--persona-accent`. Nothing about the families
+   is hard-coded in components.
+--------------------------------------------------------------------------- */
+[data-studio-theme] {
+  --studio-accent: var(--persona-accent, #1e3a8a);
+  --studio-paper: #ffffff;
+  --studio-ink: #0b1220;
+  --studio-muted: #5b6472;
+  --studio-line: rgba(11, 18, 32, 0.1);
+  --studio-panel: #f7f8fb;
+}
+
+[data-studio-theme="corporate"] {
+  --studio-accent: var(--persona-accent, #1e3a8a);
+  --studio-paper: #f7f9fc;
+  --studio-panel: #eaf0f9;
+  --studio-ink: #0e1a4a;
+  --studio-muted: #48566f;
+  --studio-line: rgba(14, 26, 74, 0.12);
+}
+
+[data-studio-theme="tdf"] {
+  --studio-accent: var(--persona-accent, #111111);
+  --studio-paper: #ffffff;
+  --studio-panel: #f4f4f5;
+  --studio-ink: #0a0a0a;
+  --studio-muted: #4b5563;
+  --studio-line: rgba(10, 10, 10, 0.12);
+}
+
+@layer utilities {
+  .studio-display {
+    font-family: var(--font-display), var(--font-sans), sans-serif;
+    letter-spacing: -0.02em;
+  }
+  /* Accent-tinted surface used for evidence chips and accent panels. */
+  .studio-accent-soft {
+    background-color: color-mix(in oklab, var(--studio-accent), white 86%);
+    color: color-mix(in oklab, var(--studio-accent), black 24%);
+  }
+  .studio-accent-bar {
+    background-color: var(--studio-accent);
+  }
+}

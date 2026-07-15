@@ -1,0 +1,22 @@
+---
+description: Persona Studio architecture & data-access rules
+globs: src/app/studio/**,src/components/persona-studio/**,src/lib/persona-studio/**,src/types/persona-studio/**
+alwaysApply: false
+---
+
+# Persona Studio — architecture rules
+
+- Lives under `/studio`, isolated from the deck's `[locale]` i18n. The
+  middleware matcher excludes `studio` and `api`.
+- **Server Components by default.** Add `"use client"` only for real
+  interaction (search/filter, forms, chat, DnD, voting).
+- **Client components never import the repository or a DB client.** Fetch on the
+  server; pass data as props or call route handlers.
+- Data access goes through the `PersonaRepository` interface
+  (`src/lib/persona-studio/repository`). Phase 1 = `SeedRepository`.
+- **Zod schemas are the source of truth**; TS types are `z.infer`. Never weaken
+  a schema to make code compile.
+- Next.js 15: route `params` are `Promise`s — always `await` them. Read the
+  current App Router conventions before adding routes.
+
+See `docs/persona-studio/ARCHITECTURE.md` and `DATA_MODEL.md`.

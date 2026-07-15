@@ -1,0 +1,16 @@
+---
+description: Persona Studio testing rules
+globs: tests/persona-studio/**,src/lib/persona-studio/**
+alwaysApply: false
+---
+
+# Persona Studio — testing rules
+
+- Run tests with `npm run test` (Vitest). Tests live in `tests/persona-studio/`.
+- Cover: schema validation, evidence/quote/confidence vocabulary, confidence &
+  coverage math, seed integrity, chat structured output, anti-stereotype audit
+  output. Playwright journeys land in Phase 4.
+- **Never delete or skip a failing test to make a build pass.** Fix the cause.
+- Seed data must always validate against the schemas (`seed-integrity.test.ts`).
+- Before claiming done: `npm run lint`, `npx tsc --noEmit`, `npm run test` and
+  `npm run build` must all pass.
