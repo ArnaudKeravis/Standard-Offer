@@ -6,7 +6,7 @@ import { scaffoldPersona } from "@/lib/persona-studio/utils/persona-factory";
 import type { Persona } from "@/lib/persona-studio/ai/schemas/persona";
 import type { SourceDocument } from "@/lib/persona-studio/ai/schemas/evidence";
 
-const PROJECT_ID = "proj-tdf-hospitality";
+const PROJECT_ID = "proj-xp-play";
 
 function draftPersona(overrides: Partial<Persona> = {}): Persona {
   return {

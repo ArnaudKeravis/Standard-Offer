@@ -21,12 +21,15 @@ import {
  * confidence ≠ evidence coverage.
  */
 
-export const CORPORATE_PROJECT_ID = "proj-corporate-workplace";
+/** Corporate / Personix personas live inside the WORK area project. */
+export { XP_WORK_PROJECT_ID as CORPORATE_PROJECT_ID } from "./xp-work-personas";
+import { XP_WORK_PROJECT_ID } from "./xp-work-personas";
+
 const ACCENT = "#1e3a8a";
 
 const FRAMEWORK_SOURCE: SourceDocumentSource = {
   id: "src-personix-framework",
-  projectId: CORPORATE_PROJECT_ID,
+  projectId: XP_WORK_PROJECT_ID,
   name: {
     en: "Personix — Standard Persona Profiles",
     fr: "Personix — Profils de personas standard",
@@ -643,12 +646,12 @@ function buildCorporatePersona(spec: ArchetypeSpec): PersonaSource {
 
   return {
     id: spec.id,
-    projectId: CORPORATE_PROJECT_ID,
+    projectId: XP_WORK_PROJECT_ID,
     name: spec.name,
     archetype: spec.archetype,
     category: spec.category,
-    family: "CORPORATE",
-    segment: { en: "Corporate Services", fr: "Services aux entreprises" },
+    family: "WORK",
+    segment: { en: "Corporate Services — Work", fr: "Services aux entreprises — Work" },
     oneLineEssence: spec.essence,
     portraitUrl: `/persona-studio/corporate/${spec.id.replace("persona-corp-", "")}.png`,
     accentColor: ACCENT,

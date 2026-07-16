@@ -64,10 +64,6 @@ export default async function StudioLibraryPage() {
     };
   });
 
-  const workshopProjects = projects.filter(
-    (p) => p.family === "CORPORATE" || p.family === "SPORTS_HOSPITALITY",
-  );
-
   return (
     <>
       <StudioNav
@@ -96,35 +92,7 @@ export default async function StudioLibraryPage() {
           Persona Studio
         </p>
 
-        {/* Map is the intro — same role as XP Catalogue /areas */}
         <AreasExplorer lang={lang} areas={areas} />
-
-        {workshopProjects.length > 0 ? (
-          <section
-            className="mt-14 border-t border-[var(--studio-line)] pt-10"
-            aria-label={tUI(lang, "workshopLibrary")}
-          >
-            <h2 className="text-sm font-semibold uppercase tracking-widest text-[var(--studio-muted)]">
-              {tUI(lang, "workshopLibrary")}
-            </h2>
-            <p className="mt-2 max-w-2xl text-sm text-[var(--studio-muted)]">
-              {tUI(lang, "workshopLibraryIntro")}
-            </p>
-            <ul className="mt-4 flex flex-wrap gap-3">
-              {workshopProjects.map((project) => (
-                <li key={project.id}>
-                  <Link
-                    href={`/studio/projects/${project.id}`}
-                    className="inline-flex items-center gap-2 rounded-full border border-[var(--studio-line)] bg-[var(--studio-paper)] px-4 py-2 text-sm font-medium text-[var(--studio-ink)] transition-colors hover:border-[var(--studio-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
-                  >
-                    {project.name}
-                    <span aria-hidden>→</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ) : null}
       </main>
     </>
   );

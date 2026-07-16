@@ -20,11 +20,13 @@ import {
  * honest. No facts beyond the provided data are invented.
  */
 
-export const TDF_PROJECT_ID = "proj-tdf-hospitality";
+/** Tour de France hospitality personas live inside the PLAY area project. */
+export { XP_PLAY_PROJECT_ID as TDF_PROJECT_ID } from "./xp-play-personas";
+import { XP_PLAY_PROJECT_ID } from "./xp-play-personas";
 
 const BRIEF_SOURCE: SourceDocumentSource = {
   id: "src-tdf-brief",
-  projectId: TDF_PROJECT_ID,
+  projectId: XP_PLAY_PROJECT_ID,
   name: {
     fr: "Hospitalité Tour de France — Profils de personas (mai 2026)",
     en: "Tour de France Hospitality — Persona profiles (May 2026)",
@@ -56,15 +58,15 @@ function finalise(persona: Omit<PersonaSource, "evidenceCoverage">): PersonaSour
 
 const david = finalise({
   id: "persona-david-richardson",
-  projectId: TDF_PROJECT_ID,
+  projectId: XP_PLAY_PROJECT_ID,
   name: "David Richardson",
   archetype: { fr: "Le Client VIP International", en: "The International VIP Client" },
   category: {
     fr: "Client VIP business international",
     en: "International business VIP client",
   },
-  family: "SPORTS_HOSPITALITY",
-  segment: { fr: "Sports & Loisirs", en: "Sports & Leisure" },
+  family: "PLAY",
+  segment: { fr: "Sports & Loisirs — Play", en: "Sports & Leisure — Play" },
   oneLineEssence: {
     fr: "Un dirigeant international au temps compté qui utilise le Tour comme une scène premium et authentique pour recevoir ses clients stratégiques.",
     en: "A time-pressed international executive who uses the Tour as a premium, authentic stage to host his strategic clients.",
@@ -227,12 +229,12 @@ const david = finalise({
 
 const sophie = finalise({
   id: "persona-sophie-lambert",
-  projectId: TDF_PROJECT_ID,
+  projectId: XP_PLAY_PROJECT_ID,
   name: "Sophie Lambert",
   archetype: { fr: "L'Invitée Famille", en: "The Family Guest" },
   category: { fr: "Invitée famille", en: "Family guest" },
-  family: "SPORTS_HOSPITALITY",
-  segment: { fr: "Sports & Loisirs", en: "Sports & Leisure" },
+  family: "PLAY",
+  segment: { fr: "Sports & Loisirs — Play", en: "Sports & Leisure — Play" },
   oneLineEssence: {
     fr: "Une cadre supérieure qui transforme une rare invitation partenaire en une journée exceptionnelle et sans complication avec son conjoint et ses enfants.",
     en: "A senior executive who turns a rare partner invitation into an exceptional, hassle-free day with her spouse and children.",
@@ -393,12 +395,12 @@ const sophie = finalise({
 
 const thomas = finalise({
   id: "persona-thomas-garcia",
-  projectId: TDF_PROJECT_ID,
+  projectId: XP_PLAY_PROJECT_ID,
   name: "Thomas Garcia",
   archetype: { fr: "L'Invité Sportif", en: "The Sports Fan Guest" },
   category: { fr: "Invité sportif", en: "Sports fan guest" },
-  family: "SPORTS_HOSPITALITY",
-  segment: { fr: "Sports & Loisirs", en: "Sports & Leisure" },
+  family: "PLAY",
+  segment: { fr: "Sports & Loisirs — Play", en: "Sports & Leisure — Play" },
   oneLineEssence: {
     fr: "Un passionné de cyclisme qui accepte l'invitation pour être au plus près de la course — l'hospitalité est un bonus, le sport est l'essentiel.",
     en: "A cycling enthusiast who accepts the invitation to be as close as possible to the race — hospitality is a bonus, the sport is the point.",
@@ -560,12 +562,12 @@ const thomas = finalise({
 
 const claire = finalise({
   id: "persona-claire-dubois",
-  projectId: TDF_PROJECT_ID,
+  projectId: XP_PLAY_PROJECT_ID,
   name: "Claire Dubois",
   archetype: { fr: "La Partenaire / Sponsor", en: "The Partner / Sponsor" },
   category: { fr: "Sponsor / Partenaire du Tour", en: "Tour sponsor / partner" },
-  family: "SPORTS_HOSPITALITY",
-  segment: { fr: "Sports & Loisirs", en: "Sports & Leisure" },
+  family: "PLAY",
+  segment: { fr: "Sports & Loisirs — Play", en: "Sports & Leisure — Play" },
   oneLineEssence: {
     fr: "Une directrice partenariats qui pilote un programme d'hospitalité sur toute la saison et doit rentabiliser chaque invitation.",
     en: "A partnerships director who runs a season-long hospitality programme and must make every invitation pay off.",

@@ -17,20 +17,30 @@ import { collectStatements } from "@/lib/persona-studio/utils/confidence";
 const LANGS: StudioLang[] = ["en", "fr"];
 
 describe("Seed data integrity", () => {
-  it("seeds six projects (4 XP areas + Corporate + Tour de France)", () => {
-    expect(SEED_DATA.projects).toHaveLength(6);
+  it("seeds four area projects (WORK, HEAL, LEARN, PLAY)", () => {
+    expect(SEED_DATA.projects).toHaveLength(4);
     const families = SEED_DATA.projects.map((p) => p.family).sort();
-    expect(families).toEqual([
-      "CORPORATE",
-      "HEAL",
-      "LEARN",
-      "PLAY",
-      "SPORTS_HOSPITALITY",
-      "WORK",
-    ]);
+    expect(families).toEqual(["HEAL", "LEARN", "PLAY", "WORK"]);
   });
 
-  it("seeds four XP Catalogue area projects with ≥5 personas and portraits", () => {
+  it("places Corporate Personix in WORK and Tour de France in PLAY", () => {
+    const work = SEED_DATA.personas.filter((p) => p.projectId === "proj-xp-work");
+    const play = SEED_DATA.personas.filter((p) => p.projectId === "proj-xp-play");
+    expect(work.some((p) => p.id.startsWith("persona-corp-"))).toBe(true);
+    expect(work.filter((p) => p.id.startsWith("persona-corp-"))).toHaveLength(8);
+    expect(
+      play.filter((p) =>
+        [
+          "persona-david-richardson",
+          "persona-sophie-lambert",
+          "persona-thomas-garcia",
+          "persona-claire-dubois",
+        ].includes(p.id),
+      ),
+    ).toHaveLength(4);
+  });
+
+  it("seeds four area projects with personas and portraits", () => {
     const xpIds = [
       "proj-xp-work",
       "proj-xp-heal",
@@ -45,9 +55,7 @@ describe("Seed data integrity", () => {
       const personas = SEED_DATA.personas.filter((p) => p.projectId === projectId);
       expect(personas.length, projectId).toBeGreaterThanOrEqual(5);
       for (const persona of personas) {
-        expect(persona.portraitUrl).toMatch(
-          /^\/persona-studio\/xp\/portraits\/.+\.png$/,
-        );
+        expect(persona.portraitUrl).toMatch(/^\/persona-studio\/.+\.png$/);
       }
     }
   });
@@ -75,9 +83,17 @@ describe("Seed data integrity", () => {
       expect(() => PersonaTemplate.parse(t)).not.toThrow();
   });
 
-  it("seeds the four Tour de France personas", () => {
-    const tdf = SEED_DATA.personas.filter(
-      (p) => p.family === "SPORTS_HOSPITALITY",
+  it("seeds the four Tour de France personas inside PLAY", () => {
+    const tdf = SEED_DATA.personas.filter((p) =>
+      [
+        "persona-david-richardson",
+        "persona-sophie-lambert",
+        "persona-thomas-garcia",
+        "persona-claire-dubois",
+      ].includes(p.id),
+    );
+    expect(tdf.every((p) => p.projectId === "proj-xp-play" && p.family === "PLAY")).toBe(
+      true,
     );
     // Names are proper nouns — identical in both languages.
     expect(tdf.map((p) => localizePersona(p, "en").name).sort()).toEqual([
@@ -88,13 +104,16 @@ describe("Seed data integrity", () => {
     ]);
   });
 
-  it("seeds the eight Corporate archetypes", () => {
-    const corp = SEED_DATA.personas.filter((p) => p.family === "CORPORATE");
+  it("seeds the eight Corporate archetypes inside WORK", () => {
+    const corp = SEED_DATA.personas.filter((p) => p.id.startsWith("persona-corp-"));
     expect(corp).toHaveLength(8);
+    expect(corp.every((p) => p.projectId === "proj-xp-work" && p.family === "WORK")).toBe(
+      true,
+    );
   });
 
   it("leaves Corporate local goals & frustrations as TO_VALIDATE", () => {
-    const corp = SEED_DATA.personas.filter((p) => p.family === "CORPORATE");
+    const corp = SEED_DATA.personas.filter((p) => p.id.startsWith("persona-corp-"));
     for (const persona of corp) {
       const goals = persona.commonSections.find((s) => s.key === "goals");
       const frustrations = persona.commonSections.find(
@@ -108,8 +127,14 @@ describe("Seed data integrity", () => {
   });
 
   it("grounds Tour de France statements in the seeded brief", () => {
-    const tdf = SEED_DATA.personas.filter(
-      (p) => p.family === "SPORTS_HOSPITALITY",
+    const tdf = SEED_DATA.personas.filter((p) =>
+      p.id.startsWith("persona-") &&
+      [
+        "persona-david-richardson",
+        "persona-sophie-lambert",
+        "persona-thomas-garcia",
+        "persona-claire-dubois",
+      ].includes(p.id),
     );
     for (const persona of tdf) {
       const resolved = localizePersona(persona, "fr");

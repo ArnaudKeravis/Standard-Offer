@@ -91,7 +91,7 @@ describe("Idea challenge schemas", () => {
 
   it("validates the request contract", () => {
     const parsed = IdeaChallengeRequest.parse({
-      projectId: "proj-tdf-hospitality",
+      projectId: "proj-xp-play",
       personaIds: ["persona-thomas-garcia"],
       ideaTitle: "Roaming grab-and-go cart",
       ideaDescription: "Premium snacks between passages.",
@@ -158,7 +158,7 @@ describe("Mock idea challenge provider", () => {
 describe("runIdeaChallenge service", () => {
   it("orchestrates a mock challenge for Tour de France personas", async () => {
     const result = await runIdeaChallenge({
-      projectId: "proj-tdf-hospitality",
+      projectId: "proj-xp-play",
       personaIds: ["persona-thomas-garcia", "persona-claire-dubois"],
       ideaTitle: "Roaming cart",
       ideaDescription: "Grab-and-go between passages to cut waiting.",
