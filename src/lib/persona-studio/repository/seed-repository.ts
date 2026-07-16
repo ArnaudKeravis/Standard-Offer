@@ -82,6 +82,32 @@ export class SeedRepository implements PersonaRepository {
     );
   }
 
+  async listEvidenceItems(
+    projectId: string,
+    opts: { sourceIds?: string[] } = {},
+  ) {
+    const { evidenceItemsFromText } = await import(
+      "@/lib/persona-studio/ai/ingestion/chunk-text"
+    );
+    const allowed = opts.sourceIds ? new Set(opts.sourceIds) : null;
+    const items = [];
+    for (const source of SEED_DATA.sources) {
+      if (source.projectId !== projectId) continue;
+      if (allowed && !allowed.has(source.id)) continue;
+      const text = source.extractedText?.trim() ?? "";
+      if (!text) continue;
+      items.push(
+        ...evidenceItemsFromText({
+          projectId: source.projectId,
+          sourceId: source.id,
+          text,
+          createdAt: source.createdAt,
+        }),
+      );
+    }
+    return items;
+  }
+
   async listJourneys(projectId: string, lang?: StudioLang) {
     const resolved = lang ?? projectDefaultLang(projectId);
     return SEED_DATA.journeys

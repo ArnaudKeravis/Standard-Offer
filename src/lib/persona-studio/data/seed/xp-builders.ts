@@ -1,4 +1,5 @@
 import type { ConfidenceLevel, EvidenceStatus, PersonaFamily } from "@/lib/persona-studio/ai/schemas/common";
+import { UX_SECTION_TITLES } from "@/lib/persona-studio/data/ux-section-titles";
 import { SEED_TIMESTAMP, section } from "../builders";
 import {
   resolveText,
@@ -44,15 +45,15 @@ export type XpAreaConfig = {
   sourceExtract: string;
 };
 
-/** Studio section titles — same format as the original persona sheets, with UX voice. */
+/** Studio section titles — same UX voice as Personix / TdF sheets. */
 const TITLES = {
-  essence: { en: "Who I am", fr: "Qui je suis" },
-  context: { en: "My context", fr: "Mon contexte" },
-  goals: { en: "What I'm aiming for", fr: "Ce que je vise" },
-  needs: { en: "What I need", fr: "Ce dont j'ai besoin" },
-  motivations: { en: "What drives me", fr: "Ce qui me motive" },
-  frustrations: { en: "What frustrates me", fr: "Ce qui me frustre" },
-  moments: { en: "Moments that shape my day", fr: "Les moments qui rythment ma journée" },
+  essence: UX_SECTION_TITLES.essence,
+  context: UX_SECTION_TITLES.context,
+  goals: UX_SECTION_TITLES.goals,
+  needs: UX_SECTION_TITLES.needs,
+  motivations: UX_SECTION_TITLES.motivations,
+  frustrations: UX_SECTION_TITLES.frustrations,
+  moments: UX_SECTION_TITLES.moments,
 } as const;
 
 function items(

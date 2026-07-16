@@ -33,14 +33,17 @@
 - Playwright end-to-end journey (open TdF → browse 4 → compare → ask Thomas →
   challenge an idea → presentation mode)
 
-## Phase 5 — Research ingestion
+## Phase 5 — Research ingestion (MVP in progress)
 
-- File upload + extraction interfaces, source chunking, embeddings
-- Supabase + RLS, pgvector retrieval, cluster generation, AI persona generation
+- ✅ Soft facilitator write-gate (`PERSONA_STUDIO_ACCESS_SECRET` + `/studio/unlock`)
+- ✅ Source text/PDF upload → extract → chunk into `EvidenceItem` + keyword retrieval
+- ✅ Facilitator session path (`/session`: Present → Compare → Challenge → Board)
+- ✅ Anti-stereotype review + differentiation score on persona detail
+- ⏳ Supabase + RLS, pgvector embeddings, real cluster/persona generation
 
 ## Known limitations (Phase 1)
 
-- Read-only: no editing/creation/chat/workshop yet (Phases 2–4).
-- Data is in-memory seed data; no Supabase/OpenAI wired.
-- Portraits are accent monograms (no portrait assets yet).
-- UI is English-only; persona content is in its source language.
+- Portraits are large on XP assets (compression still recommended).
+- Write gate is cookie-based (not full Supabase Auth).
+- Board / chat persistence remain browser-local.
+- UI is bilingual FR/EN via cookie; persona content is authored bilingually.

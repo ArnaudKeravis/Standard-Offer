@@ -394,7 +394,7 @@ function buildMockSynthesis(
     questionsToTest: reactions
       .flatMap((r) => r.missingInformation)
       .filter(Boolean)
-      .slice(0, 5),
+      .slice(0, 3),
     suggestedPrototype:
       lang === "fr"
         ? "Prototype léger à tester en situation (sans score) : observer adoption, friction et questions ouvertes."

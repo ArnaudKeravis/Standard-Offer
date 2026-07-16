@@ -1,16 +1,10 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import {
-  FileText,
-  Lightbulb,
-  Presentation,
-  Plus,
-  Route,
-  StickyNote,
-  Users,
-  UsersRound,
-} from "lucide-react";
 import { getRepository } from "@/lib/persona-studio/repository";
+import {
+  canWriteStudio,
+  isWriteGateEnabled,
+} from "@/lib/persona-studio/auth/access";
 import { familyTheme } from "@/lib/persona-studio/utils/persona-view";
 import { accentForFamily } from "@/lib/persona-studio/utils/family-theme";
 import {
@@ -25,6 +19,17 @@ import { StudioNav } from "@/components/persona-studio/shared/studio-nav";
 import { PersonaGalleryCard } from "@/components/persona-studio/personas/persona-gallery-card";
 import { NeedsMap } from "@/components/persona-studio/shared/needs-map";
 import { JourneyLens } from "@/components/persona-studio/journeys/journey-lens";
+import {
+  FileText,
+  Lightbulb,
+  Presentation,
+  Plus,
+  Route,
+  StickyNote,
+  Users,
+  UsersRound,
+  Waypoints,
+} from "lucide-react";
 
 export default async function ProjectOverviewPage({
   params,
@@ -39,11 +44,13 @@ export default async function ProjectOverviewPage({
 
   const lang = preference ?? langFromProject(project);
 
-  const [personas, sources, journeys] = await Promise.all([
+  const [personas, sources, journeys, canWrite] = await Promise.all([
     repo.listPersonas(projectId, lang),
     repo.listSources(projectId, lang),
     repo.listJourneys(projectId, lang),
+    canWriteStudio(),
   ]);
+  const gateOn = isWriteGateEnabled();
 
   const accent = accentForFamily(project.family);
 
@@ -54,23 +61,37 @@ export default async function ProjectOverviewPage({
     >
       <StudioNav
         lang={lang}
-        crumbs={[{ label: project.name }]}
+        crumbs={[
+          { label: tUI(lang, "areasCrumb"), href: "/studio" },
+          { label: project.name },
+        ]}
         actions={
           <>
-            <Link
-              href={`/studio/projects/${project.id}/sources`}
-              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium text-[var(--studio-muted)] transition-colors hover:text-[var(--studio-ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
-            >
-              <FileText aria-hidden className="size-4" />
-              {tUI(lang, "manageSources")}
-            </Link>
-            <Link
-              href={`/studio/projects/${project.id}/personas/new`}
-              className="inline-flex items-center gap-1.5 rounded-full bg-[var(--studio-ink)] px-3.5 py-1.5 text-sm font-medium text-[var(--studio-paper)] transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
-            >
-              <Plus aria-hidden className="size-4" />
-              {tUI(lang, "addPersona")}
-            </Link>
+            {canWrite ? (
+              <>
+                <Link
+                  href={`/studio/projects/${project.id}/sources`}
+                  className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium text-[var(--studio-muted)] transition-colors hover:text-[var(--studio-ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
+                >
+                  <FileText aria-hidden className="size-4" />
+                  {tUI(lang, "manageSources")}
+                </Link>
+                <Link
+                  href={`/studio/projects/${project.id}/personas/new`}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-[var(--studio-ink)] px-3.5 py-1.5 text-sm font-medium text-[var(--studio-paper)] transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
+                >
+                  <Plus aria-hidden className="size-4" />
+                  {tUI(lang, "addPersona")}
+                </Link>
+              </>
+            ) : gateOn ? (
+              <Link
+                href={`/studio/unlock?next=${encodeURIComponent(`/studio/projects/${project.id}`)}`}
+                className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium text-[var(--studio-muted)]"
+              >
+                {tUI(lang, "unlockFacilitator")}
+              </Link>
+            ) : null}
           </>
         }
       />
@@ -141,7 +162,13 @@ export default async function ProjectOverviewPage({
                 {tWorkshop(lang, "workshopToolsIntro")}
               </p>
             </div>
-            <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+              <WorkshopToolLink
+                href={`/studio/projects/${project.id}/session`}
+                icon={<Waypoints className="size-4" />}
+                title={tWorkshop(lang, "facilitatorSession")}
+                description={tWorkshop(lang, "facilitatorSessionDesc")}
+              />
               <WorkshopToolLink
                 href={`/studio/projects/${project.id}/compare`}
                 icon={<UsersRound className="size-4" />}

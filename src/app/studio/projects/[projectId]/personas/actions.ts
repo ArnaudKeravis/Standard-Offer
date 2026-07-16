@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { getWritableRepository } from "@/lib/persona-studio/repository";
 import { getSessionUser } from "@/lib/persona-studio/auth/mock-auth";
+import { requireWriteAccess } from "@/lib/persona-studio/auth/access";
 import { Persona, PersonaTemplate } from "@/lib/persona-studio/ai/schemas/persona";
 import { PersonaSectionTemplate } from "@/lib/persona-studio/ai/schemas/section";
 import { PersonaFamily } from "@/lib/persona-studio/ai/schemas/common";
@@ -28,6 +29,7 @@ export async function createPersonaAction(
   projectId: string,
   personaRaw: z.input<typeof Persona>,
 ): Promise<{ personaId: string }> {
+  await requireWriteAccess();
   const repo = getWritableRepository();
   const now = new Date().toISOString();
   const persona = Persona.parse({
@@ -48,6 +50,7 @@ export async function updatePersonaAction(
   personaRaw: z.input<typeof Persona>,
   note?: string,
 ): Promise<{ version: number }> {
+  await requireWriteAccess();
   const repo = getWritableRepository();
   const user = await getSessionUser();
   const next = Persona.parse(personaRaw);
@@ -63,6 +66,7 @@ export async function deletePersonaAction(
   projectId: string,
   personaId: string,
 ): Promise<void> {
+  await requireWriteAccess();
   const repo = getWritableRepository();
   await repo.deletePersona(personaId);
   revalidatePersona(projectId, personaId);
@@ -73,6 +77,7 @@ export async function restoreVersionAction(
   personaId: string,
   version: number,
 ): Promise<{ version: number }> {
+  await requireWriteAccess();
   const repo = getWritableRepository();
   const user = await getSessionUser();
   const saved = await repo.restorePersonaVersion(personaId, version, {
@@ -93,6 +98,7 @@ const SaveTemplateInput = z.object({
 export async function saveTemplateAction(
   raw: z.input<typeof SaveTemplateInput>,
 ): Promise<{ templateId: string }> {
+  await requireWriteAccess();
   const input = SaveTemplateInput.parse(raw);
   const repo = getWritableRepository();
   const now = new Date().toISOString();

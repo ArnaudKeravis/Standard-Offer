@@ -6,9 +6,8 @@ import { tUI, type StudioLang } from "@/lib/persona-studio/utils/i18n";
 import { EvidenceTag } from "./evidence-tag";
 
 /**
- * Renders persona statements with their evidence tags. Each statement can
- * expose its supporting sources in a native <details> disclosure, keeping the
- * "why does this exist" traceability fully keyboard-accessible with no JS.
+ * Renders persona statements with evidence as a quiet marginalia rail
+ * (status beside the claim, sources under). Icon + text — never colour alone.
  */
 export function StatementList({
   statements,
@@ -32,43 +31,48 @@ export function StatementList({
   }
 
   return (
-    <ul className={cn("space-y-2.5", className)}>
+    <ul className={cn("space-y-3", className)}>
       {statements.map((s) => (
         <li key={s.id} className="text-sm leading-relaxed">
-          <div className="flex flex-wrap items-start gap-x-2 gap-y-1">
-            {variant === "bullets" && (
-              <span
-                aria-hidden
-                className="mt-2 size-1.5 shrink-0 rounded-full bg-[var(--studio-accent)]"
-              />
-            )}
-            <span className="flex-1 text-[var(--studio-ink)]">
-              {s.label && variant === "moments" && (
-                <span className="mr-1.5 font-semibold uppercase tracking-wide text-[0.72rem] text-[var(--studio-muted)]">
-                  {s.label}
+          <div className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start sm:gap-3">
+            <div className="min-w-0">
+              <div className="flex items-start gap-2">
+                {variant === "bullets" && (
+                  <span
+                    aria-hidden
+                    className="mt-2 size-1.5 shrink-0 rounded-full bg-[var(--studio-accent)]"
+                  />
+                )}
+                <span className="text-[var(--studio-ink)]">
+                  {s.label && variant === "moments" && (
+                    <span className="mr-1.5 font-semibold uppercase tracking-wide text-[0.72rem] text-[var(--studio-muted)]">
+                      {s.label}
+                    </span>
+                  )}
+                  {s.content}
                 </span>
+              </div>
+              {s.sourceIds.length > 0 && sourcesById && (
+                <details className="group mt-1 ml-3.5">
+                  <summary className="inline-flex cursor-pointer list-none items-center gap-1 text-xs text-[var(--studio-muted)] hover:text-[var(--studio-ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]">
+                    <FileText aria-hidden className="size-3" />
+                    {s.sourceIds.length} source
+                    {s.sourceIds.length > 1 ? "s" : ""}
+                  </summary>
+                  <ul className="mt-1 space-y-0.5 border-l border-[var(--studio-line)] pl-3">
+                    {s.sourceIds.map((id) => (
+                      <li key={id} className="text-xs text-[var(--studio-muted)]">
+                        {sourcesById.get(id)?.name ?? id}
+                      </li>
+                    ))}
+                  </ul>
+                </details>
               )}
-              {s.content}
-            </span>
-            <EvidenceTag status={s.evidenceStatus} lang={lang} />
+            </div>
+            <div className="sm:pt-0.5">
+              <EvidenceTag status={s.evidenceStatus} lang={lang} />
+            </div>
           </div>
-
-          {s.sourceIds.length > 0 && sourcesById && (
-            <details className="group mt-1 ml-3.5">
-              <summary className="inline-flex cursor-pointer list-none items-center gap-1 text-xs text-[var(--studio-muted)] hover:text-[var(--studio-ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]">
-                <FileText aria-hidden className="size-3" />
-                {s.sourceIds.length} source
-                {s.sourceIds.length > 1 ? "s" : ""}
-              </summary>
-              <ul className="mt-1 space-y-0.5 border-l border-[var(--studio-line)] pl-3">
-                {s.sourceIds.map((id) => (
-                  <li key={id} className="text-xs text-[var(--studio-muted)]">
-                    {sourcesById.get(id)?.name ?? id}
-                  </li>
-                ))}
-              </ul>
-            </details>
-          )}
         </li>
       ))}
     </ul>

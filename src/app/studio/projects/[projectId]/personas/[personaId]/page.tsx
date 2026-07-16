@@ -9,6 +9,10 @@ import {
 } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getRepository } from "@/lib/persona-studio/repository";
+import {
+  canWriteStudio,
+  isWriteGateEnabled,
+} from "@/lib/persona-studio/auth/access";
 import { familyTheme } from "@/lib/persona-studio/utils/persona-view";
 import { langFromProject, tUI } from "@/lib/persona-studio/utils/i18n";
 import { getLangPreference } from "@/lib/persona-studio/utils/lang-cookie";
@@ -45,8 +49,13 @@ export default async function PersonaDetailPage({
   if (!project || !persona || persona.projectId !== project.id) notFound();
 
   const lang = preference ?? langFromProject(project);
-  const allSources = await repo.listSources(projectId, lang);
+  const [allSources, peers] = await Promise.all([
+    repo.listSources(projectId, lang),
+    repo.listPersonas(projectId, lang),
+  ]);
   const sources = allSources.filter((s) => persona.sourceIds.includes(s.id));
+  const canWrite = await canWriteStudio();
+  const gateOn = isWriteGateEnabled();
 
   return (
     <div
@@ -56,6 +65,7 @@ export default async function PersonaDetailPage({
       <StudioNav
         lang={lang}
         crumbs={[
+          { label: tUI(lang, "areasCrumb"), href: "/studio" },
           { label: project.name, href: `/studio/projects/${project.id}` },
           {
             label: tUI(lang, "personaGallery"),
@@ -86,13 +96,22 @@ export default async function PersonaDetailPage({
               <History aria-hidden className="size-4" />
               {tUI(lang, "history")}
             </Link>
-            <Link
-              href={`/studio/projects/${project.id}/personas/${persona.id}/edit`}
-              className="inline-flex items-center gap-1.5 rounded-full border border-[var(--studio-line)] px-3.5 py-1.5 text-sm font-medium text-[var(--studio-ink)] transition-colors hover:border-[var(--studio-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
-            >
-              <Pencil aria-hidden className="size-4" />
-              {tUI(lang, "editPersona")}
-            </Link>
+            {canWrite ? (
+              <Link
+                href={`/studio/projects/${project.id}/personas/${persona.id}/edit`}
+                className="inline-flex items-center gap-1.5 rounded-full border border-[var(--studio-line)] px-3.5 py-1.5 text-sm font-medium text-[var(--studio-ink)] transition-colors hover:border-[var(--studio-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
+              >
+                <Pencil aria-hidden className="size-4" />
+                {tUI(lang, "editPersona")}
+              </Link>
+            ) : gateOn ? (
+              <Link
+                href={`/studio/unlock?next=${encodeURIComponent(`/studio/projects/${project.id}/personas/${persona.id}/edit`)}`}
+                className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium text-[var(--studio-muted)]"
+              >
+                {tUI(lang, "unlockFacilitator")}
+              </Link>
+            ) : null}
             <Link
               href={`/studio/projects/${project.id}/personas/${persona.id}/chat`}
               className="inline-flex items-center gap-1.5 rounded-full bg-[var(--studio-accent)] px-3.5 py-1.5 text-sm font-medium text-white transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
@@ -103,7 +122,12 @@ export default async function PersonaDetailPage({
           </>
         }
       />
-      <PersonaDetail persona={persona} sources={sources} lang={lang} />
+      <PersonaDetail
+        persona={persona}
+        peers={peers}
+        sources={sources}
+        lang={lang}
+      />
     </div>
   );
 }

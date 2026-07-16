@@ -4,7 +4,10 @@ import type {
   PersonaVersion,
 } from "@/lib/persona-studio/ai/schemas/persona";
 import type { Project, User } from "@/lib/persona-studio/ai/schemas/project";
-import type { SourceDocument } from "@/lib/persona-studio/ai/schemas/evidence";
+import type {
+  EvidenceItem,
+  SourceDocument,
+} from "@/lib/persona-studio/ai/schemas/evidence";
 import type { Journey } from "@/lib/persona-studio/ai/schemas/workshop";
 import type { StudioLang } from "@/lib/persona-studio/utils/i18n";
 
@@ -34,6 +37,12 @@ export interface PersonaRepository {
 
   listSources(projectId: string, lang?: StudioLang): Promise<SourceDocument[]>;
   getSource(sourceId: string, lang?: StudioLang): Promise<SourceDocument | null>;
+
+  /** Retrievable evidence chunks derived from sources (Phase 5 grounding). */
+  listEvidenceItems(
+    projectId: string,
+    opts?: { sourceIds?: string[] },
+  ): Promise<EvidenceItem[]>;
 
   listJourneys(projectId: string, lang?: StudioLang): Promise<Journey[]>;
 
@@ -96,6 +105,12 @@ export interface WritablePersonaRepository extends PersonaRepository {
     patch: Partial<SourceDocument>,
   ): Promise<SourceDocument>;
   deleteSource(sourceId: string): Promise<void>;
+
+  /** Replace all evidence chunks for a source (used after ingest / re-chunk). */
+  replaceEvidenceItemsForSource(
+    sourceId: string,
+    items: EvidenceItem[],
+  ): Promise<EvidenceItem[]>;
 
   createTemplate(template: PersonaTemplate): Promise<PersonaTemplate>;
 }

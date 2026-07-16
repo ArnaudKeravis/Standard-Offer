@@ -105,7 +105,7 @@ const david = finalise({
   commonSections: [
     section("persona-david-richardson", {
       key: "essence",
-      title: { fr: "Essence", en: "Essence" },
+      title: { fr: "Qui je suis", en: "Who I am" },
       type: "text",
       order: 0,
       items: [
@@ -121,7 +121,7 @@ const david = finalise({
     }),
     section("persona-david-richardson", {
       key: "context",
-      title: { fr: "Contexte", en: "Context" },
+      title: { fr: "Mon contexte", en: "My context" },
       type: "bullets",
       order: 1,
       items: [
@@ -132,7 +132,7 @@ const david = finalise({
     }),
     section("persona-david-richardson", {
       key: "motivations",
-      title: { fr: "Motivations", en: "Motivations" },
+      title: { fr: "Ce qui me motive", en: "What drives me" },
       type: "bullets",
       order: 6,
       items: [
@@ -145,7 +145,7 @@ const david = finalise({
     }),
     section("persona-david-richardson", {
       key: "frustrations",
-      title: { fr: "Frustrations", en: "Frustrations" },
+      title: { fr: "Ce qui me frustre", en: "What frustrates me" },
       type: "bullets",
       order: 7,
       items: [
@@ -158,7 +158,7 @@ const david = finalise({
     }),
     section("persona-david-richardson", {
       key: "questions_to_validate",
-      title: { fr: "Questions à valider", en: "Questions to validate" },
+      title: { fr: "Encore à valider avec les gens", en: "Still to validate with people" },
       type: "bullets",
       order: 12,
       items: [
@@ -171,7 +171,7 @@ const david = finalise({
   domainSections: [
     section("persona-david-richardson", {
       key: "reasons_for_attending",
-      title: { fr: "Raisons de sa venue", en: "Reasons for attending" },
+      title: { fr: "Pourquoi je suis là", en: "Why I'm here" },
       type: "bullets",
       order: 20,
       items: [
@@ -184,7 +184,7 @@ const david = finalise({
     }),
     section("persona-david-richardson", {
       key: "key_expectations",
-      title: { fr: "Attentes clés", en: "Key expectations" },
+      title: { fr: "Ce dont j'ai besoin dans l'expérience", en: "What I need from the experience" },
       type: "needs",
       order: 21,
       items: [
@@ -198,7 +198,7 @@ const david = finalise({
     }),
     section("persona-david-richardson", {
       key: "food_hospitality",
-      title: { fr: "Attentes restauration & hospitalité", en: "Food & hospitality expectations" },
+      title: { fr: "Ce que j'attends de la restauration & hospitalité", en: "What I expect from food & hospitality" },
       type: "bullets",
       order: 22,
       items: [
@@ -211,7 +211,7 @@ const david = finalise({
     }),
     section("persona-david-richardson", {
       key: "ideal_experience",
-      title: { fr: "Expérience idéale", en: "Ideal experience" },
+      title: { fr: "L'expérience que j'espère", en: "The experience I hope for" },
       type: "text",
       order: 24,
       items: [
@@ -273,7 +273,7 @@ const sophie = finalise({
   commonSections: [
     section("persona-sophie-lambert", {
       key: "essence",
-      title: { fr: "Essence", en: "Essence" },
+      title: { fr: "Qui je suis", en: "Who I am" },
       type: "text",
       order: 0,
       items: [
@@ -289,7 +289,7 @@ const sophie = finalise({
     }),
     section("persona-sophie-lambert", {
       key: "context",
-      title: { fr: "Contexte", en: "Context" },
+      title: { fr: "Mon contexte", en: "My context" },
       type: "bullets",
       order: 1,
       items: [
@@ -300,7 +300,7 @@ const sophie = finalise({
     }),
     section("persona-sophie-lambert", {
       key: "motivations",
-      title: { fr: "Motivations", en: "Motivations" },
+      title: { fr: "Ce qui me motive", en: "What drives me" },
       type: "bullets",
       order: 6,
       items: [
@@ -313,7 +313,7 @@ const sophie = finalise({
     }),
     section("persona-sophie-lambert", {
       key: "frustrations",
-      title: { fr: "Frustrations", en: "Frustrations" },
+      title: { fr: "Ce qui me frustre", en: "What frustrates me" },
       type: "bullets",
       order: 7,
       items: [
@@ -326,7 +326,7 @@ const sophie = finalise({
     }),
     section("persona-sophie-lambert", {
       key: "questions_to_validate",
-      title: { fr: "Questions à valider", en: "Questions to validate" },
+      title: { fr: "Encore à valider avec les gens", en: "Still to validate with people" },
       type: "bullets",
       order: 12,
       items: [
@@ -338,7 +338,7 @@ const sophie = finalise({
   domainSections: [
     section("persona-sophie-lambert", {
       key: "reasons_for_attending",
-      title: { fr: "Raisons de sa venue", en: "Reasons for attending" },
+      title: { fr: "Pourquoi je suis là", en: "Why I'm here" },
       type: "bullets",
       order: 20,
       items: [
@@ -351,7 +351,7 @@ const sophie = finalise({
     }),
     section("persona-sophie-lambert", {
       key: "key_expectations",
-      title: { fr: "Attentes clés", en: "Key expectations" },
+      title: { fr: "Ce dont j'ai besoin dans l'expérience", en: "What I need from the experience" },
       type: "needs",
       order: 21,
       items: [
@@ -364,7 +364,7 @@ const sophie = finalise({
     }),
     section("persona-sophie-lambert", {
       key: "food_hospitality",
-      title: { fr: "Attentes restauration & hospitalité", en: "Food & hospitality expectations" },
+      title: { fr: "Ce que j'attends de la restauration & hospitalité", en: "What I expect from food & hospitality" },
       type: "bullets",
       order: 22,
       items: [
@@ -377,7 +377,7 @@ const sophie = finalise({
     }),
     section("persona-sophie-lambert", {
       key: "ideal_experience",
-      title: { fr: "Expérience idéale", en: "Ideal experience" },
+      title: { fr: "L'expérience que j'espère", en: "The experience I hope for" },
       type: "text",
       order: 24,
       items: [
@@ -439,7 +439,7 @@ const thomas = finalise({
   commonSections: [
     section("persona-thomas-garcia", {
       key: "essence",
-      title: { fr: "Essence", en: "Essence" },
+      title: { fr: "Qui je suis", en: "Who I am" },
       type: "text",
       order: 0,
       items: [
@@ -455,7 +455,7 @@ const thomas = finalise({
     }),
     section("persona-thomas-garcia", {
       key: "context",
-      title: { fr: "Contexte", en: "Context" },
+      title: { fr: "Mon contexte", en: "My context" },
       type: "bullets",
       order: 1,
       items: [
@@ -466,7 +466,7 @@ const thomas = finalise({
     }),
     section("persona-thomas-garcia", {
       key: "motivations",
-      title: { fr: "Motivations", en: "Motivations" },
+      title: { fr: "Ce qui me motive", en: "What drives me" },
       type: "bullets",
       order: 6,
       items: [
@@ -479,7 +479,7 @@ const thomas = finalise({
     }),
     section("persona-thomas-garcia", {
       key: "frustrations",
-      title: { fr: "Frustrations", en: "Frustrations" },
+      title: { fr: "Ce qui me frustre", en: "What frustrates me" },
       type: "bullets",
       order: 7,
       items: [
@@ -492,7 +492,7 @@ const thomas = finalise({
     }),
     section("persona-thomas-garcia", {
       key: "questions_to_validate",
-      title: { fr: "Questions à valider", en: "Questions to validate" },
+      title: { fr: "Encore à valider avec les gens", en: "Still to validate with people" },
       type: "bullets",
       order: 12,
       items: [
@@ -504,7 +504,7 @@ const thomas = finalise({
   domainSections: [
     section("persona-thomas-garcia", {
       key: "reasons_for_attending",
-      title: { fr: "Raisons de sa venue", en: "Reasons for attending" },
+      title: { fr: "Pourquoi je suis là", en: "Why I'm here" },
       type: "bullets",
       order: 20,
       items: [
@@ -518,7 +518,7 @@ const thomas = finalise({
     }),
     section("persona-thomas-garcia", {
       key: "key_expectations",
-      title: { fr: "Attentes clés", en: "Key expectations" },
+      title: { fr: "Ce dont j'ai besoin dans l'expérience", en: "What I need from the experience" },
       type: "needs",
       order: 21,
       items: [
@@ -531,7 +531,7 @@ const thomas = finalise({
     }),
     section("persona-thomas-garcia", {
       key: "food_hospitality",
-      title: { fr: "Attentes restauration & hospitalité", en: "Food & hospitality expectations" },
+      title: { fr: "Ce que j'attends de la restauration & hospitalité", en: "What I expect from food & hospitality" },
       type: "bullets",
       order: 22,
       items: [
@@ -544,7 +544,7 @@ const thomas = finalise({
     }),
     section("persona-thomas-garcia", {
       key: "ideal_experience",
-      title: { fr: "Expérience idéale", en: "Ideal experience" },
+      title: { fr: "L'expérience que j'espère", en: "The experience I hope for" },
       type: "text",
       order: 24,
       items: [
@@ -606,7 +606,7 @@ const claire = finalise({
   commonSections: [
     section("persona-claire-dubois", {
       key: "essence",
-      title: { fr: "Essence", en: "Essence" },
+      title: { fr: "Qui je suis", en: "Who I am" },
       type: "text",
       order: 0,
       items: [
@@ -622,7 +622,7 @@ const claire = finalise({
     }),
     section("persona-claire-dubois", {
       key: "context",
-      title: { fr: "Contexte", en: "Context" },
+      title: { fr: "Mon contexte", en: "My context" },
       type: "bullets",
       order: 1,
       items: [
@@ -633,7 +633,7 @@ const claire = finalise({
     }),
     section("persona-claire-dubois", {
       key: "motivations",
-      title: { fr: "Motivations", en: "Motivations" },
+      title: { fr: "Ce qui me motive", en: "What drives me" },
       type: "bullets",
       order: 6,
       items: [
@@ -646,7 +646,7 @@ const claire = finalise({
     }),
     section("persona-claire-dubois", {
       key: "frustrations",
-      title: { fr: "Frustrations", en: "Frustrations" },
+      title: { fr: "Ce qui me frustre", en: "What frustrates me" },
       type: "bullets",
       order: 7,
       items: [
@@ -659,7 +659,7 @@ const claire = finalise({
     }),
     section("persona-claire-dubois", {
       key: "questions_to_validate",
-      title: { fr: "Questions à valider", en: "Questions to validate" },
+      title: { fr: "Encore à valider avec les gens", en: "Still to validate with people" },
       type: "bullets",
       order: 12,
       items: [
@@ -671,7 +671,7 @@ const claire = finalise({
   domainSections: [
     section("persona-claire-dubois", {
       key: "reasons_for_attending",
-      title: { fr: "Raisons de sa venue", en: "Reasons for attending" },
+      title: { fr: "Pourquoi je suis là", en: "Why I'm here" },
       type: "bullets",
       order: 20,
       items: [
@@ -684,7 +684,7 @@ const claire = finalise({
     }),
     section("persona-claire-dubois", {
       key: "key_expectations",
-      title: { fr: "Attentes clés", en: "Key expectations" },
+      title: { fr: "Ce dont j'ai besoin dans l'expérience", en: "What I need from the experience" },
       type: "needs",
       order: 21,
       items: [
@@ -697,7 +697,7 @@ const claire = finalise({
     }),
     section("persona-claire-dubois", {
       key: "food_hospitality",
-      title: { fr: "Attentes restauration & hospitalité", en: "Food & hospitality expectations" },
+      title: { fr: "Ce que j'attends de la restauration & hospitalité", en: "What I expect from food & hospitality" },
       type: "bullets",
       order: 22,
       items: [
@@ -710,7 +710,7 @@ const claire = finalise({
     }),
     section("persona-claire-dubois", {
       key: "ideal_experience",
-      title: { fr: "Expérience idéale", en: "Ideal experience" },
+      title: { fr: "L'expérience que j'espère", en: "The experience I hope for" },
       type: "text",
       order: 24,
       items: [

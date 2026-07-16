@@ -5,7 +5,10 @@ import type {
   QuoteType,
 } from "@/lib/persona-studio/ai/schemas/common";
 import type { Persona } from "@/lib/persona-studio/ai/schemas/persona";
-import type { SourceDocument } from "@/lib/persona-studio/ai/schemas/evidence";
+import type {
+  EvidenceItem,
+  SourceDocument,
+} from "@/lib/persona-studio/ai/schemas/evidence";
 import type { StudioLang } from "@/lib/persona-studio/utils/i18n";
 import { langFromLanguage } from "@/lib/persona-studio/utils/i18n";
 
@@ -69,11 +72,16 @@ export interface PersonaGroundingContext {
  * Build the grounding context from a persona and its linked sources. Only
  * sources referenced by the persona (or one of its statements) are included, so
  * the model can never cite a document that does not belong to this persona.
+ *
+ * When `evidenceItems` are provided, each chunk becomes a synthetic grounding
+ * statement (`sectionKey: source_chunk`) so the keyword retriever can surface
+ * source snippets alongside persona statements — without inventing content.
  */
 export function buildPersonaGroundingContext(
   persona: Persona,
   projectSources: SourceDocument[],
   language?: string,
+  evidenceItems: EvidenceItem[] = [],
 ): PersonaGroundingContext {
   const lang = langFromLanguage(language);
 
@@ -113,6 +121,27 @@ export function buildPersonaGroundingContext(
       confidentiality: s.confidentiality,
       participantRef: s.participantRef,
     }));
+
+  const sourceName = new Map(sources.map((s) => [s.id, s.name]));
+  for (const item of evidenceItems) {
+    if (!referenced.has(item.sourceId)) continue;
+    statements.push({
+      id: item.id,
+      sectionKey: "source_chunk",
+      sectionTitle: sourceName.get(item.sourceId) ?? "Source excerpt",
+      label: "Source excerpt",
+      content: item.content,
+      evidenceStatus: "EVIDENCE",
+      confidence: "MEDIUM",
+      sourceIds: [item.sourceId],
+      excerpts: [
+        {
+          sourceId: item.sourceId,
+          excerpt: item.content.slice(0, 280),
+        },
+      ],
+    });
+  }
 
   return {
     lang,

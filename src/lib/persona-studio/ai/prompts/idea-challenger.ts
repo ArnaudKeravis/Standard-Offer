@@ -42,7 +42,8 @@ export function buildIdeaChallengerSystemPrompt(lang: "en" | "fr"): string {
     `  adoptionTrigger, rejectionTrigger, missingInformation[],`,
     `  improvementRecommendation,`,
     `  basis: { personaStatementIds[], sourceIds[], evidenceExcerpts[{sourceId,excerpt}], assumptionsUsed[], confidence }`,
-    `- synthesis: { universalStrengths[], personaSpecificBenefits[{personaId,benefit}], risks[], questionsToTest[], suggestedPrototype }`,
+    `- synthesis: { universalStrengths[], personaSpecificBenefits[{personaId,benefit}], risks[], questionsToTest[exactly 3 field questions], suggestedPrototype }`,
+    `- questionsToTest MUST contain exactly 3 concrete research questions a facilitator can take to the field.`,
     ``,
     `Every id in basis MUST come from that persona's context. confidence is HIGH|MEDIUM|LOW for the reaction quality — never a score of the idea.`,
   ].join("\n");

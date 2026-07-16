@@ -16,7 +16,43 @@ const WORKSHOP_UI = {
     // Entry points / hub
     workshopTools: "Workshop tools",
     workshopToolsIntro:
-      "Facilitator surfaces built from the same evidence — compare, present, pressure-test ideas and run a board.",
+      "Facilitator surfaces built from the same evidence — Challenge Pack first, then present, compare and calibrate.",
+    facilitatorSession: "Facilitator session",
+    facilitatorSessionDesc:
+      "Default move: Challenge Pack → Present → Compare → Board",
+    sessionTitle: "Facilitator session",
+    sessionIntro:
+      "Start with the Challenge Pack (idea → reactions → conflicts → 3 field questions), then present, compare and calibrate on the board.",
+    sessionStep: "Step",
+    sessionOf: "of",
+    sessionNext: "Next step",
+    sessionOpen: "Open step",
+    sessionPersonas: "Personas in the room",
+    sessionLocalNote:
+      "Board notes stay on this browser only — not shared across devices yet.",
+    packStepIdea: "1 · Idea",
+    packStepReactions: "2 · Reactions",
+    packStepConflicts: "3 · Conflicts",
+    packStepQuestions: "4 · Field questions",
+    packConflictsTitle: "Conflicts to explore",
+    packConflictsIntro:
+      "Where personas pull in different directions — prompts to explore, not verdicts.",
+    packNoConflicts:
+      "No sharp divergences across reactions — check synthesis risks instead.",
+    packQuestionsTitle: "3 field questions",
+    packQuestionsIntro:
+      "Take these to the next research or workshop validation round.",
+    packNext: "Continue",
+    packBack: "Back",
+    kindToValidate: "To validate",
+    kindEvidence: "Evidence",
+    calibrationSync: "Sync to sheet",
+    calibrationSyncing: "Syncing…",
+    calibrationSynced: "Synced to persona sheet",
+    calibrationNeedLink: "Assign a persona and statement to sync.",
+    calibrationStatement: "Statement on sheet",
+    openToValidate: "To validate",
+    openEvidence: "Evidence claims",
     compare: "Compare",
     compareDesc: "Set personas side by side",
     present: "Present",
@@ -152,7 +188,7 @@ const WORKSHOP_UI = {
     votes: "votes",
     vote: "Vote",
     removeNote: "Remove",
-    emptyBoard: "No notes yet. Add the first one above.",
+    emptyBoard: "The board is empty. Capture the first assumption, question or opportunity above — then vote to prioritise.",
     generateSynthesis: "Generate synthesis",
     synthesis: "Workshop synthesis",
     topVoted: "Top voted",
@@ -163,14 +199,50 @@ const WORKSHOP_UI = {
     clearBoard: "Clear board",
     clearBoardConfirm: "Clear the whole board? This cannot be undone.",
     synthesisEmpty:
-      "Add a few notes and vote on them, then generate a synthesis.",
+      "Add a few notes, vote on what matters, then generate a synthesis for the room.",
     noteCount: "notes",
   },
   fr: {
     // Entry points / hub
     workshopTools: "Outils d’atelier",
     workshopToolsIntro:
-      "Des surfaces de facilitation construites à partir des mêmes preuves — comparer, présenter, éprouver des idées et animer un board.",
+      "Surfaces de facilitation fondées sur les mêmes preuves — Challenge Pack d’abord, puis présenter, comparer et calibrer.",
+    facilitatorSession: "Session facilitateur",
+    facilitatorSessionDesc:
+      "Parcours par défaut : Challenge Pack → Présenter → Comparer → Board",
+    sessionTitle: "Session facilitateur",
+    sessionIntro:
+      "Commencez par le Challenge Pack (idée → réactions → conflits → 3 questions terrain), puis présentez, comparez et calibrez sur le board.",
+    sessionStep: "Étape",
+    sessionOf: "sur",
+    sessionNext: "Étape suivante",
+    sessionOpen: "Ouvrir l’étape",
+    sessionPersonas: "Personas dans la salle",
+    sessionLocalNote:
+      "Les notes du board restent sur ce navigateur uniquement — pas encore partagées entre appareils.",
+    packStepIdea: "1 · Idée",
+    packStepReactions: "2 · Réactions",
+    packStepConflicts: "3 · Conflits",
+    packStepQuestions: "4 · Questions terrain",
+    packConflictsTitle: "Conflits à explorer",
+    packConflictsIntro:
+      "Là où les personas tirent dans des directions différentes — des pistes, pas des verdicts.",
+    packNoConflicts:
+      "Pas de divergence nette entre les réactions — regardez plutôt les risques de la synthèse.",
+    packQuestionsTitle: "3 questions terrain",
+    packQuestionsIntro:
+      "À emporter pour le prochain round de recherche ou de validation en atelier.",
+    packNext: "Continuer",
+    packBack: "Retour",
+    kindToValidate: "À valider",
+    kindEvidence: "Preuve",
+    calibrationSync: "Sync vers la fiche",
+    calibrationSyncing: "Synchronisation…",
+    calibrationSynced: "Synchronisé sur la fiche persona",
+    calibrationNeedLink: "Assignez un persona et une affirmation pour synchroniser.",
+    calibrationStatement: "Affirmation sur la fiche",
+    openToValidate: "À valider",
+    openEvidence: "Affirmations preuves",
     compare: "Comparer",
     compareDesc: "Personas côte à côte",
     present: "Présenter",
@@ -308,7 +380,7 @@ const WORKSHOP_UI = {
     votes: "votes",
     vote: "Voter",
     removeNote: "Retirer",
-    emptyBoard: "Aucune note pour l’instant. Ajoutez la première ci-dessus.",
+    emptyBoard: "Le board est vide. Capturez la première hypothèse, question ou opportunité ci-dessus — puis votez pour prioriser.",
     generateSynthesis: "Générer la synthèse",
     synthesis: "Synthèse de l’atelier",
     topVoted: "Les plus votées",
@@ -319,7 +391,7 @@ const WORKSHOP_UI = {
     clearBoard: "Vider le board",
     clearBoardConfirm: "Vider tout le board ? Action irréversible.",
     synthesisEmpty:
-      "Ajoutez quelques notes et votez, puis générez une synthèse.",
+      "Ajoutez quelques notes, votez sur l’essentiel, puis générez une synthèse pour la salle.",
     noteCount: "notes",
   },
 } satisfies Record<StudioLang, Record<string, string>>;

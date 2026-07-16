@@ -17,6 +17,11 @@ import {
   tUI,
   type StudioLang,
 } from "@/lib/persona-studio/utils/i18n";
+import {
+  isJourneySection,
+  PersonaDayJourney,
+} from "@/components/persona-studio/journeys/persona-day-journey";
+import { PersonaAuditPanel } from "@/components/persona-studio/personas/persona-audit-panel";
 import { ConfidenceBadge } from "@/components/persona-studio/shared/confidence-badge";
 import { CoverageRing } from "@/components/persona-studio/shared/coverage-ring";
 import { EmpathyMap } from "@/components/persona-studio/shared/empathy-map";
@@ -34,31 +39,61 @@ import { SectionCard } from "@/components/persona-studio/shared/section-card";
  */
 export function PersonaDetail({
   persona,
+  peers = [],
   sources,
   lang = "en",
 }: {
   persona: Persona;
+  peers?: Persona[];
   sources: SourceDocument[];
   lang?: StudioLang;
 }) {
   const sourcesById = new Map(sources.map((s) => [s.id, s]));
   const sections = orderedSections(persona);
   const quadrants = empathyQuadrants(persona);
-  // Sections already synthesised into the empathy map aren't repeated as tiles.
+  const journeySections = sections.filter(isJourneySection);
+  // Empathy map + journey get dedicated surfaces — don't repeat as bento tiles.
   const consumedKeys = new Set(
-    quadrants
-      .map((q) => q.section?.key)
-      .filter((k): k is string => Boolean(k)),
+    [
+      ...quadrants.map((q) => q.section?.key),
+      ...journeySections.map((s) => s.key),
+    ].filter((k): k is string => Boolean(k)),
   );
   const detailSections = sections.filter((s) => !consumedKeys.has(s.key));
   const breakdown = evidenceBreakdown(
     collectStatements([...persona.commonSections, ...persona.domainSections]),
   );
+  const hasJourney = journeySections.some((s) =>
+    s.statements.some((st) => st.content.trim().length > 0),
+  );
 
   return (
     <article className="mx-auto max-w-6xl px-4 pb-24 pt-8 sm:px-6">
-      {/* Hero bento */}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-6">
+      {hasJourney ? (
+        <nav
+          aria-label={tUI(lang, "onThisPage")}
+          className="mb-6 flex flex-wrap gap-2"
+        >
+          <a
+            href="#who-i-am"
+            className="studio-focusable rounded-full border border-[var(--studio-line)] bg-[var(--studio-paper)] px-3 py-1.5 text-xs font-medium text-[var(--studio-muted)] transition-colors hover:border-[var(--studio-accent)] hover:text-[var(--studio-ink)]"
+          >
+            {tUI(lang, "whoIAm")}
+          </a>
+          <a
+            href="#journey"
+            className="studio-focusable rounded-full border border-[var(--studio-line)] bg-[var(--studio-paper)] px-3 py-1.5 text-xs font-medium text-[var(--studio-muted)] transition-colors hover:border-[var(--studio-accent)] hover:text-[var(--studio-ink)]"
+          >
+            {tUI(lang, "whatIDo")}
+          </a>
+        </nav>
+      ) : null}
+
+      {/* Hero bento — Who I am */}
+      <div
+        id="who-i-am"
+        className="scroll-mt-24 grid grid-cols-1 gap-4 lg:grid-cols-6"
+      >
         {/* Identity anchor */}
         <section
           className="studio-enter rounded-3xl border border-[var(--studio-line)] bg-[var(--studio-paper)] p-6 sm:p-7 lg:col-span-4 lg:row-span-2"
@@ -119,17 +154,25 @@ export function PersonaDetail({
           </div>
         </section>
 
-        {/* Coverage ring */}
+        {/* Coverage ring — visual weight tracks evidence coverage */}
         <section
           className="studio-enter flex items-center justify-center rounded-3xl border border-[var(--studio-line)] bg-[var(--studio-paper)] p-6 lg:col-span-2"
-          style={{ ["--stagger-index" as string]: 1 }}
+          style={{
+            ["--stagger-index" as string]: 1,
+            opacity: 0.75 + persona.evidenceCoverage * 0.25,
+          }}
         >
           <CoverageRing coverage={persona.evidenceCoverage} lang={lang} />
         </section>
 
-        {/* Confidence */}
+        {/* Confidence — thicker border when LOW (needs attention) */}
         <section
-          className="studio-enter flex flex-col gap-2 rounded-3xl border border-[var(--studio-line)] bg-[var(--studio-paper)] p-6 lg:col-span-2"
+          className={cn(
+            "studio-enter flex flex-col gap-2 rounded-3xl border bg-[var(--studio-paper)] p-6 lg:col-span-2",
+            persona.confidenceLevel === "LOW"
+              ? "border-[var(--studio-accent)]"
+              : "border-[var(--studio-line)]",
+          )}
           style={{ ["--stagger-index" as string]: 2 }}
         >
           <ConfidenceBadge
@@ -170,14 +213,29 @@ export function PersonaDetail({
         </div>
       </div>
 
+      {/* Day journey — full-width, catalogue “What I do” */}
+      {journeySections.map((section) => (
+        <PersonaDayJourney
+          key={section.id}
+          section={section}
+          persona={persona}
+          lang={lang}
+          className="mt-6"
+        />
+      ))}
+
+      <PersonaAuditPanel
+        persona={persona}
+        peers={peers}
+        lang={lang}
+        className="mt-6"
+      />
+
       {/* Detail sections — varied-span tiles */}
       {detailSections.length > 0 && (
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
           {detailSections.map((section, i) => {
-            const wide =
-              section.type === "text" ||
-              section.type === "quote" ||
-              section.type === "moments";
+            const wide = section.type === "text" || section.type === "quote";
             return (
               <div
                 key={section.id}

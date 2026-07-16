@@ -557,14 +557,14 @@ function buildCorporatePersona(spec: ArchetypeSpec): PersonaSource {
   const commonSections: PersonaSectionSource[] = [
     section(spec.id, {
       key: "essence",
-      title: { en: "Essence", fr: "Essence" },
+      title: { en: "Who I am", fr: "Qui je suis" },
       type: "text",
       order: 0,
       items: [{ content: spec.essence, sourceIds: S, confidence: "MEDIUM" }],
     }),
     section(spec.id, {
       key: "lifestyle",
-      title: { en: "Lifestyle", fr: "Mode de vie" },
+      title: { en: "How I live the day", fr: "Comment je vis ma journée" },
       type: "text",
       order: 1,
       items: [{ content: spec.lifestyle, sourceIds: S, confidence: "MEDIUM" }],
@@ -572,8 +572,8 @@ function buildCorporatePersona(spec: ArchetypeSpec): PersonaSource {
     section(spec.id, {
       key: "goals",
       title: {
-        en: "Goals (local & client personalisation)",
-        fr: "Objectifs (personnalisation locale & client)",
+        en: "What I'm aiming for",
+        fr: "Ce que je vise",
       },
       type: "bullets",
       order: 2,
@@ -591,8 +591,8 @@ function buildCorporatePersona(spec: ArchetypeSpec): PersonaSource {
     section(spec.id, {
       key: "frustrations",
       title: {
-        en: "Frustrations (local & client personalisation)",
-        fr: "Frustrations (personnalisation locale & client)",
+        en: "What frustrates me",
+        fr: "Ce qui me frustre",
       },
       type: "bullets",
       order: 7,
@@ -612,28 +612,28 @@ function buildCorporatePersona(spec: ArchetypeSpec): PersonaSource {
   const domainSections: PersonaSectionSource[] = [
     section(spec.id, {
       key: "daily_job",
-      title: { en: "Daily job characteristics", fr: "Caractéristiques du travail quotidien" },
+      title: { en: "How my work day runs", fr: "Comment se déroule ma journée de travail" },
       type: "bullets",
       order: 21,
       items: spec.dailyJob.map((content) => ({ content, sourceIds: S })),
     }),
     section(spec.id, {
       key: "workplace_expectations",
-      title: { en: "Workplace expectations", fr: "Attentes vis-à-vis du lieu de travail" },
+      title: { en: "What I expect from the workplace", fr: "Ce que j'attends du lieu de travail" },
       type: "bullets",
       order: 22,
       items: spec.workplaceExpectations.map((content) => ({ content, sourceIds: S })),
     }),
     section(spec.id, {
       key: "food_expectations",
-      title: { en: "Food expectations", fr: "Attentes alimentaires" },
+      title: { en: "What I expect from food", fr: "Ce que j'attends de la restauration" },
       type: "bullets",
       order: 23,
       items: spec.foodExpectations.map((content) => ({ content, sourceIds: S })),
     }),
     section(spec.id, {
       key: "key_eating_moments",
-      title: { en: "Key eating moments", fr: "Moments de repas clés" },
+      title: { en: "Eating moments that shape my day", fr: "Les moments de repas qui rythment ma journée" },
       type: "moments",
       order: 24,
       items: spec.eatingMoments.map((m) => ({

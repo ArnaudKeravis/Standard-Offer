@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { FileText, Loader2, Plus, Trash2 } from "lucide-react";
+import { FileText, Loader2, Plus, Trash2, Upload } from "lucide-react";
 import type { SourceDocument } from "@/lib/persona-studio/ai/schemas/evidence";
 import type {
   ConfidentialityLabel,
@@ -24,6 +24,7 @@ import {
 import {
   addSourceAction,
   deleteSourceAction,
+  uploadSourceAction,
 } from "@/app/studio/projects/[projectId]/sources/actions";
 
 const SOURCE_CATEGORIES: SourceCategory[] = [
@@ -54,6 +55,7 @@ export function SourceManager({
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
 
   const [name, setName] = useState("");
   const [category, setCategory] = useState<SourceCategory>("INTERVIEW");
@@ -65,6 +67,7 @@ export function SourceManager({
   function add() {
     if (!name.trim()) return;
     setError(null);
+    setNotice(null);
     startTransition(async () => {
       try {
         await addSourceAction(projectId, {
@@ -78,9 +81,38 @@ export function SourceManager({
         setName("");
         setParticipantRef("");
         setText("");
+        setNotice(tUI(lang, "chunksReady"));
         router.refresh();
       } catch (e) {
         setError(e instanceof Error ? e.message : "Failed to add source");
+      }
+    });
+  }
+
+  function upload(fileList: FileList | null) {
+    const file = fileList?.[0];
+    if (!file) return;
+    setError(null);
+    setNotice(null);
+    const formData = new FormData();
+    formData.set("file", file);
+    formData.set("category", category);
+    formData.set("confidentiality", confidentiality);
+    if (participantRef.trim()) {
+      formData.set("participantRef", participantRef.trim());
+    }
+    if (name.trim()) formData.set("name", name.trim());
+    startTransition(async () => {
+      try {
+        const result = await uploadSourceAction(projectId, formData);
+        setNotice(
+          result.warning
+            ? `${tUI(lang, "chunksReady")} ${result.warning}`
+            : tUI(lang, "chunksReady"),
+        );
+        router.refresh();
+      } catch (e) {
+        setError(e instanceof Error ? e.message : "Upload failed");
       }
     });
   }
@@ -172,18 +204,42 @@ export function SourceManager({
               />
             )}
           </Field>
-          <Button
-            variant="secondary"
-            onClick={add}
-            disabled={!name.trim() || pending}
-          >
-            {pending ? (
-              <Loader2 className="size-4 animate-spin" />
-            ) : (
-              <Plus className="size-4" />
-            )}
-            {tUI(lang, "addSource")}
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            <Button
+              variant="secondary"
+              onClick={add}
+              disabled={!name.trim() || pending}
+            >
+              {pending ? (
+                <Loader2 className="size-4 animate-spin" />
+              ) : (
+                <Plus className="size-4" />
+              )}
+              {tUI(lang, "addSource")}
+            </Button>
+            <label className="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-[var(--studio-line)] px-3 py-2 text-sm font-medium text-[var(--studio-ink)] hover:border-[var(--studio-accent)]">
+              {pending ? (
+                <Loader2 className="size-4 animate-spin" />
+              ) : (
+                <Upload className="size-4" />
+              )}
+              {pending ? tUI(lang, "uploading") : tUI(lang, "uploadFile")}
+              <input
+                type="file"
+                accept=".txt,.md,.markdown,.csv,.json,.pdf,text/plain,application/pdf"
+                className="sr-only"
+                disabled={pending}
+                onChange={(e) => {
+                  upload(e.target.files);
+                  e.target.value = "";
+                }}
+              />
+            </label>
+          </div>
+          <p className="text-xs text-[var(--studio-muted)]">
+            {tUI(lang, "uploadHint")}
+          </p>
+          {notice && <p className="text-sm text-emerald-700">{notice}</p>}
           {error && <p className="text-sm text-rose-600">{error}</p>}
         </div>
       </div>

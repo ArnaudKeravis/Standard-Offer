@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import {
   Lightbulb,
   Plus,
@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { StickyNote } from "@/lib/persona-studio/ai/schemas/workshop";
+import type { EvidenceStatus } from "@/lib/persona-studio/ai/schemas/common";
 import type { StudioLang } from "@/lib/persona-studio/utils/i18n";
 import { tWorkshop } from "@/lib/persona-studio/utils/workshop-i18n";
 import {
@@ -18,19 +19,29 @@ import {
   loadBoard,
   newNoteId,
   saveBoard,
+  stickyKindToEvidenceStatus,
   synthesiseBoard,
   type BoardState,
 } from "@/lib/persona-studio/workshop/board-store";
+import { syncStickyEvidenceAction } from "@/app/studio/projects/[projectId]/workshop/actions";
 
 export interface WorkshopPersonaOption {
   id: string;
   name: string;
   accentColor: string;
+  statements: { id: string; label: string }[];
 }
 
 type NoteKind = StickyNote["kind"];
 
-const KINDS: NoteKind[] = ["NOTE", "ASSUMPTION", "QUESTION", "OPPORTUNITY"];
+const KINDS: NoteKind[] = [
+  "NOTE",
+  "ASSUMPTION",
+  "TO_VALIDATE",
+  "EVIDENCE",
+  "QUESTION",
+  "OPPORTUNITY",
+];
 
 /**
  * Lightweight facilitator board: sticky notes, persona assignment, voting,
@@ -56,9 +67,13 @@ export function WorkshopBoard({
   const [text, setText] = useState("");
   const [kind, setKind] = useState<NoteKind>("NOTE");
   const [assignTo, setAssignTo] = useState<string>("");
+  const [statementId, setStatementId] = useState<string>("");
   const [showSynthesis, setShowSynthesis] = useState(false);
+  const [syncMsg, setSyncMsg] = useState<string | null>(null);
+  const [pending, startTransition] = useTransition();
 
   const byId = new Map(personas.map((p) => [p.id, p]));
+  const assignedPersona = assignTo ? byId.get(assignTo) : undefined;
 
   useEffect(() => {
     setBoard(loadBoard(projectId, personas.map((p) => p.id)));
@@ -79,6 +94,7 @@ export function WorkshopBoard({
       workshopId: `local-${projectId}`,
       text: trimmed,
       personaId: assignTo || undefined,
+      statementId: statementId || undefined,
       votes: 0,
       kind,
       createdAt: new Date().toISOString(),
@@ -178,7 +194,10 @@ export function WorkshopBoard({
             </span>
             <select
               value={assignTo}
-              onChange={(e) => setAssignTo(e.target.value)}
+              onChange={(e) => {
+                setAssignTo(e.target.value);
+                setStatementId("");
+              }}
               className="mt-1 block rounded-2xl border border-[var(--studio-line)] bg-[var(--studio-paper)] px-3 py-2.5 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
             >
               <option value="">{tWorkshop(lang, "unassigned")}</option>
@@ -189,6 +208,25 @@ export function WorkshopBoard({
               ))}
             </select>
           </label>
+          {assignedPersona && assignedPersona.statements.length > 0 ? (
+            <label>
+              <span className="text-xs font-semibold uppercase tracking-wide text-[var(--studio-muted)]">
+                {tWorkshop(lang, "calibrationStatement")}
+              </span>
+              <select
+                value={statementId}
+                onChange={(e) => setStatementId(e.target.value)}
+                className="mt-1 block max-w-xs rounded-2xl border border-[var(--studio-line)] bg-[var(--studio-paper)] px-3 py-2.5 text-sm"
+              >
+                <option value="">—</option>
+                {assignedPersona.statements.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {s.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          ) : null}
           <button
             type="submit"
             className="inline-flex items-center gap-1.5 rounded-full bg-[var(--studio-ink)] px-4 py-2.5 text-sm font-medium text-[var(--studio-paper)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
@@ -198,6 +236,12 @@ export function WorkshopBoard({
           </button>
         </div>
       </form>
+
+      {syncMsg ? (
+        <p className="text-sm text-[var(--studio-accent)]" role="status">
+          {syncMsg}
+        </p>
+      ) : null}
 
       <div className="flex flex-wrap items-center gap-3">
         <p className="text-sm text-[var(--studio-muted)]">
@@ -222,9 +266,12 @@ export function WorkshopBoard({
       </div>
 
       {board.notes.length === 0 ? (
-        <p className="text-sm text-[var(--studio-muted)]">
-          {tWorkshop(lang, "emptyBoard")}
-        </p>
+        <div className="rounded-3xl border border-dashed border-[var(--studio-line)] bg-[var(--studio-panel)]/40 px-6 py-10 text-center">
+          <StickyIcon className="mx-auto size-8 text-[var(--studio-accent)]" aria-hidden />
+          <p className="mt-3 text-sm text-[var(--studio-muted)]">
+            {tWorkshop(lang, "emptyBoard")}
+          </p>
+        </div>
       ) : (
         <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {board.notes.map((note) => {
@@ -256,22 +303,52 @@ export function WorkshopBoard({
                 <p className="text-sm leading-relaxed text-[var(--studio-ink)]">
                   {note.text}
                 </p>
-                <div className="mt-3 flex items-center gap-2">
+                <div className="mt-3 flex flex-wrap items-center gap-2">
                   <button
                     type="button"
                     onClick={() => vote(note.id)}
-                    className="inline-flex items-center gap-1 rounded-full border border-[var(--studio-line)] px-2.5 py-1 text-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
+                    className="inline-flex items-center gap-1 rounded-full border border-[var(--studio-line)] px-2.5 py-1 text-xs"
                   >
                     <Vote aria-hidden className="size-3.5" />
                     {tWorkshop(lang, "vote")}
-                    <span className="tabular-nums font-medium">
-                      {note.votes}
-                    </span>
+                    <span className="tabular-nums font-medium">{note.votes}</span>
                   </button>
+                  {stickyKindToEvidenceStatus(note.kind) && (
+                    <button
+                      type="button"
+                      disabled={pending}
+                      onClick={() => {
+                        const status = stickyKindToEvidenceStatus(note.kind);
+                        if (!status || !note.personaId || !note.statementId) {
+                          setSyncMsg(tWorkshop(lang, "calibrationNeedLink"));
+                          return;
+                        }
+                        setSyncMsg(null);
+                        startTransition(async () => {
+                          const res = await syncStickyEvidenceAction({
+                            projectId,
+                            personaId: note.personaId!,
+                            statementId: note.statementId!,
+                            evidenceStatus: status as EvidenceStatus,
+                          });
+                          setSyncMsg(
+                            res.ok
+                              ? tWorkshop(lang, "calibrationSynced")
+                              : res.error,
+                          );
+                        });
+                      }}
+                      className="inline-flex items-center rounded-full border border-[var(--studio-accent)] px-2.5 py-1 text-xs text-[var(--studio-accent)] disabled:opacity-50"
+                    >
+                      {pending
+                        ? tWorkshop(lang, "calibrationSyncing")
+                        : tWorkshop(lang, "calibrationSync")}
+                    </button>
+                  )}
                   <button
                     type="button"
                     onClick={() => remove(note.id)}
-                    className="ml-auto text-xs text-[var(--studio-muted)] hover:text-rose-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
+                    className="ml-auto text-xs text-[var(--studio-muted)] hover:text-rose-700"
                   >
                     {tWorkshop(lang, "removeNote")}
                   </button>
@@ -294,7 +371,7 @@ export function WorkshopBoard({
             {tWorkshop(lang, "synthesis")}
           </h2>
           {board.notes.length === 0 ? (
-            <p className="mt-3 text-sm text-[var(--studio-muted)]">
+            <p className="mt-3 rounded-2xl border border-dashed border-[var(--studio-line)] px-4 py-6 text-sm text-[var(--studio-muted)]">
               {tWorkshop(lang, "synthesisEmpty")}
             </p>
           ) : (
@@ -306,6 +383,14 @@ export function WorkshopBoard({
               <SynthList
                 title={tWorkshop(lang, "openAssumptions")}
                 notes={synthesis.assumptions}
+              />
+              <SynthList
+                title={tWorkshop(lang, "openToValidate")}
+                notes={synthesis.toValidate}
+              />
+              <SynthList
+                title={tWorkshop(lang, "openEvidence")}
+                notes={synthesis.evidence}
               />
               <SynthList
                 title={tWorkshop(lang, "openQuestions")}
@@ -366,6 +451,10 @@ function kindLabel(lang: StudioLang, kind: NoteKind): string {
   switch (kind) {
     case "ASSUMPTION":
       return tWorkshop(lang, "kindAssumption");
+    case "TO_VALIDATE":
+      return tWorkshop(lang, "kindToValidate");
+    case "EVIDENCE":
+      return tWorkshop(lang, "kindEvidence");
     case "QUESTION":
       return tWorkshop(lang, "kindQuestion");
     case "OPPORTUNITY":
@@ -379,6 +468,10 @@ function kindTone(kind: NoteKind): string {
   switch (kind) {
     case "ASSUMPTION":
       return "bg-amber-50/60";
+    case "TO_VALIDATE":
+      return "bg-orange-50/60";
+    case "EVIDENCE":
+      return "bg-emerald-50/50";
     case "QUESTION":
       return "bg-sky-50/60";
     case "OPPORTUNITY":

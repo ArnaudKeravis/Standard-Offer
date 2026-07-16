@@ -21,8 +21,10 @@ Three identities are kept distinct:
 
 ## Controls (by phase)
 
-- **Now (Phase 1):** env-var validation (`validation/env.ts`, all optional),
-  mock auth, confidentiality labels on sources, no secrets in source control.
+- **Now (Phase 1+):** env-var validation (`validation/env.ts`, all optional),
+  mock auth, optional facilitator write-gate via
+  `PERSONA_STUDIO_ACCESS_SECRET` (browse open / create-edit locked until unlock),
+  confidentiality labels on sources, no secrets in source control.
 - **Auth phase:** Supabase Auth, project-level access, Row Level Security.
 - **AI phase:** server-side-only AI calls; keys never sent to the browser.
 - **Ingestion phase:** file type/size validation, sanitisation of imported

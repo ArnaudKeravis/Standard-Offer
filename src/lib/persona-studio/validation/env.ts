@@ -12,6 +12,8 @@ const envSchema = z.object({
   // Server-only secrets (never prefixed with NEXT_PUBLIC_).
   OPENAI_API_KEY: z.string().min(1).optional(),
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
+  /** When set, create/edit/sources require facilitator unlock. */
+  PERSONA_STUDIO_ACCESS_SECRET: z.string().min(1).optional(),
 
   // Public, browser-safe values.
   NEXT_PUBLIC_SUPABASE_URL: z.string().url().optional(),
@@ -27,6 +29,7 @@ export function getEnv(): PersonaStudioEnv {
     parsed = envSchema.parse({
       OPENAI_API_KEY: process.env.OPENAI_API_KEY,
       SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
+      PERSONA_STUDIO_ACCESS_SECRET: process.env.PERSONA_STUDIO_ACCESS_SECRET,
       NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
       NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     });

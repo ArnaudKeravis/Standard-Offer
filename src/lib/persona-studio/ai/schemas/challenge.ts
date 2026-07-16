@@ -36,7 +36,7 @@ export const IdeaChallengeSynthesis = z.object({
     )
     .default([]),
   risks: z.array(z.string()).default([]),
-  questionsToTest: z.array(z.string()).default([]),
+  questionsToTest: z.array(z.string()).max(3).default([]),
   suggestedPrototype: z.string(),
 });
 export type IdeaChallengeSynthesis = z.infer<typeof IdeaChallengeSynthesis>;

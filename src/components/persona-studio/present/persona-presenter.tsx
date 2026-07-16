@@ -152,7 +152,7 @@ export function PersonaPresenter({
           </Link>
           <Link
             href={`/studio/projects/${projectId}/personas/${persona.id}/chat`}
-            className="inline-flex items-center gap-1.5 rounded-full bg-[var(--studio-accent)] px-3 py-1.5 text-sm font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
+            className="inline-flex items-center gap-1.5 rounded-full border border-[var(--studio-accent)] px-3 py-1.5 text-sm font-medium text-[var(--studio-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
           >
             <MessageCircle aria-hidden className="size-4" />
             {tWorkshop(lang, "askThisPersona")}
@@ -169,7 +169,7 @@ export function PersonaPresenter({
 
       <main
         className={cn(
-          "relative flex flex-1 flex-col justify-center overflow-y-auto px-6 py-10 sm:px-12 lg:px-20",
+          "relative mx-auto flex w-full max-w-[1600px] flex-1 flex-col justify-center overflow-y-auto px-6 py-8 sm:aspect-video sm:max-h-[calc(100vh-7.5rem)] sm:px-12 lg:px-16",
           !reduceMotion && "motion-safe:transition-opacity",
         )}
         style={
@@ -178,21 +178,21 @@ export function PersonaPresenter({
             : undefined
         }
       >
-        <div className="mx-auto grid w-full max-w-5xl gap-10 lg:grid-cols-[auto_1fr] lg:items-center">
+        <div className="mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-[minmax(12rem,22vw)_1fr] lg:items-center">
           <PersonaPortrait
             name={persona.name}
             src={persona.portraitUrl}
-            className="aspect-[3/4] w-48 sm:w-56 lg:w-64"
-            sizes="256px"
+            className="aspect-[4/5] w-40 sm:w-48 lg:w-full lg:max-w-[18rem]"
+            sizes="(max-width: 1024px) 192px, 22vw"
           />
           <div>
             <p className="text-sm font-medium uppercase tracking-[0.18em] text-[var(--studio-muted)]">
               {persona.archetype}
             </p>
-            <h1 className="studio-display mt-2 text-5xl font-bold leading-tight sm:text-6xl lg:text-7xl">
+            <h1 className="studio-display mt-2 text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-[clamp(3.5rem,6vw,5.5rem)]">
               {persona.name}
             </h1>
-            <p className="mt-4 max-w-2xl text-xl leading-relaxed text-[var(--studio-muted)] sm:text-2xl">
+            <p className="mt-4 max-w-3xl text-xl leading-relaxed text-[var(--studio-muted)] sm:text-2xl lg:text-[1.65rem]">
               {persona.oneLineEssence}
             </p>
             {persona.quote && persona.quoteType !== "NONE" && (
@@ -211,6 +211,14 @@ export function PersonaPresenter({
                 </span>
               ))}
             </div>
+
+            <Link
+              href={`/studio/projects/${projectId}/personas/${persona.id}/chat`}
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--studio-accent)] px-6 py-3 text-base font-semibold text-white shadow-[var(--studio-shadow-soft)] transition-opacity hover:opacity-90"
+            >
+              <MessageCircle aria-hidden className="size-5" />
+              {tWorkshop(lang, "askThisPersona")}
+            </Link>
 
             <div className="mt-10 grid gap-6 sm:grid-cols-2">
               <ProbeList

@@ -26,20 +26,20 @@ const COMMON_CORE: PersonaSectionTemplate[] = [
 ];
 
 const CORPORATE_DOMAIN: PersonaSectionTemplate[] = [
-  { key: "lifestyle", title: "Lifestyle", type: "text", order: 20, visible: true, scope: "DOMAIN" },
-  { key: "daily_job", title: "Daily job characteristics", type: "bullets", order: 21, visible: true, scope: "DOMAIN" },
-  { key: "workplace_expectations", title: "Workplace expectations", type: "bullets", order: 22, visible: true, scope: "DOMAIN" },
-  { key: "food_expectations", title: "Food expectations", type: "bullets", order: 23, visible: true, scope: "DOMAIN" },
-  { key: "key_eating_moments", title: "Key eating moments", type: "moments", order: 24, visible: true, scope: "DOMAIN" },
-  { key: "must_have", title: "Must-have requirements", type: "bullets", order: 25, visible: true, scope: "DOMAIN" },
+  { key: "lifestyle", title: "How I live the day", type: "text", order: 20, visible: true, scope: "DOMAIN" },
+  { key: "daily_job", title: "How my work day runs", type: "bullets", order: 21, visible: true, scope: "DOMAIN" },
+  { key: "workplace_expectations", title: "What I expect from the workplace", type: "bullets", order: 22, visible: true, scope: "DOMAIN" },
+  { key: "food_expectations", title: "What I expect from food", type: "bullets", order: 23, visible: true, scope: "DOMAIN" },
+  { key: "key_eating_moments", title: "Eating moments that shape my day", type: "moments", order: 24, visible: true, scope: "DOMAIN" },
+  { key: "must_have", title: "What I can't do without", type: "bullets", order: 25, visible: true, scope: "DOMAIN" },
 ];
 
 const TDF_DOMAIN: PersonaSectionTemplate[] = [
-  { key: "reasons_for_attending", title: "Reasons for attending", type: "bullets", order: 20, visible: true, scope: "DOMAIN" },
-  { key: "key_expectations", title: "Key expectations", type: "bullets", order: 21, visible: true, scope: "DOMAIN" },
-  { key: "food_hospitality", title: "Food & hospitality expectations", type: "bullets", order: 22, visible: true, scope: "DOMAIN" },
-  { key: "fb_expectations", title: "F&B expectations", type: "bullets", order: 23, visible: true, scope: "DOMAIN" },
-  { key: "ideal_experience", title: "Ideal experience", type: "text", order: 24, visible: true, scope: "DOMAIN" },
+  { key: "reasons_for_attending", title: "Why I'm here", type: "bullets", order: 20, visible: true, scope: "DOMAIN" },
+  { key: "key_expectations", title: "What I need from the experience", type: "bullets", order: 21, visible: true, scope: "DOMAIN" },
+  { key: "food_hospitality", title: "What I expect from food & hospitality", type: "bullets", order: 22, visible: true, scope: "DOMAIN" },
+  { key: "fb_expectations", title: "What I expect from F&B", type: "bullets", order: 23, visible: true, scope: "DOMAIN" },
+  { key: "ideal_experience", title: "The experience I hope for", type: "text", order: 24, visible: true, scope: "DOMAIN" },
 ];
 
 export const CORPORATE_TEMPLATE: PersonaTemplate = {

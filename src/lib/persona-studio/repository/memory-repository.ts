@@ -4,7 +4,11 @@ import type {
   PersonaVersion,
 } from "@/lib/persona-studio/ai/schemas/persona";
 import type { Project } from "@/lib/persona-studio/ai/schemas/project";
-import type { SourceDocument } from "@/lib/persona-studio/ai/schemas/evidence";
+import type {
+  EvidenceItem,
+  SourceDocument,
+} from "@/lib/persona-studio/ai/schemas/evidence";
+import { evidenceItemsFromText } from "@/lib/persona-studio/ai/ingestion/chunk-text";
 import { SEED_DATA } from "@/lib/persona-studio/data/seed";
 import {
   localizeJourney,
@@ -50,6 +54,9 @@ export class MemoryRepository implements WritablePersonaRepository {
   private projects: ProjectSource[] = clone(SEED_DATA.projects);
   private personas: PersonaSource[] = clone(SEED_DATA.personas);
   private sources: SourceDocumentSource[] = clone(SEED_DATA.sources);
+  private evidenceItems: EvidenceItem[] = seedEvidenceChunks(
+    clone(SEED_DATA.sources),
+  );
   private journeys: JourneySource[] = clone(SEED_DATA.journeys);
   private templates: PersonaTemplate[] = clone(SEED_DATA.templates);
   private versions: PersonaVersion[] = [];
@@ -110,6 +117,18 @@ export class MemoryRepository implements WritablePersonaRepository {
     const source = this.sources.find((s) => s.id === sourceId);
     if (!source) return null;
     return localizeSource(source, lang ?? this.projectDefaultLang(source.projectId));
+  }
+
+  async listEvidenceItems(
+    projectId: string,
+    opts: { sourceIds?: string[] } = {},
+  ) {
+    const allowed = opts.sourceIds ? new Set(opts.sourceIds) : null;
+    return this.evidenceItems.filter(
+      (item) =>
+        item.projectId === projectId &&
+        (!allowed || allowed.has(item.sourceId)),
+    );
   }
 
   async listJourneys(projectId: string, lang?: StudioLang) {
@@ -237,6 +256,17 @@ export class MemoryRepository implements WritablePersonaRepository {
     const stored = clone(source);
     this.sources = [...this.sources, stored];
     this.bumpSourceCount(stored.projectId);
+    if (stored.extractedText?.trim()) {
+      await this.replaceEvidenceItemsForSource(
+        stored.id,
+        evidenceItemsFromText({
+          projectId: stored.projectId,
+          sourceId: stored.id,
+          text: stored.extractedText,
+          createdAt: stored.createdAt,
+        }),
+      );
+    }
     return stored;
   }
 
@@ -250,6 +280,16 @@ export class MemoryRepository implements WritablePersonaRepository {
       id: sourceId,
     };
     this.sources[idx] = next;
+    if (patch.extractedText !== undefined) {
+      await this.replaceEvidenceItemsForSource(
+        sourceId,
+        evidenceItemsFromText({
+          projectId: next.projectId,
+          sourceId,
+          text: next.extractedText,
+        }),
+      );
+    }
     return next;
   }
 
@@ -257,7 +297,21 @@ export class MemoryRepository implements WritablePersonaRepository {
     const source = this.sources.find((s) => s.id === sourceId);
     if (!source) return;
     this.sources = this.sources.filter((s) => s.id !== sourceId);
+    this.evidenceItems = this.evidenceItems.filter(
+      (e) => e.sourceId !== sourceId,
+    );
     this.bumpSourceCount(source.projectId);
+  }
+
+  async replaceEvidenceItemsForSource(
+    sourceId: string,
+    items: EvidenceItem[],
+  ) {
+    this.evidenceItems = [
+      ...this.evidenceItems.filter((e) => e.sourceId !== sourceId),
+      ...clone(items),
+    ];
+    return items;
   }
 
   // ---- Templates ---------------------------------------------------------
@@ -307,4 +361,24 @@ function nowIso(): string {
 
 function clone<T>(value: T): T {
   return structuredClone(value);
+}
+
+/** Chunk seed sources that already carry extracted text so retrieval works. */
+function seedEvidenceChunks(
+  sources: SourceDocumentSource[],
+): EvidenceItem[] {
+  const items: EvidenceItem[] = [];
+  for (const source of sources) {
+    const text = source.extractedText?.trim() ?? "";
+    if (!text) continue;
+    items.push(
+      ...evidenceItemsFromText({
+        projectId: source.projectId,
+        sourceId: source.id,
+        text,
+        createdAt: source.createdAt,
+      }),
+    );
+  }
+  return items;
 }

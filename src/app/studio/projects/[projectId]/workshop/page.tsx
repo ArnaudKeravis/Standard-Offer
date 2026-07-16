@@ -76,6 +76,16 @@ export default async function WorkshopPage({
             id: p.id,
             name: p.name,
             accentColor: p.accentColor,
+            statements: [...p.commonSections, ...p.domainSections]
+              .flatMap((section) =>
+                section.statements.map((st) => ({
+                  id: st.id,
+                  label:
+                    (st.label?.trim() || st.content.slice(0, 72)) +
+                    (st.content.length > 72 && !st.label ? "…" : ""),
+                })),
+              )
+              .slice(0, 40),
           }))}
           lang={lang}
         />

@@ -53,8 +53,22 @@ export async function runPersonaChat(
   }
 
   const projectSources = await repo.listSources(project.id, lang);
+  const referenced = new Set<string>(persona.sourceIds);
+  for (const section of [...persona.commonSections, ...persona.domainSections]) {
+    for (const st of section.statements) {
+      for (const id of st.sourceIds) referenced.add(id);
+    }
+  }
+  const evidenceItems = await repo.listEvidenceItems(project.id, {
+    sourceIds: [...referenced],
+  });
   // Ground and answer in the chosen display language (falls back to project).
-  const context = buildPersonaGroundingContext(persona, projectSources, lang);
+  const context = buildPersonaGroundingContext(
+    persona,
+    projectSources,
+    lang,
+    evidenceItems,
+  );
 
   const provider = getPersonaChatProvider();
   const raw = await provider.generate({

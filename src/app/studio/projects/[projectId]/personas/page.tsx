@@ -26,6 +26,7 @@ export default async function PersonaGalleryPage({
       <StudioNav
         lang={lang}
         crumbs={[
+          { label: tUI(lang, "areasCrumb"), href: "/studio" },
           { label: project.name, href: `/studio/projects/${project.id}` },
           { label: tUI(lang, "personaGallery") },
         ]}

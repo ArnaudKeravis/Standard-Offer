@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { FileText } from "lucide-react";
 import { getRepository } from "@/lib/persona-studio/repository";
+import { redirectUnlessCanWrite } from "@/lib/persona-studio/auth/require-write-page";
 import { familyTheme } from "@/lib/persona-studio/utils/persona-view";
 import { langFromProject, tUI } from "@/lib/persona-studio/utils/i18n";
 import { getLangPreference } from "@/lib/persona-studio/utils/lang-cookie";
@@ -13,6 +14,7 @@ export default async function ProjectSourcesPage({
   params: Promise<{ projectId: string }>;
 }) {
   const { projectId } = await params;
+  await redirectUnlessCanWrite(`/studio/projects/${projectId}/sources`);
   const repo = getRepository();
   const preference = await getLangPreference();
   const project = await repo.getProject(projectId, preference);

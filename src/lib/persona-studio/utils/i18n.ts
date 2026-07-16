@@ -161,7 +161,8 @@ const UI: Record<StudioLang, Record<string, string>> = {
       "Evidence-based personas for CoDesign workshops. Every statement is traceable, every confidence score is explained.",
     areasTitle: "Areas where we operate",
     areasSubtitle:
-      "Choose a macro territory — then open personas in the same Studio sheet format across WORK, HEAL, LEARN and PLAY.",
+      "WORK, HEAL, LEARN or PLAY — open a territory to browse its personas in one Studio sheet format.",
+    areasCrumb: "Areas",
     projectLibrary: "Project library",
     workshopLibrary: "More workshop sets",
     workshopLibraryIntro:
@@ -206,6 +207,45 @@ const UI: Record<StudioLang, Record<string, string>> = {
     strengthUnknown: "Unknown",
     statementsCount: "statements",
     journeyLens: "Journey lens",
+    journeyEyebrow: "Journey",
+    whatIDo: "What I do",
+    whoIAm: "Who I am",
+    journeyIntro:
+      "A day in their shoes — {n} moments that shape the experience.",
+    onThisPage: "On this page",
+    unlockTitle: "Facilitator unlock",
+    unlockIntro:
+      "Enter the access code to create, edit and manage sources. Browsing stays open for the room.",
+    unlockDisabled:
+      "Write access is open on this environment — no unlock code is configured.",
+    unlockAlready: "Facilitator mode is already unlocked on this device.",
+    accessCode: "Access code",
+    unlock: "Unlock",
+    unlocking: "Unlocking…",
+    lockFacilitator: "Lock",
+    unlockFacilitator: "Unlock edits",
+    viewerMode: "View only",
+    auditTitle: "Evidence review",
+    auditPass: "Pass",
+    auditWarn: "Needs attention",
+    auditFail: "Blocked",
+    differentiationTitle: "Differentiation vs peers",
+    differentiationIntro:
+      "Share of need themes and behavioural tags unique to this persona in the project.",
+    uniqueThemes: "Unique themes",
+    sharedThemes: "Shared themes",
+    noPeers: "No peers in this project yet.",
+    uploadFile: "Upload file",
+    uploadHint: "TXT, MD, CSV or PDF (max 8 MB). Text is extracted and chunked for grounding.",
+    uploading: "Uploading…",
+    chunksReady: "Source ingested and chunked for retrieval.",
+    journeySlotGoal: "Goal",
+    journeySlotEmotion: "Emotion / stance",
+    journeySlotPain: "Pain",
+    journeySlotOpportunity: "Opportunity",
+    journeyLivingNote:
+      "Linked from this persona’s own statements — never invented for the journey.",
+    journeyInsufficient: "Not enough linked evidence for this slot.",
     simulationNote:
       "“Talk to this persona” is a research-grounded simulation built from the evidence above — not a real customer or employee. It arrives in a later phase.",
     // Actions
@@ -341,8 +381,9 @@ const UI: Record<StudioLang, Record<string, string>> = {
     heroSubtitle:
       "Des personas fondés sur des preuves pour les ateliers CoDesign. Chaque affirmation est traçable, chaque score de confiance est expliqué.",
     areasTitle: "Territoires où nous opérons",
+    areasCrumb: "Territoires",
     areasSubtitle:
-      "Choisissez un macro-territoire — puis ouvrez les personas au même format de fiche Studio sur WORK, HEAL, LEARN et PLAY.",
+      "WORK, HEAL, LEARN ou PLAY — ouvrez un territoire pour parcourir ses personas, au même format de fiche Studio.",
     projectLibrary: "Bibliothèque de projets",
     workshopLibrary: "Autres jeux atelier",
     workshopLibraryIntro:
@@ -387,6 +428,46 @@ const UI: Record<StudioLang, Record<string, string>> = {
     strengthUnknown: "Inconnue",
     statementsCount: "affirmations",
     journeyLens: "Parcours",
+    journeyEyebrow: "Parcours",
+    whatIDo: "Ce que je fais",
+    whoIAm: "Qui je suis",
+    journeyIntro:
+      "Une journée dans leurs chaussures — {n} moments qui façonnent l'expérience.",
+    onThisPage: "Sur cette page",
+    unlockTitle: "Déverrouillage facilitateur",
+    unlockIntro:
+      "Saisissez le code d'accès pour créer, modifier et gérer les sources. La consultation reste ouverte pour la salle.",
+    unlockDisabled:
+      "L'édition est ouverte sur cet environnement — aucun code n'est configuré.",
+    unlockAlready: "Le mode facilitateur est déjà déverrouillé sur cet appareil.",
+    accessCode: "Code d'accès",
+    unlock: "Déverrouiller",
+    unlocking: "Déverrouillage…",
+    lockFacilitator: "Verrouiller",
+    unlockFacilitator: "Déverrouiller l'édition",
+    viewerMode: "Lecture seule",
+    auditTitle: "Revue des preuves",
+    auditPass: "Validé",
+    auditWarn: "À surveiller",
+    auditFail: "Bloqué",
+    differentiationTitle: "Différenciation vs pairs",
+    differentiationIntro:
+      "Part des thèmes de besoin et tags comportementaux uniques à ce persona dans le projet.",
+    uniqueThemes: "Thèmes uniques",
+    sharedThemes: "Thèmes partagés",
+    noPeers: "Aucun pair dans ce projet pour l'instant.",
+    uploadFile: "Importer un fichier",
+    uploadHint:
+      "TXT, MD, CSV ou PDF (max 8 Mo). Le texte est extrait et découpé pour le grounding.",
+    uploading: "Import…",
+    chunksReady: "Source ingérée et découpée pour la recherche.",
+    journeySlotGoal: "Objectif",
+    journeySlotEmotion: "Émotion / posture",
+    journeySlotPain: "Friction",
+    journeySlotOpportunity: "Opportunité",
+    journeyLivingNote:
+      "Relié aux affirmations de ce persona — jamais inventé pour le parcours.",
+    journeyInsufficient: "Pas assez de preuves liées pour ce slot.",
     simulationNote:
       "« Parler à ce persona » est une simulation fondée sur la recherche, construite à partir des preuves ci-dessus — et non un vrai client ou collaborateur. Cette fonctionnalité arrivera dans une phase ultérieure.",
     // Actions

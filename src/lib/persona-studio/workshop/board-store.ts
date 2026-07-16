@@ -88,6 +88,8 @@ export function newNoteId(): string {
 export function synthesiseBoard(state: BoardState): {
   topVoted: BoardState["notes"];
   assumptions: BoardState["notes"];
+  toValidate: BoardState["notes"];
+  evidence: BoardState["notes"];
   questions: BoardState["notes"];
   opportunities: BoardState["notes"];
   byPersona: Record<string, BoardState["notes"]>;
@@ -101,8 +103,20 @@ export function synthesiseBoard(state: BoardState): {
   return {
     topVoted: sorted.filter((n) => n.votes > 0).slice(0, 8),
     assumptions: state.notes.filter((n) => n.kind === "ASSUMPTION"),
+    toValidate: state.notes.filter((n) => n.kind === "TO_VALIDATE"),
+    evidence: state.notes.filter((n) => n.kind === "EVIDENCE"),
     questions: state.notes.filter((n) => n.kind === "QUESTION"),
     opportunities: state.notes.filter((n) => n.kind === "OPPORTUNITY"),
     byPersona,
   };
+}
+
+/** Map sticky calibration kinds onto persona statement evidence status. */
+export function stickyKindToEvidenceStatus(
+  kind: StickyNote["kind"],
+): "ASSUMPTION" | "TO_VALIDATE" | "EVIDENCE" | null {
+  if (kind === "ASSUMPTION") return "ASSUMPTION";
+  if (kind === "TO_VALIDATE") return "TO_VALIDATE";
+  if (kind === "EVIDENCE") return "EVIDENCE";
+  return null;
 }

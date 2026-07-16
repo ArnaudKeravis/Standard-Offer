@@ -49,83 +49,6 @@ export function CompareResults({
         </Link>
       </div>
 
-      {view.dimensions.map((row) => (
-        <section
-          key={row.id}
-          aria-labelledby={`dim-${row.id}`}
-          className="rounded-3xl border border-[var(--studio-line)] bg-[var(--studio-paper)] p-5"
-        >
-          <h2
-            id={`dim-${row.id}`}
-            className="studio-display mb-4 text-sm font-semibold uppercase tracking-wider text-[var(--studio-ink)]"
-          >
-            {tWorkshop(lang, row.labelKey)}
-          </h2>
-          <div
-            className="grid gap-4 overflow-x-auto"
-            style={{
-              gridTemplateColumns: `repeat(${view.personas.length}, minmax(12rem, 1fr))`,
-            }}
-          >
-            {row.cells.map((cell) => {
-              const persona = byId.get(cell.personaId)!;
-              return (
-                <div key={cell.personaId} className="min-w-0">
-                  <PersonaColumnHeader persona={persona} />
-                  {cell.statements.length === 0 ? (
-                    <p className="mt-2 text-xs italic text-[var(--studio-muted)]">
-                      {tWorkshop(lang, "noStatements")}
-                    </p>
-                  ) : (
-                    <ul className="mt-2 space-y-2">
-                      {cell.statements.slice(0, 5).map((s) => (
-                        <li key={s.id} className="text-sm leading-relaxed">
-                          <div className="flex flex-wrap items-start gap-1.5">
-                            <span className="flex-1 text-[var(--studio-ink)]">
-                              {s.content}
-                            </span>
-                            <EvidenceTag status={s.evidenceStatus} lang={lang} />
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </section>
-      ))}
-
-      <section
-        aria-labelledby="dim-confidence"
-        className="rounded-3xl border border-[var(--studio-line)] bg-[var(--studio-paper)] p-5"
-      >
-        <h2
-          id="dim-confidence"
-          className="studio-display mb-4 text-sm font-semibold uppercase tracking-wider text-[var(--studio-ink)]"
-        >
-          {tWorkshop(lang, "dimensionConfidence")}
-        </h2>
-        <div
-          className="grid gap-4 overflow-x-auto"
-          style={{
-            gridTemplateColumns: `repeat(${view.personas.length}, minmax(12rem, 1fr))`,
-          }}
-        >
-          {view.personas.map((persona) => (
-            <div key={persona.id} className="min-w-0 space-y-3">
-              <PersonaColumnHeader persona={persona} />
-              <ConfidenceBadge level={persona.confidenceLevel} lang={lang} />
-              <p className="text-xs text-[var(--studio-muted)]">
-                {persona.confidenceExplanation}
-              </p>
-              <CoverageMeter coverage={persona.evidenceCoverage} lang={lang} />
-            </div>
-          ))}
-        </div>
-      </section>
-
       <InsightSection
         icon={<Layers className="size-4" />}
         title={tWorkshop(lang, "universalNeeds")}
@@ -220,6 +143,84 @@ export function CompareResults({
           ))}
         </ul>
       </InsightSection>
+
+
+      {view.dimensions.map((row) => (
+        <section
+          key={row.id}
+          aria-labelledby={`dim-${row.id}`}
+          className="rounded-3xl border border-[var(--studio-line)] bg-[var(--studio-paper)] p-5"
+        >
+          <h2
+            id={`dim-${row.id}`}
+            className="studio-display mb-4 text-sm font-semibold uppercase tracking-wider text-[var(--studio-ink)]"
+          >
+            {tWorkshop(lang, row.labelKey)}
+          </h2>
+          <div
+            className="grid gap-4 overflow-x-auto"
+            style={{
+              gridTemplateColumns: `repeat(${view.personas.length}, minmax(12rem, 1fr))`,
+            }}
+          >
+            {row.cells.map((cell) => {
+              const persona = byId.get(cell.personaId)!;
+              return (
+                <div key={cell.personaId} className="min-w-0">
+                  <PersonaColumnHeader persona={persona} />
+                  {cell.statements.length === 0 ? (
+                    <p className="mt-2 text-xs italic text-[var(--studio-muted)]">
+                      {tWorkshop(lang, "noStatements")}
+                    </p>
+                  ) : (
+                    <ul className="mt-2 space-y-2">
+                      {cell.statements.slice(0, 5).map((s) => (
+                        <li key={s.id} className="text-sm leading-relaxed">
+                          <div className="flex flex-wrap items-start gap-1.5">
+                            <span className="flex-1 text-[var(--studio-ink)]">
+                              {s.content}
+                            </span>
+                            <EvidenceTag status={s.evidenceStatus} lang={lang} />
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      ))}
+
+      <section
+        aria-labelledby="dim-confidence"
+        className="rounded-3xl border border-[var(--studio-line)] bg-[var(--studio-paper)] p-5"
+      >
+        <h2
+          id="dim-confidence"
+          className="studio-display mb-4 text-sm font-semibold uppercase tracking-wider text-[var(--studio-ink)]"
+        >
+          {tWorkshop(lang, "dimensionConfidence")}
+        </h2>
+        <div
+          className="grid gap-4 overflow-x-auto"
+          style={{
+            gridTemplateColumns: `repeat(${view.personas.length}, minmax(12rem, 1fr))`,
+          }}
+        >
+          {view.personas.map((persona) => (
+            <div key={persona.id} className="min-w-0 space-y-3">
+              <PersonaColumnHeader persona={persona} />
+              <ConfidenceBadge level={persona.confidenceLevel} lang={lang} />
+              <p className="text-xs text-[var(--studio-muted)]">
+                {persona.confidenceExplanation}
+              </p>
+              <CoverageMeter coverage={persona.evidenceCoverage} lang={lang} />
+            </div>
+          ))}
+        </div>
+      </section>
 
       <section className="rounded-3xl border border-[var(--studio-line)] bg-[var(--studio-paper)] p-5">
         <h2 className="studio-display text-sm font-semibold uppercase tracking-wider text-[var(--studio-ink)]">

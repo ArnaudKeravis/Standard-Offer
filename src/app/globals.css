@@ -178,12 +178,16 @@
    components.
 --------------------------------------------------------------------------- */
 [data-studio-theme] {
-  --studio-accent: var(--persona-accent, #1e3a8a);
-  --studio-paper: #ffffff;
-  --studio-ink: #0b1220;
-  --studio-muted: #5b6472;
-  --studio-line: rgba(11, 18, 32, 0.1);
-  --studio-panel: #f7f8fb;
+  --studio-accent: var(--persona-accent, oklch(0.42 0.12 265));
+  --studio-paper: oklch(1 0 0);
+  --studio-ink: oklch(0.22 0.03 265);
+  --studio-muted: oklch(0.48 0.02 265);
+  --studio-line: color-mix(in oklab, var(--studio-ink) 12%, transparent);
+  --studio-panel: oklch(0.975 0.005 265);
+  --studio-shadow-soft: 0 1px 0 color-mix(in oklab, var(--studio-ink) 4%, transparent),
+    0 12px 32px color-mix(in oklab, var(--studio-ink) 8%, transparent);
+  --studio-shadow-lift: 0 18px 42px -26px
+    color-mix(in oklab, var(--studio-ink) 55%, transparent);
 
   /* Motion system — shared duration + easing tokens (see .studio-lift/.studio-enter). */
   --studio-dur-fast: 150ms;
@@ -193,48 +197,48 @@
 }
 
 [data-studio-theme="corporate"] {
-  --studio-accent: var(--persona-accent, #1e3a8a);
-  --studio-paper: #f7f9fc;
-  --studio-panel: #eaf0f9;
-  --studio-ink: #0e1a4a;
-  --studio-muted: #48566f;
-  --studio-line: rgba(14, 26, 74, 0.12);
+  --studio-accent: var(--persona-accent, oklch(0.4 0.12 265));
+  --studio-paper: oklch(0.98 0.01 265);
+  --studio-panel: oklch(0.95 0.02 265);
+  --studio-ink: oklch(0.28 0.08 265);
+  --studio-muted: oklch(0.45 0.03 265);
+  --studio-line: color-mix(in oklab, var(--studio-ink) 12%, transparent);
 }
 
 [data-studio-theme="tdf"] {
-  --studio-accent: var(--persona-accent, #111111);
-  --studio-paper: #ffffff;
-  --studio-panel: #f4f4f5;
-  --studio-ink: #0a0a0a;
-  --studio-muted: #4b5563;
-  --studio-line: rgba(10, 10, 10, 0.12);
+  --studio-accent: var(--persona-accent, oklch(0.2 0 0));
+  --studio-paper: oklch(1 0 0);
+  --studio-panel: oklch(0.96 0 0);
+  --studio-ink: oklch(0.18 0 0);
+  --studio-muted: oklch(0.45 0 0);
+  --studio-line: color-mix(in oklab, var(--studio-ink) 12%, transparent);
 }
 
 [data-studio-theme="heal"] {
-  --studio-accent: var(--persona-accent, #0f766e);
-  --studio-paper: #f7fbfb;
-  --studio-panel: #e7f5f3;
-  --studio-ink: #0b2e2b;
-  --studio-muted: #4a6764;
-  --studio-line: rgba(11, 46, 43, 0.12);
+  --studio-accent: var(--persona-accent, oklch(0.48 0.09 185));
+  --studio-paper: oklch(0.985 0.01 185);
+  --studio-panel: oklch(0.95 0.02 185);
+  --studio-ink: oklch(0.3 0.04 185);
+  --studio-muted: oklch(0.48 0.03 185);
+  --studio-line: color-mix(in oklab, var(--studio-ink) 12%, transparent);
 }
 
 [data-studio-theme="learn"] {
-  --studio-accent: var(--persona-accent, #4338ca);
-  --studio-paper: #f8f7ff;
-  --studio-panel: #eceafd;
-  --studio-ink: #1e1b4b;
-  --studio-muted: #565285;
-  --studio-line: rgba(30, 27, 75, 0.12);
+  --studio-accent: var(--persona-accent, oklch(0.45 0.16 285));
+  --studio-paper: oklch(0.98 0.015 285);
+  --studio-panel: oklch(0.95 0.03 285);
+  --studio-ink: oklch(0.28 0.08 285);
+  --studio-muted: oklch(0.48 0.04 285);
+  --studio-line: color-mix(in oklab, var(--studio-ink) 12%, transparent);
 }
 
 [data-studio-theme="play"] {
-  --studio-accent: var(--persona-accent, #6d28d9);
-  --studio-paper: #fbf8ff;
-  --studio-panel: #f1e9ff;
-  --studio-ink: #2e1065;
-  --studio-muted: #66548a;
-  --studio-line: rgba(46, 16, 101, 0.12);
+  --studio-accent: var(--persona-accent, oklch(0.45 0.18 300));
+  --studio-paper: oklch(0.985 0.015 300);
+  --studio-panel: oklch(0.95 0.035 300);
+  --studio-ink: oklch(0.3 0.1 300);
+  --studio-muted: oklch(0.48 0.05 300);
+  --studio-line: color-mix(in oklab, var(--studio-ink) 12%, transparent);
 }
 
 @layer utilities {
@@ -249,6 +253,14 @@
   }
   .studio-accent-bar {
     background-color: var(--studio-accent);
+  }
+
+  .studio-shadow-soft {
+    box-shadow: var(--studio-shadow-soft);
+  }
+
+  .studio-shadow-lift {
+    box-shadow: var(--studio-shadow-lift);
   }
 
   /* -------------------------------------------------------------------------
@@ -270,8 +282,7 @@
   }
   .studio-lift:hover {
     transform: translateY(-4px);
-    box-shadow: 0 18px 42px -26px
-      color-mix(in oklab, var(--studio-ink), transparent 45%);
+    box-shadow: var(--studio-shadow-lift);
     border-color: color-mix(in oklab, var(--studio-accent), transparent 45%);
   }
 

@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { getAiService } from "@/lib/persona-studio/ai/services";
 import { getWritableRepository } from "@/lib/persona-studio/repository";
+import { requireWriteAccess } from "@/lib/persona-studio/auth/access";
 import {
   BehaviouralCluster,
   ClusterSet,
@@ -117,6 +118,7 @@ const CreateProjectInput = z.object({
 export async function createProjectAction(
   raw: z.input<typeof CreateProjectInput>,
 ): Promise<{ projectId: string }> {
+  await requireWriteAccess();
   const input = CreateProjectInput.parse(raw);
   const repo = getWritableRepository();
   const now = new Date().toISOString();

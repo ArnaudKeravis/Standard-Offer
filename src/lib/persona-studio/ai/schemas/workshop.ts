@@ -98,8 +98,19 @@ export const StickyNote = z.object({
   workshopId: Id,
   text: z.string().min(1),
   personaId: Id.optional(),
+  /** Optional link to a persona statement for calibration sync. */
+  statementId: Id.optional(),
   votes: z.number().int().nonnegative().default(0),
-  kind: z.enum(["NOTE", "ASSUMPTION", "QUESTION", "OPPORTUNITY"]).default("NOTE"),
+  kind: z
+    .enum([
+      "NOTE",
+      "ASSUMPTION",
+      "TO_VALIDATE",
+      "EVIDENCE",
+      "QUESTION",
+      "OPPORTUNITY",
+    ])
+    .default("NOTE"),
   createdAt: IsoDateTime,
 });
 export type StickyNote = z.infer<typeof StickyNote>;

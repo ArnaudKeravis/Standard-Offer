@@ -42,8 +42,27 @@ export async function runIdeaChallenge(
     .filter((p): p is NonNullable<typeof p> => Boolean(p));
 
   const projectSources = await repo.listSources(project.id, lang);
-  const contexts = ordered.map((persona) =>
-    buildPersonaGroundingContext(persona, projectSources, lang),
+  const contexts = await Promise.all(
+    ordered.map(async (persona) => {
+      const referenced = new Set<string>(persona.sourceIds);
+      for (const section of [
+        ...persona.commonSections,
+        ...persona.domainSections,
+      ]) {
+        for (const st of section.statements) {
+          for (const id of st.sourceIds) referenced.add(id);
+        }
+      }
+      const evidenceItems = await repo.listEvidenceItems(project.id, {
+        sourceIds: [...referenced],
+      });
+      return buildPersonaGroundingContext(
+        persona,
+        projectSources,
+        lang,
+        evidenceItems,
+      );
+    }),
   );
 
   const provider = getIdeaChallengeProvider();
