@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { LayoutTemplate } from "lucide-react";
 import { getRepository } from "@/lib/persona-studio/repository";
-import { tFamily, tSectionType } from "@/lib/persona-studio/utils/i18n";
+import { tFamily, tSectionType, tUI } from "@/lib/persona-studio/utils/i18n";
+import { getLangPreference } from "@/lib/persona-studio/utils/lang-cookie";
 import { familyTheme } from "@/lib/persona-studio/utils/persona-view";
 import { StudioNav } from "@/components/persona-studio/shared/studio-nav";
 
@@ -11,21 +12,20 @@ export const metadata: Metadata = {
 
 export default async function TemplatesPage() {
   const templates = await getRepository().listTemplates();
+  const lang = (await getLangPreference()) ?? "en";
 
   return (
     <>
-      <StudioNav crumbs={[{ label: "Templates" }]} />
+      <StudioNav lang={lang} crumbs={[{ label: tUI(lang, "templates") }]} />
       <main className="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-6">
         <div className="flex items-center gap-2">
           <LayoutTemplate className="size-5 text-[var(--studio-accent)]" />
           <h1 className="studio-display text-2xl font-bold text-[var(--studio-ink)]">
-            Persona templates
+            {tUI(lang, "templatesTitle")}
           </h1>
         </div>
         <p className="mt-1 max-w-2xl text-[var(--studio-muted)]">
-          Templates define the sections a persona family carries. They are how
-          one product serves two families — and you can save your own from the
-          editor.
+          {tUI(lang, "templatesIntro")}
         </p>
 
         <div className="mt-8 grid gap-5 md:grid-cols-2">
@@ -37,7 +37,7 @@ export default async function TemplatesPage() {
               className="rounded-3xl border border-[var(--studio-line)] p-6"
             >
               <span className="inline-flex items-center gap-1.5 rounded-full studio-accent-soft px-2.5 py-1 text-xs font-medium">
-                {tFamily("en", t.family)}
+                {tFamily(lang, t.family)}
               </span>
               <h2 className="studio-display mt-3 text-xl font-semibold text-[var(--studio-ink)]">
                 {t.name}
@@ -48,7 +48,7 @@ export default async function TemplatesPage() {
                 </p>
               )}
               <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-[var(--studio-muted)]">
-                {t.sections.length} sections
+                {t.sections.length} {tUI(lang, "sections").toLowerCase()}
               </p>
               <ul className="mt-2 flex flex-wrap gap-1.5">
                 {t.sections
@@ -58,7 +58,7 @@ export default async function TemplatesPage() {
                     <li
                       key={s.key}
                       className="rounded-full border border-[var(--studio-line)] px-2 py-0.5 text-xs text-[var(--studio-ink)]"
-                      title={tSectionType("en", s.type)}
+                      title={tSectionType(lang, s.type)}
                     >
                       {s.title}
                     </li>

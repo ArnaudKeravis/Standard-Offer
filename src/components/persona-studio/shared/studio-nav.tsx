@@ -1,19 +1,25 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { StudioLang } from "@/lib/persona-studio/utils/i18n";
+import { LanguageToggle } from "./language-toggle";
 
 export type Crumb = { label: string; href?: string };
 
 /**
  * Minimal, editorial top navigation for Persona Studio. Deliberately quiet:
- * a wordmark, breadcrumbs and optional actions. No dashboard chrome.
+ * a wordmark, breadcrumbs, the FR/EN toggle and optional actions. No dashboard
+ * chrome.
  */
 export function StudioNav({
   crumbs = [],
   actions,
+  lang,
 }: {
   crumbs?: Crumb[];
   actions?: React.ReactNode;
+  /** Current display language; renders the global FR/EN toggle when provided. */
+  lang?: StudioLang;
 }) {
   return (
     <header className="sticky top-0 z-30 border-b border-[var(--studio-line)] bg-[var(--studio-paper)]/85 backdrop-blur">
@@ -56,7 +62,10 @@ export function StudioNav({
           </nav>
         )}
 
-        <div className="ml-auto flex items-center gap-2">{actions}</div>
+        <div className="ml-auto flex items-center gap-2">
+          {actions}
+          {lang && <LanguageToggle current={lang} />}
+        </div>
       </div>
     </header>
   );

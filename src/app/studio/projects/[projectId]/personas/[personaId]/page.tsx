@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { getRepository } from "@/lib/persona-studio/repository";
 import { familyTheme } from "@/lib/persona-studio/utils/persona-view";
 import { langFromProject, tUI } from "@/lib/persona-studio/utils/i18n";
+import { getLangPreference } from "@/lib/persona-studio/utils/lang-cookie";
 import { StudioNav } from "@/components/persona-studio/shared/studio-nav";
 import { PersonaDetail } from "@/components/persona-studio/personas/persona-detail";
 
@@ -29,15 +30,16 @@ export default async function PersonaDetailPage({
 }) {
   const { projectId, personaId } = await params;
   const repo = getRepository();
+  const preference = await getLangPreference();
   const [project, persona] = await Promise.all([
-    repo.getProject(projectId),
-    repo.getPersona(personaId),
+    repo.getProject(projectId, preference),
+    repo.getPersona(personaId, preference),
   ]);
   if (!project || !persona || persona.projectId !== project.id) notFound();
 
-  const allSources = await repo.listSources(projectId);
+  const lang = preference ?? langFromProject(project);
+  const allSources = await repo.listSources(projectId, lang);
   const sources = allSources.filter((s) => persona.sourceIds.includes(s.id));
-  const lang = langFromProject(project);
 
   return (
     <div
@@ -45,6 +47,7 @@ export default async function PersonaDetailPage({
       style={{ ["--persona-accent" as string]: persona.accentColor }}
     >
       <StudioNav
+        lang={lang}
         crumbs={[
           { label: project.name, href: `/studio/projects/${project.id}` },
           {

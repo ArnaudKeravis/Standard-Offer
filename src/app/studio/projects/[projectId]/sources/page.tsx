@@ -3,6 +3,7 @@ import { FileText } from "lucide-react";
 import { getRepository } from "@/lib/persona-studio/repository";
 import { familyTheme } from "@/lib/persona-studio/utils/persona-view";
 import { langFromProject, tUI } from "@/lib/persona-studio/utils/i18n";
+import { getLangPreference } from "@/lib/persona-studio/utils/lang-cookie";
 import { StudioNav } from "@/components/persona-studio/shared/studio-nav";
 import { SourceManager } from "@/components/persona-studio/sources/source-manager";
 
@@ -13,15 +14,17 @@ export default async function ProjectSourcesPage({
 }) {
   const { projectId } = await params;
   const repo = getRepository();
-  const project = await repo.getProject(projectId);
+  const preference = await getLangPreference();
+  const project = await repo.getProject(projectId, preference);
   if (!project) notFound();
 
-  const sources = await repo.listSources(projectId);
-  const lang = langFromProject(project);
+  const lang = preference ?? langFromProject(project);
+  const sources = await repo.listSources(projectId, lang);
 
   return (
     <div data-studio-theme={familyTheme(project.family)}>
       <StudioNav
+        lang={lang}
         crumbs={[
           { label: project.name, href: `/studio/projects/${project.id}` },
           { label: tUI(lang, "sources") },

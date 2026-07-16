@@ -5,7 +5,16 @@ import { SourceDocument } from "@/lib/persona-studio/ai/schemas/evidence";
 import { Journey } from "@/lib/persona-studio/ai/schemas/workshop";
 import { PersonaTemplate } from "@/lib/persona-studio/ai/schemas/persona";
 import { SEED_DATA } from "@/lib/persona-studio/data/seed";
+import {
+  localizeJourney,
+  localizePersona,
+  localizeProject,
+  localizeSource,
+} from "@/lib/persona-studio/data/localized";
+import type { StudioLang } from "@/lib/persona-studio/utils/i18n";
 import { collectStatements } from "@/lib/persona-studio/utils/confidence";
+
+const LANGS: StudioLang[] = ["en", "fr"];
 
 describe("Seed data integrity", () => {
   it("seeds two projects (Corporate + Tour de France)", () => {
@@ -14,25 +23,35 @@ describe("Seed data integrity", () => {
     expect(families).toEqual(["CORPORATE", "SPORTS_HOSPITALITY"]);
   });
 
-  it("every project validates against the schema", () => {
-    for (const p of SEED_DATA.projects) expect(() => Project.parse(p)).not.toThrow();
+  it("every project validates against the schema in both languages", () => {
+    for (const lang of LANGS)
+      for (const p of SEED_DATA.projects)
+        expect(() => Project.parse(localizeProject(p, lang))).not.toThrow();
   });
 
-  it("every persona validates against the schema", () => {
-    for (const p of SEED_DATA.personas) expect(() => Persona.parse(p)).not.toThrow();
+  it("every persona validates against the schema in both languages", () => {
+    for (const lang of LANGS)
+      for (const p of SEED_DATA.personas)
+        expect(() => Persona.parse(localizePersona(p, lang))).not.toThrow();
   });
 
-  it("every source, journey and template validates", () => {
-    for (const s of SEED_DATA.sources) expect(() => SourceDocument.parse(s)).not.toThrow();
-    for (const j of SEED_DATA.journeys) expect(() => Journey.parse(j)).not.toThrow();
-    for (const t of SEED_DATA.templates) expect(() => PersonaTemplate.parse(t)).not.toThrow();
+  it("every source, journey and template validates in both languages", () => {
+    for (const lang of LANGS) {
+      for (const s of SEED_DATA.sources)
+        expect(() => SourceDocument.parse(localizeSource(s, lang))).not.toThrow();
+      for (const j of SEED_DATA.journeys)
+        expect(() => Journey.parse(localizeJourney(j, lang))).not.toThrow();
+    }
+    for (const t of SEED_DATA.templates)
+      expect(() => PersonaTemplate.parse(t)).not.toThrow();
   });
 
   it("seeds the four Tour de France personas", () => {
     const tdf = SEED_DATA.personas.filter(
       (p) => p.family === "SPORTS_HOSPITALITY",
     );
-    expect(tdf.map((p) => p.name).sort()).toEqual([
+    // Names are proper nouns — identical in both languages.
+    expect(tdf.map((p) => localizePersona(p, "en").name).sort()).toEqual([
       "Claire Dubois",
       "David Richardson",
       "Sophie Lambert",
@@ -64,9 +83,10 @@ describe("Seed data integrity", () => {
       (p) => p.family === "SPORTS_HOSPITALITY",
     );
     for (const persona of tdf) {
+      const resolved = localizePersona(persona, "fr");
       const evidenced = collectStatements([
-        ...persona.commonSections,
-        ...persona.domainSections,
+        ...resolved.commonSections,
+        ...resolved.domainSections,
       ]).filter((s) => s.evidenceStatus === "EVIDENCE");
       expect(evidenced.length).toBeGreaterThan(0);
       for (const s of evidenced) {
@@ -75,14 +95,24 @@ describe("Seed data integrity", () => {
     }
   });
 
-  it("documents Thomas Garcia's waiting-time frustration (workshop journey)", () => {
+  it("documents Thomas Garcia's waiting-time frustration in both languages", () => {
     const thomas = SEED_DATA.personas.find((p) => p.id === "persona-thomas-garcia");
-    const frustrations = thomas?.commonSections.find(
-      (s) => s.key === "frustrations",
-    );
-    const hasWaiting = frustrations?.statements.some((s) =>
-      /attente|attend/i.test(s.content),
-    );
-    expect(hasWaiting).toBe(true);
+    expect(thomas).toBeDefined();
+
+    const patterns: Record<StudioLang, RegExp> = {
+      fr: /attente|attend/i,
+      en: /wait/i,
+    };
+
+    for (const lang of LANGS) {
+      const resolved = localizePersona(thomas!, lang);
+      const frustrations = resolved.commonSections.find(
+        (s) => s.key === "frustrations",
+      );
+      const hasWaiting = frustrations?.statements.some((s) =>
+        patterns[lang].test(s.content),
+      );
+      expect(hasWaiting, `waiting-time frustration missing in ${lang}`).toBe(true);
+    }
   });
 });

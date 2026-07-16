@@ -6,6 +6,7 @@ import type {
 import type { Project, User } from "@/lib/persona-studio/ai/schemas/project";
 import type { SourceDocument } from "@/lib/persona-studio/ai/schemas/evidence";
 import type { Journey } from "@/lib/persona-studio/ai/schemas/workshop";
+import type { StudioLang } from "@/lib/persona-studio/utils/i18n";
 
 /**
  * The data-access contract for Persona Studio. Server components and route
@@ -13,22 +14,28 @@ import type { Journey } from "@/lib/persona-studio/ai/schemas/workshop";
  * read-only seed implementation; later phases swap in a Supabase-backed
  * implementation (with RLS) without touching any UI.
  *
+ * Content is authored bilingually (see `data/localized.ts`). Every read method
+ * takes an optional `lang`; the returned domain objects are already resolved to
+ * that language (plain strings), so downstream utils and components stay
+ * language-agnostic. When `lang` is omitted, each entity resolves to its own
+ * project's default language.
+ *
  * Client components must never import an implementation of this interface.
  */
 export interface PersonaRepository {
   getCurrentUser(): Promise<User>;
 
-  listProjects(): Promise<Project[]>;
-  getProject(projectId: string): Promise<Project | null>;
+  listProjects(lang?: StudioLang): Promise<Project[]>;
+  getProject(projectId: string, lang?: StudioLang): Promise<Project | null>;
 
-  listPersonas(projectId: string): Promise<Persona[]>;
-  getPersona(personaId: string): Promise<Persona | null>;
-  getPersonasByIds(personaIds: string[]): Promise<Persona[]>;
+  listPersonas(projectId: string, lang?: StudioLang): Promise<Persona[]>;
+  getPersona(personaId: string, lang?: StudioLang): Promise<Persona | null>;
+  getPersonasByIds(personaIds: string[], lang?: StudioLang): Promise<Persona[]>;
 
-  listSources(projectId: string): Promise<SourceDocument[]>;
-  getSource(sourceId: string): Promise<SourceDocument | null>;
+  listSources(projectId: string, lang?: StudioLang): Promise<SourceDocument[]>;
+  getSource(sourceId: string, lang?: StudioLang): Promise<SourceDocument | null>;
 
-  listJourneys(projectId: string): Promise<Journey[]>;
+  listJourneys(projectId: string, lang?: StudioLang): Promise<Journey[]>;
 
   listTemplates(): Promise<PersonaTemplate[]>;
   getTemplate(templateId: string): Promise<PersonaTemplate | null>;

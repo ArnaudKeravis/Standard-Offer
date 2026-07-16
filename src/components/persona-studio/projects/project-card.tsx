@@ -7,11 +7,18 @@ import {
   tFamily,
   tStatus,
   tUI,
+  type StudioLang,
 } from "@/lib/persona-studio/utils/i18n";
 import { CORPORATE_TEMPLATE, TDF_TEMPLATE } from "@/lib/persona-studio/data/templates";
 
-export function ProjectCard({ project }: { project: Project }) {
-  const lang = langFromProject(project);
+export function ProjectCard({
+  project,
+  lang: langProp,
+}: {
+  project: Project;
+  lang?: StudioLang;
+}) {
+  const lang = langProp ?? langFromProject(project);
   const accent =
     project.family === "CORPORATE"
       ? CORPORATE_TEMPLATE.accentColor

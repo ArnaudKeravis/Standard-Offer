@@ -3,6 +3,7 @@ import { History } from "lucide-react";
 import { getWritableRepository } from "@/lib/persona-studio/repository";
 import { familyTheme, coveragePct } from "@/lib/persona-studio/utils/persona-view";
 import { langFromProject, tUI } from "@/lib/persona-studio/utils/i18n";
+import { getLangPreference } from "@/lib/persona-studio/utils/lang-cookie";
 import { StudioNav } from "@/components/persona-studio/shared/studio-nav";
 import { ConfidenceBadge } from "@/components/persona-studio/shared/confidence-badge";
 import { RestoreButton } from "@/components/persona-studio/editor/restore-button";
@@ -14,14 +15,15 @@ export default async function PersonaHistoryPage({
 }) {
   const { projectId, personaId } = await params;
   const repo = getWritableRepository();
+  const preference = await getLangPreference();
   const [project, persona] = await Promise.all([
-    repo.getProject(projectId),
-    repo.getPersona(personaId),
+    repo.getProject(projectId, preference),
+    repo.getPersona(personaId, preference),
   ]);
   if (!project || !persona || persona.projectId !== project.id) notFound();
 
+  const lang = preference ?? langFromProject(project);
   const versions = await repo.listPersonaVersions(personaId);
-  const lang = langFromProject(project);
 
   return (
     <div
@@ -29,6 +31,7 @@ export default async function PersonaHistoryPage({
       style={{ ["--persona-accent" as string]: persona.accentColor }}
     >
       <StudioNav
+        lang={lang}
         crumbs={[
           { label: project.name, href: `/studio/projects/${project.id}` },
           {

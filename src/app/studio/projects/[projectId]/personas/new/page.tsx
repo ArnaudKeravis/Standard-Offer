@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getRepository } from "@/lib/persona-studio/repository";
 import { familyTheme } from "@/lib/persona-studio/utils/persona-view";
 import { langFromProject, tUI } from "@/lib/persona-studio/utils/i18n";
+import { getLangPreference } from "@/lib/persona-studio/utils/lang-cookie";
 import { scaffoldPersona } from "@/lib/persona-studio/utils/persona-factory";
 import { StudioNav } from "@/components/persona-studio/shared/studio-nav";
 import { PersonaEditor } from "@/components/persona-studio/editor/persona-editor";
@@ -13,11 +14,13 @@ export default async function NewPersonaPage({
 }) {
   const { projectId } = await params;
   const repo = getRepository();
-  const project = await repo.getProject(projectId);
+  const preference = await getLangPreference();
+  const project = await repo.getProject(projectId, preference);
   if (!project) notFound();
+  const lang = preference ?? langFromProject(project);
 
   const [sources, template] = await Promise.all([
-    repo.listSources(projectId),
+    repo.listSources(projectId, lang),
     project.templateId
       ? repo.getTemplate(project.templateId)
       : Promise.resolve(null),
@@ -36,7 +39,6 @@ export default async function NewPersonaPage({
     category: "",
     accentColor: chosen.accentColor,
   });
-  const lang = langFromProject(project);
 
   return (
     <div
@@ -44,6 +46,7 @@ export default async function NewPersonaPage({
       style={{ ["--persona-accent" as string]: chosen.accentColor }}
     >
       <StudioNav
+        lang={lang}
         crumbs={[
           { label: project.name, href: `/studio/projects/${project.id}` },
           {

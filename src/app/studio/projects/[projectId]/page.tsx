@@ -9,6 +9,7 @@ import {
   tResearchMode,
   tUI,
 } from "@/lib/persona-studio/utils/i18n";
+import { getLangPreference } from "@/lib/persona-studio/utils/lang-cookie";
 import {
   CORPORATE_TEMPLATE,
   TDF_TEMPLATE,
@@ -25,20 +26,22 @@ export default async function ProjectOverviewPage({
 }) {
   const { projectId } = await params;
   const repo = getRepository();
-  const project = await repo.getProject(projectId);
+  const preference = await getLangPreference();
+  const project = await repo.getProject(projectId, preference);
   if (!project) notFound();
 
+  const lang = preference ?? langFromProject(project);
+
   const [personas, sources, journeys] = await Promise.all([
-    repo.listPersonas(projectId),
-    repo.listSources(projectId),
-    repo.listJourneys(projectId),
+    repo.listPersonas(projectId, lang),
+    repo.listSources(projectId, lang),
+    repo.listJourneys(projectId, lang),
   ]);
 
   const accent =
     project.family === "CORPORATE"
       ? CORPORATE_TEMPLATE.accentColor
       : TDF_TEMPLATE.accentColor;
-  const lang = langFromProject(project);
 
   return (
     <div
@@ -46,6 +49,7 @@ export default async function ProjectOverviewPage({
       style={{ ["--persona-accent" as string]: accent }}
     >
       <StudioNav
+        lang={lang}
         crumbs={[{ label: project.name }]}
         actions={
           <>

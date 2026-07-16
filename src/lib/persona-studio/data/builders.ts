@@ -1,22 +1,29 @@
 import type { ConfidenceLevel, EvidenceStatus, SectionType } from "@/lib/persona-studio/ai/schemas/common";
-import type { PersonaSection } from "@/lib/persona-studio/ai/schemas/section";
-import type { PersonaStatement } from "@/lib/persona-studio/ai/schemas/statement";
+import type {
+  LocalizedText,
+  PersonaSectionSource,
+  PersonaStatementSource,
+} from "@/lib/persona-studio/data/localized";
 
 /**
  * Ergonomic builders for authoring seed personas by hand. They keep the seed
  * files readable while still producing fully-typed, schema-valid objects.
+ *
+ * Content fields accept {@link LocalizedText}: a plain string (same in both
+ * languages) or a `{ en, fr }` pair. The repository resolves these to a single
+ * language at the data-access boundary.
  *
  * Seeds use a fixed timestamp so snapshots and tests are deterministic.
  */
 export const SEED_TIMESTAMP = "2026-05-01T09:00:00.000Z";
 
 type StatementInput = {
-  content: string;
+  content: LocalizedText;
   /** Defaults to EVIDENCE for seeded, sourced content. */
   status?: EvidenceStatus;
   confidence?: ConfidenceLevel;
   sourceIds?: string[];
-  label?: string;
+  label?: LocalizedText;
   editable?: boolean;
 };
 
@@ -28,7 +35,7 @@ export function statement(
   idPrefix: string,
   index: number,
   input: StatementInput,
-): PersonaStatement {
+): PersonaStatementSource {
   return {
     id: `${idPrefix}-s${index}`,
     label: input.label,
@@ -42,11 +49,11 @@ export function statement(
 
 type SectionInput = {
   key: string;
-  title: string;
+  title: LocalizedText;
   type?: SectionType;
   order: number;
   visible?: boolean;
-  description?: string;
+  description?: LocalizedText;
   /** Statement inputs; ids are derived from the section id. */
   items: StatementInput[];
 };
@@ -58,7 +65,7 @@ type SectionInput = {
 export function section(
   personaId: string,
   input: SectionInput,
-): PersonaSection {
+): PersonaSectionSource {
   const sectionId = `${personaId}-${input.key}`;
   return {
     id: sectionId,

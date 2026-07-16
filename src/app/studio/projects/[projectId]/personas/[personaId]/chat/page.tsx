@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getRepository } from "@/lib/persona-studio/repository";
 import { familyTheme } from "@/lib/persona-studio/utils/persona-view";
 import { langFromProject, tUI } from "@/lib/persona-studio/utils/i18n";
+import { getLangPreference } from "@/lib/persona-studio/utils/lang-cookie";
 import { StudioNav } from "@/components/persona-studio/shared/studio-nav";
 import {
   PersonaChat,
@@ -32,14 +33,15 @@ export default async function PersonaChatPage({
 }) {
   const { projectId, personaId } = await params;
   const repo = getRepository();
+  const preference = await getLangPreference();
   const [project, persona] = await Promise.all([
-    repo.getProject(projectId),
-    repo.getPersona(personaId),
+    repo.getProject(projectId, preference),
+    repo.getPersona(personaId, preference),
   ]);
   if (!project || !persona || persona.projectId !== project.id) notFound();
 
-  const projectSources = await repo.listSources(projectId);
-  const lang = langFromProject(project);
+  const lang = preference ?? langFromProject(project);
+  const projectSources = await repo.listSources(projectId, lang);
 
   // Only source names the persona actually references are exposed to the client.
   const referenced = new Set<string>(persona.sourceIds);
@@ -71,6 +73,7 @@ export default async function PersonaChatPage({
       style={{ ["--persona-accent" as string]: persona.accentColor }}
     >
       <StudioNav
+        lang={lang}
         crumbs={[
           { label: project.name, href: `/studio/projects/${project.id}` },
           {

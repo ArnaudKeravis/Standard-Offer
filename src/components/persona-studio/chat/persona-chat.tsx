@@ -104,6 +104,7 @@ export function PersonaChat({ persona }: { persona: PersonaChatViewModel }) {
           scenario: scenario.trim() || undefined,
           question: trimmed,
           history: history.slice(0, -1),
+          lang: persona.lang,
         }),
       });
       if (!res.ok) throw new Error(`Request failed: ${res.status}`);

@@ -5,23 +5,46 @@ import { Search } from "lucide-react";
 import type { Project } from "@/lib/persona-studio/ai/schemas/project";
 import type { PersonaFamily } from "@/lib/persona-studio/ai/schemas/common";
 import { cn } from "@/lib/utils";
+import { tFamily, type StudioLang } from "@/lib/persona-studio/utils/i18n";
 import { ProjectCard } from "./project-card";
 
 type FamilyFilter = "ALL" | PersonaFamily;
 
-const FILTERS: { id: FamilyFilter; label: string }[] = [
-  { id: "ALL", label: "All" },
-  { id: "CORPORATE", label: "Corporate" },
-  { id: "SPORTS_HOSPITALITY", label: "Sports hospitality" },
-];
+const COPY: Record<StudioLang, { all: string; search: string; searchAria: string; empty: string }> = {
+  en: {
+    all: "All",
+    search: "Search projects and clients",
+    searchAria: "Search projects",
+    empty: "No projects match your search.",
+  },
+  fr: {
+    all: "Tous",
+    search: "Rechercher des projets et des clients",
+    searchAria: "Rechercher des projets",
+    empty: "Aucun projet ne correspond à votre recherche.",
+  },
+};
 
 /**
  * Client-side searchable / filterable project library. Data is fetched on the
  * server and passed in; this component only handles local interaction.
  */
-export function ProjectLibrary({ projects }: { projects: Project[] }) {
+export function ProjectLibrary({
+  projects,
+  lang = "en",
+}: {
+  projects: Project[];
+  lang?: StudioLang;
+}) {
   const [query, setQuery] = useState("");
   const [family, setFamily] = useState<FamilyFilter>("ALL");
+
+  const copy = COPY[lang];
+  const filters: { id: FamilyFilter; label: string }[] = [
+    { id: "ALL", label: copy.all },
+    { id: "CORPORATE", label: tFamily(lang, "CORPORATE") },
+    { id: "SPORTS_HOSPITALITY", label: tFamily(lang, "SPORTS_HOSPITALITY") },
+  ];
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -47,14 +70,14 @@ export function ProjectLibrary({ projects }: { projects: Project[] }) {
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search projects and clients"
-            aria-label="Search projects"
+            placeholder={copy.search}
+            aria-label={copy.searchAria}
             className="w-full rounded-full border border-[var(--studio-line)] bg-[var(--studio-paper)] py-2 pl-9 pr-4 text-sm outline-none focus-visible:border-[var(--studio-accent)] focus-visible:ring-2 focus-visible:ring-[var(--studio-accent)]/30"
           />
         </div>
 
         <div className="flex items-center gap-1 rounded-full border border-[var(--studio-line)] p-1">
-          {FILTERS.map((f) => (
+          {filters.map((f) => (
             <button
               key={f.id}
               type="button"
@@ -75,12 +98,12 @@ export function ProjectLibrary({ projects }: { projects: Project[] }) {
 
       {filtered.length === 0 ? (
         <p className="mt-10 text-center text-sm text-[var(--studio-muted)]">
-          No projects match your search.
+          {copy.empty}
         </p>
       ) : (
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <ProjectCard key={project.id} project={project} lang={lang} />
           ))}
         </div>
       )}

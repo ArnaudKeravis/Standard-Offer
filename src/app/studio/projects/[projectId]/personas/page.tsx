@@ -4,6 +4,7 @@ import { Plus } from "lucide-react";
 import { getRepository } from "@/lib/persona-studio/repository";
 import { familyTheme } from "@/lib/persona-studio/utils/persona-view";
 import { langFromProject, tUI } from "@/lib/persona-studio/utils/i18n";
+import { getLangPreference } from "@/lib/persona-studio/utils/lang-cookie";
 import { StudioNav } from "@/components/persona-studio/shared/studio-nav";
 import { PersonaGalleryCard } from "@/components/persona-studio/personas/persona-gallery-card";
 
@@ -14,14 +15,16 @@ export default async function PersonaGalleryPage({
 }) {
   const { projectId } = await params;
   const repo = getRepository();
-  const project = await repo.getProject(projectId);
+  const preference = await getLangPreference();
+  const project = await repo.getProject(projectId, preference);
   if (!project) notFound();
-  const personas = await repo.listPersonas(projectId);
-  const lang = langFromProject(project);
+  const lang = preference ?? langFromProject(project);
+  const personas = await repo.listPersonas(projectId, lang);
 
   return (
     <div data-studio-theme={familyTheme(project.family)}>
       <StudioNav
+        lang={lang}
         crumbs={[
           { label: project.name, href: `/studio/projects/${project.id}` },
           { label: tUI(lang, "personaGallery") },

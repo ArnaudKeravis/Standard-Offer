@@ -142,6 +142,13 @@ const VISIBILITY: Record<StudioLang, Record<ProjectVisibility, string>> = {
 
 const UI: Record<StudioLang, Record<string, string>> = {
   en: {
+    heroTitle: "Create, understand and design with the people you serve.",
+    heroSubtitle:
+      "Evidence-based personas for CoDesign workshops. Every statement is traceable, every confidence score is explained.",
+    projectLibrary: "Project library",
+    templatesTitle: "Persona templates",
+    templatesIntro:
+      "Templates define the sections a persona family carries. They are how one product serves two families — and you can save your own from the editor.",
     topNeeds: "Top needs",
     topFrustrations: "Top frustrations",
     openProject: "Open project",
@@ -310,6 +317,13 @@ const UI: Record<StudioLang, Record<string, string>> = {
       "This content was machine-drafted as a starting point. Nothing here is research: validate every statement against real sources.",
   },
   fr: {
+    heroTitle: "Créer, comprendre et concevoir avec les personnes que vous servez.",
+    heroSubtitle:
+      "Des personas fondés sur des preuves pour les ateliers CoDesign. Chaque affirmation est traçable, chaque score de confiance est expliqué.",
+    projectLibrary: "Bibliothèque de projets",
+    templatesTitle: "Modèles de personas",
+    templatesIntro:
+      "Les modèles définissent les sections qu'une famille de personas comporte. C'est ainsi qu'un même produit sert deux familles — et vous pouvez enregistrer les vôtres depuis l'éditeur.",
     topNeeds: "Besoins clés",
     topFrustrations: "Frustrations clés",
     openProject: "Ouvrir le projet",

@@ -7,9 +7,20 @@ import type { Project } from "@/lib/persona-studio/ai/schemas/project";
 import type { SourceDocument } from "@/lib/persona-studio/ai/schemas/evidence";
 import { SEED_DATA } from "@/lib/persona-studio/data/seed";
 import {
+  localizeJourney,
+  localizePersona,
+  localizeProject,
+  localizeSource,
+  type JourneySource,
+  type PersonaSource,
+  type ProjectSource,
+  type SourceDocumentSource,
+} from "@/lib/persona-studio/data/localized";
+import {
   collectStatements,
   computeEvidenceCoverage,
 } from "@/lib/persona-studio/utils/confidence";
+import { langFromLanguage, type StudioLang } from "@/lib/persona-studio/utils/i18n";
 import type {
   MutationContext,
   WritablePersonaRepository,
@@ -23,6 +34,11 @@ import type {
  *  - writes never mutate the shared `SEED_DATA` (which the seed-integrity tests
  *    validate and which other server code reads).
  *
+ * Content is authored bilingually (`*Source` types with `LocalizedText`) and
+ * resolved to the requested `lang` on read. Because a plain `string` is a valid
+ * `LocalizedText`, runtime objects created through the editor/wizard (plain
+ * strings) are stored as-is and resolve identically in both languages.
+ *
  * State lives for the lifetime of the server process. This is intentional and
  * documented: it makes the whole create/edit product real and navigable with
  * zero external services, and the same {@link WritablePersonaRepository}
@@ -31,12 +47,17 @@ import type {
  */
 export class MemoryRepository implements WritablePersonaRepository {
   private user = clone(SEED_DATA.user);
-  private projects: Project[] = clone(SEED_DATA.projects);
-  private personas: Persona[] = clone(SEED_DATA.personas);
-  private sources: SourceDocument[] = clone(SEED_DATA.sources);
-  private journeys = clone(SEED_DATA.journeys);
+  private projects: ProjectSource[] = clone(SEED_DATA.projects);
+  private personas: PersonaSource[] = clone(SEED_DATA.personas);
+  private sources: SourceDocumentSource[] = clone(SEED_DATA.sources);
+  private journeys: JourneySource[] = clone(SEED_DATA.journeys);
   private templates: PersonaTemplate[] = clone(SEED_DATA.templates);
   private versions: PersonaVersion[] = [];
+
+  private projectDefaultLang(projectId: string | undefined): StudioLang {
+    const project = this.projects.find((p) => p.id === projectId);
+    return langFromLanguage(project?.language);
+  }
 
   // ---- Reads -------------------------------------------------------------
 
@@ -44,39 +65,58 @@ export class MemoryRepository implements WritablePersonaRepository {
     return this.user;
   }
 
-  async listProjects() {
-    return this.projects;
+  async listProjects(lang?: StudioLang) {
+    return this.projects.map((p) =>
+      localizeProject(p, lang ?? langFromLanguage(p.language)),
+    );
   }
 
-  async getProject(projectId: string) {
-    return this.projects.find((p) => p.id === projectId) ?? null;
+  async getProject(projectId: string, lang?: StudioLang) {
+    const project = this.projects.find((p) => p.id === projectId);
+    return project
+      ? localizeProject(project, lang ?? langFromLanguage(project.language))
+      : null;
   }
 
-  async listPersonas(projectId: string) {
-    return this.personas.filter((p) => p.projectId === projectId);
+  async listPersonas(projectId: string, lang?: StudioLang) {
+    const resolved = lang ?? this.projectDefaultLang(projectId);
+    return this.personas
+      .filter((p) => p.projectId === projectId)
+      .map((p) => localizePersona(p, resolved));
   }
 
-  async getPersona(personaId: string) {
-    return this.personas.find((p) => p.id === personaId) ?? null;
+  async getPersona(personaId: string, lang?: StudioLang) {
+    const persona = this.personas.find((p) => p.id === personaId);
+    if (!persona) return null;
+    return localizePersona(persona, lang ?? this.projectDefaultLang(persona.projectId));
   }
 
-  async getPersonasByIds(personaIds: string[]) {
+  async getPersonasByIds(personaIds: string[], lang?: StudioLang) {
     const set = new Set(personaIds);
     return personaIds
       .map((id) => this.personas.find((p) => p.id === id))
-      .filter((p): p is Persona => Boolean(p) && set.has((p as Persona).id));
+      .filter((p): p is PersonaSource => Boolean(p) && set.has(p!.id))
+      .map((p) => localizePersona(p, lang ?? this.projectDefaultLang(p.projectId)));
   }
 
-  async listSources(projectId: string) {
-    return this.sources.filter((s) => s.projectId === projectId);
+  async listSources(projectId: string, lang?: StudioLang) {
+    const resolved = lang ?? this.projectDefaultLang(projectId);
+    return this.sources
+      .filter((s) => s.projectId === projectId)
+      .map((s) => localizeSource(s, resolved));
   }
 
-  async getSource(sourceId: string) {
-    return this.sources.find((s) => s.id === sourceId) ?? null;
+  async getSource(sourceId: string, lang?: StudioLang) {
+    const source = this.sources.find((s) => s.id === sourceId);
+    if (!source) return null;
+    return localizeSource(source, lang ?? this.projectDefaultLang(source.projectId));
   }
 
-  async listJourneys(projectId: string) {
-    return this.journeys.filter((j) => j.projectId === projectId);
+  async listJourneys(projectId: string, lang?: StudioLang) {
+    const resolved = lang ?? this.projectDefaultLang(projectId);
+    return this.journeys
+      .filter((j) => j.projectId === projectId)
+      .map((j) => localizeJourney(j, resolved));
   }
 
   async listTemplates() {
@@ -98,8 +138,9 @@ export class MemoryRepository implements WritablePersonaRepository {
   async updateProject(projectId: string, patch: Partial<Project>) {
     const idx = this.projects.findIndex((p) => p.id === projectId);
     if (idx === -1) throw new Error(`Project not found: ${projectId}`);
+    const lang = langFromLanguage(this.projects[idx].language);
     const next: Project = {
-      ...this.projects[idx],
+      ...localizeProject(this.projects[idx], lang),
       ...clone(patch),
       id: projectId,
       updatedAt: nowIso(),
@@ -125,13 +166,15 @@ export class MemoryRepository implements WritablePersonaRepository {
     const idx = this.personas.findIndex((p) => p.id === personaId);
     if (idx === -1) throw new Error(`Persona not found: ${personaId}`);
     const current = this.personas[idx];
+    const lang = this.projectDefaultLang(current.projectId);
 
-    // Snapshot the current state before overwriting it.
+    // Snapshot the current state (resolved to the project language) before
+    // overwriting it.
     this.versions.push({
       id: `${personaId}-v${current.version}`,
       personaId,
       version: current.version,
-      snapshot: clone(current),
+      snapshot: localizePersona(clone(current), lang),
       createdAt: nowIso(),
       createdBy: ctx.createdBy,
       note: ctx.note,
@@ -200,8 +243,9 @@ export class MemoryRepository implements WritablePersonaRepository {
   async updateSource(sourceId: string, patch: Partial<SourceDocument>) {
     const idx = this.sources.findIndex((s) => s.id === sourceId);
     if (idx === -1) throw new Error(`Source not found: ${sourceId}`);
+    const lang = this.projectDefaultLang(this.sources[idx].projectId);
     const next: SourceDocument = {
-      ...this.sources[idx],
+      ...localizeSource(this.sources[idx], lang),
       ...clone(patch),
       id: sourceId,
     };
