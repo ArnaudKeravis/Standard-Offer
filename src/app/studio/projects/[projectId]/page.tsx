@@ -15,6 +15,8 @@ import {
 } from "@/lib/persona-studio/data/templates";
 import { StudioNav } from "@/components/persona-studio/shared/studio-nav";
 import { PersonaGalleryCard } from "@/components/persona-studio/personas/persona-gallery-card";
+import { NeedsMap } from "@/components/persona-studio/shared/needs-map";
+import { JourneyLens } from "@/components/persona-studio/journeys/journey-lens";
 
 export default async function ProjectOverviewPage({
   params,
@@ -101,17 +103,23 @@ export default async function ProjectOverviewPage({
               {tUI(lang, "openGallery")}
             </Link>
           </div>
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {personas.map((persona) => (
+          <div className="grid auto-rows-min gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {personas.map((persona, i) => (
               <PersonaGalleryCard
                 key={persona.id}
                 persona={persona}
                 projectId={project.id}
                 lang={lang}
+                variant={i === 0 ? "hero" : "standard"}
+                staggerIndex={i}
               />
             ))}
           </div>
         </section>
+
+        {personas.length > 0 && (
+          <NeedsMap personas={personas} lang={lang} className="mt-8" />
+        )}
 
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           <Panel icon={<FileText className="size-4" />} title={tUI(lang, "sources")}>
@@ -140,17 +148,11 @@ export default async function ProjectOverviewPage({
                 {tUI(lang, "noJourneys")}
               </p>
             ) : (
-              <ul className="space-y-2">
+              <div className="space-y-6">
                 {journeys.map((j) => (
-                  <li key={j.id} className="text-sm">
-                    <span className="text-[var(--studio-ink)]">{j.name}</span>
-                    <span className="text-[var(--studio-muted)]">
-                      {" "}
-                      · {j.steps.length} {tUI(lang, "steps")}
-                    </span>
-                  </li>
+                  <JourneyLens key={j.id} journey={j} lang={lang} />
                 ))}
-              </ul>
+              </div>
             )}
           </Panel>
         </div>

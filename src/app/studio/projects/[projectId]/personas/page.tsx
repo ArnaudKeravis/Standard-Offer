@@ -43,13 +43,15 @@ export default async function PersonaGalleryPage({
         <p className="mt-1 text-[var(--studio-muted)]">
           {personas.length} {tUI(lang, "personas")} · {project.name}
         </p>
-        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {personas.map((persona) => (
+        <div className="mt-8 grid auto-rows-min gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {personas.map((persona, i) => (
             <PersonaGalleryCard
               key={persona.id}
               persona={persona}
               projectId={project.id}
               lang={lang}
+              variant={i === 0 ? "hero" : "standard"}
+              staggerIndex={i}
             />
           ))}
         </div>

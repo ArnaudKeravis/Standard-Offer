@@ -161,6 +161,24 @@ const UI: Record<StudioLang, Record<string, string>> = {
     noJourneys: "No journeys yet.",
     nothingRecorded: "Nothing recorded yet.",
     evidenceCoverage: "Evidence coverage",
+    // Visualizations (empathy map, needs map, journey lens)
+    persona: "Persona",
+    empathyMap: "Empathy map",
+    empathyMotivations: "Motivations",
+    empathyFrustrations: "Frustrations",
+    empathyNeeds: "Needs & expectations",
+    empathyContext: "Context",
+    empathyMapNote: "Built from this persona’s own evidenced sections.",
+    needsMap: "Needs coverage map",
+    needsMapCaption:
+      "Evidence coverage of recognised need themes — not satisfaction. Strength reflects the confidence of the underlying statements.",
+    foodHospitality: "Food & hospitality",
+    strengthStrong: "Strong",
+    strengthModerate: "Moderate",
+    strengthEmerging: "Emerging",
+    strengthUnknown: "Unknown",
+    statementsCount: "statements",
+    journeyLens: "Journey lens",
     simulationNote:
       "“Talk to this persona” is a research-grounded simulation built from the evidence above — not a real customer or employee. It arrives in a later phase.",
     // Actions
@@ -311,6 +329,24 @@ const UI: Record<StudioLang, Record<string, string>> = {
     noJourneys: "Aucun parcours pour l'instant.",
     nothingRecorded: "Rien de renseigné pour l'instant.",
     evidenceCoverage: "Couverture des preuves",
+    // Visualisations (carte d'empathie, carte des besoins, parcours)
+    persona: "Persona",
+    empathyMap: "Carte d'empathie",
+    empathyMotivations: "Motivations",
+    empathyFrustrations: "Frustrations",
+    empathyNeeds: "Besoins & attentes",
+    empathyContext: "Contexte",
+    empathyMapNote: "Construite à partir des sections étayées de ce persona.",
+    needsMap: "Carte de couverture des besoins",
+    needsMapCaption:
+      "Couverture des preuves par thème de besoin reconnu — et non satisfaction. La force reflète la confiance des affirmations sous-jacentes.",
+    foodHospitality: "Restauration & hospitalité",
+    strengthStrong: "Forte",
+    strengthModerate: "Modérée",
+    strengthEmerging: "Émergente",
+    strengthUnknown: "Inconnue",
+    statementsCount: "affirmations",
+    journeyLens: "Parcours",
     simulationNote:
       "« Parler à ce persona » est une simulation fondée sur la recherche, construite à partir des preuves ci-dessus — et non un vrai client ou collaborateur. Cette fonctionnalité arrivera dans une phase ultérieure.",
     // Actions
@@ -473,7 +509,10 @@ export function tSectionType(lang: StudioLang, type: SectionType) {
 export function tVisibility(lang: StudioLang, visibility: ProjectVisibility) {
   return VISIBILITY[lang][visibility];
 }
-export function tUI(lang: StudioLang, key: keyof (typeof UI)["en"]) {
+/** Keys available in the per-project UI dictionary. */
+export type UIKey = keyof (typeof UI)["en"];
+
+export function tUI(lang: StudioLang, key: UIKey) {
   return UI[lang][key];
 }
 

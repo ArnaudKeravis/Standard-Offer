@@ -184,6 +184,12 @@
   --studio-muted: #5b6472;
   --studio-line: rgba(11, 18, 32, 0.1);
   --studio-panel: #f7f8fb;
+
+  /* Motion system — shared duration + easing tokens (see .studio-lift/.studio-enter). */
+  --studio-dur-fast: 150ms;
+  --studio-dur: 200ms;
+  --studio-dur-slow: 250ms;
+  --studio-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 [data-studio-theme="corporate"] {
@@ -216,5 +222,64 @@
   }
   .studio-accent-bar {
     background-color: var(--studio-accent);
+  }
+
+  /* -------------------------------------------------------------------------
+     Motion utilities (pure CSS, GPU-friendly, accessible)
+     -------------------------------------------------------------------------
+     - .studio-lift    : hover lift + intentional shadow + hairline accent
+                          border, for clickable cards/tiles.
+     - .studio-enter   : staggered entrance (opacity + translateY). Per-item
+                          delay is driven by an inline `--stagger-index`.
+     - .studio-focusable : visible focus-visible ring using the accent token.
+     Everything transform/animation-based is disabled under
+     `prefers-reduced-motion: reduce`.
+  ------------------------------------------------------------------------- */
+  .studio-lift {
+    transition:
+      transform var(--studio-dur) var(--studio-ease),
+      box-shadow var(--studio-dur) var(--studio-ease),
+      border-color var(--studio-dur) var(--studio-ease);
+  }
+  .studio-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 42px -26px
+      color-mix(in oklab, var(--studio-ink), transparent 45%);
+    border-color: color-mix(in oklab, var(--studio-accent), transparent 45%);
+  }
+
+  @keyframes studioEnter {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .studio-enter {
+    opacity: 0;
+    animation: studioEnter var(--studio-dur-slow) var(--studio-ease) both;
+    animation-delay: calc(var(--stagger-index, 0) * 55ms);
+  }
+
+  .studio-focusable:focus-visible {
+    outline: 2px solid var(--studio-accent);
+    outline-offset: 2px;
+    border-radius: inherit;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .studio-lift {
+    transition: none;
+  }
+  .studio-lift:hover {
+    transform: none;
+  }
+  .studio-enter {
+    opacity: 1;
+    animation: none;
   }
 }
