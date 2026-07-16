@@ -50,7 +50,6 @@ export default async function PersonaGalleryPage({
               persona={persona}
               projectId={project.id}
               lang={lang}
-              variant={i === 0 ? "hero" : "standard"}
               staggerIndex={i}
             />
           ))}

@@ -110,7 +110,6 @@ export default async function ProjectOverviewPage({
                 persona={persona}
                 projectId={project.id}
                 lang={lang}
-                variant={i === 0 ? "hero" : "standard"}
                 staggerIndex={i}
               />
             ))}
