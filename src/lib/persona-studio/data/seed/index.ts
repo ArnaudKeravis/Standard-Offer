@@ -26,6 +26,30 @@ import {
   CORPORATE_SOURCES,
   CORPORATE_SOURCE_SOURCES,
 } from "./corporate-personas";
+import {
+  XP_WORK_PERSONAS,
+  XP_WORK_PERSONA_SOURCES,
+  XP_WORK_SOURCES,
+  XP_WORK_SOURCE_SOURCES,
+} from "./xp-work-personas";
+import {
+  XP_HEAL_PERSONAS,
+  XP_HEAL_PERSONA_SOURCES,
+  XP_HEAL_SOURCES,
+  XP_HEAL_SOURCE_SOURCES,
+} from "./xp-heal-personas";
+import {
+  XP_LEARN_PERSONAS,
+  XP_LEARN_PERSONA_SOURCES,
+  XP_LEARN_SOURCES,
+  XP_LEARN_SOURCE_SOURCES,
+} from "./xp-learn-personas";
+import {
+  XP_PLAY_PERSONAS,
+  XP_PLAY_PERSONA_SOURCES,
+  XP_PLAY_SOURCES,
+  XP_PLAY_SOURCE_SOURCES,
+} from "./xp-play-personas";
 
 /**
  * The complete, in-memory seed dataset for Persona Studio.
@@ -46,8 +70,22 @@ export interface SeedData {
 export const SEED_DATA: SeedData = {
   user: SEED_USER,
   projects: SEED_PROJECT_SOURCES,
-  personas: [...TDF_PERSONA_SOURCES, ...CORPORATE_PERSONA_SOURCES],
-  sources: [...TDF_SOURCE_SOURCES, ...CORPORATE_SOURCE_SOURCES],
+  personas: [
+    ...XP_WORK_PERSONA_SOURCES,
+    ...XP_HEAL_PERSONA_SOURCES,
+    ...XP_LEARN_PERSONA_SOURCES,
+    ...XP_PLAY_PERSONA_SOURCES,
+    ...TDF_PERSONA_SOURCES,
+    ...CORPORATE_PERSONA_SOURCES,
+  ],
+  sources: [
+    ...XP_WORK_SOURCE_SOURCES,
+    ...XP_HEAL_SOURCE_SOURCES,
+    ...XP_LEARN_SOURCE_SOURCES,
+    ...XP_PLAY_SOURCE_SOURCES,
+    ...TDF_SOURCE_SOURCES,
+    ...CORPORATE_SOURCE_SOURCES,
+  ],
   journeys: SEED_JOURNEY_SOURCES,
   templates: SEED_TEMPLATES,
 };
@@ -61,4 +99,12 @@ export {
   CORPORATE_PERSONAS,
   TDF_SOURCES,
   CORPORATE_SOURCES,
+  XP_WORK_PERSONAS,
+  XP_HEAL_PERSONAS,
+  XP_LEARN_PERSONAS,
+  XP_PLAY_PERSONAS,
+  XP_WORK_SOURCES,
+  XP_HEAL_SOURCES,
+  XP_LEARN_SOURCES,
+  XP_PLAY_SOURCES,
 };

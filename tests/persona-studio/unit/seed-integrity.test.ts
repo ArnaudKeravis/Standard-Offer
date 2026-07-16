@@ -17,10 +17,39 @@ import { collectStatements } from "@/lib/persona-studio/utils/confidence";
 const LANGS: StudioLang[] = ["en", "fr"];
 
 describe("Seed data integrity", () => {
-  it("seeds two projects (Corporate + Tour de France)", () => {
-    expect(SEED_DATA.projects).toHaveLength(2);
+  it("seeds six projects (4 XP areas + Corporate + Tour de France)", () => {
+    expect(SEED_DATA.projects).toHaveLength(6);
     const families = SEED_DATA.projects.map((p) => p.family).sort();
-    expect(families).toEqual(["CORPORATE", "SPORTS_HOSPITALITY"]);
+    expect(families).toEqual([
+      "CORPORATE",
+      "HEAL",
+      "LEARN",
+      "PLAY",
+      "SPORTS_HOSPITALITY",
+      "WORK",
+    ]);
+  });
+
+  it("seeds four XP Catalogue area projects with ≥5 personas and portraits", () => {
+    const xpIds = [
+      "proj-xp-work",
+      "proj-xp-heal",
+      "proj-xp-learn",
+      "proj-xp-play",
+    ] as const;
+    for (const projectId of xpIds) {
+      const project = SEED_DATA.projects.find((p) => p.id === projectId);
+      expect(project, projectId).toBeDefined();
+      expect(project!.status).toBe("PUBLISHED");
+      expect(project!.researchMode).toBe("RESEARCH_GROUNDED");
+      const personas = SEED_DATA.personas.filter((p) => p.projectId === projectId);
+      expect(personas.length, projectId).toBeGreaterThanOrEqual(5);
+      for (const persona of personas) {
+        expect(persona.portraitUrl).toMatch(
+          /^\/persona-studio\/xp\/portraits\/.+\.png$/,
+        );
+      }
+    }
   });
 
   it("every project validates against the schema in both languages", () => {

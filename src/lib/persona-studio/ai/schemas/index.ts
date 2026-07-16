@@ -12,4 +12,6 @@ export * from "./persona";
 export * from "./project";
 export * from "./workshop";
 export * from "./chat";
+export * from "./challenge";
+export * from "./challenge-request";
 export * from "./analysis";

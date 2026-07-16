@@ -172,10 +172,10 @@
 /* ---------------------------------------------------------------------------
    Persona Studio theme layer
    ---------------------------------------------------------------------------
-   Two families share one component set and differ only through these tokens,
-   set on a container via `data-studio-theme="corporate" | "tdf"`. A per-persona
-   accent is injected inline as `--persona-accent`. Nothing about the families
-   is hard-coded in components.
+   Families share one component set and differ only through these tokens,
+   set on a container via `data-studio-theme`. A per-persona accent is injected
+   inline as `--persona-accent`. Nothing about the families is hard-coded in
+   components.
 --------------------------------------------------------------------------- */
 [data-studio-theme] {
   --studio-accent: var(--persona-accent, #1e3a8a);
@@ -208,6 +208,33 @@
   --studio-ink: #0a0a0a;
   --studio-muted: #4b5563;
   --studio-line: rgba(10, 10, 10, 0.12);
+}
+
+[data-studio-theme="heal"] {
+  --studio-accent: var(--persona-accent, #0f766e);
+  --studio-paper: #f7fbfb;
+  --studio-panel: #e7f5f3;
+  --studio-ink: #0b2e2b;
+  --studio-muted: #4a6764;
+  --studio-line: rgba(11, 46, 43, 0.12);
+}
+
+[data-studio-theme="learn"] {
+  --studio-accent: var(--persona-accent, #4338ca);
+  --studio-paper: #f8f7ff;
+  --studio-panel: #eceafd;
+  --studio-ink: #1e1b4b;
+  --studio-muted: #565285;
+  --studio-line: rgba(30, 27, 75, 0.12);
+}
+
+[data-studio-theme="play"] {
+  --studio-accent: var(--persona-accent, #6d28d9);
+  --studio-paper: #fbf8ff;
+  --studio-panel: #f1e9ff;
+  --studio-ink: #2e1065;
+  --studio-muted: #66548a;
+  --studio-line: rgba(46, 16, 101, 0.12);
 }
 
 @layer utilities {

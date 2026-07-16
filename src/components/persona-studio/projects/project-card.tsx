@@ -9,7 +9,7 @@ import {
   tUI,
   type StudioLang,
 } from "@/lib/persona-studio/utils/i18n";
-import { CORPORATE_TEMPLATE, TDF_TEMPLATE } from "@/lib/persona-studio/data/templates";
+import { accentForFamily } from "@/lib/persona-studio/utils/family-theme";
 
 export function ProjectCard({
   project,
@@ -19,10 +19,7 @@ export function ProjectCard({
   lang?: StudioLang;
 }) {
   const lang = langProp ?? langFromProject(project);
-  const accent =
-    project.family === "CORPORATE"
-      ? CORPORATE_TEMPLATE.accentColor
-      : TDF_TEMPLATE.accentColor;
+  const accent = accentForFamily(project.family);
 
   return (
     <Link

@@ -61,15 +61,24 @@ export function evidenceStatusMeta(status: EvidenceStatus): {
 }
 
 export function familyLabel(family: PersonaFamily): string {
-  return family === "CORPORATE"
-    ? "Corporate workplace"
-    : "Sports hospitality";
+  switch (family) {
+    case "CORPORATE":
+      return "Corporate workplace";
+    case "SPORTS_HOSPITALITY":
+      return "Sports hospitality";
+    case "WORK":
+      return "Work";
+    case "HEAL":
+      return "Heal";
+    case "LEARN":
+      return "Learn";
+    case "PLAY":
+      return "Play";
+  }
 }
 
 /** Theme token applied to a container via `data-studio-theme`. */
-export function familyTheme(family: PersonaFamily): "corporate" | "tdf" {
-  return family === "CORPORATE" ? "corporate" : "tdf";
-}
+export { themeForFamily as familyTheme } from "@/lib/persona-studio/utils/family-theme";
 
 /** Percentage string for evidence coverage (0–1 → "72%"). */
 export function coveragePct(coverage: number): string {

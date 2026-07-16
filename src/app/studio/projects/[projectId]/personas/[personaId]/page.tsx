@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { History, MessageCircle, Pencil } from "lucide-react";
+import {
+  History,
+  MessageCircle,
+  Pencil,
+  Presentation,
+  UsersRound,
+} from "lucide-react";
 import { notFound } from "next/navigation";
 import { getRepository } from "@/lib/persona-studio/repository";
 import { familyTheme } from "@/lib/persona-studio/utils/persona-view";
 import { langFromProject, tUI } from "@/lib/persona-studio/utils/i18n";
 import { getLangPreference } from "@/lib/persona-studio/utils/lang-cookie";
+import { tWorkshop } from "@/lib/persona-studio/utils/workshop-i18n";
 import { StudioNav } from "@/components/persona-studio/shared/studio-nav";
 import { PersonaDetail } from "@/components/persona-studio/personas/persona-detail";
 
@@ -59,6 +66,20 @@ export default async function PersonaDetailPage({
         actions={
           <>
             <Link
+              href={`/studio/projects/${project.id}/compare?ids=${persona.id}`}
+              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium text-[var(--studio-muted)] transition-colors hover:text-[var(--studio-ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
+            >
+              <UsersRound aria-hidden className="size-4" />
+              {tWorkshop(lang, "compare")}
+            </Link>
+            <Link
+              href={`/studio/projects/${project.id}/present?ids=${persona.id}`}
+              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium text-[var(--studio-muted)] transition-colors hover:text-[var(--studio-ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
+            >
+              <Presentation aria-hidden className="size-4" />
+              {tWorkshop(lang, "present")}
+            </Link>
+            <Link
               href={`/studio/projects/${project.id}/personas/${persona.id}/history`}
               className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium text-[var(--studio-muted)] transition-colors hover:text-[var(--studio-ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
             >
@@ -77,7 +98,7 @@ export default async function PersonaDetailPage({
               className="inline-flex items-center gap-1.5 rounded-full bg-[var(--studio-accent)] px-3.5 py-1.5 text-sm font-medium text-white transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
             >
               <MessageCircle aria-hidden className="size-4" />
-              {lang === "fr" ? "Parler à ce persona" : "Ask this persona"}
+              {tWorkshop(lang, "askThisPersona")}
             </Link>
           </>
         }

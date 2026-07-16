@@ -10,19 +10,19 @@ import { SEED_TIMESTAMP } from "./builders";
  */
 
 const COMMON_CORE: PersonaSectionTemplate[] = [
-  { key: "essence", title: "Essence", type: "text", order: 0, visible: true, scope: "COMMON" },
-  { key: "context", title: "Context", type: "bullets", order: 1, visible: true, scope: "COMMON" },
-  { key: "goals", title: "Goals", type: "bullets", order: 2, visible: true, scope: "COMMON" },
-  { key: "needs", title: "Needs", type: "needs", order: 3, visible: true, scope: "COMMON" },
-  { key: "pains", title: "Pains", type: "bullets", order: 4, visible: true, scope: "COMMON" },
-  { key: "behaviours", title: "Behaviours & rituals", type: "bullets", order: 5, visible: true, scope: "COMMON" },
-  { key: "motivations", title: "Motivations", type: "bullets", order: 6, visible: true, scope: "COMMON" },
-  { key: "frustrations", title: "Frustrations", type: "bullets", order: 7, visible: true, scope: "COMMON" },
-  { key: "tensions", title: "Tensions & contradictions", type: "bullets", order: 8, visible: false, scope: "COMMON" },
-  { key: "expectations", title: "Expectations", type: "bullets", order: 9, visible: true, scope: "COMMON" },
-  { key: "moments", title: "Moments that matter", type: "moments", order: 10, visible: false, scope: "COMMON" },
-  { key: "design_implications", title: "Design implications", type: "bullets", order: 11, visible: false, scope: "COMMON" },
-  { key: "questions_to_validate", title: "Questions to validate", type: "bullets", order: 12, visible: true, scope: "COMMON" },
+  { key: "essence", title: "Who I am", type: "text", order: 0, visible: true, scope: "COMMON" },
+  { key: "context", title: "My context", type: "bullets", order: 1, visible: true, scope: "COMMON" },
+  { key: "goals", title: "What I'm aiming for", type: "bullets", order: 2, visible: true, scope: "COMMON" },
+  { key: "needs", title: "What I need", type: "needs", order: 3, visible: true, scope: "COMMON" },
+  { key: "pains", title: "What gets in my way", type: "bullets", order: 4, visible: true, scope: "COMMON" },
+  { key: "behaviours", title: "How I move through the day", type: "bullets", order: 5, visible: true, scope: "COMMON" },
+  { key: "motivations", title: "What drives me", type: "bullets", order: 6, visible: true, scope: "COMMON" },
+  { key: "frustrations", title: "What frustrates me", type: "bullets", order: 7, visible: true, scope: "COMMON" },
+  { key: "tensions", title: "Where I feel torn", type: "bullets", order: 8, visible: false, scope: "COMMON" },
+  { key: "expectations", title: "What I expect from the experience", type: "bullets", order: 9, visible: true, scope: "COMMON" },
+  { key: "moments", title: "Moments that shape my day", type: "moments", order: 10, visible: true, scope: "COMMON" },
+  { key: "design_implications", title: "What this means for design", type: "bullets", order: 11, visible: false, scope: "COMMON" },
+  { key: "questions_to_validate", title: "Still to validate with people", type: "bullets", order: 12, visible: true, scope: "COMMON" },
 ];
 
 const CORPORATE_DOMAIN: PersonaSectionTemplate[] = [

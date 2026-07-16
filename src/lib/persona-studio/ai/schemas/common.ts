@@ -29,8 +29,19 @@ export const QuoteType = z.enum([
 ]);
 export type QuoteType = z.infer<typeof QuoteType>;
 
-/** Which persona family a project/persona belongs to. Drives theme + templates. */
-export const PersonaFamily = z.enum(["CORPORATE", "SPORTS_HOSPITALITY"]);
+/**
+ * Which persona family a project/persona belongs to. Drives theme + templates.
+ * WORK / HEAL / LEARN / PLAY mirror the XP Catalogue macro areas; CORPORATE and
+ * SPORTS_HOSPITALITY remain for the Personix and Tour de France workshop sets.
+ */
+export const PersonaFamily = z.enum([
+  "CORPORATE",
+  "SPORTS_HOSPITALITY",
+  "WORK",
+  "HEAL",
+  "LEARN",
+  "PLAY",
+]);
 export type PersonaFamily = z.infer<typeof PersonaFamily>;
 
 /** Research posture for a project. */

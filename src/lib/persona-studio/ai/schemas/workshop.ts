@@ -115,3 +115,15 @@ export const Workshop = z.object({
   updatedAt: IsoDateTime,
 });
 export type Workshop = z.infer<typeof Workshop>;
+
+/**
+ * Client-persisted workshop board snapshot (localStorage in Phase 4).
+ * Additive — same note shape as {@link StickyNote}; not a realtime store.
+ */
+export const WorkshopBoardSnapshot = z.object({
+  projectId: Id,
+  personaIds: z.array(Id).default([]),
+  notes: z.array(StickyNote).default([]),
+  updatedAt: IsoDateTime,
+});
+export type WorkshopBoardSnapshot = z.infer<typeof WorkshopBoardSnapshot>;

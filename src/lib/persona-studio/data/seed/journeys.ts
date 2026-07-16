@@ -8,6 +8,10 @@ import {
 import { langFromLanguage } from "@/lib/persona-studio/utils/i18n";
 import { TDF_PROJECT_ID } from "./tdf-personas";
 import { CORPORATE_PROJECT_ID } from "./corporate-personas";
+import { XP_WORK_PROJECT_ID } from "./xp-work-personas";
+import { XP_HEAL_PROJECT_ID } from "./xp-heal-personas";
+import { XP_LEARN_PROJECT_ID } from "./xp-learn-personas";
+import { XP_PLAY_PROJECT_ID } from "./xp-play-personas";
 
 /**
  * Journey step ids/keys are derived from the ORIGINAL-language slug so they stay
@@ -21,6 +25,62 @@ function steps(items: { slug: string; title: LocalizedText }[]): JourneyStepSour
     order,
   }));
 }
+
+export const XP_WORK_JOURNEY_SOURCE: JourneySource = {
+  id: "journey-xp-workday",
+  projectId: XP_WORK_PROJECT_ID,
+  name: { en: "A workday (XP Catalogue)", fr: "Une journée de travail (Catalogue XP)" },
+  createdAt: SEED_TIMESTAMP,
+  steps: steps([
+    { slug: "Commute", title: { en: "Commute", fr: "Trajet" } },
+    { slug: "Welcome Area", title: { en: "Welcome Area", fr: "Zone d'accueil" } },
+    { slug: "Workplace", title: { en: "Workplace", fr: "Lieu de travail" } },
+    { slug: "Food & Beverage Area", title: { en: "Food & Beverage Area", fr: "Espace restauration" } },
+    { slug: "Wellbeing & Breaktime", title: { en: "Wellbeing & Breaktime", fr: "Bien-être & pauses" } },
+  ]),
+};
+
+export const XP_HEAL_JOURNEY_SOURCE: JourneySource = {
+  id: "journey-xp-heal-care-day",
+  projectId: XP_HEAL_PROJECT_ID,
+  name: { en: "A care-site day (XP Catalogue)", fr: "Une journée en site de soin (Catalogue XP)" },
+  createdAt: SEED_TIMESTAMP,
+  steps: steps([
+    { slug: "Arrival", title: { en: "Arrival", fr: "Arrivée" } },
+    { slug: "Welcome & Admission", title: { en: "Welcome & Admission", fr: "Accueil & admission" } },
+    { slug: "Care & Treatment", title: { en: "Care & Treatment", fr: "Soins & traitement" } },
+    { slug: "Food & Nutrition", title: { en: "Food & Nutrition", fr: "Alimentation & nutrition" } },
+    { slug: "Discharge or Stay", title: { en: "Discharge or Stay", fr: "Sortie ou séjour" } },
+  ]),
+};
+
+export const XP_LEARN_JOURNEY_SOURCE: JourneySource = {
+  id: "journey-xp-learn-campus-day",
+  projectId: XP_LEARN_PROJECT_ID,
+  name: { en: "A campus / school day (XP Catalogue)", fr: "Une journée campus / école (Catalogue XP)" },
+  createdAt: SEED_TIMESTAMP,
+  steps: steps([
+    { slug: "Arrival", title: { en: "Arrival", fr: "Arrivée" } },
+    { slug: "Welcome", title: { en: "Welcome", fr: "Accueil" } },
+    { slug: "Learning spaces", title: { en: "Learning spaces", fr: "Espaces d'apprentissage" } },
+    { slug: "Food & Beverage", title: { en: "Food & Beverage", fr: "Restauration" } },
+    { slug: "Social & Wellbeing", title: { en: "Social & Wellbeing", fr: "Social & bien-être" } },
+  ]),
+};
+
+export const XP_PLAY_JOURNEY_SOURCE: JourneySource = {
+  id: "journey-xp-play-event-day",
+  projectId: XP_PLAY_PROJECT_ID,
+  name: { en: "An event day (XP Catalogue)", fr: "Une journée d'événement (Catalogue XP)" },
+  createdAt: SEED_TIMESTAMP,
+  steps: steps([
+    { slug: "Pre-event", title: { en: "Pre-event", fr: "Avant l'événement" } },
+    { slug: "Arrival & Entry", title: { en: "Arrival & Entry", fr: "Arrivée & entrée" } },
+    { slug: "Hospitality & Concessions", title: { en: "Hospitality & Concessions", fr: "Hospitalité & concessions" } },
+    { slug: "Event moment", title: { en: "Event moment", fr: "Moment de l'événement" } },
+    { slug: "Departure", title: { en: "Departure", fr: "Départ" } },
+  ]),
+};
 
 export const TDF_JOURNEY_SOURCE: JourneySource = {
   id: "journey-tdf-stage-day",
@@ -61,12 +121,20 @@ export const CORPORATE_JOURNEY_SOURCE: JourneySource = {
 
 /** Bilingual authoring sources (fed to the repository, resolved per request). */
 export const SEED_JOURNEY_SOURCES: JourneySource[] = [
+  XP_WORK_JOURNEY_SOURCE,
+  XP_HEAL_JOURNEY_SOURCE,
+  XP_LEARN_JOURNEY_SOURCE,
+  XP_PLAY_JOURNEY_SOURCE,
   TDF_JOURNEY_SOURCE,
   CORPORATE_JOURNEY_SOURCE,
 ];
 
 /** Resolved to each project's default language for direct consumers. */
 export const SEED_JOURNEYS = [
+  localizeJourney(XP_WORK_JOURNEY_SOURCE, langFromLanguage("English")),
+  localizeJourney(XP_HEAL_JOURNEY_SOURCE, langFromLanguage("English")),
+  localizeJourney(XP_LEARN_JOURNEY_SOURCE, langFromLanguage("English")),
+  localizeJourney(XP_PLAY_JOURNEY_SOURCE, langFromLanguage("English")),
   localizeJourney(TDF_JOURNEY_SOURCE, langFromLanguage("Français")),
   localizeJourney(CORPORATE_JOURNEY_SOURCE, langFromLanguage("English")),
 ];

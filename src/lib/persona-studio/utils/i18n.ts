@@ -54,8 +54,22 @@ const QUOTE: Record<StudioLang, Record<QuoteType, string>> = {
 };
 
 const FAMILY: Record<StudioLang, Record<PersonaFamily, string>> = {
-  en: { CORPORATE: "Corporate workplace", SPORTS_HOSPITALITY: "Sports hospitality" },
-  fr: { CORPORATE: "Environnement de travail", SPORTS_HOSPITALITY: "Hospitalité sportive" },
+  en: {
+    CORPORATE: "Corporate workplace",
+    SPORTS_HOSPITALITY: "Sports hospitality",
+    WORK: "Work",
+    HEAL: "Heal",
+    LEARN: "Learn",
+    PLAY: "Play",
+  },
+  fr: {
+    CORPORATE: "Environnement de travail",
+    SPORTS_HOSPITALITY: "Hospitalité sportive",
+    WORK: "Work",
+    HEAL: "Heal",
+    LEARN: "Learn",
+    PLAY: "Play",
+  },
 };
 
 const STATUS: Record<StudioLang, Record<LifecycleStatus, string>> = {
@@ -145,7 +159,13 @@ const UI: Record<StudioLang, Record<string, string>> = {
     heroTitle: "Create, understand and design with the people you serve.",
     heroSubtitle:
       "Evidence-based personas for CoDesign workshops. Every statement is traceable, every confidence score is explained.",
+    areasTitle: "Areas where we operate",
+    areasSubtitle:
+      "Choose a macro territory — then open personas in the same Studio sheet format across WORK, HEAL, LEARN and PLAY.",
     projectLibrary: "Project library",
+    workshopLibrary: "More workshop sets",
+    workshopLibraryIntro:
+      "Personix archetypes and Tour de France hospitality — same sheet format, specialised for workshops.",
     templatesTitle: "Persona templates",
     templatesIntro:
       "Templates define the sections a persona family carries. They are how one product serves two families — and you can save your own from the editor.",
@@ -171,10 +191,10 @@ const UI: Record<StudioLang, Record<string, string>> = {
     // Visualizations (empathy map, needs map, journey lens)
     persona: "Persona",
     empathyMap: "Empathy map",
-    empathyMotivations: "Motivations",
-    empathyFrustrations: "Frustrations",
-    empathyNeeds: "Needs & expectations",
-    empathyContext: "Context",
+    empathyMotivations: "What drives me",
+    empathyFrustrations: "What frustrates me",
+    empathyNeeds: "What I need",
+    empathyContext: "My context",
     empathyMapNote: "Built from this persona’s own evidenced sections.",
     needsMap: "Needs coverage map",
     needsMapCaption:
@@ -320,7 +340,13 @@ const UI: Record<StudioLang, Record<string, string>> = {
     heroTitle: "Créer, comprendre et concevoir avec les personnes que vous servez.",
     heroSubtitle:
       "Des personas fondés sur des preuves pour les ateliers CoDesign. Chaque affirmation est traçable, chaque score de confiance est expliqué.",
+    areasTitle: "Territoires où nous opérons",
+    areasSubtitle:
+      "Choisissez un macro-territoire — puis ouvrez les personas au même format de fiche Studio sur WORK, HEAL, LEARN et PLAY.",
     projectLibrary: "Bibliothèque de projets",
+    workshopLibrary: "Autres jeux atelier",
+    workshopLibraryIntro:
+      "Archétypes Personix et hospitalité Tour de France — même format de fiche, spécialisés pour l'atelier.",
     templatesTitle: "Modèles de personas",
     templatesIntro:
       "Les modèles définissent les sections qu'une famille de personas comporte. C'est ainsi qu'un même produit sert deux familles — et vous pouvez enregistrer les vôtres depuis l'éditeur.",
@@ -346,10 +372,10 @@ const UI: Record<StudioLang, Record<string, string>> = {
     // Visualisations (carte d'empathie, carte des besoins, parcours)
     persona: "Persona",
     empathyMap: "Carte d'empathie",
-    empathyMotivations: "Motivations",
-    empathyFrustrations: "Frustrations",
-    empathyNeeds: "Besoins & attentes",
-    empathyContext: "Contexte",
+    empathyMotivations: "Ce qui me motive",
+    empathyFrustrations: "Ce qui me frustre",
+    empathyNeeds: "Ce dont j'ai besoin",
+    empathyContext: "Mon contexte",
     empathyMapNote: "Construite à partir des sections étayées de ce persona.",
     needsMap: "Carte de couverture des besoins",
     needsMapCaption:

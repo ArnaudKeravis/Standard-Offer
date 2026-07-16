@@ -1,8 +1,18 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { FileText, Plus, Route, Users } from "lucide-react";
+import {
+  FileText,
+  Lightbulb,
+  Presentation,
+  Plus,
+  Route,
+  StickyNote,
+  Users,
+  UsersRound,
+} from "lucide-react";
 import { getRepository } from "@/lib/persona-studio/repository";
 import { familyTheme } from "@/lib/persona-studio/utils/persona-view";
+import { accentForFamily } from "@/lib/persona-studio/utils/family-theme";
 import {
   langFromProject,
   tFamily,
@@ -10,10 +20,7 @@ import {
   tUI,
 } from "@/lib/persona-studio/utils/i18n";
 import { getLangPreference } from "@/lib/persona-studio/utils/lang-cookie";
-import {
-  CORPORATE_TEMPLATE,
-  TDF_TEMPLATE,
-} from "@/lib/persona-studio/data/templates";
+import { tWorkshop } from "@/lib/persona-studio/utils/workshop-i18n";
 import { StudioNav } from "@/components/persona-studio/shared/studio-nav";
 import { PersonaGalleryCard } from "@/components/persona-studio/personas/persona-gallery-card";
 import { NeedsMap } from "@/components/persona-studio/shared/needs-map";
@@ -38,10 +45,7 @@ export default async function ProjectOverviewPage({
     repo.listJourneys(projectId, lang),
   ]);
 
-  const accent =
-    project.family === "CORPORATE"
-      ? CORPORATE_TEMPLATE.accentColor
-      : TDF_TEMPLATE.accentColor;
+  const accent = accentForFamily(project.family);
 
   return (
     <div
@@ -124,6 +128,48 @@ export default async function ProjectOverviewPage({
           <NeedsMap personas={personas} lang={lang} className="mt-8" />
         )}
 
+        {personas.length > 0 && (
+          <section className="mt-10" aria-labelledby="workshop-tools-title">
+            <div className="mb-2">
+              <h2
+                id="workshop-tools-title"
+                className="studio-display text-lg font-semibold text-[var(--studio-ink)]"
+              >
+                {tWorkshop(lang, "workshopTools")}
+              </h2>
+              <p className="mt-1 max-w-2xl text-sm text-[var(--studio-muted)]">
+                {tWorkshop(lang, "workshopToolsIntro")}
+              </p>
+            </div>
+            <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              <WorkshopToolLink
+                href={`/studio/projects/${project.id}/compare`}
+                icon={<UsersRound className="size-4" />}
+                title={tWorkshop(lang, "compare")}
+                description={tWorkshop(lang, "compareDesc")}
+              />
+              <WorkshopToolLink
+                href={`/studio/projects/${project.id}/present`}
+                icon={<Presentation className="size-4" />}
+                title={tWorkshop(lang, "present")}
+                description={tWorkshop(lang, "presentDesc")}
+              />
+              <WorkshopToolLink
+                href={`/studio/projects/${project.id}/challenge`}
+                icon={<Lightbulb className="size-4" />}
+                title={tWorkshop(lang, "challenge")}
+                description={tWorkshop(lang, "challengeDesc")}
+              />
+              <WorkshopToolLink
+                href={`/studio/projects/${project.id}/workshop`}
+                icon={<StickyNote className="size-4" />}
+                title={tWorkshop(lang, "workshopBoard")}
+                description={tWorkshop(lang, "workshopBoardDesc")}
+              />
+            </ul>
+          </section>
+        )}
+
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           <Panel icon={<FileText className="size-4" />} title={tUI(lang, "sources")}>
             {sources.length === 0 ? (
@@ -194,5 +240,34 @@ function Panel({
       </div>
       {children}
     </section>
+  );
+}
+
+function WorkshopToolLink({
+  href,
+  icon,
+  title,
+  description,
+}: {
+  href: string;
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}) {
+  return (
+    <li>
+      <Link
+        href={href}
+        className="flex h-full flex-col rounded-3xl border border-[var(--studio-line)] bg-[var(--studio-paper)] p-5 transition-colors hover:border-[var(--studio-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
+      >
+        <span className="text-[var(--studio-accent)]">{icon}</span>
+        <span className="studio-display mt-3 text-sm font-semibold text-[var(--studio-ink)]">
+          {title}
+        </span>
+        <span className="mt-1 text-xs text-[var(--studio-muted)]">
+          {description}
+        </span>
+      </Link>
+    </li>
   );
 }
