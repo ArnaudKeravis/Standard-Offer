@@ -17,5 +17,7 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next|thales|studio|labs|hub|api|.*\\..*).*)"],
+  matcher: [
+    "/((?!_next|thales|studio|labs|hub|newsletters|api|.*\\..*).*)",
+  ],
 };

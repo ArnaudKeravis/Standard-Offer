@@ -12,6 +12,7 @@ export default defineConfig({
     include: [
       "tests/persona-studio/**/*.test.ts",
       "tests/sodexo-labs/**/*.test.ts",
+      "tests/newsletters/**/*.test.ts",
     ],
     globals: true,
   },

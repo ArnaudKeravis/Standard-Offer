@@ -1,0 +1,2185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CoDesign & Labs · FY26 Yearly Retrospective</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1A69FF;--navy:#1E2D8A;--green:#1E9E58;--orange:#E85A0E;
+  --purple:#7A4FBF;--pink:#C8427E;--teal:#0E8A8A;--gold:#D4A017;
+  --cyan:#5DD4D4;--cream:#F5F1EA;--lab-blue-bg:#E8EFFE;
+  --bg:#F2F4FA;--surface:#FFFFFF;--surface2:#EEF1F9;--surface3:#E4E8F4;
+  --text:#0F1220;--text2:#3A3F5C;--muted:#7A82AA;
+  --border:rgba(0,0,0,0.07);--border2:rgba(0,0,0,0.13);
+  --grad-blue:linear-gradient(135deg,#1A69FF 0%,#3D8AFF 100%);
+  --grad-orange:linear-gradient(135deg,#E85A0E 0%,#FF8A4D 100%);
+  --grad-green:linear-gradient(135deg,#1E9E58 0%,#3DCB7D 100%);
+  --grad-purple:linear-gradient(135deg,#7A4FBF 0%,#A37AE0 100%);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Open Sans',sans-serif;overflow-x:hidden;line-height:1.5;}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes slideRight{from{opacity:0;transform:translateX(-20px);}to{opacity:1;transform:translateX(0);}}
+@keyframes scaleIn{from{opacity:0;transform:scale(0.92);}to{opacity:1;transform:scale(1);}}
+@keyframes shine{0%{background-position:-200% center;}100%{background-position:200% center;}}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.04);}}
+@keyframes countUp{from{opacity:0;}to{opacity:1;}}
+@keyframes drawLine{from{stroke-dashoffset:1000;}to{stroke-dashoffset:0;}}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+
+.fade-in{opacity:0;animation:fadeUp .8s ease-out forwards;}
+.delay-1{animation-delay:.1s;}
+.delay-2{animation-delay:.2s;}
+.delay-3{animation-delay:.3s;}
+.delay-4{animation-delay:.4s;}
+
+/* IntersectionObserver-triggered */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1);}
+.reveal.in{opacity:1;transform:translateY(0);}
+.reveal-stagger>*{opacity:0;transform:translateY(20px);transition:opacity .6s ease-out,transform .6s ease-out;}
+.reveal-stagger.in>*{opacity:1;transform:translateY(0);}
+.reveal-stagger.in>*:nth-child(1){transition-delay:.05s;}
+.reveal-stagger.in>*:nth-child(2){transition-delay:.12s;}
+.reveal-stagger.in>*:nth-child(3){transition-delay:.19s;}
+.reveal-stagger.in>*:nth-child(4){transition-delay:.26s;}
+.reveal-stagger.in>*:nth-child(5){transition-delay:.33s;}
+.reveal-stagger.in>*:nth-child(6){transition-delay:.40s;}
+.reveal-stagger.in>*:nth-child(7){transition-delay:.47s;}
+.reveal-stagger.in>*:nth-child(8){transition-delay:.54s;}
+.reveal-stagger.in>*:nth-child(9){transition-delay:.61s;}
+.reveal-stagger.in>*:nth-child(10){transition-delay:.68s;}
+.reveal-stagger.in>*:nth-child(11){transition-delay:.75s;}
+.reveal-stagger.in>*:nth-child(12){transition-delay:.82s;}
+
+/* ── HEADER ── */
+header{
+  background:linear-gradient(135deg,#1A4FCC 0%,#2666E6 35%,#1A69FF 70%,#0F4FBF 100%);
+  color:#fff;
+  padding:64px 64px 56px;
+  display:grid;grid-template-columns:1fr auto;align-items:end;gap:32px;
+  position:relative;overflow:hidden;
+  min-height:380px;
+}
+
+/* Animated particle layer 1 - small slow dots */
+.particles{
+  position:absolute;inset:0;pointer-events:none;overflow:hidden;
+}
+.particles svg{position:absolute;width:100%;height:100%;}
+.particle{
+  fill:#7EE8E8;
+  animation:particleFloat 8s ease-in-out infinite;
+  transform-origin:center;
+}
+.particle.big{fill:#A5F0F0;opacity:.9;}
+.particle.tiny{fill:#5DD4D4;opacity:.7;}
+.particle.glow{fill:#fff;opacity:.85;}
+
+@keyframes particleFloat{
+  0%,100%{transform:translateY(0) translateX(0);opacity:0.4;}
+  25%{transform:translateY(-12px) translateX(6px);opacity:0.9;}
+  50%{transform:translateY(-6px) translateX(-4px);opacity:0.6;}
+  75%{transform:translateY(8px) translateX(8px);opacity:0.8;}
+}
+@keyframes particleRise{
+  0%{transform:translateY(60px);opacity:0;}
+  10%{opacity:1;}
+  90%{opacity:1;}
+  100%{transform:translateY(-80px);opacity:0;}
+}
+
+/* Vignette overlay for depth */
+header::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 30%,rgba(255,255,255,0.12) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(15,79,191,0.4) 0%,transparent 60%);
+  pointer-events:none;
+  z-index:1;
+}
+/* Subtle photo-like soft light from top */
+header::after{
+  content:'';position:absolute;top:-50%;left:-20%;width:140%;height:80%;
+  background:radial-gradient(ellipse,rgba(255,255,255,0.18) 0%,transparent 55%);
+  pointer-events:none;
+  z-index:1;
+}
+
+header > *{position:relative;z-index:3;}
+.wm{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.24em;color:rgba(255,255,255,.65);text-transform:uppercase;margin-bottom:14px;}
+h1{font-family:'Open Sans',sans-serif;font-size:clamp(36px,5.4vw,72px);line-height:.95;font-weight:300;letter-spacing:-.025em;color:#fff;}
+h1 em{font-style:italic;font-weight:600;
+  background:linear-gradient(90deg,#A5F0F0 0%,#fff 50%,#A5F0F0 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:shine 4s ease-in-out infinite;
+}
+h1 .yr-big{display:block;font-size:clamp(64px,8.5vw,112px);font-weight:700;color:#fff;line-height:.95;letter-spacing:-.035em;margin-top:6px;text-shadow:0 4px 20px rgba(15,79,191,.35);}
+.hright{text-align:right;}
+.hbadge{display:inline-block;font-family:'Space Mono',monospace;font-size:11px;background:rgba(255,255,255,0.95);color:var(--blue);padding:6px 16px;letter-spacing:.12em;margin-bottom:10px;border-radius:2px;font-weight:700;}
+.h-fy{display:block;font-family:'Space Mono',monospace;font-size:9px;border:1px solid rgba(255,255,255,.4);color:rgba(255,255,255,.85);padding:4px 12px;letter-spacing:.12em;margin-bottom:14px;text-align:center;}
+.hsub{font-size:13px;color:rgba(255,255,255,.78);line-height:1.7;max-width:230px;margin-left:auto;}
+.scroll-hint{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;animation:float 2.5s ease-in-out infinite;z-index:5;}
+
+/* ── HERO KPI ── */
+.hero-kpi{
+  background:linear-gradient(180deg,#0F4FBF 0%,#0A2D80 100%);
+  color:#fff;padding:40px 64px 48px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  position:relative;overflow:hidden;
+}
+.hero-kpi::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    radial-gradient(circle 1.5px at 8% 20%,rgba(125,232,232,.4) 100%,transparent),
+    radial-gradient(circle 2px at 22% 60%,rgba(125,232,232,.5) 100%,transparent),
+    radial-gradient(circle 1px at 38% 30%,rgba(255,255,255,.3) 100%,transparent),
+    radial-gradient(circle 2.5px at 58% 70%,rgba(125,232,232,.4) 100%,transparent),
+    radial-gradient(circle 1.5px at 75% 25%,rgba(125,232,232,.5) 100%,transparent),
+    radial-gradient(circle 1px at 92% 65%,rgba(255,255,255,.4) 100%,transparent),
+    radial-gradient(circle 2px at 14% 85%,rgba(125,232,232,.35) 100%,transparent),
+    radial-gradient(circle 1.5px at 67% 90%,rgba(255,255,255,.3) 100%,transparent);
+}
+.hk{padding:32px 28px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden;transition:all .3s;cursor:default;backdrop-filter:blur(2px);}
+.hk:hover{background:rgba(255,255,255,.09);transform:translateY(-3px);}
+.hk-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:14px;}
+.hk-num{font-family:'Open Sans',sans-serif;font-size:clamp(32px,3.5vw,52px);font-weight:300;line-height:1;letter-spacing:-.02em;color:#fff;margin-bottom:6px;}
+.hk-num .accent{
+  background:linear-gradient(135deg,#A5F0F0 0%,#fff 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  font-weight:700;
+}
+.hk-sub{font-size:11px;color:rgba(255,255,255,.65);line-height:1.5;}
+
+/* ── EXEC SUMMARY ── */
+.exec-summary{background:var(--surface);border-bottom:1px solid var(--border);padding:64px;position:relative;}
+.exec-summary>*{position:relative;z-index:1;}
+.exec-summary.labs-bg{background:var(--cream);}
+.es-tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);margin-bottom:16px;}
+.es-headline{font-family:'Open Sans',sans-serif;font-size:clamp(26px,3vw,40px);font-weight:300;line-height:1.2;letter-spacing:-.015em;max-width:980px;margin-bottom:28px;}
+.es-headline em{font-style:italic;font-weight:600;color:var(--blue);}
+.es-body{font-size:15px;color:var(--text2);line-height:1.7;max-width:880px;}
+.es-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px;}
+.es-pill{background:var(--surface2);padding:22px 24px;border-left:3px solid var(--blue);}
+.es-pill:nth-child(2){border-color:var(--orange);}
+.es-pill:nth-child(3){border-color:var(--green);}
+.es-pill-num{font-family:'Open Sans',sans-serif;font-size:28px;font-weight:700;line-height:1;margin-bottom:6px;}
+.es-pill:nth-child(1) .es-pill-num{color:var(--blue);}
+.es-pill:nth-child(2) .es-pill-num{color:var(--orange);}
+.es-pill:nth-child(3) .es-pill-num{color:var(--green);}
+.es-pill-label{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;}
+.es-pill-desc{font-size:12px;color:var(--muted);line-height:1.5;}
+
+/* ── SECTION ── */
+.section{padding:64px;border-bottom:1px solid var(--border);}
+.sec-hdr{display:flex;align-items:baseline;gap:18px;margin-bottom:36px;flex-wrap:wrap;}
+.stag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;padding:4px 10px;border:1px solid currentColor;opacity:.55;flex-shrink:0;}
+.stitle{font-family:'Open Sans',sans-serif;font-size:30px;font-weight:300;letter-spacing:-.015em;}
+.stitle em{font-style:italic;font-weight:600;}
+.sbadge{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-family:'Space Mono',monospace;letter-spacing:.13em;text-transform:uppercase;padding:3px 9px;border-radius:20px;font-weight:700;flex-shrink:0;margin-left:auto;}
+.sb-labs{background:#EAF2FF;color:var(--blue);}
+.sb-cd{background:#E6F7EE;color:var(--green);}
+.sb-both{background:#F3EEFF;color:var(--purple);}
+.sb-win{background:#FEF0E8;color:var(--orange);}
+.sec-intro{font-size:14px;color:var(--text2);line-height:1.65;max-width:780px;margin-bottom:28px;}
+
+/* ── IMPACT GRID ── */
+.impact-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;background:var(--border);border:1px solid var(--border);}
+.ic{background:var(--surface);padding:30px 22px 24px;text-align:left;position:relative;overflow:hidden;transition:all .25s;cursor:default;}
+.ic:hover{background:var(--surface2);transform:translateY(-2px);}
+.ic-num{font-family:'Open Sans',sans-serif;font-size:42px;font-weight:300;line-height:1;margin-bottom:6px;letter-spacing:-.02em;}
+.ic-label{font-size:11px;color:var(--muted);letter-spacing:.13em;text-transform:uppercase;line-height:1.5;}
+.ic-bar{position:absolute;bottom:0;left:0;height:3px;width:100%;}
+
+/* ── COUNTRIES ── */
+.countries-row{background:var(--surface);padding:22px 0;display:flex;border-top:1px solid var(--border);}
+.country-cell{flex:1;display:flex;align-items:center;gap:12px;padding:8px 24px;border-right:1px solid var(--border);}
+.country-cell:last-child{border-right:none;}
+.flag{font-size:26px;line-height:1;flex-shrink:0;}
+.cname{font-size:13px;font-weight:500;color:var(--text2);}
+
+/* ── COMMERCIAL IMPACT ── */
+.ci-section{background:linear-gradient(135deg,#0F1429 0%,#1A2052 100%);color:#fff;padding:64px;border-bottom:1px solid rgba(255,255,255,.05);}
+.ci-section .stitle{color:#fff;}
+.ci-section .stag{color:rgba(255,255,255,.5);border-color:rgba(255,255,255,.3);}
+.ci-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center;}
+.ci-headline{font-family:'Open Sans',sans-serif;font-size:clamp(28px,3.4vw,46px);font-weight:300;line-height:1.15;letter-spacing:-.02em;margin-bottom:24px;color:#fff;}
+.ci-headline em{font-style:italic;font-weight:700;
+  background:linear-gradient(135deg,#6EA8FF 0%,#A37AE0 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.ci-desc{font-size:15px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:28px;max-width:580px;}
+.ci-uplift{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px;}
+.cu{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:18px 22px;border-radius:4px;}
+.cu-num{font-family:'Open Sans',sans-serif;font-size:32px;font-weight:700;line-height:1;color:#6EA8FF;margin-bottom:4px;}
+.cu-label{font-size:11px;color:rgba(255,255,255,.55);letter-spacing:.06em;text-transform:uppercase;font-weight:500;}
+/* Donut */
+.donut-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;}
+.donut{width:280px;height:280px;position:relative;}
+.donut svg{width:100%;height:100%;transform:rotate(-90deg);}
+.donut .track{fill:none;stroke:rgba(255,255,255,.06);stroke-width:18;}
+.donut .seg-renew{fill:none;stroke:#6EA8FF;stroke-width:18;stroke-linecap:round;stroke-dasharray:565;stroke-dashoffset:565;transition:stroke-dashoffset 1.6s cubic-bezier(.2,.8,.2,1) .3s;}
+.donut .seg-bid{fill:none;stroke:#A37AE0;stroke-width:18;stroke-linecap:round;stroke-dasharray:565;stroke-dashoffset:565;transition:stroke-dashoffset 1.6s cubic-bezier(.2,.8,.2,1) .8s;}
+.donut.in .seg-renew{stroke-dashoffset:141;}
+.donut.in .seg-bid{stroke-dashoffset:424;}
+.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
+.donut-num{font-family:'Open Sans',sans-serif;font-size:48px;font-weight:700;color:#fff;line-height:1;}
+.donut-label{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.16em;margin-top:4px;}
+.donut-legend{display:flex;gap:24px;}
+.dl{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.7);}
+.dl-dot{width:10px;height:10px;border-radius:2px;}
+
+/* ── CLIENT PROJECTS ── */
+.cred-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.cred-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid transparent;padding:22px 22px 18px;transition:all .25s;}
+.cred-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(20,24,38,.08);}
+.cc-logo{display:flex;align-items:center;gap:11px;margin-bottom:11px;}
+.cc-logo img{width:30px;height:30px;object-fit:contain;border-radius:3px;flex-shrink:0;}
+.cc-fi{width:30px;height:30px;border-radius:3px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-family:'Space Mono',monospace;background:var(--surface3);color:var(--muted);text-transform:uppercase;}
+.cc-name{font-size:15px;font-weight:600;line-height:1.2;}
+.cc-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.cc-meta{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
+.cc-pill{font-size:9px;font-family:'Space Mono',monospace;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:10px;border:1px solid transparent;font-weight:600;}
+.cc-new{background:#FEF0E8;color:var(--orange);border-color:rgba(232,90,14,.2);}
+.cc-maint{background:#E6F7EE;color:var(--green);border-color:rgba(30,158,88,.2);}
+.cc-ret{background:#F3EEFF;color:var(--purple);border-color:rgba(122,79,191,.2);}
+.cc-region{background:var(--surface2);color:var(--muted);border-color:var(--border);}
+.cc-amount{font-family:'Open Sans',sans-serif;font-size:17px;font-weight:700;color:var(--blue);margin-bottom:7px;}
+.cc-challenge{font-size:12px;color:var(--text2);line-height:1.55;}
+.cc-kw{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px;}
+.kw{font-size:10px;background:var(--surface2);color:var(--muted);padding:3px 8px;border-radius:3px;font-weight:500;}
+
+/* ── WINS BANNER ── */
+.wins-banner{background:linear-gradient(135deg,#FFF7F2 0%,#FFEDDF 100%);border:1px solid rgba(232,90,14,.18);padding:36px 40px;border-radius:6px;margin-bottom:32px;display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center;}
+.wb-icon{font-size:64px;animation:pulse 3s ease-in-out infinite;}
+.wb-content h3{font-family:'Open Sans',sans-serif;font-size:24px;font-weight:300;margin-bottom:6px;}
+.wb-content h3 em{font-weight:700;font-style:italic;color:var(--orange);}
+.wb-stat{font-size:13px;color:var(--text2);margin-bottom:14px;}
+.wb-clients{display:flex;flex-wrap:wrap;gap:8px;}
+.wb-client{background:#fff;border:1px solid rgba(232,90,14,.2);padding:8px 14px;border-radius:4px;display:flex;align-items:center;gap:8px;font-weight:600;color:var(--text);font-size:13px;}
+.wb-client img{width:18px;height:18px;object-fit:contain;border-radius:2px;}
+.wb-client .wfi{width:18px;height:18px;border-radius:2px;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;font-family:'Space Mono',monospace;background:var(--surface3);color:var(--muted);}
+.wb-amount{font-size:11px;color:var(--orange);font-weight:700;font-family:'Space Mono',monospace;letter-spacing:.05em;}
+
+/* ── EVENTS ── */
+.ev-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.ev-col{background:var(--surface);border:1px solid var(--border);border-top:3px solid transparent;padding:22px 22px 18px;}
+.ev-col.ws{border-top-color:var(--green);}
+.ev-col.ev{border-top-color:var(--purple);}
+.ev-col.vs{border-top-color:var(--blue);}
+.ev-col-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:6px;}
+.ws .ev-col-tag{color:var(--green);}
+.ev .ev-col-tag{color:var(--purple);}
+.vs .ev-col-tag{color:var(--blue);}
+.ev-col-num{font-family:'Open Sans',sans-serif;font-size:32px;font-weight:300;line-height:1;margin-bottom:14px;}
+.lc-grid{display:flex;flex-wrap:wrap;gap:5px;}
+.lc{display:inline-flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);padding:6px 10px;font-size:12px;font-weight:500;color:var(--text2);transition:all .15s;cursor:default;border-radius:4px;white-space:nowrap;}
+.lc:hover{background:var(--surface3);border-color:var(--border2);transform:translateY(-1px);}
+.lc img{width:15px;height:15px;object-fit:contain;border-radius:2px;flex-shrink:0;}
+.fi{width:15px;height:15px;border-radius:2px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;font-family:'Space Mono',monospace;background:var(--surface3);color:var(--muted);text-transform:uppercase;}
+
+/* ── INSIGHTS GRID ── */
+.insights-band{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;margin-bottom:30px;background:var(--border);border:1px solid var(--border);}
+.ins-cell{background:var(--surface);padding:32px 22px 26px;text-align:center;position:relative;overflow:hidden;}
+.ins-num{font-family:'Open Sans',sans-serif;font-size:46px;font-weight:300;line-height:1;margin-bottom:7px;letter-spacing:-.02em;}
+.ins-lbl{font-size:10px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;line-height:1.5;}
+.ins-bar{position:absolute;bottom:0;left:0;height:3px;width:100%;}
+
+/* ── WORD CLOUD ── */
+.wc-card{background:var(--surface);padding:36px 40px;border:1px solid var(--border);}
+.wc-title{font-size:11px;font-family:'Space Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;}
+.wc-wrap{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:center;padding:8px 0;line-height:1.4;}
+.wt{display:inline-block;font-weight:500;cursor:default;transition:all .2s;line-height:1.3;padding:2px 0;}
+.wt:hover{transform:scale(1.08);opacity:1;}
+
+/* ── FEEDBACK SECTION ── */
+.fb-section{background:var(--surface);}
+.fb-hero{display:grid;grid-template-columns:1.1fr 1.4fr;gap:48px;align-items:center;margin-bottom:42px;}
+.fb-score{text-align:center;}
+.fb-big-num{
+  font-family:'Open Sans',sans-serif;font-size:160px;font-weight:700;line-height:1;
+  background:linear-gradient(135deg,var(--green) 0%,#3DCB7D 50%,var(--teal) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  letter-spacing:-.04em;
+}
+.fb-big-suffix{font-size:60px;font-weight:300;color:var(--muted);}
+.fb-big-label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:8px;}
+.fb-stats{display:flex;flex-direction:column;gap:14px;}
+.fb-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--border);}
+.fb-row:last-child{border-bottom:none;}
+.fb-row-label{font-size:13px;color:var(--text2);min-width:200px;}
+.fb-row-bar{flex:1;height:8px;background:var(--surface2);border-radius:4px;overflow:hidden;position:relative;}
+.fb-row-fill{height:100%;border-radius:4px;width:0;transition:width 1.4s cubic-bezier(.2,.8,.2,1);}
+.fb-row.in .fb-row-fill{width:var(--w);}
+.fb-row-val{font-family:'Open Sans',sans-serif;font-weight:700;color:var(--text);font-size:15px;min-width:50px;text-align:right;}
+
+/* NPS gauge */
+.nps-gauge{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:14px;border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.nps-cell{padding:18px 16px;text-align:center;}
+.nps-cell.det{background:#FEF0E8;}
+.nps-cell.pas{background:#FEF7E0;}
+.nps-cell.pro{background:#E6F7EE;}
+.nps-pct{font-family:'Open Sans',sans-serif;font-size:24px;font-weight:700;line-height:1;}
+.det .nps-pct{color:var(--orange);}
+.pas .nps-pct{color:var(--gold);}
+.pro .nps-pct{color:var(--green);}
+.nps-name{font-size:10px;font-family:'Space Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:5px;}
+.nps-sub{font-size:10px;color:var(--muted);margin-top:3px;}
+
+/* ── TESTIMONIALS ── */
+.testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.t-card{background:var(--surface2);border:1px solid var(--border);padding:24px 26px;position:relative;border-radius:6px;transition:all .3s;}
+.t-card::before{content:'"';position:absolute;top:6px;left:18px;font-family:Georgia,serif;font-size:64px;color:var(--blue);opacity:.18;line-height:1;font-weight:700;}
+.t-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(20,24,38,.06);}
+.t-text{font-size:13px;color:var(--text);line-height:1.6;font-style:italic;margin:14px 0 14px;position:relative;z-index:1;}
+.t-meta{display:flex;align-items:center;gap:10px;padding-top:14px;border-top:1px solid var(--border);}
+.t-source{font-size:11px;color:var(--muted);}
+.t-rating{margin-left:auto;font-size:11px;color:var(--green);font-weight:700;font-family:'Space Mono',monospace;}
+
+/* ── INNOVATIONS ── */
+.inno-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.ig{background:var(--surface);padding:24px 22px;border:1px solid var(--border);border-top:3px solid transparent;transition:all .25s;}
+.ig:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(20,24,38,.06);}
+.ig.run{border-top-color:var(--green);}
+.ig.dem{border-top-color:var(--blue);}
+.ig.pend{border-top-color:var(--muted);}
+.ig.coh{border-top-color:var(--orange);}
+.iglbl{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px;font-weight:700;}
+.run .iglbl{color:var(--green);}
+.dem .iglbl{color:var(--blue);}
+.pend .iglbl{color:var(--muted);}
+.coh .iglbl{color:var(--orange);}
+.ii{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;color:var(--text2);}
+.ii:last-of-type{border-bottom:none;}
+.ii .nfi{width:18px;height:18px;border-radius:3px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;font-family:'Space Mono',monospace;background:var(--surface3);color:var(--muted);text-transform:uppercase;}
+.inote{font-size:11px;color:var(--muted);margin-top:11px;line-height:1.6;}
+
+/* ── SCALING ── */
+.sc-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:18px;}
+.scard{background:var(--surface);padding:30px 32px;border:1px solid var(--border);border-radius:4px;}
+.scardtitle{font-family:'Open Sans',sans-serif;font-size:20px;margin-bottom:16px;font-weight:600;letter-spacing:-.01em;}
+.si{font-size:13px;padding:9px 0;border-bottom:1px solid var(--border);color:var(--text2);display:flex;align-items:flex-start;gap:9px;line-height:1.55;}
+.si:last-child{border-bottom:none;}
+.si strong{color:var(--text);font-weight:600;}
+.arr{color:var(--blue);font-family:'Space Mono',monospace;flex-shrink:0;font-size:11px;margin-top:1px;font-weight:700;}
+.scale-map{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+.smc{background:var(--surface2);padding:12px 14px;border-left:3px solid var(--blue);border-radius:0 4px 4px 0;}
+.smc.discuss{border-color:var(--orange);}
+.smc.ko{border-color:var(--muted);opacity:.7;}
+.smc-flag{font-size:20px;display:block;margin-bottom:4px;}
+.smc-name{font-size:12px;font-weight:600;color:var(--text);}
+.smc-status{font-size:10px;color:var(--muted);font-family:'Space Mono',monospace;letter-spacing:.06em;text-transform:uppercase;margin-top:2px;}
+
+/* ── BUDGET ── */
+.budget-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.bg-card{background:var(--surface);padding:26px 28px;border:1px solid var(--border);border-radius:4px;text-align:center;}
+.bg-num{font-family:'Open Sans',sans-serif;font-size:36px;font-weight:300;line-height:1;margin-bottom:6px;}
+.bg-lbl{font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;font-weight:500;}
+.bg-sub{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.5;}
+
+/* ── NEXT YEAR ── */
+.next-section{background:linear-gradient(135deg,#0F1429 0%,#1A2052 100%);color:#fff;padding:64px;border-bottom:1px solid rgba(255,255,255,.05);}
+.next-section .stitle{color:#fff;}
+.next-section .stag{color:rgba(255,255,255,.5);border-color:rgba(255,255,255,.3);}
+.next-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.next-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);padding:24px 26px;border-radius:6px;transition:all .25s;}
+.next-card:hover{background:rgba(255,255,255,.07);transform:translateY(-3px);}
+.next-tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#6EA8FF;margin-bottom:12px;}
+.next-name{font-size:18px;font-weight:600;margin-bottom:8px;color:#fff;}
+.next-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;}
+
+/* ── LABS VISUAL ID OVERLAY ── */
+/* Cyan dot field — signature decorative element (top-right of containers) */
+.labs-dots-tr{position:relative;}
+.labs-dots-tr::after{
+  content:'';position:absolute;top:0;right:0;width:280px;height:240px;pointer-events:none;
+  background-image:
+    radial-gradient(circle 2px at 20px 30px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 1.5px at 60px 70px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 2.5px at 100px 20px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 1.5px at 140px 90px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 2px at 180px 40px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 1.5px at 220px 110px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 1.5px at 90px 130px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 2px at 50px 170px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 1.5px at 200px 180px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 2px at 240px 60px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 1.5px at 30px 100px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 1.5px at 130px 200px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 2px at 170px 150px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 1.5px at 260px 130px,#5DD4D4 100%,transparent);
+  opacity:.55;
+  z-index:0;
+}
+.labs-dots-bl{position:relative;}
+.labs-dots-bl::before{
+  content:'';position:absolute;bottom:0;left:0;width:240px;height:200px;pointer-events:none;
+  background-image:
+    radial-gradient(circle 2px at 20px 30px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 1.5px at 60px 70px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 2.5px at 100px 20px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 1.5px at 140px 90px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 2px at 180px 40px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 1.5px at 220px 110px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 1.5px at 90px 130px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 2px at 50px 160px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 1.5px at 30px 100px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 1.5px at 130px 180px,#5DD4D4 100%,transparent),
+    radial-gradient(circle 2px at 170px 140px,#5DD4D4 100%,transparent);
+  opacity:.5;z-index:0;
+}
+
+/* Labs cream backdrop variant for sections that want the Sodexo Labs look */
+.labs-bg{background:var(--cream);}
+
+/* Labs-style rounded section banner — light blue pill */
+.labs-banner{
+  background:var(--lab-blue-bg);
+  padding:12px 26px;border-radius:30px;
+  display:inline-flex;align-items:center;gap:10px;
+  margin-bottom:24px;
+  font-size:11px;font-family:'Space Mono',monospace;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--blue);font-weight:700;
+}
+.labs-banner-full{
+  background:var(--lab-blue-bg);
+  padding:14px 28px;border-radius:14px;
+  font-size:13px;color:var(--navy);font-weight:600;
+  text-align:center;margin-bottom:24px;font-style:italic;
+}
+
+/* Pill-shape category label (Partners, Clients, Teams style) */
+.labs-pill{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:5px 14px;
+  border:1.5px solid var(--blue);background:#fff;
+  border-radius:20px;
+  font-size:11px;color:var(--blue);font-weight:600;
+  letter-spacing:.02em;
+}
+
+/* Page number circle in bottom-right of sections */
+.labs-pagenum{
+  position:absolute;bottom:24px;right:32px;
+  width:32px;height:32px;border-radius:50%;
+  border:1.5px solid var(--cyan);background:transparent;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Open Sans',sans-serif;font-size:13px;color:var(--cyan);
+  font-weight:600;
+  z-index:5;
+  pointer-events:none;
+}
+
+/* Labs italic-bold title style */
+.labs-title-mix{font-family:'Open Sans',sans-serif;font-weight:300;color:var(--navy);letter-spacing:-.015em;}
+.labs-title-mix em{font-style:italic;font-weight:400;color:var(--blue);}
+.labs-title-mix strong{font-style:normal;font-weight:700;color:var(--navy);}
+
+/* Section marker — small Sodexo Labs tag like in PDF */
+.labs-section-tag{
+  display:inline-block;border:1px solid var(--lab-blue-bg);
+  background:transparent;border-radius:30px;padding:6px 18px;
+  font-size:10px;font-family:'Space Mono',monospace;color:var(--blue);
+  letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  margin-bottom:18px;
+}
+
+/* ── ANALYTICS SECTIONS ── */
+.analytics-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
+.analytics-grid.three{grid-template-columns:repeat(3,1fr);}
+.ana-card{background:var(--surface);border:1px solid var(--border);padding:26px 28px;border-radius:6px;}
+.ana-card-title{font-family:'Open Sans',sans-serif;font-size:15px;font-weight:600;margin-bottom:4px;}
+.ana-card-sub{font-size:11px;color:var(--muted);font-family:'Space Mono',monospace;letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px;}
+
+/* Horizontal stacked bar */
+.hbar-row{margin-bottom:14px;}
+.hbar-row:last-child{margin-bottom:0;}
+.hbar-label{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-bottom:5px;}
+.hbar-name{color:var(--text);font-weight:500;display:flex;align-items:center;gap:6px;}
+.hbar-flag{font-size:14px;line-height:1;}
+.hbar-val{font-family:'Open Sans',sans-serif;font-weight:700;color:var(--text2);font-size:13px;}
+.hbar-track{height:9px;background:var(--surface2);border-radius:4px;overflow:hidden;position:relative;}
+.hbar-fill{height:100%;border-radius:4px;width:0;transition:width 1.2s cubic-bezier(.2,.8,.2,1);}
+.ana-card.in .hbar-fill{width:var(--w);}
+.hbar-pct{font-size:10px;color:var(--muted);margin-top:3px;font-family:'Space Mono',monospace;}
+
+/* Donut mini */
+.mini-donut-wrap{display:flex;gap:24px;align-items:center;flex-wrap:wrap;}
+.mini-donut{width:160px;height:160px;position:relative;flex-shrink:0;}
+.mini-donut svg{width:100%;height:100%;transform:rotate(-90deg);}
+.mini-donut .dt{fill:none;stroke:var(--surface2);stroke-width:18;}
+.mini-donut .ds{fill:none;stroke-width:18;stroke-linecap:butt;stroke-dasharray:440;stroke-dashoffset:440;transition:stroke-dashoffset 1.4s cubic-bezier(.2,.8,.2,1);}
+.ana-card.in .mini-donut .ds{stroke-dashoffset:var(--off);}
+.mini-donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
+.mdc-num{font-family:'Open Sans',sans-serif;font-size:28px;font-weight:700;line-height:1;}
+.mdc-lbl{font-size:9px;font-family:'Space Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+.mini-legend{display:flex;flex-direction:column;gap:8px;flex:1;min-width:140px;}
+.ml-row{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2);justify-content:space-between;}
+.ml-lbl{display:flex;align-items:center;gap:7px;}
+.ml-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0;}
+.ml-val{font-family:'Open Sans',sans-serif;font-weight:700;color:var(--text);}
+
+/* Matrix heat */
+.matrix-table{width:100%;border-collapse:collapse;font-size:12px;}
+.matrix-table th, .matrix-table td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--border);}
+.matrix-table th{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+.matrix-table td{color:var(--text2);}
+.matrix-table td.heat{font-family:'Open Sans',sans-serif;font-weight:700;text-align:center;border-radius:0;color:#fff;}
+.matrix-table td strong{color:var(--text);font-weight:600;}
+.heat-1{background:rgba(26,105,255,.12);color:var(--blue);}
+.heat-2{background:rgba(26,105,255,.28);color:var(--blue);}
+.heat-3{background:rgba(26,105,255,.5);color:#fff;}
+.heat-4{background:rgba(26,105,255,.75);color:#fff;}
+.heat-5{background:var(--blue);color:#fff;}
+
+/* Segment chips */
+.seg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.seg-chip{background:var(--surface2);padding:14px 16px;border-radius:4px;border-left:3px solid transparent;transition:all .2s;}
+.seg-chip:hover{transform:translateX(3px);}
+.seg-chip-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;}
+.seg-chip-name{font-size:13px;font-weight:600;color:var(--text);}
+.seg-chip-num{font-family:'Open Sans',sans-serif;font-weight:700;font-size:18px;color:var(--blue);}
+.seg-chip-desc{font-size:11px;color:var(--muted);}
+
+/* Practice donut row */
+.practice-pies{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.pp-mini{text-align:center;background:var(--surface2);padding:18px;border-radius:6px;}
+.pp-circle{width:80px;height:80px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;position:relative;font-family:'Open Sans',sans-serif;font-weight:700;font-size:22px;color:#fff;}
+.pp-name{font-size:12px;font-weight:600;color:var(--text);}
+.pp-sub{font-size:10px;color:var(--muted);margin-top:2px;}
+
+/* Tier breakdown */
+.tier-stack{display:flex;height:48px;border-radius:6px;overflow:hidden;margin-bottom:10px;border:1px solid var(--border);}
+.tier-seg{display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:600;transition:all .3s;cursor:default;}
+.tier-seg:hover{filter:brightness(1.1);}
+.tier-legend{display:flex;gap:18px;flex-wrap:wrap;}
+.tl-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text2);}
+.tl-dot{width:10px;height:10px;border-radius:2px;}
+
+/* Big chart - vertical bars */
+.vbar-chart{display:flex;align-items:flex-end;gap:8px;height:280px;padding:32px 0 36px;border-bottom:1px solid var(--border);position:relative;}
+.vbar{flex:1;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-end;gap:0;min-width:0;position:relative;height:100%;}
+.vbar-tower{width:100%;border-radius:6px 6px 0 0;position:relative;height:6px;transition:height 1.4s cubic-bezier(.2,.8,.2,1);}
+.ana-card.in .vbar-tower{height:var(--h);}
+.vbar-num{position:absolute;top:-24px;left:50%;transform:translateX(-50%);font-family:'Open Sans',sans-serif;font-weight:700;font-size:14px;color:var(--text);white-space:nowrap;}
+.vbar-label{position:absolute;bottom:-28px;left:0;right:0;font-size:10px;color:var(--muted);text-align:center;line-height:1.3;font-family:'Space Mono',monospace;letter-spacing:.06em;text-transform:uppercase;}
+
+/* ── POST-IT WALL ── */
+.qa-section{background:linear-gradient(135deg,#FFF9E6 0%,#FFF3D6 100%);padding:64px;border-bottom:1px solid var(--border);}
+.qa-section .stitle{color:var(--text);}
+.qa-board{background:#FAEDC4;padding:32px;border-radius:10px;border:2px solid #E8D08A;position:relative;overflow:hidden;min-height:380px;}
+.qa-board::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20px 20px,rgba(0,0,0,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;}
+.qa-board-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;position:relative;z-index:2;}
+.qa-board-title h3{font-family:'Open Sans',sans-serif;font-size:20px;font-weight:600;color:var(--text);}
+.qa-input-row{display:flex;gap:8px;align-items:center;}
+.qa-input{padding:10px 14px;font-size:13px;font-family:'Open Sans',sans-serif;border:2px solid #E8D08A;background:#fff;border-radius:4px;width:280px;transition:border-color .2s;}
+.qa-input:focus{outline:none;border-color:var(--blue);}
+.qa-color-pick{display:flex;gap:4px;}
+.qa-color{width:24px;height:24px;border-radius:4px;cursor:pointer;border:2px solid transparent;transition:all .15s;}
+.qa-color.active{border-color:var(--text);transform:scale(1.15);}
+.qa-add-btn{background:var(--text);color:#fff;border:none;padding:10px 18px;font-size:12px;font-family:'Space Mono',monospace;letter-spacing:.1em;text-transform:uppercase;font-weight:700;cursor:pointer;border-radius:4px;transition:all .15s;}
+.qa-add-btn:hover{background:var(--blue);transform:translateY(-1px);}
+.qa-tip{font-size:11px;color:var(--text2);margin-bottom:18px;font-style:italic;position:relative;z-index:2;}
+
+.postits{display:flex;flex-wrap:wrap;gap:18px;position:relative;z-index:2;min-height:200px;}
+.postit{
+  width:200px;min-height:140px;padding:18px 16px;
+  font-family:'Open Sans',sans-serif;font-size:13px;line-height:1.45;color:#1a1a1a;
+  position:relative;cursor:default;
+  box-shadow:2px 4px 8px rgba(0,0,0,.12);
+  transition:all .25s cubic-bezier(.2,.8,.2,1);
+  font-weight:500;
+  word-wrap:break-word;
+}
+.postit::before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:48px;height:14px;background:rgba(0,0,0,.15);border-radius:2px;}
+.postit:hover{transform:translateY(-3px) rotate(0deg);box-shadow:4px 8px 14px rgba(0,0,0,.15);}
+.postit:nth-child(odd){transform:rotate(-2deg);}
+.postit:nth-child(even){transform:rotate(1.5deg);}
+.postit:nth-child(3n){transform:rotate(-1deg);}
+.postit:nth-child(4n){transform:rotate(2.5deg);}
+.postit-author{font-size:10px;color:rgba(0,0,0,.55);margin-top:10px;font-style:italic;font-family:'Space Mono',monospace;letter-spacing:.04em;}
+.postit-tag{position:absolute;top:8px;right:8px;font-size:9px;font-family:'Space Mono',monospace;letter-spacing:.1em;text-transform:uppercase;font-weight:700;background:rgba(0,0,0,.12);padding:2px 6px;border-radius:2px;}
+.postit-delete{position:absolute;top:6px;left:6px;width:18px;height:18px;border-radius:50%;border:none;background:rgba(0,0,0,.1);cursor:pointer;font-size:11px;color:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;}
+.postit:hover .postit-delete{display:flex;}
+.postit-delete:hover{background:rgba(232,90,14,.25);color:var(--orange);}
+
+.pi-yellow{background:linear-gradient(135deg,#FFE89C 0%,#FFD96B 100%);}
+.pi-pink{background:linear-gradient(135deg,#FFB3D9 0%,#FF8FCB 100%);}
+.pi-blue{background:linear-gradient(135deg,#A8D5FF 0%,#7AB8F5 100%);}
+.pi-green{background:linear-gradient(135deg,#A8E6B0 0%,#7CD088 100%);}
+.pi-orange{background:linear-gradient(135deg,#FFC894 0%,#FFA866 100%);}
+.pi-purple{background:linear-gradient(135deg,#D4B5F5 0%,#B98DEB 100%);}
+
+@keyframes postitDrop{
+  0%{opacity:0;transform:translateY(-30px) rotate(-8deg) scale(.8);}
+  60%{opacity:1;transform:translateY(4px) rotate(2deg) scale(1.02);}
+  100%{opacity:1;transform:rotate(var(--final-rot,0deg)) scale(1);}
+}
+.postit.new{animation:postitDrop .55s cubic-bezier(.2,.8,.2,1) both;}
+
+.qa-stats{display:flex;justify-content:space-between;margin-top:18px;padding-top:18px;border-top:1px dashed rgba(0,0,0,.15);font-size:11px;color:var(--text2);font-family:'Space Mono',monospace;letter-spacing:.06em;text-transform:uppercase;position:relative;z-index:2;}
+
+@media(max-width:760px){
+  .analytics-grid,.analytics-grid.three,.practice-pies,.seg-grid{grid-template-columns:1fr;}
+  .qa-input{width:100%;}
+  .qa-input-row{flex-direction:column;align-items:stretch;}
+  .postits{justify-content:center;}
+}
+
+/* ── FOOTER ── */
+footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-between;align-items:center;}
+.fb-foot{font-family:'Open Sans',sans-serif;font-size:15px;font-weight:300;color:#EEF2FF;letter-spacing:.02em;}
+.fb-foot span{color:#6EA8FF;font-weight:600;}
+.fn-foot{font-size:10px;color:rgba(255,255,255,.3);font-family:'Space Mono',monospace;letter-spacing:.08em;}
+
+@media(max-width:1100px){
+  .impact-grid,.insights-band{grid-template-columns:repeat(3,1fr);}
+  .hero-kpi{grid-template-columns:repeat(2,1fr);}
+  .ci-grid,.fb-hero{grid-template-columns:1fr;}
+  .ev-tabs,.cred-grid,.testimonials,.inno-grid,.next-grid,.budget-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:760px){
+  header,.exec-summary,.section,.ci-section,.next-section,.hero-kpi,footer{padding:36px 24px;}
+  header{grid-template-columns:1fr;gap:18px;}
+  .hright{text-align:left;}
+  .impact-grid,.insights-band,.hero-kpi,.es-pillars{grid-template-columns:repeat(2,1fr);}
+  .ev-tabs,.cred-grid,.testimonials,.inno-grid,.next-grid,.budget-grid,.sc-grid,.scale-map{grid-template-columns:1fr;}
+  .countries-row{flex-wrap:wrap;}
+  .country-cell{flex:1 1 30%;border-right:none;}
+  footer{flex-direction:column;gap:10px;text-align:center;}
+}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:#C0C8E0;border-radius:3px;}
+
+.newsletters-back{
+  position:fixed;top:16px;left:16px;z-index:50;
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;text-decoration:none;font-weight:700;
+  color:#fff;background:rgba(15,18,32,.55);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.28);padding:8px 12px;border-radius:4px;
+  transition:background .2s,transform .2s;
+}
+.newsletters-back:hover{background:rgba(15,18,32,.75);transform:translateY(-1px);}
+</style>
+</head>
+<body>
+
+<a class="newsletters-back" href="/newsletters">← Newsletters</a>
+
+<!-- ─── HEADER ─── -->
+<header>
+  <div class="particles" aria-hidden="true">
+    <svg viewBox="0 0 1440 480" preserveAspectRatio="xMidYMid slice">
+      <!-- Big glowing dots -->
+      <circle class="particle big" cx="80" cy="60" r="4" style="animation-delay:0s"/>
+      <circle class="particle big" cx="220" cy="120" r="5" style="animation-delay:.6s"/>
+      <circle class="particle big" cx="380" cy="40" r="3.5" style="animation-delay:1.2s"/>
+      <circle class="particle big" cx="540" cy="160" r="4.5" style="animation-delay:.3s"/>
+      <circle class="particle big" cx="720" cy="80" r="5" style="animation-delay:1.5s"/>
+      <circle class="particle big" cx="880" cy="200" r="4" style="animation-delay:.9s"/>
+      <circle class="particle big" cx="1060" cy="50" r="4.5" style="animation-delay:.2s"/>
+      <circle class="particle big" cx="1240" cy="140" r="5" style="animation-delay:1.7s"/>
+      <circle class="particle big" cx="1380" cy="80" r="3.5" style="animation-delay:.5s"/>
+
+      <!-- Medium dots -->
+      <circle class="particle" cx="40" cy="180" r="2.5" style="animation-delay:.4s"/>
+      <circle class="particle" cx="140" cy="240" r="2" style="animation-delay:1.1s"/>
+      <circle class="particle" cx="260" cy="60" r="2.5" style="animation-delay:.8s"/>
+      <circle class="particle" cx="320" cy="320" r="2" style="animation-delay:.1s"/>
+      <circle class="particle" cx="440" cy="280" r="3" style="animation-delay:1.4s"/>
+      <circle class="particle" cx="500" cy="60" r="2" style="animation-delay:.7s"/>
+      <circle class="particle" cx="600" cy="240" r="2.5" style="animation-delay:.2s"/>
+      <circle class="particle" cx="660" cy="380" r="2" style="animation-delay:1.6s"/>
+      <circle class="particle" cx="780" cy="280" r="2.5" style="animation-delay:.5s"/>
+      <circle class="particle" cx="840" cy="60" r="2" style="animation-delay:1.3s"/>
+      <circle class="particle" cx="940" cy="320" r="2.5" style="animation-delay:.6s"/>
+      <circle class="particle" cx="1000" cy="120" r="2" style="animation-delay:1.0s"/>
+      <circle class="particle" cx="1120" cy="220" r="3" style="animation-delay:.4s"/>
+      <circle class="particle" cx="1180" cy="380" r="2" style="animation-delay:1.8s"/>
+      <circle class="particle" cx="1280" cy="280" r="2.5" style="animation-delay:.7s"/>
+      <circle class="particle" cx="1340" cy="40" r="2" style="animation-delay:1.5s"/>
+      <circle class="particle" cx="1410" cy="240" r="2.5" style="animation-delay:.3s"/>
+
+      <!-- Tiny scattered dots for density -->
+      <circle class="particle tiny" cx="20" cy="100" r="1.2" style="animation-delay:.2s"/>
+      <circle class="particle tiny" cx="100" cy="280" r="1" style="animation-delay:1.1s"/>
+      <circle class="particle tiny" cx="170" cy="380" r="1.5" style="animation-delay:.6s"/>
+      <circle class="particle tiny" cx="280" cy="180" r="1" style="animation-delay:1.4s"/>
+      <circle class="particle tiny" cx="350" cy="220" r="1.2" style="animation-delay:.3s"/>
+      <circle class="particle tiny" cx="420" cy="100" r="1.5" style="animation-delay:.9s"/>
+      <circle class="particle tiny" cx="480" cy="380" r="1" style="animation-delay:1.7s"/>
+      <circle class="particle tiny" cx="560" cy="320" r="1.2" style="animation-delay:.5s"/>
+      <circle class="particle tiny" cx="620" cy="120" r="1" style="animation-delay:1.2s"/>
+      <circle class="particle tiny" cx="700" cy="200" r="1.5" style="animation-delay:.4s"/>
+      <circle class="particle tiny" cx="760" cy="40" r="1.2" style="animation-delay:1.0s"/>
+      <circle class="particle tiny" cx="820" cy="380" r="1" style="animation-delay:.7s"/>
+      <circle class="particle tiny" cx="900" cy="120" r="1.2" style="animation-delay:1.6s"/>
+      <circle class="particle tiny" cx="980" cy="240" r="1" style="animation-delay:.2s"/>
+      <circle class="particle tiny" cx="1040" cy="380" r="1.5" style="animation-delay:1.3s"/>
+      <circle class="particle tiny" cx="1100" cy="50" r="1.2" style="animation-delay:.8s"/>
+      <circle class="particle tiny" cx="1160" cy="160" r="1" style="animation-delay:1.5s"/>
+      <circle class="particle tiny" cx="1220" cy="60" r="1.5" style="animation-delay:.6s"/>
+      <circle class="particle tiny" cx="1300" cy="180" r="1" style="animation-delay:1.1s"/>
+      <circle class="particle tiny" cx="1360" cy="340" r="1.2" style="animation-delay:.4s"/>
+
+      <!-- White glow accents -->
+      <circle class="particle glow" cx="180" cy="80" r="1.8" style="animation-delay:.5s"/>
+      <circle class="particle glow" cx="460" cy="220" r="2" style="animation-delay:1.2s"/>
+      <circle class="particle glow" cx="680" cy="60" r="1.5" style="animation-delay:.8s"/>
+      <circle class="particle glow" cx="920" cy="180" r="2" style="animation-delay:.3s"/>
+      <circle class="particle glow" cx="1140" cy="340" r="1.5" style="animation-delay:1.4s"/>
+      <circle class="particle glow" cx="1320" cy="120" r="1.8" style="animation-delay:.7s"/>
+    </svg>
+  </div>
+  <div>
+    <div class="wm fade-in">FY26 Yearly Retrospective</div>
+    <h1 class="fade-in delay-1">CoDesign<br>& Labs<br><em>Fresca</em>
+      <span class="yr-big">FY26</span>
+    </h1>
+  </div>
+  <div class="hright fade-in delay-2">
+    <div class="hbadge">Yearly Retrospective</div>
+    <div class="h-fy">Sept 2025 → Sept 2026</div>
+    <p class="hsub">A complete view of CoDesign & Labs achievements, commercial impact, and lessons from the field.</p>
+  </div>
+  <div class="scroll-hint">▾ scroll</div>
+</header>
+
+<!-- ─── HERO KPI ─── -->
+<div class="hero-kpi">
+  <div class="hk fade-in delay-1">
+    <div class="hk-label">FY26 Active Impact</div>
+    <div class="hk-num"><span class="accent">€800M</span></div>
+    <div class="hk-sub">Annualised contract value actively progressed via CoDesign this year — across won, run and proposition stages</div>
+  </div>
+  <div class="hk fade-in delay-2">
+    <div class="hk-label">CoDesign Pipeline</div>
+    <div class="hk-num"><span class="accent">80+</span></div>
+    <div class="hk-sub">Active leads, opportunities, propositions and projects across FY26 — total touched perimeter ~€2.5B</div>
+  </div>
+  <div class="hk fade-in delay-3">
+    <div class="hk-label">Lab Bookings</div>
+    <div class="hk-num"><span class="accent">82</span></div>
+    <div class="hk-sub">Workshops, events and visits hosted at the Labs since opening</div>
+  </div>
+  <div class="hk fade-in delay-4">
+    <div class="hk-label">Net Promoter Score</div>
+    <div class="hk-num"><span class="accent">+53</span></div>
+    <div class="hk-sub">Excellent — based on 43 client & internal participant surveys</div>
+  </div>
+</div>
+
+<!-- ─── EXECUTIVE SUMMARY ─── -->
+<div class="exec-summary labs-bg labs-dots-tr" style="position:relative;">
+  <div class="labs-banner-full" style="max-width:fit-content;margin:0 0 22px;">— Co-creating the future of experiences —</div>
+  <div class="es-tag reveal">Executive Summary</div>
+  <h2 class="es-headline reveal">CoDesign & Labs is no longer a pilot. It is a <em>commercial engine</em> — embedded in major sales cycles, generating measurable uplift, and scaling globally.</h2>
+  <p class="es-body reveal">In FY26 we moved from proving the concept to delivering against it. CoDesign actively progressed <strong>~€800M of annualised contract value this year</strong>, across <strong>8 confirmed wins</strong> and 8 strategic projects in delivery. The Sodexo Labs in Paris hosted <strong>82 sessions</strong> — half generated by client-facing CoDesign engagements (we bring clients in to anchor commitment), half by internal teams using the Labs to align on growth, sustainability and innovation. Workshops scored 4.37/5 average with an NPS of +53 across 43 surveyed participants, producing 1,000+ ideas, 50+ concepts and 20 client roadmaps. The model is now requested by 4 regions, with 2 US sites in framing.</p>
+  <div class="es-pillars reveal-stagger">
+    <div class="es-pill">
+      <div class="es-pill-num">€800M</div>
+      <div class="es-pill-label">FY26 Active Commercial Impact</div>
+      <div class="es-pill-desc">Contract value actively progressed this year through CoDesign engagements — won, in delivery, or in active proposition.</div>
+    </div>
+    <div class="es-pill">
+      <div class="es-pill-num">8 Wins</div>
+      <div class="es-pill-label">New Bids & Renewals Closed</div>
+      <div class="es-pill-desc">Edinburgh Zoo, Newcastle United, Total Link, American Airlines, JDA, Lilly, Abeille, Roland-Garros — direct CoDesign-driven outcomes.</div>
+    </div>
+    <div class="es-pill">
+      <div class="es-pill-num">93%</div>
+      <div class="es-pill-label">Workshop Satisfaction</div>
+      <div class="es-pill-desc">Of participants rated workshops 4 stars or higher. NPS +53 across client and internal sessions.</div>
+    </div>
+  </div>
+  <div class="labs-pagenum">01</div>
+</div>
+
+<!-- ─── ANNUAL IMPACT (KPI BAND) ─── -->
+<div class="section">
+  <div class="sec-hdr reveal">
+    <span class="stag" style="color:var(--blue)">01</span>
+    <h2 class="stitle">Annual <em>impact</em> in numbers</h2>
+    <span class="sbadge sb-both">● CoDesign & Labs</span>
+  </div>
+  <div class="impact-grid reveal-stagger">
+    <div class="ic"><div class="ic-num" style="color:var(--blue)">25</div><div class="ic-label">Strategic<br>Clients Engaged</div><div class="ic-bar" style="background:var(--blue)"></div></div>
+    <div class="ic"><div class="ic-num" style="color:var(--orange)">8</div><div class="ic-label">Wins<br>FY26</div><div class="ic-bar" style="background:var(--orange)"></div></div>
+    <div class="ic"><div class="ic-num" style="color:var(--green)">8</div><div class="ic-label">Active CoDesign<br>Projects</div><div class="ic-bar" style="background:var(--green)"></div></div>
+    <div class="ic"><div class="ic-num" style="color:var(--purple)">82</div><div class="ic-label">Lab Sessions<br>Hosted</div><div class="ic-bar" style="background:var(--purple)"></div></div>
+    <div class="ic"><div class="ic-num" style="color:var(--teal);font-size:30px;padding-top:6px;">€800M</div><div class="ic-label">FY26 Active<br>Impact</div><div class="ic-bar" style="background:var(--teal)"></div></div>
+    <div class="ic"><div class="ic-num" style="color:var(--pink)">6</div><div class="ic-label">Countries<br>Covered</div><div class="ic-bar" style="background:var(--pink)"></div></div>
+  </div>
+  <div class="countries-row reveal-stagger">
+    <div class="country-cell"><span class="flag">🇫🇷</span><span class="cname">France</span></div>
+    <div class="country-cell"><span class="flag">🇬🇧</span><span class="cname">UK&I</span></div>
+    <div class="country-cell"><span class="flag">🇺🇸</span><span class="cname">USA</span></div>
+    <div class="country-cell"><span class="flag">🇪🇸</span><span class="cname">Spain (COEU)</span></div>
+    <div class="country-cell"><span class="flag">🇳🇱</span><span class="cname">Netherlands</span></div>
+    <div class="country-cell"><span class="flag">🌍</span><span class="cname">Global GSA</span></div>
+  </div>
+</div>
+
+<!-- ─── COMMERCIAL IMPACT ─── -->
+<div class="ci-section">
+  <div class="sec-hdr reveal">
+    <span class="stag">02</span>
+    <h2 class="stitle">Commercial <em>impact</em> — proven at scale</h2>
+  </div>
+  <div class="ci-grid">
+    <div class="reveal">
+      <h3 class="ci-headline">From methodology<br>to <em>measurable revenue uplift</em>.</h3>
+      <p class="ci-desc">CoDesign is no longer experimental. It is embedded in major commercial cycles — converting strategic conversations into renewals, new bids and contract extensions. Performance metrics consolidated across 25+ accounts demonstrate consistent uplift on every deal type.</p>
+      <div class="ci-uplift">
+        <div class="cu"><div class="cu-num">+3%</div><div class="cu-label">Renewal Uplift</div></div>
+        <div class="cu"><div class="cu-num">+1.5%</div><div class="cu-label">Cross-sell Uplift</div></div>
+        <div class="cu"><div class="cu-num">+3%</div><div class="cu-label">New Bid Uplift</div></div>
+        <div class="cu"><div class="cu-num">10%</div><div class="cu-label">Average Margin</div></div>
+      </div>
+    </div>
+    <div class="donut-wrap reveal">
+      <div class="donut" id="portfolio-donut">
+        <svg viewBox="0 0 200 200">
+          <circle class="track" cx="100" cy="100" r="90"/>
+          <circle class="seg-renew" cx="100" cy="100" r="90"/>
+          <circle class="seg-bid" cx="100" cy="100" r="90"/>
+        </svg>
+        <div class="donut-center">
+          <div class="donut-num">€800M</div>
+          <div class="donut-label">FY26 Mix</div>
+        </div>
+      </div>
+      <div class="donut-legend">
+        <div class="dl"><span class="dl-dot" style="background:#6EA8FF"></span>Maintain & Retention 75%</div>
+        <div class="dl"><span class="dl-dot" style="background:#A37AE0"></span>New Bids 25%</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── WINS BANNER ─── -->
+<div class="section" style="background:var(--surface);">
+  <div class="sec-hdr reveal">
+    <span class="stag" style="color:var(--orange)">03</span>
+    <h2 class="stitle">FY26 <em>wins</em> — the year we delivered</h2>
+    <span class="sbadge sb-win">🏆 Closed Deals</span>
+  </div>
+  <div class="wins-banner reveal">
+    <div class="wb-icon">🏆</div>
+    <div class="wb-content">
+      <h3><em>Eight strategic wins</em> directly attributed to CoDesign</h3>
+      <div class="wb-stat">From new bids to renewals and extensions — CoDesign-driven commercial outcomes across FY26.</div>
+      <div class="wb-clients">
+        <div class="wb-client">
+          <img src="https://logo.clearbit.com/edinburghzoo.org.uk" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
+          <span class="wfi" style="display:none">EZ</span>
+          Edinburgh Zoo
+          <span class="wb-amount">£4M/yr</span>
+        </div>
+        <div class="wb-client">
+          <span class="wfi">NU</span>
+          Newcastle United
+          <span class="wb-amount">£20M/yr</span>
+        </div>
+        <div class="wb-client">
+          <span class="wfi">TL</span>
+          Total Link
+          <span class="wb-amount">FR · New Bid</span>
+        </div>
+        <div class="wb-client">
+          <img src="https://logo.clearbit.com/aa.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
+          <span class="wfi" style="display:none">AA</span>
+          American Airlines
+          <span class="wb-amount">$70M/yr</span>
+        </div>
+        <div class="wb-client">
+          <span class="wfi">JDA</span>
+          JDA
+          <span class="wb-amount">Win</span>
+        </div>
+        <div class="wb-client">
+          <img src="https://logo.clearbit.com/lilly.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
+          <span class="wfi" style="display:none">Li</span>
+          Eli Lilly
+          <span class="wb-amount">€70M/yr</span>
+        </div>
+        <div class="wb-client">
+          <span class="wfi">Ab</span>
+          Abeille
+          <span class="wb-amount">FR · Win</span>
+        </div>
+        <div class="wb-client">
+          <img src="https://logo.clearbit.com/rolandgarros.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
+          <span class="wfi" style="display:none">RG</span>
+          Roland-Garros
+          <span class="wb-amount">€50M/yr</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── KEY PROJECTS ─── -->
+<div class="section" style="background:var(--surface);padding-top:0;">
+  <div class="sec-hdr reveal">
+    <span class="stag" style="color:var(--green)">04</span>
+    <h2 class="stitle">Key CoDesign <em>projects</em></h2>
+    <span class="sbadge sb-cd">● CoDesign Portfolio</span>
+  </div>
+  <p class="sec-intro reveal">A representative selection of FY26 strategic engagements across food services, FM, healthcare, hospitality and workplace. Combined annualised contract value of these 12 projects: <strong>~€800M</strong>.</p>
+  <div class="cred-grid reveal-stagger">
+
+    <div class="cred-card" style="border-top-color:var(--green);">
+      <div class="cc-logo">
+        <img src="https://logo.clearbit.com/lilly.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
+        <div class="cc-fi" style="display:none">Li</div>
+        <div><div class="cc-name">Eli Lilly</div><div class="cc-sub">XP Greenfield Giga Factory · The CELL</div></div>
+      </div>
+      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">GSA</span></div>
+      <div class="cc-amount">€70M/yr · Impact €80M</div>
+      <div class="cc-challenge">Design a seamless, human-centered workplace framework for Lilly's new gigafactory — built to scale.</div>
+      <div class="cc-kw"><span class="kw">Greenfield</span><span class="kw">Persona mapping</span><span class="kw">Scalable XP</span></div>
+    </div>
+
+    <div class="cred-card" style="border-top-color:var(--green);">
+      <div class="cc-logo">
+        <img src="https://logo.clearbit.com/astrazeneca.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
+        <div class="cc-fi" style="display:none">AZ</div>
+        <div><div class="cc-name">AstraZeneca</div><div class="cc-sub">Flagship Campus · Cambridge</div></div>
+      </div>
+      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">GSA / UK&I</span></div>
+      <div class="cc-amount">€76M/yr · Uplift</div>
+      <div class="cc-challenge">High-impact campus experience supporting innovation, collaboration and scientific excellence.</div>
+      <div class="cc-kw"><span class="kw">Campus XP</span><span class="kw">Food activation</span><span class="kw">Digital enablement</span></div>
+    </div>
+
+    <div class="cred-card" style="border-top-color:var(--green);">
+      <div class="cc-logo">
+        <img src="https://logo.clearbit.com/microsoft.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
+        <div class="cc-fi" style="display:none">MS</div>
+        <div><div class="cc-name">Microsoft</div><div class="cc-sub">Future of Workplace & Community</div></div>
+      </div>
+      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">GSA</span></div>
+      <div class="cc-amount">€55M/yr · Extension</div>
+      <div class="cc-challenge">Reimagine workplace to foster community, well-being and high-performance culture in a hybrid era.</div>
+      <div class="cc-kw"><span class="kw">Hybrid work</span><span class="kw">Wellness</span><span class="kw">Digital services</span></div>
+    </div>
+
+    <div class="cred-card" style="border-top-color:var(--blue);">
+      <div class="cc-logo">
+        <img src="https://logo.clearbit.com/rolandgarros.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
+        <div class="cc-fi" style="display:none">RG</div>
+        <div><div class="cc-name">Roland-Garros</div><div class="cc-sub">F&B Experience</div></div>
+      </div>
+      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">FR · Live!</span></div>
+      <div class="cc-amount">€50M/yr · Rebid</div>
+      <div class="cc-challenge">Transform F&B into a seamless, iconic experience for spectators, players and staff.</div>
+      <div class="cc-kw"><span class="kw">Premium F&B</span><span class="kw">17 concepts</span><span class="kw">VIP XP</span></div>
+    </div>
+
+    <div class="cred-card" style="border-top-color:var(--blue);">
+      <div class="cc-logo">
+        <img src="https://logo.clearbit.com/clariane.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
+        <div class="cc-fi" style="display:none">CL</div>
+        <div><div class="cc-name">Clariane</div><div class="cc-sub">Food Experience in Care Units</div></div>
+      </div>
+      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">COEU</span></div>
+      <div class="cc-amount">€140M/yr · Extension</div>
+      <div class="cc-challenge">Redesign dining across care units — joyful, meaningful moments beyond functional food delivery.</div>
+      <div class="cc-kw"><span class="kw">Resident autonomy</span><span class="kw">Menu co-creation</span></div>
+    </div>
+
+    <div class="cred-card" style="border-top-color:var(--blue);">
+      <div class="cc-logo">
+        <img src="https://logo.clearbit.com/tetrapak.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
+        <div class="cc-fi" style="display:none">TP</div>
+        <div><div class="cc-name">Tetra Pak</div><div class="cc-sub">Consumer Experience</div></div>
+      </div>
+      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">Global</span></div>
+      <div class="cc-amount">€62M/yr · Project Run</div>
+      <div class="cc-challenge">Consumer experience repositioning across food and FM perimeters at Tetra Pak global sites.</div>
+      <div class="cc-kw"><span class="kw">Consumer XP</span><span class="kw">Strategy</span><span class="kw">Innovation</span></div>
+    </div>
+
+    <div class="cred-card" style="border-top-color:var(--purple);">
+      <div class="cc-logo">
+        <div class="cc-fi">SG</div>
+        <div><div class="cc-name">Saint-Gatien</div><div class="cc-sub">ESG Strategy 2030</div></div>
+      </div>
+      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">FR · HC</span></div>
+      <div class="cc-amount">€20M/yr · Retention</div>
+      <div class="cc-challenge">Embed ESG as strategic pillar — governance, employee care, low-carbon food, bio-cleaning.</div>
+      <div class="cc-kw"><span class="kw">ESG roadmap</span><span class="kw">Bio-cleaning</span><span class="kw">Sustainability</span></div>
+    </div>
+
+    <div class="cred-card" style="border-top-color:var(--purple);">
+      <div class="cc-logo">
+        <div class="cc-fi">MoD</div>
+        <div><div class="cc-name">DSFM · Ministry of Defence</div><div class="cc-sub">Designing Military Experience</div></div>
+      </div>
+      <div class="cc-meta"><span class="cc-pill cc-ret">Retention</span><span class="cc-pill cc-region">UK&I</span></div>
+      <div class="cc-amount">£250M/yr · Uplift</div>
+      <div class="cc-challenge">Redesign FM service model — efficient, user-centered, future-ready military experience.</div>
+      <div class="cc-kw"><span class="kw">Service simplification</span><span class="kw">Digital automation</span></div>
+    </div>
+
+    <div class="cred-card" style="border-top-color:var(--orange);">
+      <div class="cc-logo">
+        <img src="https://logo.clearbit.com/edinburghzoo.org.uk" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
+        <div class="cc-fi" style="display:none">EZ</div>
+        <div><div class="cc-name">Edinburgh Zoo 🏆</div><div class="cc-sub">Visitor Experience · WON</div></div>
+      </div>
+      <div class="cc-meta"><span class="cc-pill cc-new">New Bid · Won</span><span class="cc-pill cc-region">UK&I</span></div>
+      <div class="cc-amount">£12M/yr · Bid Uplift</div>
+      <div class="cc-challenge">Immersive, sustainable, digitally enhanced visitor experience driving engagement and loyalty.</div>
+      <div class="cc-kw"><span class="kw">Immersive XP</span><span class="kw">AI-powered visits</span></div>
+    </div>
+
+    <div class="cred-card" style="border-top-color:var(--orange);">
+      <div class="cc-logo">
+        <div class="cc-fi">NU</div>
+        <div><div class="cc-name">Newcastle United 🏆</div><div class="cc-sub">Fan Experience · WON</div></div>
+      </div>
+      <div class="cc-meta"><span class="cc-pill cc-new">New Bid · Won</span><span class="cc-pill cc-region">UK&I · Live!</span></div>
+      <div class="cc-amount">£12M/yr · Bid Uplift</div>
+      <div class="cc-challenge">Reimagine seamless, electrifying fan experience across St James' Park for all supporter profiles.</div>
+      <div class="cc-kw"><span class="kw">Fan engagement</span><span class="kw">Match-day flow</span><span class="kw">Loyalty</span></div>
+    </div>
+
+    <div class="cred-card" style="border-top-color:var(--pink);">
+      <div class="cc-logo">
+        <img src="https://logo.clearbit.com/gsk.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
+        <div class="cc-fi" style="display:none">GSK</div>
+        <div><div class="cc-name">GSK</div><div class="cc-sub">Innovation Strategy</div></div>
+      </div>
+      <div class="cc-meta"><span class="cc-pill cc-maint">Follow-up</span><span class="cc-pill cc-region">Global</span></div>
+      <div class="cc-amount">€150M/yr · TBD</div>
+      <div class="cc-challenge">Innovation strategy and consumer experience design for GSK's global pharmaceutical footprint.</div>
+      <div class="cc-kw"><span class="kw">Innovation strategy</span><span class="kw">Consumer XP</span></div>
+    </div>
+
+    <div class="cred-card" style="border-top-color:var(--pink);">
+      <div class="cc-logo">
+        <img src="https://logo.clearbit.com/pg.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
+        <div class="cc-fi" style="display:none">P&G</div>
+        <div><div class="cc-name">P&G EVE</div><div class="cc-sub">Sustainability & Strategy</div></div>
+      </div>
+      <div class="cc-meta"><span class="cc-pill cc-ret">Proposition</span><span class="cc-pill cc-region">Global</span></div>
+      <div class="cc-amount">€191M/yr · Maintain</div>
+      <div class="cc-challenge">Sustainably reduce carbon footprint while elevating employee value proposition across sites.</div>
+      <div class="cc-kw"><span class="kw">CSR</span><span class="kw">Strategy</span><span class="kw">Experience</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ─── CODESIGN DEEP DIVE ANALYTICS ─── -->
+<div class="section" style="background:var(--bg);">
+  <div class="sec-hdr reveal">
+    <span class="stag" style="color:var(--green)">04b</span>
+    <h2 class="stitle">CoDesign portfolio — <em>deep dive</em></h2>
+    <span class="sbadge sb-cd">● 80+ deals analysed</span>
+  </div>
+  <p class="sec-intro reveal">Segmentation of the full CoDesign pipeline across regions, segments, deal types, practices and topics — to give a clear strategic view of where the program is concentrated and where the next opportunities sit.</p>
+
+  <!-- Row 1: Region + Segment -->
+  <div class="analytics-grid">
+    <div class="ana-card reveal">
+      <div class="ana-card-title">Pipeline by Region</div>
+      <div class="ana-card-sub">Where the deals are happening</div>
+      <div class="reveal" id="hbar-region">
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🌍</span>Global</span><span class="hbar-val">28 deals · €1.1B</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:100%;background:var(--blue);"></div></div><div class="hbar-pct">35% of pipeline</div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇫🇷</span>France</span><span class="hbar-val">22 deals · €580M</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:78%;background:var(--blue);"></div></div><div class="hbar-pct">28% of pipeline</div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇬🇧</span>UK&I</span><span class="hbar-val">14 deals · €420M</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:50%;background:var(--blue);"></div></div><div class="hbar-pct">17% of pipeline</div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇺🇸</span>USA</span><span class="hbar-val">8 deals · €210M</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:30%;background:var(--blue);"></div></div><div class="hbar-pct">10% of pipeline</div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇪🇸</span>COEU</span><span class="hbar-val">5 deals · €140M</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:18%;background:var(--blue);"></div></div><div class="hbar-pct">6% of pipeline</div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇳🇱</span>Other (NL, SE, SG)</span><span class="hbar-val">3 deals · €90M</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:11%;background:var(--blue);"></div></div><div class="hbar-pct">4% of pipeline</div></div>
+      </div>
+    </div>
+
+    <div class="ana-card reveal">
+      <div class="ana-card-title">Pipeline by Segment</div>
+      <div class="ana-card-sub">Sodexo business unit · split</div>
+      <div class="mini-donut-wrap" style="margin-top:8px;">
+        <div class="mini-donut" id="seg-donut">
+          <svg viewBox="0 0 200 200">
+            <circle class="dt" cx="100" cy="100" r="70"/>
+            <circle class="ds" cx="100" cy="100" r="70" stroke="#1A69FF" style="stroke-dasharray:440;--off:185;"/>
+            <circle class="ds" cx="100" cy="100" r="70" stroke="#1E9E58" style="stroke-dasharray:440;stroke-dashoffset:440;--off:268;transform:rotate(94deg);transform-origin:center;"/>
+            <circle class="ds" cx="100" cy="100" r="70" stroke="#7A4FBF" style="stroke-dasharray:440;stroke-dashoffset:440;--off:317;transform:rotate(184deg);transform-origin:center;"/>
+            <circle class="ds" cx="100" cy="100" r="70" stroke="#E85A0E" style="stroke-dasharray:440;stroke-dashoffset:440;--off:361;transform:rotate(264deg);transform-origin:center;"/>
+            <circle class="ds" cx="100" cy="100" r="70" stroke="#C8427E" style="stroke-dasharray:440;stroke-dashoffset:440;--off:396;transform:rotate(324deg);transform-origin:center;"/>
+          </svg>
+          <div class="mini-donut-center">
+            <div class="mdc-num">80+</div>
+            <div class="mdc-lbl">Deals</div>
+          </div>
+        </div>
+        <div class="mini-legend">
+          <div class="ml-row"><span class="ml-lbl"><span class="ml-dot" style="background:#1A69FF"></span>GSA</span><span class="ml-val">42% · 34</span></div>
+          <div class="ml-row"><span class="ml-lbl"><span class="ml-dot" style="background:#1E9E58"></span>CS</span><span class="ml-val">28% · 22</span></div>
+          <div class="ml-row"><span class="ml-lbl"><span class="ml-dot" style="background:#7A4FBF"></span>HC</span><span class="ml-val">14% · 11</span></div>
+          <div class="ml-row"><span class="ml-lbl"><span class="ml-dot" style="background:#E85A0E"></span>Live!</span><span class="ml-val">10% · 8</span></div>
+          <div class="ml-row"><span class="ml-lbl"><span class="ml-dot" style="background:#C8427E"></span>Senior + U&E</span><span class="ml-val">6% · 5</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2: Type + Stage -->
+  <div class="analytics-grid">
+    <div class="ana-card reveal">
+      <div class="ana-card-title">Pipeline by Deal Type</div>
+      <div class="ana-card-sub">New bid vs Maintain vs Retention dynamic</div>
+      <div class="tier-stack" style="margin-top:14px;">
+        <div class="tier-seg" style="background:var(--orange);width:42%;">42% New Bid</div>
+        <div class="tier-seg" style="background:var(--green);width:33%;">33% Maintain</div>
+        <div class="tier-seg" style="background:var(--purple);width:25%;">25% Retention</div>
+      </div>
+      <div class="tier-legend">
+        <div class="tl-item"><span class="tl-dot" style="background:var(--orange)"></span><strong>34 New Bids</strong> · acquisition focus</div>
+        <div class="tl-item"><span class="tl-dot" style="background:var(--green)"></span><strong>26 Maintain</strong> · contract extensions</div>
+        <div class="tl-item"><span class="tl-dot" style="background:var(--purple)"></span><strong>20 Retention</strong> · renewals at risk</div>
+      </div>
+      <div style="margin-top:18px;padding-top:16px;border-top:1px solid var(--border);font-size:12px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Insight:</strong> The pipeline is strongly weighted toward <strong>acquisition</strong> (new bids 42%) — confirming CoDesign as a winning competitive lever. Retention deals carry the highest contract values (€140M Clariane, £250M MoD).</div>
+    </div>
+
+    <div class="ana-card reveal">
+      <div class="ana-card-title">Pipeline by Stage</div>
+      <div class="ana-card-sub">Funnel maturity · all stages including delivered projects</div>
+      <div class="vbar-chart" id="stage-chart">
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#7A82AA,#A5ACC8);--h:169px;"><span class="vbar-num">22</span></div><span class="vbar-label">Lead</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#E85A0E,#FF8A4D);--h:108px;"><span class="vbar-num">14</span></div><span class="vbar-label">Opp.</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#7A4FBF,#A37AE0);--h:200px;"><span class="vbar-num">26</span></div><span class="vbar-label">Proposition</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1A69FF,#3D8AFF);--h:108px;"><span class="vbar-num">14</span></div><span class="vbar-label">Project Run</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1E9E58,#3DCB7D);--h:31px;"><span class="vbar-num">4</span></div><span class="vbar-label">Won 🏆</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#0E8A8A,#3DBABA);--h:92px;"><span class="vbar-num">12</span></div><span class="vbar-label">Closed ✓</span></div>
+      </div>
+      <div style="margin-top:18px;font-size:12px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Read:</strong> 26 propositions = strongest stage of the funnel · 4 wins confirmed · 12 closed engagements (delivered projects = case studies, references) demonstrate the program's ability to ship.</div>
+    </div>
+  </div>
+
+  <!-- Row 3: Topics by category (replaces practices mix + flat topic chips) -->
+  <div class="ana-card reveal" style="margin-top:18px;">
+    <div class="ana-card-title">What we actually worked on — topics by category</div>
+    <div class="ana-card-sub">FY26 CoDesign engagement themes · grouped by strategic intent</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px;">
+
+      <div style="background:var(--surface2);padding:18px 20px;border-radius:6px;border-top:3px solid var(--blue);">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:12px;">🏢 Workplace & Campus XP</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid var(--border);color:var(--text2);">Employee XP design<span style="font-weight:700;color:var(--text);">26</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid var(--border);color:var(--text2);">Hybrid work & campus<span style="font-weight:700;color:var(--text);">11</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;color:var(--text2);">F&B on-site strategy<span style="font-weight:700;color:var(--text);">9</span></div>
+        </div>
+      </div>
+
+      <div style="background:var(--surface2);padding:18px 20px;border-radius:6px;border-top:3px solid var(--orange);">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);font-weight:700;margin-bottom:12px;">🏟️ Fan & Visitor XP</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid var(--border);color:var(--text2);">Sport venue XP<span style="font-weight:700;color:var(--text);">8</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid var(--border);color:var(--text2);">Cultural / zoo / tourism<span style="font-weight:700;color:var(--text);">4</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;color:var(--text2);">Premium lounge & events<span style="font-weight:700;color:var(--text);">3</span></div>
+        </div>
+      </div>
+
+      <div style="background:var(--surface2);padding:18px 20px;border-radius:6px;border-top:3px solid var(--green);">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:12px;">🌱 Sustainability & ESG</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid var(--border);color:var(--text2);">ESG & low-carbon roadmap<span style="font-weight:700;color:var(--text);">9</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid var(--border);color:var(--text2);">Waste reduction & sourcing<span style="font-weight:700;color:var(--text);">6</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;color:var(--text2);">Sustainable food services<span style="font-weight:700;color:var(--text);">5</span></div>
+        </div>
+      </div>
+
+      <div style="background:var(--surface2);padding:18px 20px;border-radius:6px;border-top:3px solid var(--purple);">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--purple);font-weight:700;margin-bottom:12px;">🚀 Innovation Strategy</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid var(--border);color:var(--text2);">Innovation & tech framing<span style="font-weight:700;color:var(--text);">14</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid var(--border);color:var(--text2);">Digital & AI enablement<span style="font-weight:700;color:var(--text);">7</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;color:var(--text2);">HC & senior living model<span style="font-weight:700;color:var(--text);">6</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Cross-tab Region × Segment Heatmap -->
+  <div class="ana-card reveal" style="margin-top:18px;">
+    <div class="ana-card-title">Region × Segment cross-analysis</div>
+    <div class="ana-card-sub">Where the volume sits — number of deals per cell</div>
+    <table class="matrix-table">
+      <tr><th></th><th>GSA</th><th>CS</th><th>HC</th><th>Live!</th><th>Senior</th><th>Total</th></tr>
+      <tr><td><strong>🌍 Global</strong></td><td class="heat heat-5">14</td><td class="heat heat-3">7</td><td class="heat heat-2">3</td><td class="heat heat-2">2</td><td class="heat heat-1">1</td><td><strong>27</strong></td></tr>
+      <tr><td><strong>🇫🇷 France</strong></td><td class="heat heat-2">3</td><td class="heat heat-4">8</td><td class="heat heat-4">7</td><td class="heat heat-2">3</td><td class="heat heat-1">2</td><td><strong>23</strong></td></tr>
+      <tr><td><strong>🇬🇧 UK&I</strong></td><td class="heat heat-2">3</td><td class="heat heat-3">5</td><td class="heat heat-1">1</td><td class="heat heat-3">3</td><td class="heat heat-1">1</td><td><strong>13</strong></td></tr>
+      <tr><td><strong>🇺🇸 USA</strong></td><td class="heat heat-3">5</td><td class="heat heat-1">1</td><td class="heat heat-1">1</td><td class="heat heat-1">1</td><td>—</td><td><strong>8</strong></td></tr>
+      <tr><td><strong>🇪🇸 COEU</strong></td><td class="heat heat-2">2</td><td class="heat heat-1">1</td><td class="heat heat-1">2</td><td>—</td><td>—</td><td><strong>5</strong></td></tr>
+      <tr><td><strong>Other</strong></td><td class="heat heat-1">2</td><td class="heat heat-1">1</td><td>—</td><td>—</td><td>—</td><td><strong>3</strong></td></tr>
+      <tr style="border-top:2px solid var(--border2);"><td><strong>Total</strong></td><td><strong>29</strong></td><td><strong>23</strong></td><td><strong>14</strong></td><td><strong>9</strong></td><td><strong>4</strong></td><td style="color:var(--blue);font-weight:700;">79</td></tr>
+    </table>
+    <div style="margin-top:14px;font-size:12px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Read:</strong> GSA Global is the dominant intersection (14 deals — Lilly, Microsoft, AZ, P&G, GSK, Tetra Pak…). France HC is over-indexed thanks to Clariane, St Gatien, Domytis. UK&I Live! is a sweet spot for new bids (Newcastle, Edinburgh, Hampden Park).</div>
+  </div>
+</div>
+
+<!-- ─── CODESIGN OUTPUT ─── -->
+<div class="section" style="background:var(--surface);">
+  <div class="sec-hdr reveal">
+    <span class="stag" style="color:var(--orange)">04c</span>
+    <h2 class="stitle">CoDesign output — what the workshops <em>produced</em></h2>
+    <span class="sbadge sb-cd">● CoDesign Output</span>
+  </div>
+  <p class="sec-intro reveal">Across the year, our CoDesign engagements consistently delivered high-volume, high-quality intellectual output for our clients. These are the building blocks that translate into experience playbooks, value propositions and roadmaps.</p>
+  <div class="insights-band reveal-stagger">
+    <div class="ins-cell"><div class="ins-num" style="color:var(--blue)">25</div><div class="ins-lbl">Discovery<br>Phases</div><div class="ins-bar" style="background:var(--blue)"></div></div>
+    <div class="ins-cell"><div class="ins-num" style="color:var(--green)">35</div><div class="ins-lbl">Co-creation<br>Workshops</div><div class="ins-bar" style="background:var(--green)"></div></div>
+    <div class="ins-cell"><div class="ins-num" style="color:var(--orange)">1000+</div><div class="ins-lbl">Ideas<br>Generated</div><div class="ins-bar" style="background:var(--orange)"></div></div>
+    <div class="ins-cell"><div class="ins-num" style="color:var(--purple)">50+</div><div class="ins-lbl">Concept<br>Sheets</div><div class="ins-bar" style="background:var(--purple)"></div></div>
+    <div class="ins-cell"><div class="ins-num" style="color:var(--teal)">20</div><div class="ins-lbl">Action Plans<br>Delivered</div><div class="ins-bar" style="background:var(--teal)"></div></div>
+    <div class="ins-cell"><div class="ins-num" style="color:var(--pink)">80+</div><div class="ins-lbl">User<br>Personas</div><div class="ins-bar" style="background:var(--pink)"></div></div>
+  </div>
+  <div class="wc-card reveal">
+    <div class="wc-title">Most frequent themes & opportunities surfaced across all engagements</div>
+    <div class="wc-wrap" id="wc"></div>
+  </div>
+</div>
+
+<!-- ─── EVENTS HOSTED ─── -->
+<div class="section">
+  <div class="sec-hdr reveal">
+    <span class="stag" style="color:var(--blue)">05</span>
+    <h2 class="stitle">82 Lab <em>sessions</em> hosted</h2>
+    <span class="sbadge sb-labs">● Sodexo Labs</span>
+  </div>
+  <p class="sec-intro reveal">From C-level visits to immersive client workshops, the Sodexo Labs hosted a steady stream of strategic engagements. Three categories: <strong>client workshops driving CoDesign delivery</strong> (most are extensions of an active CoDesign engagement), <strong>internal & partner events</strong> for inspiration and alignment, and <strong>account visits</strong> where the Labs serves as a credibility play that opens the door to CoDesign.</p>
+  <div class="ev-tabs reveal-stagger">
+    <div class="ev-col ws">
+      <div class="ev-col-tag">CoDesign Workshops · at the Labs</div>
+      <div class="ev-col-num" style="color:var(--green)">26</div>
+      <div class="lc-grid">
+        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— Octobre —</div>
+        <div class="lc done" data-logo="lilly.com">Lilly · client</div>
+        <div class="lc done" data-logo="clariane.com">Clariane · client</div>
+        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— Novembre —</div>
+        <div class="lc done">Plateforme digital services</div>
+        <div class="lc done">Care Management</div>
+        <div class="lc done">Eat 2.0</div>
+        <div class="lc done" data-logo="clariane.com">Clariane · client</div>
+        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— Décembre —</div>
+        <div class="lc done" data-logo="rolandgarros.com">Roland-Garros</div>
+        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— Janvier —</div>
+        <div class="lc done" data-logo="lilly.com">Lilly · Alzey prios WS</div>
+        <div class="lc done" data-logo="clariane.com">Clariane · client</div>
+        <div class="lc done">Personae augmenté</div>
+        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— Février —</div>
+        <div class="lc done" data-logo="microsoft.com">Microsoft · client</div>
+        <div class="lc done">Entegra</div>
+        <div class="lc done">Entegra</div>
+        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— Mars —</div>
+        <div class="lc done">Abeille · client</div>
+        <div class="lc done">Entegra</div>
+        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— Avril —</div>
+        <div class="lc done">HSTV</div>
+        <div class="lc done" data-logo="ipsen.com">Ipsen · client</div>
+        <div class="lc done" data-logo="astrazeneca.com">AZ governance · client</div>
+        <div class="lc done" data-logo="clariane.com">Clariane QBR · client</div>
+        <div class="lc done">Entegra</div>
+        <div class="lc done">Entegra</div>
+        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— Mai —</div>
+        <div class="lc done" data-logo="accenture.com">Accenture</div>
+        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— Juin —</div>
+        <div class="lc done">Abeille</div>
+        <div class="lc done">COEU</div>
+        <div class="lc done">TDDI Seminar</div>
+      </div>
+    </div>
+    <div class="ev-col ev">
+      <div class="ev-col-tag">Events & Showcases</div>
+      <div class="ev-col-num" style="color:var(--purple)">22</div>
+      <div class="lc-grid">
+        <div class="lc done">Innovision Robotics · 800+</div>
+        <div class="lc done">Innovision AI Food & FM</div>
+        <div class="lc done">Miro Workshop Day</div>
+        <div class="lc done" data-logo="unilever.com">Unilever MR Day</div>
+        <div class="lc done">Food Partners France</div>
+        <div class="lc done">Green IT & AI Breakfast</div>
+        <div class="lc done">Fresque du Numérique</div>
+        <div class="lc done">SoSmart for Growth</div>
+        <div class="lc done">QVT Microsoft Inclusion</div>
+        <div class="lc done">Comms Sync Day</div>
+      </div>
+    </div>
+    <div class="ev-col vs">
+      <div class="ev-col-tag">Client & Account Visits</div>
+      <div class="ev-col-num" style="color:var(--blue)">48</div>
+      <div class="lc-grid">
+        <div class="lc done" data-logo="disneylandparis.com">Disneyland Paris</div>
+        <div class="lc done" data-logo="edf.fr">EDF</div>
+        <div class="lc done" data-logo="pg.com">P&G</div>
+        <div class="lc done" data-logo="colgate.com">Colgate</div>
+        <div class="lc done" data-logo="meta.com">Meta VR</div>
+        <div class="lc done" data-logo="transdev.com">Transdev</div>
+        <div class="lc done">Naval Group</div>
+        <div class="lc done">Lycées Militaires</div>
+        <div class="lc done">CA Lyon Terra Lumia</div>
+        <div class="lc done" data-logo="garance-mutuelle.fr">Garance Mutuelle</div>
+        <div class="lc done">Worldwide Sales Winners</div>
+        <div class="lc done">UK&I TDDI</div>
+        <div class="lc done">Sodexo Live! UK</div>
+        <div class="lc done">+ 35 more</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── LABS DEEP DIVE ANALYTICS ─── -->
+<div class="section" style="background:var(--bg);">
+  <div class="sec-hdr reveal">
+    <span class="stag" style="color:var(--blue)">05b</span>
+    <h2 class="stitle">Lab activity — <em>deep dive</em></h2>
+    <span class="sbadge sb-labs">● 82 sessions analysed</span>
+  </div>
+  <p class="sec-intro reveal">Breaking down all 82 Lab bookings since opening to understand: who comes, why they come, which spaces get used, and how the Labs and CoDesign feed each other as <strong>two complementary acquisition tools</strong> — both bring clients in, often together.</p>
+
+  <!-- Row 1: Client vs Internal stack + Function -->
+  <div class="analytics-grid">
+    <div class="ana-card reveal">
+      <div class="ana-card-title">Client vs Internal split</div>
+      <div class="ana-card-sub">Who attends Lab sessions</div>
+      <div class="tier-stack" style="margin-top:14px;">
+        <div class="tier-seg" style="background:var(--blue);width:42%;">42% Client</div>
+        <div class="tier-seg" style="background:var(--purple);width:46%;">46% Internal</div>
+        <div class="tier-seg" style="background:var(--orange);width:12%;">12% Mixed</div>
+      </div>
+      <div class="tier-legend">
+        <div class="tl-item"><span class="tl-dot" style="background:var(--blue)"></span><strong>34 client sessions</strong> · workshops, visits, pitches</div>
+        <div class="tl-item"><span class="tl-dot" style="background:var(--purple)"></span><strong>38 internal sessions</strong> · team breakfasts, training, alignment</div>
+        <div class="tl-item"><span class="tl-dot" style="background:var(--orange)"></span><strong>10 mixed sessions</strong> · client + Sodexo combined</div>
+      </div>
+      <div style="margin-top:18px;padding-top:16px;border-top:1px solid var(--border);font-size:12px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Insight:</strong> Internal sessions are critical for adoption and capability-building — but client-facing time is what generates pipeline. Target <strong>50/50</strong> in FY27 with structured pre-sales journey.</div>
+    </div>
+
+    <div class="ana-card reveal">
+      <div class="ana-card-title">By Sodexo Function (internal sessions)</div>
+      <div class="ana-card-sub">Which teams use the Labs most</div>
+      <div id="hbar-function">
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">Sales & Account teams</span><span class="hbar-val">14 sessions</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:100%;background:var(--purple);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">FM operations</span><span class="hbar-val">8 sessions</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:57%;background:var(--purple);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">Marketing & Comms</span><span class="hbar-val">6 sessions</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:43%;background:var(--purple);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">Group Strategy & CSR</span><span class="hbar-val">5 sessions</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:36%;background:var(--purple);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">L&D · HR · People</span><span class="hbar-val">3 sessions</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:21%;background:var(--purple);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">Digital · IT · AI</span><span class="hbar-val">2 sessions</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:14%;background:var(--purple);"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2: Session type + Space -->
+  <div class="analytics-grid">
+    <div class="ana-card reveal">
+      <div class="ana-card-title">Session typology</div>
+      <div class="ana-card-sub">Format mix across all 82 events</div>
+      <div class="mini-donut-wrap" style="margin-top:8px;">
+        <div class="mini-donut" id="type-donut">
+          <svg viewBox="0 0 200 200">
+            <circle class="dt" cx="100" cy="100" r="70"/>
+            <circle class="ds" cx="100" cy="100" r="70" stroke="#1A69FF" style="stroke-dasharray:440;--off:175;"/>
+            <circle class="ds" cx="100" cy="100" r="70" stroke="#1E9E58" style="stroke-dasharray:440;stroke-dashoffset:440;--off:295;transform:rotate(102deg);transform-origin:center;"/>
+            <circle class="ds" cx="100" cy="100" r="70" stroke="#7A4FBF" style="stroke-dasharray:440;stroke-dashoffset:440;--off:330;transform:rotate(204deg);transform-origin:center;"/>
+            <circle class="ds" cx="100" cy="100" r="70" stroke="#E85A0E" style="stroke-dasharray:440;stroke-dashoffset:440;--off:370;transform:rotate(264deg);transform-origin:center;"/>
+            <circle class="ds" cx="100" cy="100" r="70" stroke="#0E8A8A" style="stroke-dasharray:440;stroke-dashoffset:440;--off:405;transform:rotate(316deg);transform-origin:center;"/>
+          </svg>
+          <div class="mini-donut-center">
+            <div class="mdc-num">82</div>
+            <div class="mdc-lbl">Sessions</div>
+          </div>
+        </div>
+        <div class="mini-legend">
+          <div class="ml-row"><span class="ml-lbl"><span class="ml-dot" style="background:#1A69FF"></span>Visits</span><span class="ml-val">48 · 59%</span></div>
+          <div class="ml-row"><span class="ml-lbl"><span class="ml-dot" style="background:#1E9E58"></span>Workshops</span><span class="ml-val">12 · 15%</span></div>
+          <div class="ml-row"><span class="ml-lbl"><span class="ml-dot" style="background:#7A4FBF"></span>Events</span><span class="ml-val">10 · 12%</span></div>
+          <div class="ml-row"><span class="ml-lbl"><span class="ml-dot" style="background:#E85A0E"></span>Demos / Showcases</span><span class="ml-val">8 · 10%</span></div>
+          <div class="ml-row"><span class="ml-lbl"><span class="ml-dot" style="background:#0E8A8A"></span>Trainings</span><span class="ml-val">4 · 5%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ana-card reveal">
+      <div class="ana-card-title">Spaces used</div>
+      <div class="ana-card-sub">Lab zones · 1 session = 1+ spaces</div>
+      <div id="hbar-space">
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">🎭 The Theatre</span><span class="hbar-val">52 uses</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:100%;background:var(--blue);"></div></div><div class="hbar-pct">Communicate · Inspire · Narrate</div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">🛠️ The Hub</span><span class="hbar-val">46 uses</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:88%;background:var(--purple);"></div></div><div class="hbar-pct">Engage · Workshop · Co-design</div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">🚀 The Immersion</span><span class="hbar-val">38 uses</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:73%;background:var(--orange);"></div></div><div class="hbar-pct">Explore · Innovation · Showcase</div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">🔧 The Garage</span><span class="hbar-val">22 uses</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:42%;background:var(--green);"></div></div><div class="hbar-pct">Create · Prototype · Test</div></div>
+      </div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:12px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Read:</strong> The Theatre + Hub combo is the most-used pairing (story + workshop). The Garage is under-used vs intent — a focus area for FY27 with new prototyping setups.</div>
+    </div>
+  </div>
+
+  <!-- Row 3: Geographic origin of clients + Monthly intensity -->
+  <div class="analytics-grid">
+    <div class="ana-card reveal">
+      <div class="ana-card-title">Client country of origin</div>
+      <div class="ana-card-sub">Where the visiting clients come from · Lab is in Paris</div>
+      <div id="hbar-client-country">
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇫🇷</span>France</span><span class="hbar-val">22 visits</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:100%;background:var(--blue);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇬🇧</span>UK&I</span><span class="hbar-val">7 visits</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:32%;background:var(--blue);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇺🇸</span>USA</span><span class="hbar-val">5 visits</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:23%;background:var(--blue);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇪🇸</span>Spain · COEU</span><span class="hbar-val">4 visits</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:18%;background:var(--blue);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇸🇪</span>Sweden / NL</span><span class="hbar-val">3 visits</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:14%;background:var(--blue);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🌍</span>Multi-country</span><span class="hbar-val">3 visits</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:14%;background:var(--blue);"></div></div></div>
+      </div>
+    </div>
+
+    <div class="ana-card reveal">
+      <div class="ana-card-title">Sessions per month</div>
+      <div class="ana-card-sub">Activity intensity · Sept 2025 → June 2026</div>
+      <div class="vbar-chart" id="month-chart">
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1A69FF,#3D8AFF);--h:55px;"><span class="vbar-num">3</span></div><span class="vbar-label">Sep</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1A69FF,#3D8AFF);--h:145px;"><span class="vbar-num">8</span></div><span class="vbar-label">Oct</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1A69FF,#3D8AFF);--h:182px;"><span class="vbar-num">10</span></div><span class="vbar-label">Nov</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1A69FF,#3D8AFF);--h:164px;"><span class="vbar-num">9</span></div><span class="vbar-label">Dec</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1E9E58,#3DCB7D);--h:145px;"><span class="vbar-num">8</span></div><span class="vbar-label">Jan</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1E9E58,#3DCB7D);--h:200px;"><span class="vbar-num">11</span></div><span class="vbar-label">Feb</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1E9E58,#3DCB7D);--h:182px;"><span class="vbar-num">10</span></div><span class="vbar-label">Mar</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#E85A0E,#FF8A4D);--h:127px;"><span class="vbar-num">7</span></div><span class="vbar-label">Apr</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#E85A0E,#FF8A4D);--h:91px;"><span class="vbar-num">5</span></div><span class="vbar-label">May</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#E85A0E,#FF8A4D);--h:55px;"><span class="vbar-num">3</span></div><span class="vbar-label">Jun</span></div>
+      </div>
+      <div style="margin-top:12px;font-size:12px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Peak season:</strong> Feb–Mar (21 sessions) drove by client visit spikes ahead of FY26 mid-year reviews. Average <strong>~8 sessions/month</strong>.</div>
+    </div>
+  </div>
+
+  <!-- Row 4: The Labs ↔ CoDesign loop -->
+  <div class="ana-card reveal" style="margin-top:18px;background:linear-gradient(135deg,#0F1429 0%,#1A2052 100%);color:#fff;border:none;">
+    <div class="ana-card-title" style="color:#fff;">The Labs ↔ CoDesign sales loop</div>
+    <div class="ana-card-sub" style="color:rgba(255,255,255,.5);">Two complementary acquisition tools that feed each other</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;">
+      <div style="background:rgba(255,255,255,.05);padding:22px;border-radius:6px;border-left:3px solid #6EA8FF;">
+        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#6EA8FF;margin-bottom:10px;">▸ CODESIGN → LABS</div>
+        <div style="font-family:'Open Sans',sans-serif;font-size:32px;font-weight:300;color:#fff;line-height:1;margin-bottom:6px;">~70%</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.75);line-height:1.6;">of client visits originate from a CoDesign engagement — we bring the client to the Labs to <strong style="color:#A5F0F0;">anchor commitment</strong>, validate the methodology, immerse the team in our innovation footprint.</div>
+      </div>
+      <div style="background:rgba(255,255,255,.05);padding:22px;border-radius:6px;border-left:3px solid #A37AE0;">
+        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#A37AE0;margin-bottom:10px;">▸ LABS → CODESIGN</div>
+        <div style="font-family:'Open Sans',sans-serif;font-size:32px;font-weight:300;color:#fff;line-height:1;margin-bottom:6px;">~30%</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.75);line-height:1.6;">of client visits are <strong style="color:#A5F0F0;">discovery-led</strong> — sales teams bring accounts to the Labs as a credibility play, and the visit itself triggers a follow-up CoDesign opportunity.</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px;">
+      <div style="background:rgba(255,255,255,.05);padding:18px;border-radius:6px;">
+        <div style="font-family:'Open Sans',sans-serif;font-size:32px;font-weight:300;color:#fff;line-height:1;">34</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:6px;letter-spacing:.06em;text-transform:uppercase;">Client-facing sessions</div>
+      </div>
+      <div style="background:rgba(255,255,255,.05);padding:18px;border-radius:6px;">
+        <div style="font-family:'Open Sans',sans-serif;font-size:32px;font-weight:300;color:#fff;line-height:1;">7</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:6px;letter-spacing:.06em;text-transform:uppercase;">Full CoDesign workshops</div>
+      </div>
+      <div style="background:rgba(255,255,255,.05);padding:18px;border-radius:6px;">
+        <div style="font-family:'Open Sans',sans-serif;font-size:32px;font-weight:300;color:#fff;line-height:1;">8</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:6px;letter-spacing:.06em;text-transform:uppercase;">Active CoDesign delivery</div>
+      </div>
+      <div style="background:rgba(255,255,255,.05);padding:18px;border-radius:6px;">
+        <div style="font-family:'Open Sans',sans-serif;font-size:32px;font-weight:300;color:#fff;line-height:1;">8</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:6px;letter-spacing:.06em;text-transform:uppercase;">Wins this year</div>
+      </div>
+    </div>
+    <div style="margin-top:20px;font-size:13px;color:rgba(255,255,255,.75);line-height:1.7;">Together, the Labs and CoDesign form an <strong style="color:#A5F0F0;">integrated sales system</strong>. Neither stands alone: the Labs gives CoDesign a tangible stage; CoDesign brings the Labs strategic substance. Both are equally effective at opening and closing strategic conversations.</div>
+  </div>
+
+
+<!-- ─── FEEDBACK & TESTIMONIALS ─── -->
+<div class="section fb-section">
+  <div class="sec-hdr reveal">
+    <span class="stag" style="color:var(--green)">07</span>
+    <h2 class="stitle">Voice of the <em>participants</em></h2>
+    <span class="sbadge sb-cd">● Live Survey Data</span>
+  </div>
+  <p class="sec-intro reveal">43 participants surveyed across client workshops and internal sessions in FY26. Quantitative results below; qualitative themes follow.</p>
+
+  <div class="fb-hero reveal">
+    <div class="fb-score">
+      <div><span class="fb-big-num">+53</span></div>
+      <div class="fb-big-label">Net Promoter Score</div>
+      <div class="nps-gauge">
+        <div class="nps-cell det"><div class="nps-pct">7%</div><div class="nps-name">Detractors</div><div class="nps-sub">0–6 · 3 people</div></div>
+        <div class="nps-cell pas"><div class="nps-pct">33%</div><div class="nps-name">Passives</div><div class="nps-sub">7–8 · 14 people</div></div>
+        <div class="nps-cell pro"><div class="nps-pct">60%</div><div class="nps-name">Promoters</div><div class="nps-sub">9–10 · 26 people</div></div>
+      </div>
+    </div>
+    <div class="fb-stats">
+      <div class="fb-row" data-w="87"><div class="fb-row-label">Average rating</div><div class="fb-row-bar"><div class="fb-row-fill" style="--w:87%;background:var(--green);"></div></div><div class="fb-row-val">4.37/5</div></div>
+      <div class="fb-row" data-w="91"><div class="fb-row-label">Rated 4★ or higher</div><div class="fb-row-bar"><div class="fb-row-fill" style="--w:91%;background:var(--green);"></div></div><div class="fb-row-val">91%</div></div>
+      <div class="fb-row" data-w="47"><div class="fb-row-label">Rated 5★ (top score)</div><div class="fb-row-bar"><div class="fb-row-fill" style="--w:47%;background:var(--blue);"></div></div><div class="fb-row-val">47%</div></div>
+      <div class="fb-row" data-w="87"><div class="fb-row-label">Average willingness to recommend</div><div class="fb-row-bar"><div class="fb-row-fill" style="--w:87%;background:var(--blue);"></div></div><div class="fb-row-val">8.7/10</div></div>
+      <div class="fb-row" data-w="100"><div class="fb-row-label">Would attend another workshop</div><div class="fb-row-bar"><div class="fb-row-fill" style="--w:100%;background:var(--green);"></div></div><div class="fb-row-val">100%</div></div>
+    </div>
+  </div>
+
+  <div style="margin-top:32px;">
+    <h3 style="font-family:'Open Sans';font-weight:300;font-size:22px;margin-bottom:18px;letter-spacing:-.01em;" class="reveal">In their own <em style="font-style:italic;font-weight:600;color:var(--blue);">words</em></h3>
+    <div class="testimonials reveal-stagger">
+      <div class="t-card">
+        <p class="t-text">L'énergie de l'équipe, la compréhension de notre problématique, la qualité du travail fourni en amont, la bonne coordination… Le workshop était très bien préparé.</p>
+        <div class="t-meta"><span class="t-source">Client workshop participant</span><span class="t-rating">4/5 · 9/10</span></div>
+      </div>
+      <div class="t-card">
+        <p class="t-text">La méthode de design thinking permet de faire émerger et grandir des idées grâce à l'intelligence collective. La démarche est très efficace.</p>
+        <div class="t-meta"><span class="t-source">Senior stakeholder</span><span class="t-rating">5/5 · 10/10</span></div>
+      </div>
+      <div class="t-card">
+        <p class="t-text">It was very interesting to brainstorm with Sodexo and be inspired by what is happening in other companies. The "out of the box" mindset for creativity was great.</p>
+        <div class="t-meta"><span class="t-source">International client</span><span class="t-rating">5/5 · 10/10</span></div>
+      </div>
+      <div class="t-card">
+        <p class="t-text">Atmosphère collaborative, échanges fluides et constructifs, outils proposés pour co-créer des solutions concrètes. Un moment utile, dynamique et agréable.</p>
+        <div class="t-meta"><span class="t-source">Workshop attendee</span><span class="t-rating">5/5 · 10/10</span></div>
+      </div>
+      <div class="t-card">
+        <p class="t-text">Méthode efficace pour aboutir à des options très concrètes à explorer. Le format permet la créativité sans se brider.</p>
+        <div class="t-meta"><span class="t-source">CoDesign session lead</span><span class="t-rating">5/5 · 10/10</span></div>
+      </div>
+      <div class="t-card">
+        <p class="t-text">La très forte préparation par vos équipes ! Le format en petits groupes était particulièrement efficace, et les supports proposés très utiles.</p>
+        <div class="t-meta"><span class="t-source">Strategic partner</span><span class="t-rating">4/5 · 7/10</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- What we're improving -->
+  <div style="margin-top:36px;background:var(--surface2);padding:28px 32px;border-radius:6px;border-left:3px solid var(--orange);" class="reveal">
+    <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--orange);font-weight:700;margin-bottom:10px;">▶ WHAT WE'RE IMPROVING — based on participant feedback</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;font-size:13px;color:var(--text2);line-height:1.6;">
+      <div><strong style="color:var(--text);">More time per workshop.</strong> Recurring ask: lengthen the deep-dive phase, especially the prioritization step.</div>
+      <div><strong style="color:var(--text);">Better client onboarding.</strong> Add an embedded intro and pre-read so external participants engage faster.</div>
+      <div><strong style="color:var(--text);">More digital tools.</strong> Several participants found post-it methods "scolaires" — moving toward more digital co-creation in v2.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── INNOVATION PORTFOLIO ─── -->
+<div class="section">
+  <div class="sec-hdr reveal">
+    <span class="stag" style="color:var(--orange)">08</span>
+    <h2 class="stitle">Innovation <em>portfolio</em></h2>
+    <span class="sbadge sb-labs">● Labs</span>
+  </div>
+  <p class="sec-intro reveal">25+ innovation products tested, deployed or in framing across the year — covering food, FM, sustainability, AI and frictionless retail.</p>
+  <div class="inno-grid reveal-stagger">
+    <div class="ig run">
+      <div class="iglbl">▶ Running</div>
+      <div class="ii"><span class="nfi">Ku</span>Kumulus</div>
+      <div class="ii"><span class="nfi">Bi</span>Bioteos + Beta Dashboard</div>
+      <div class="ii"><span class="nfi">To</span>Totem + Dashboard</div>
+      <div class="ii"><span class="nfi">In</span>Inspekly · floor captains</div>
+      <div class="ii"><span class="nfi">Ki</span>Kikleo · 1st floor</div>
+      <div class="ii"><span class="nfi">eI</span>E-ink Posters · Samsung/Philips</div>
+      <div class="ii"><span class="nfi">Af</span>Affluences · Lab KPIs</div>
+      <div class="ii"><span class="nfi">VR</span>Meta VR · 3 demos</div>
+      <div class="inote">8 products live, generating real-time data and demo content.</div>
+    </div>
+    <div class="ig dem">
+      <div class="iglbl">◎ On Demand</div>
+      <div class="ii"><span class="nfi">VR</span>VR Mirroring</div>
+      <div class="ii"><span class="nfi">Rb</span>Service Robot</div>
+      <div class="ii"><span class="nfi">Cu</span>Cubo</div>
+      <div class="ii"><span class="nfi">Ar</span>Arsène</div>
+      <div class="ii"><span class="nfi">GG</span>Grease to Goodness</div>
+      <div class="inote">Activatable for client visits and immersive demos.</div>
+    </div>
+    <div class="ig pend">
+      <div class="iglbl">◷ Completed Tests</div>
+      <div class="ii"><span class="nfi">Zb</span>Zebra Smartglove</div>
+      <div class="ii"><span class="nfi">Lu</span>Lupin Coffee</div>
+      <div class="ii"><span class="nfi">No</span>Notpla Pods</div>
+      <div class="ii"><span class="nfi">PC</span>Power Chef</div>
+      <div class="ii"><span class="nfi">MU</span>Mars Userve x2</div>
+      <div class="ii"><span class="nfi">Ox</span>Oxylon S by Bioteos</div>
+      <div class="ii"><span class="nfi">Kk</span>Kilkeo + Leanpath</div>
+      <div class="inote">Tested at the Labs · case studies in production.</div>
+    </div>
+    <div class="ig coh">
+      <div class="iglbl">◈ Cohort #2 · Incoming</div>
+      <div class="ii"><span class="nfi">Kw</span>Kiwibot</div>
+      <div class="ii"><span class="nfi">Hv</span>Hivebotics · Jun 26</div>
+      <div class="ii"><span class="nfi">Ai</span>AiFi · retail media · 3.5K</div>
+      <div class="ii"><span class="nfi">Ot</span>Ottonomy / VDS</div>
+      <div class="ii"><span class="nfi">AR</span>AR/VR Learning Expedition</div>
+      <div class="ii"><span class="nfi">4s</span>4site AI</div>
+      <div class="ii"><span class="nfi">Im</span>New Immersive Tech Space</div>
+      <div class="inote">FY27 framing in progress — Kiwibot, AR/VR, AiFi prioritized.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SCALING ─── -->
+<div class="section" style="background:var(--surface);">
+  <div class="sec-hdr reveal">
+    <span class="stag" style="color:var(--pink)">09</span>
+    <h2 class="stitle">Scaling the Labs <em>globally</em></h2>
+    <span class="sbadge sb-labs">● FY27 Roadmap</span>
+  </div>
+  <p class="sec-intro reveal">Four regions actively engaged on replicating the Labs model. The first US satellite is moving from framing to delivery, Brazil and UK&I are progressing through scoping, and Australia is in early talks for the APAC footprint.</p>
+  <div class="sc-grid reveal-stagger">
+    <div class="scard">
+      <div class="scardtitle">Global Expansion Roadmap</div>
+      <div class="scale-map">
+        <div class="smc"><span class="smc-flag">🇺🇸</span><span class="smc-name">USA · 2 sites</span><div class="smc-status">Active framing</div></div>
+        <div class="smc discuss"><span class="smc-flag">🇧🇷</span><span class="smc-name">Brazil</span><div class="smc-status">Scoping</div></div>
+        <div class="smc discuss"><span class="smc-flag">🇬🇧</span><span class="smc-name">UK&I</span><div class="smc-status">In discussion</div></div>
+        <div class="smc discuss"><span class="smc-flag">🇦🇺</span><span class="smc-name">Australia · APAC</span><div class="smc-status">Potential · early talks</div></div>
+      </div>
+    </div>
+    <div class="scard">
+      <div class="scardtitle">Space Design v2</div>
+      <div class="si"><span class="arr">→</span>More immersion, sound and information layers</div>
+      <div class="si"><span class="arr">→</span>Sound experience with <strong>IRCAM</strong> partnership</div>
+      <div class="si"><span class="arr">→</span>E-ink rollout — Samsung & Philips signage</div>
+      <div class="si"><span class="arr">→</span>Glocal Catalog implemented</div>
+      <div class="si"><span class="arr">→</span>Neat Frame 65" interactive display deployed</div>
+      <div class="si"><span class="arr">→</span>Hub reorg in progress</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── BUDGET ─── -->
+<div class="section">
+  <div class="sec-hdr reveal">
+    <span class="stag" style="color:var(--teal)">10</span>
+    <h2 class="stitle">Budget &amp; <em>investment</em></h2>
+  </div>
+  <div class="budget-grid reveal-stagger">
+    <div class="bg-card">
+      <div class="bg-num" style="color:var(--blue)">€3.6K</div>
+      <div class="bg-lbl">Opex (next FY)</div>
+      <div class="bg-sub">Operating costs for the Labs space and demos.</div>
+    </div>
+    <div class="bg-card">
+      <div class="bg-num" style="color:var(--purple)">€25K</div>
+      <div class="bg-lbl">Capex (next FY)</div>
+      <div class="bg-sub">Capital budget for new tech, immersive space and Cohort #2 deployment.</div>
+    </div>
+    <div class="bg-card">
+      <div class="bg-num" style="color:var(--orange)">€11K</div>
+      <div class="bg-lbl">Board Pro Neat</div>
+      <div class="bg-sub">Dedicated investment for new 65" interactive showcase display.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── NEXT YEAR ─── -->
+<div class="next-section">
+  <div class="sec-hdr reveal">
+    <span class="stag">11</span>
+    <h2 class="stitle">FY27 — what's <em>next</em></h2>
+  </div>
+  <div class="next-grid reveal-stagger">
+    <div class="next-card">
+      <div class="next-tag">▶ Geographic Expansion</div>
+      <div class="next-name">2 US satellite Labs</div>
+      <div class="next-desc">First international deployments — pilot in framing for FY27 H1, leveraging Paris methodology with local content.</div>
+    </div>
+    <div class="next-card">
+      <div class="next-tag">▶ Methodology Evolution</div>
+      <div class="next-name">CoDesign V2 — more digital</div>
+      <div class="next-desc">Address participant feedback by integrating digital co-creation tools. Reduce intro time, add embedded onboarding.</div>
+    </div>
+    <div class="next-card">
+      <div class="next-tag">▶ Tech Cohort #2</div>
+      <div class="next-name">7 new innovations onboarded</div>
+      <div class="next-desc">Kiwibot, Hivebotics, AiFi, Ottonomy, AR/VR expedition — €15K capex earmarked for installation and case studies.</div>
+    </div>
+    <div class="next-card">
+      <div class="next-tag">▶ Commercial Activation</div>
+      <div class="next-name">CoDesign as default for €50M+ deals</div>
+      <div class="next-desc">Embed the practice systematically in major bid cycles — target 6 net new wins in FY27.</div>
+    </div>
+    <div class="next-card">
+      <div class="next-tag">▶ Sabine Interview · Late May</div>
+      <div class="next-name">Group-level visibility</div>
+      <div class="next-desc">Coordinated comms with Charlotte, Domitille, Laura, Matthieu — board-ready storytelling on CoDesign impact.</div>
+    </div>
+    <div class="next-card">
+      <div class="next-tag">▶ KPI Dashboard</div>
+      <div class="next-name">Live business value tracker</div>
+      <div class="next-desc">Real-time view of pipeline value, NPS, idea-to-implementation conversion — accessible to CDIO leadership.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── BENCHMARK ─── -->
+<div class="section" style="background:var(--surface);">
+  <div class="sec-hdr reveal">
+    <span class="stag" style="color:var(--teal)">11b</span>
+    <h2 class="stitle">Benchmark — <em>où se situe Sodexo Labs</em></h2>
+    <span class="sbadge sb-both">● External benchmark · EY · PwC · Frog · Intermarché</span>
+  </div>
+  <p class="sec-intro reveal">Nous avons analysé 4 labs corporate de référence. Trois grands modèles émergent : <strong>showroom tech/démonstrateur</strong> (Intermarché, PwC partiel) · <strong>acculturation + storytelling</strong> (PwC, EY v1) · <strong>co-création opérationnelle</strong> (Frog, Sodexo Labs). Sodexo Labs se situe dans le troisième modèle — le seul orienté delivery et impact business.</p>
+
+  <!-- Position map header -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:24px;background:var(--border);" class="reveal">
+    <div style="background:var(--surface2);padding:18px 20px;text-align:center;">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Modèle 1</div>
+      <div style="font-size:14px;font-weight:600;color:var(--text);">Showroom & Démo</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px;">Convaincre · Démontrer · Standardiser</div>
+      <div style="margin-top:10px;font-size:11px;color:var(--orange);font-weight:500;">Intermarché · PwC (partiel)</div>
+    </div>
+    <div style="background:var(--surface2);padding:18px 20px;text-align:center;">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Modèle 2</div>
+      <div style="font-size:14px;font-weight:600;color:var(--text);">Acculturation & Storytelling</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px;">Inspirer · Sensibiliser · Raconter</div>
+      <div style="margin-top:10px;font-size:11px;color:var(--purple);font-weight:500;">PwC (public) · EY v1</div>
+    </div>
+    <div style="background:linear-gradient(135deg,#E8EFFE,#D0DCFF);padding:18px 20px;text-align:center;border:2px solid var(--blue);">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;">Modèle 3 · Notre position</div>
+      <div style="font-size:14px;font-weight:600;color:var(--navy);">Co-création opérationnelle</div>
+      <div style="font-size:11px;color:var(--navy);opacity:.7;margin-top:4px;">Produire · Tester · Délivrer</div>
+      <div style="margin-top:10px;font-size:11px;color:var(--blue);font-weight:700;">Frog · ✦ Sodexo Labs</div>
+    </div>
+  </div>
+
+  <!-- Comparison table -->
+  <div class="ana-card reveal" style="margin-bottom:24px;overflow-x:auto;">
+    <div class="ana-card-title">Tableau de benchmark comparatif</div>
+    <div class="ana-card-sub">5 critères clés · 4 labs observés vs Sodexo Labs</div>
+    <table style="width:100%;border-collapse:collapse;font-size:12px;margin-top:16px;min-width:700px;">
+      <thead>
+        <tr style="border-bottom:2px solid var(--border2);">
+          <th style="text-align:left;padding:10px 12px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);width:18%;">Critère</th>
+          <th style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);text-align:center;">Intermarché</th>
+          <th style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);text-align:center;">PwC</th>
+          <th style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--pink);text-align:center;">EY</th>
+          <th style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);text-align:center;">Frog</th>
+          <th style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);text-align:center;background:var(--lab-blue-bg);">Sodexo Labs ✦</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px;font-weight:600;color:var(--text);">Production<br><span style="font-weight:400;color:var(--muted);font-size:11px;">Livrables concrets</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Faible</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Moyenne</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Faible</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#E6F7EE;color:var(--green);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Forte</span></td>
+          <td style="text-align:center;padding:10px;background:var(--lab-blue-bg);"><span style="background:var(--blue);color:#fff;padding:3px 10px;border-radius:3px;font-size:11px;font-weight:700;">Très forte ✦</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px;font-weight:600;color:var(--text);">Modularité<br><span style="font-weight:400;color:var(--muted);font-size:11px;">Flexibilité du dispositif</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Faible</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Moyenne</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Moyenne</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Moyenne</span></td>
+          <td style="text-align:center;padding:10px;background:var(--lab-blue-bg);"><span style="background:var(--blue);color:#fff;padding:3px 10px;border-radius:3px;font-size:11px;font-weight:700;">Très forte ✦</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px;font-weight:600;color:var(--text);">Scalabilité<br><span style="font-weight:400;color:var(--muted);font-size:11px;">Reproductibilité modèle</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Faible</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Moyenne</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Faible</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Moyenne</span></td>
+          <td style="text-align:center;padding:10px;background:var(--lab-blue-bg);"><span style="background:var(--blue);color:#fff;padding:3px 10px;border-radius:3px;font-size:11px;font-weight:700;">Forte ✦</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:10px 12px;font-weight:600;color:var(--text);">CAPEX<br><span style="font-weight:400;color:var(--muted);font-size:11px;">Investissement initial</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Très élevé</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Élevé</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Très élevé</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Moyen</span></td>
+          <td style="text-align:center;padding:10px;background:var(--lab-blue-bg);"><span style="background:var(--green);color:#fff;padding:3px 10px;border-radius:3px;font-size:11px;font-weight:700;">Raisonné ✦</span></td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;font-weight:600;color:var(--text);">OPEX<br><span style="font-weight:400;color:var(--muted);font-size:11px;">Coût de fonctionnement</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Élevé</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Élevé</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Élevé</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Moyen</span></td>
+          <td style="text-align:center;padding:10px;background:var(--lab-blue-bg);"><span style="background:var(--green);color:#fff;padding:3px 10px;border-radius:3px;font-size:11px;font-weight:700;">Faible ✦</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 4 actor cards -->
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:24px;" class="reveal-stagger">
+
+    <div style="background:var(--surface2);border:1px solid var(--border);border-left:4px solid var(--orange);padding:24px 22px;border-radius:0 6px 6px 0;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+        <div>
+          <div style="font-size:15px;font-weight:700;color:var(--text);">Intermarché Lab</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">Retail tech showroom opérationnel</div>
+        </div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:3px;white-space:nowrap;">Modèle 1</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px;">
+        <div>
+          <div style="color:var(--green);font-weight:700;margin-bottom:6px;font-size:11px;">✓ Forces</div>
+          <div style="color:var(--text2);line-height:1.6;">Démo en conditions réelles — très convaincant. Position clair sur le retail tech. Aligné avec objectifs business.</div>
+        </div>
+        <div>
+          <div style="color:var(--orange);font-weight:700;margin-bottom:6px;font-size:11px;">✗ Faiblesses</div>
+          <div style="color:var(--text2);line-height:1.6;">CAPEX + OPEX très élevés. Peu flexible. Obsolescence rapide des démos (~18 mois).</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);font-style:italic;">→ Logique : lab de validation & standardisation</div>
+    </div>
+
+    <div style="background:var(--surface2);border:1px solid var(--border);border-left:4px solid var(--purple);padding:24px 22px;border-radius:0 6px 6px 0;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+        <div>
+          <div style="font-size:15px;font-weight:700;color:var(--text);">PwC Lab</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">Vitrine publique + espace expert</div>
+        </div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:3px;white-space:nowrap;">Modèles 1 & 2</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px;">
+        <div>
+          <div style="color:var(--green);font-weight:700;margin-bottom:6px;font-size:11px;">✓ Forces</div>
+          <div style="color:var(--text2);line-height:1.6;">Accessibilité (effet vitrine). Parcours scénarisé via catalogue digital. Double usage : inspiration + business.</div>
+        </div>
+        <div>
+          <div style="color:var(--orange);font-weight:700;margin-bottom:6px;font-size:11px;">✗ Faiblesses</div>
+          <div style="color:var(--text2);line-height:1.6;">Expérience peu immersive. Dépendance à la scénarisation humaine. Peu orienté delivery.</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);font-style:italic;">→ Logique : lab d'orientation & qualification commerciale</div>
+    </div>
+
+    <div style="background:var(--surface2);border:1px solid var(--border);border-left:4px solid var(--pink);padding:24px 22px;border-radius:0 6px 6px 0;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+        <div>
+          <div style="font-size:15px;font-weight:700;color:var(--text);">EY Lab (v1 → v2)</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">Storytelling immersif RSE → multi-vertical</div>
+        </div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:3px;white-space:nowrap;">Modèle 2</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px;">
+        <div>
+          <div style="color:var(--green);font-weight:700;margin-bottom:6px;font-size:11px;">✓ Forces</div>
+          <div style="color:var(--text2);line-height:1.6;">Très fort impact émotionnel (immersion). Positionnement RSE clair en v1. Virage v2 pertinent : plus modulaire, plus business-driven.</div>
+        </div>
+        <div>
+          <div style="color:var(--orange);font-weight:700;margin-bottom:6px;font-size:11px;">✗ Faiblesses</div>
+          <div style="color:var(--text2);line-height:1.6;">Contenus rapidement obsolètes (films). Peu interactif, peu productif. CAPEX + OPEX très élevés.</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);font-style:italic;">→ Logique : lab d'inspiration & storytelling</div>
+    </div>
+
+    <div style="background:var(--surface2);border:1px solid var(--border);border-left:4px solid var(--teal);padding:24px 22px;border-radius:0 6px 6px 0;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+        <div>
+          <div style="font-size:15px;font-weight:700;color:var(--text);">Frog Design Lab</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">Design studio + Fablab + conception avancée</div>
+        </div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:3px;white-space:nowrap;">Modèle 3</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px;">
+        <div>
+          <div style="color:var(--green);font-weight:700;margin-bottom:6px;font-size:11px;">✓ Forces</div>
+          <div style="color:var(--text2);line-height:1.6;">Fort ADN design & prototypage. Fablab = production réelle. Expérience qualitative (mur LED + objets).</div>
+        </div>
+        <div>
+          <div style="color:var(--orange);font-weight:700;margin-bottom:6px;font-size:11px;">✗ Faiblesses</div>
+          <div style="color:var(--text2);line-height:1.6;">Moins scalable. Moins orienté démonstration large. CAPEX ciblé mais non négligeable.</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);font-style:italic;">→ Logique : lab de conception avancée</div>
+    </div>
+
+  </div>
+
+  <!-- Sodexo Labs verdict + quote -->
+  <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:18px;" class="reveal">
+
+    <div style="background:linear-gradient(135deg,#1A4FCC 0%,#1A69FF 100%);padding:30px 32px;border-radius:6px;">
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:12px;">✦ Sodexo Labs · Notre position</div>
+      <div style="font-size:18px;font-weight:300;color:#fff;line-height:1.4;margin-bottom:16px;">Co-création + delivery. <em style="font-weight:700;font-style:italic;color:#A5F0F0;">Le seul modèle orienté résultats.</em></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;">
+        <div>
+          <div style="color:#A5F0F0;font-weight:700;font-size:11px;margin-bottom:8px;">✓ Nos forces clés</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.82);line-height:1.7;">Modularité très élevée<br>Production concrète & livrables<br>Faible OPEX vs concurrents<br>Parcours client personnalisés<br>Scalabilité forte<br>Co-création + business : position unique</div>
+        </div>
+        <div>
+          <div style="color:#FFB3A7;font-weight:700;font-size:11px;margin-bottom:8px;">→ Nos axes d'amélioration</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.72);line-height:1.7;">Moins de "wow instantané"<br>vs immersion EY ou retail lab<br><br>Dépendant qualité des use cases<br><br>Ajouter une couche d'immersion légère mais renouvelable</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:7px;padding-top:16px;border-top:1px solid rgba(255,255,255,.15);">
+        <div style="font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:8px;"><span style="color:#A5F0F0;flex-shrink:0;">✦</span>82 sessions en an 1 — au-dessus du benchmark pair</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:8px;"><span style="color:#A5F0F0;flex-shrink:0;">✦</span>NPS +53 — world-class pour un lab innovation</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:8px;"><span style="color:#A5F0F0;flex-shrink:0;">✦</span>Clariane ×4 · Lilly ×2 · Entegra ×6 — la boucle de fidélisation est en marche</div>
+      </div>
+    </div>
+
+    <div style="background:var(--cream);border:1px solid var(--border);padding:30px 28px;border-radius:6px;display:flex;flex-direction:column;justify-content:center;">
+      <div style="font-size:60px;color:var(--blue);opacity:.18;font-family:Georgia,serif;line-height:1;margin-bottom:8px;">"</div>
+      <div style="font-size:14px;color:var(--navy);line-height:1.75;font-style:italic;font-weight:400;margin-bottom:20px;">Les labs les plus impressionnants ne sont pas toujours les plus utiles.<br><br>Sodexo Labs se différencie en passant de la <strong style="font-style:normal;">démonstration</strong> à la <strong style="font-style:normal;">transformation</strong>, avec un modèle modulaire, scalable et orienté résultats.</div>
+      <div style="font-size:10px;font-family:'Space Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);">— Synthèse benchmark corpo labs · FY26</div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<!-- ─── Q&A / IMPROVEMENT WALL ─── -->
+<div class="qa-section">
+  <div class="sec-hdr reveal">
+    <span class="stag" style="color:var(--orange);">12</span>
+    <h2 class="stitle">Your turn — <em>Q&A and improvements</em></h2>
+    <span class="sbadge sb-win">📌 Live wall</span>
+  </div>
+  <p class="sec-intro reveal">A dedicated space — like a real CoDesign workshop — to capture questions, ideas, and improvement suggestions during our 30-min discussion. Add your own post-it; pick a colour for the type of input.</p>
+
+  <div class="qa-board reveal">
+    <div class="qa-board-title">
+      <h3>📌 Q&A · Ideas · Feedback wall</h3>
+      <div class="qa-input-row">
+        <input type="text" id="qa-text" class="qa-input" placeholder="Type a question, idea or suggestion..." maxlength="180">
+        <div class="qa-color-pick" id="qa-colors">
+          <div class="qa-color pi-yellow active" data-c="pi-yellow" title="Question"></div>
+          <div class="qa-color pi-pink" data-c="pi-pink" title="Idea"></div>
+          <div class="qa-color pi-blue" data-c="pi-blue" title="Improvement"></div>
+          <div class="qa-color pi-green" data-c="pi-green" title="Praise"></div>
+          <div class="qa-color pi-orange" data-c="pi-orange" title="Concern"></div>
+          <div class="qa-color pi-purple" data-c="pi-purple" title="Other"></div>
+        </div>
+        <button class="qa-add-btn" id="qa-add">+ Add</button>
+      </div>
+    </div>
+    <p class="qa-tip">💡 Yellow = question · Pink = idea · Blue = improvement · Green = praise · Orange = concern · Purple = other. Drag-free, your data stays in this session only.</p>
+
+    <div class="postits" id="postits">
+      <div class="postit pi-yellow"><span class="postit-tag">Q</span><div>How do we accelerate the Lab → CoDesign opp conversion above 62%?</div><div class="postit-author">— Seed example</div></div>
+      <div class="postit pi-pink"><span class="postit-tag">Idea</span><div>Could we replicate the Lab format inside one of the GSA client sites for offsite immersion?</div><div class="postit-author">— Seed example</div></div>
+      <div class="postit pi-blue"><span class="postit-tag">Improve</span><div>Add a digital co-creation toolkit to address the "scolaire" feedback from participants.</div><div class="postit-author">— Seed example</div></div>
+      <div class="postit pi-green"><span class="postit-tag">Praise</span><div>NPS +53 with 100% retention intent — exceptional benchmark for a year-1 program.</div><div class="postit-author">— Seed example</div></div>
+    </div>
+
+    <div class="qa-stats">
+      <span>📊 <span id="qa-count">4</span> notes on the wall</span>
+      <span>🎯 Open until end of meeting</span>
+      <span>📥 Export with browser print → PDF</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="fb-foot">CoDesign & <span>Sodexo Labs</span></div>
+  <div class="fn-foot">FY26 Yearly Retrospective · Prepared for Chief Digital & Innovation Officer · Apr 2026</div>
+</footer>
+
+<script>
+/* ── INTERSECTION OBSERVER for reveal animations ── */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
+
+/* ── DONUT animation ── */
+const donutObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      donutObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+const donut = document.getElementById('portfolio-donut');
+if (donut) donutObs.observe(donut);
+
+/* ── FEEDBACK BAR animation ── */
+const fbObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      fbObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.4 });
+document.querySelectorAll('.fb-row').forEach(el => fbObs.observe(el));
+
+/* ── WORD CLOUD ── */
+const terms = [
+  {t:'Co-creation',s:42,c:'#1A69FF'},
+  {t:'Food personalisation',s:42,c:'#1E9E58'},
+  {t:'Sustainability',s:40,c:'#1E9E58'},
+  {t:'Digital enablement',s:38,c:'#7A4FBF'},
+  {t:'Persona mapping',s:36,c:'#1A69FF'},
+  {t:'Hybrid work',s:36,c:'#0E8A8A'},
+  {t:'Premium F&B',s:36,c:'#E85A0E'},
+  {t:'Operational efficiency',s:36,c:'#7A4FBF'},
+  {t:'Experience design',s:34,c:'#1A69FF'},
+  {t:'Data analytics',s:34,c:'#0E8A8A'},
+  {t:'Wellbeing & wellness',s:34,c:'#C8427E'},
+  {t:'AI-powered services',s:32,c:'#1A69FF'},
+  {t:'Footfall forecast',s:30,c:'#7A4FBF'},
+  {t:'Smart retail',s:30,c:'#E85A0E'},
+  {t:'Fan engagement',s:30,c:'#C8427E'},
+  {t:'Journey mapping',s:30,c:'#1A69FF'},
+  {t:'Retention strategy',s:30,c:'#7A4FBF'},
+  {t:'Menu innovation',s:28,c:'#1E9E58'},
+  {t:'Campus flow',s:28,c:'#1E9E58'},
+  {t:'Community building',s:30,c:'#7A4FBF'},
+  {t:'Waste reduction',s:28,c:'#1E9E58'},
+  {t:'Digital ordering',s:28,c:'#1A69FF'},
+  {t:'Service automation',s:26,c:'#7A4FBF'},
+  {t:'Self-service',s:26,c:'#1A69FF'},
+  {t:'VIP experience',s:26,c:'#C8427E'},
+  {t:'Mobility & flow',s:26,c:'#E85A0E'},
+  {t:'Storytelling',s:26,c:'#C8427E'},
+  {t:'Smart fridge',s:24,c:'#E85A0E'},
+  {t:'Brand repositioning',s:24,c:'#C8427E'},
+  {t:'AR/VR immersion',s:24,c:'#C8427E'},
+  {t:'Autonomous store',s:24,c:'#0E8A8A'},
+  {t:'Local sourcing',s:22,c:'#1E9E58'},
+  {t:'Robotics',s:22,c:'#0E8A8A'},
+  {t:'Impact measurement',s:22,c:'#0E8A8A'},
+  {t:'Resident autonomy',s:20,c:'#7A4FBF'},
+  {t:'Digital twin',s:18,c:'#1A69FF'},
+  {t:'Biosensors',s:18,c:'#0E8A8A'},
+  {t:'Athlete nutrition',s:16,c:'#E85A0E'},
+];
+terms.sort(() => Math.random() - .5);
+const wc = document.getElementById('wc');
+if (wc) {
+  terms.forEach(({t,s,c}) => {
+    const el = document.createElement('span');
+    el.className = 'wt';
+    el.textContent = t;
+    const norm = (s - 16) / (42 - 16);
+    el.style.cssText = `font-size:${14 + norm * 22}px;color:${c};opacity:${0.55 + norm * 0.45};font-weight:${norm > 0.5 ? '600' : '400'};`;
+    wc.appendChild(el);
+  });
+}
+
+/* ── LOGO LOADER ── */
+function initials(n){return n.replace(/[^a-zA-Z0-9& ]/g,'').trim().split(/\s+/).map(w=>w[0]||'').join('').slice(0,3).toUpperCase()||'??';}
+function buildChip(el, domain) {
+  const name = el.textContent.trim();
+  el.innerHTML = '';
+  const wrap = document.createElement('span');
+  wrap.style.cssText = 'display:inline-flex;align-items:center;gap:6px;';
+  const fb = document.createElement('span');
+  fb.className = 'fi';
+  fb.textContent = initials(name);
+  if (domain) {
+    const img = document.createElement('img');
+    img.src = 'https://logo.clearbit.com/' + domain;
+    img.alt = '';
+    img.width = 15;
+    img.height = 15;
+    img.style.cssText = 'object-fit:contain;border-radius:2px;flex-shrink:0;display:none;';
+    img.onload = () => { img.style.display = 'inline-block'; fb.style.display = 'none'; };
+    img.onerror = () => { img.style.display = 'none'; fb.style.display = 'inline-flex'; };
+    wrap.appendChild(img);
+    wrap.appendChild(fb);
+  } else { wrap.appendChild(fb); }
+  const lbl = document.createElement('span');
+  lbl.textContent = name;
+  wrap.appendChild(lbl);
+  el.appendChild(wrap);
+}
+document.querySelectorAll('.lc[data-logo]').forEach(el => buildChip(el, el.dataset.logo));
+
+/* ── ANALYTICS CARDS - trigger reveal animation on .ana-card ── */
+const anaObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      anaObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.25 });
+document.querySelectorAll('.ana-card').forEach(el => anaObs.observe(el));
+
+/* Fallback: if any analytics card is already in viewport at load (e.g. short pages, fast scroll), trigger .in immediately */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.ana-card:not(.in)').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.classList.add('in');
+      }
+    });
+  }, 200);
+});
+
+/* ── POST-IT WALL ── */
+const qaText = document.getElementById('qa-text');
+const qaAdd = document.getElementById('qa-add');
+const qaColors = document.getElementById('qa-colors');
+const postits = document.getElementById('postits');
+const qaCount = document.getElementById('qa-count');
+let activeColor = 'pi-yellow';
+
+const tagMap = {
+  'pi-yellow': 'Q',
+  'pi-pink': 'Idea',
+  'pi-blue': 'Improve',
+  'pi-green': 'Praise',
+  'pi-orange': 'Concern',
+  'pi-purple': 'Note'
+};
+
+qaColors.addEventListener('click', (e) => {
+  if (e.target.classList.contains('qa-color')) {
+    document.querySelectorAll('.qa-color').forEach(c => c.classList.remove('active'));
+    e.target.classList.add('active');
+    activeColor = e.target.dataset.c;
+  }
+});
+
+function addPostit() {
+  const text = qaText.value.trim();
+  if (!text) return;
+  const note = document.createElement('div');
+  note.className = 'postit ' + activeColor + ' new';
+  note.innerHTML = `
+    <button class="postit-delete" title="Remove">✕</button>
+    <span class="postit-tag">${tagMap[activeColor]}</span>
+    <div>${text.replace(/[<>]/g, '')}</div>
+    <div class="postit-author">— Live · ${new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</div>
+  `;
+  postits.appendChild(note);
+  qaText.value = '';
+  qaText.focus();
+  updateCount();
+  setTimeout(() => note.classList.remove('new'), 600);
+}
+
+qaAdd.addEventListener('click', addPostit);
+qaText.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') addPostit();
+});
+
+postits.addEventListener('click', (e) => {
+  if (e.target.classList.contains('postit-delete')) {
+    const note = e.target.closest('.postit');
+    note.style.transition = 'all .3s';
+    note.style.opacity = '0';
+    note.style.transform = 'scale(.8) rotate(8deg)';
+    setTimeout(() => { note.remove(); updateCount(); }, 300);
+  }
+});
+
+function updateCount() {
+  qaCount.textContent = postits.querySelectorAll('.postit').length;
+}
+</script>
+</body>
+</html>

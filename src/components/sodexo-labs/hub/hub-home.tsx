@@ -32,6 +32,19 @@ const ARTEFACTS: HubArtefact[] = [
     accent: "bg-[var(--spark-iq)]",
   },
   {
+    id: "newsletters",
+    label: "Newsletters and monitoring",
+    description:
+      "CoDesign & Labs issues and year-in-review artefacts — start with the FY26 retrospective.",
+    href: "/newsletters",
+    cta: "Browse newsletters",
+    image: {
+      src: "/labs/elements/zone-hub.png",
+      alt: "Sodexo Labs hub zone illustration",
+    },
+    accent: "bg-[var(--spark-iq)]",
+  },
+  {
     id: "studio",
     label: "Persona Studio",
     description:
