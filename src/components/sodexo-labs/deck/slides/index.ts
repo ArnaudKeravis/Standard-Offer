@@ -1,0 +1,11 @@
+export { CoverSlide } from "./cover-slide";
+export { WelcomeSlide } from "./welcome-slide";
+export { OffersSlide } from "./offers-slide";
+export { MethodSlide } from "./method-slide";
+export { ZonesSlide } from "./zones-slide";
+export { PersonaSlide } from "./persona-slide";
+export { CasesSlide } from "./cases-slide";
+export { NetworkSlide } from "./network-slide";
+export { FormatsSlide } from "./formats-slide";
+export { CredentialsSlide } from "./credentials-slide";
+export { CloseSlide } from "./close-slide";
