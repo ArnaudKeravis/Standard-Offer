@@ -1,9 +1,10 @@
 "use client";
 
-import { AnimatePresence, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   useCallback,
   useEffect,
+  useRef,
   useState,
   type CSSProperties,
   type MouseEvent,
@@ -29,7 +30,7 @@ import { labsCssVars } from "@/lib/sodexo-labs/area-theme";
 import type { LabsPack } from "@/lib/sodexo-labs/schemas";
 
 const SLIDE_COUNT = 11;
-const DARK_SLIDES = new Set([0, 10]);
+const DARK_SLIDES = new Set([0, 1, 7, 10]);
 
 type LabsDeckProps = {
   pack: LabsPack;
@@ -76,19 +77,30 @@ function isInteractiveTarget(target: EventTarget | null): boolean {
 
 export function LabsDeck({ pack, onChangeSession }: LabsDeckProps) {
   const reduceMotion = useReducedMotion();
-  const duration = reduceMotion ? 0 : 0.45;
+  const duration = reduceMotion ? 0 : 0.5;
   const [index, setIndex] = useState(0);
+  const directionRef = useRef(1);
+  const [direction, setDirection] = useState(1);
 
   const goNext = useCallback(() => {
+    directionRef.current = 1;
+    setDirection(1);
     setIndex((current) => Math.min(current + 1, SLIDE_COUNT - 1));
   }, []);
 
   const goPrev = useCallback(() => {
+    directionRef.current = -1;
+    setDirection(-1);
     setIndex((current) => Math.max(current - 1, 0));
   }, []);
 
   const goTo = useCallback((next: number) => {
-    setIndex(Math.max(0, Math.min(next, SLIDE_COUNT - 1)));
+    setIndex((current) => {
+      const dir = next >= current ? 1 : -1;
+      directionRef.current = dir;
+      setDirection(dir);
+      return Math.max(0, Math.min(next, SLIDE_COUNT - 1));
+    });
   }, []);
 
   useEffect(() => {
@@ -119,6 +131,14 @@ export function LabsDeck({ pack, onChangeSession }: LabsDeckProps) {
             void document.exitFullscreen?.();
           }
           break;
+        case "Home":
+          event.preventDefault();
+          goTo(0);
+          break;
+        case "End":
+          event.preventDefault();
+          goTo(SLIDE_COUNT - 1);
+          break;
         default:
           break;
       }
@@ -126,7 +146,7 @@ export function LabsDeck({ pack, onChangeSession }: LabsDeckProps) {
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [goNext, goPrev]);
+  }, [goNext, goPrev, goTo]);
 
   function onStageClick(event: MouseEvent<HTMLDivElement>) {
     if (isInteractiveTarget(event.target)) return;
@@ -135,6 +155,7 @@ export function LabsDeck({ pack, onChangeSession }: LabsDeckProps) {
 
   const dark = DARK_SLIDES.has(index);
   const slide = renderSlide(index, pack);
+  const progress = ((index + 1) / SLIDE_COUNT) * 100;
 
   return (
     <div
@@ -144,15 +165,30 @@ export function LabsDeck({ pack, onChangeSession }: LabsDeckProps) {
       role="presentation"
     >
       <div className="relative h-full w-full" aria-live="polite">
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" custom={direction}>
           <SlideFrame
             key={index}
             duration={duration}
+            direction={direction}
             className="absolute inset-0 h-full w-full overflow-hidden"
           >
             {slide}
           </SlideFrame>
         </AnimatePresence>
+      </div>
+
+      {/* Easy-going progress rail */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-1 bg-black/10"
+        aria-hidden
+      >
+        <motion.div
+          className="h-full origin-left"
+          style={{ background: "var(--labs-accent)" }}
+          initial={false}
+          animate={{ width: `${progress}%` }}
+          transition={{ duration: reduceMotion ? 0 : 0.35, ease: [0.25, 1, 0.5, 1] }}
+        />
       </div>
 
       <LabsHud

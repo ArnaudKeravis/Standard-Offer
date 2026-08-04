@@ -1,30 +1,45 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
+
+import { SlideBackdrop } from "@/components/sodexo-labs/deck/slide-backdrop";
 import type { LabsPack } from "@/lib/sodexo-labs/schemas";
 
 export function CoverSlide({ pack }: { pack: LabsPack }) {
+  const reduce = useReducedMotion();
+
   return (
-    <div className="relative flex h-full w-full flex-col justify-center px-[6vw] py-[8vh] text-white">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background: `
-            radial-gradient(ellipse 70% 55% at 80% 20%, color-mix(in srgb, var(--labs-accent) 35%, transparent), transparent 55%),
-            radial-gradient(ellipse 50% 40% at 15% 85%, color-mix(in srgb, var(--labs-blue) 28%, transparent), transparent 50%),
-            linear-gradient(145deg, #0B1020 0%, #121a36 45%, #1E2F9A 100%)
-          `,
-        }}
-      />
-      <div className="relative z-10 max-w-5xl">
-        <p className="mb-5 text-sm font-medium tracking-[0.22em] text-white/50 uppercase">
+    <div className="relative flex h-full w-full flex-col justify-end px-[6vw] pb-[12vh] pt-[8vh] text-white">
+      <SlideBackdrop src="/labs/presentation/cover.jpg" dim={0.42} />
+
+      <motion.div
+        className="relative z-10 max-w-5xl"
+        initial={reduce ? false : { opacity: 0, y: 28 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: reduce ? 0 : 0.65, ease: [0.25, 1, 0.5, 1], delay: reduce ? 0 : 0.15 }}
+      >
+        <p className="mb-5 text-sm font-semibold tracking-[0.22em] text-white/55 uppercase">
           Sodexo Labs
         </p>
-        <h1 className="labs-display text-[clamp(3rem,8vw,6.5rem)] leading-[1.02] text-balance">
-          Co-creating the future of experiences
+        <h1 className="labs-display text-[clamp(3rem,7.5vw,6.25rem)] leading-[1.02] text-balance">
+          Co-creating the future of{" "}
+          <span className="text-[color-mix(in_srgb,var(--labs-accent)_85%,white)]">
+            experiences
+          </span>
         </h1>
-        <p className="mt-8 max-w-2xl text-[clamp(1.125rem,2.2vw,1.75rem)] leading-snug text-white/70">
+        <p className="mt-8 max-w-2xl text-[clamp(1.125rem,2.1vw,1.65rem)] leading-snug text-white/72">
           {pack.copy.coverSubtitle}
         </p>
-      </div>
+      </motion.div>
+
+      <motion.p
+        className="relative z-10 mt-14 text-xs font-semibold tracking-[0.2em] text-white/45 uppercase"
+        initial={reduce ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: reduce ? 0 : 0.7, duration: reduce ? 0 : 0.5 }}
+      >
+        Click or → to continue
+      </motion.p>
     </div>
   );
 }

@@ -1,3 +1,6 @@
+"use client";
+
+import Image from "next/image";
 import type { LabsCredential } from "@/lib/sodexo-labs/schemas";
 
 const AREA_LABEL: Record<string, string> = {
@@ -28,28 +31,42 @@ export function CredentialCard({ credential, onOpen }: CredentialCardProps) {
       onClick={() => onOpen(credential)}
       aria-haspopup="dialog"
       aria-label={`Open credential: ${credential.client} — ${credential.title}`}
-      className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-[color-mix(in_srgb,var(--labs-navy)_14%,transparent)] bg-[color-mix(in_srgb,white_78%,var(--labs-paper))] text-left shadow-[0_1px_0_color-mix(in_srgb,var(--labs-navy)_5%,transparent)] outline-none transition-colors hover:border-[var(--labs-blue)] hover:bg-white focus-visible:ring-2 focus-visible:ring-[var(--labs-blue)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--labs-paper)]"
+      className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-[var(--labs-line)] bg-white text-left shadow-[0_14px_36px_rgba(30,47,154,0.06)] outline-none transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-[var(--labs-blue)] hover:shadow-[0_22px_48px_rgba(30,47,154,0.1)] focus-visible:ring-2 focus-visible:ring-[var(--labs-blue)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--labs-paper)]"
     >
-      {image ? (
-        <img
-          src={image.src}
-          alt={image.alt}
-          className="aspect-[16/9] w-full object-cover"
-        />
-      ) : null}
-
-      <div className="flex flex-1 flex-col px-7 py-7 sm:px-8 sm:py-8">
-        <p className="text-sm font-medium tracking-[0.12em] text-[var(--labs-blue)] uppercase">
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-[var(--labs-navy)]">
+        {image ? (
+          <Image
+            src={image.src}
+            alt={image.alt}
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+          />
+        ) : (
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--labs-blue) 55%, transparent), transparent 55%), linear-gradient(145deg, #0B1020, #1E2F9A)",
+            }}
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-[rgba(11,16,32,0.55)] to-transparent" />
+        <p className="absolute bottom-3 left-4 text-xs font-semibold tracking-[0.14em] text-white/90 uppercase">
           {credential.client}
         </p>
-        <h2 className="labs-display mt-2 text-[clamp(1.35rem,2.2vw,1.75rem)] leading-snug text-[var(--labs-ink)] text-balance">
+      </div>
+
+      <div className="flex flex-1 flex-col px-6 py-6">
+        <h2 className="labs-display text-[clamp(1.25rem,2vw,1.55rem)] leading-snug text-[var(--labs-ink)] text-balance">
           {credential.title}
         </h2>
-        <p className="mt-4 line-clamp-3 flex-1 text-base leading-relaxed text-[var(--labs-muted)]">
+        <p className="mt-3 line-clamp-3 flex-1 text-sm leading-relaxed text-[var(--labs-muted)]">
           {credential.challenge}
         </p>
-        <p className="mt-6 text-sm text-[var(--labs-muted)]">
-          <span className="text-[var(--labs-ink)]">
+        <p className="mt-5 text-xs text-[var(--labs-muted)]">
+          <span className="font-medium text-[var(--labs-ink)]">
             {credential.areas.map((a) => AREA_LABEL[a] ?? a).join(" · ")}
           </span>
           {meta ? (

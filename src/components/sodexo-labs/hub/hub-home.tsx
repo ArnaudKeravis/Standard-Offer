@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
 import { OutlinedHeadline } from "@/components/brand/outlined-headline";
 import { cn } from "@/lib/utils";
 
@@ -23,7 +26,7 @@ const ARTEFACTS: HubArtefact[] = [
     href: "/labs",
     cta: "Open Labs",
     image: {
-      src: "/labs/credentials/lilly-1.jpg",
+      src: "/labs/presentation/cover.jpg",
       alt: "Sodexo Labs co-creation space",
     },
     accent: "bg-[var(--spark-iq)]",
@@ -125,7 +128,16 @@ const ARTEFACTS: HubArtefact[] = [
   },
 ];
 
-function ArtefactCard({ artefact }: { artefact: HubArtefact }) {
+const EASE = [0.25, 1, 0.5, 1] as const;
+
+function ArtefactCard({
+  artefact,
+  index,
+}: {
+  artefact: HubArtefact;
+  index: number;
+}) {
+  const reduce = useReducedMotion();
   const content = (
     <>
       <div className="relative aspect-[16/10] overflow-hidden bg-[var(--spark-ink-deep)]">
@@ -135,12 +147,12 @@ function ArtefactCard({ artefact }: { artefact: HubArtefact }) {
             alt={artefact.image.alt}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
           />
         ) : (
           <div
             aria-hidden
-            className="absolute inset-0 opacity-90"
+            className="absolute inset-0"
             style={{
               background:
                 "radial-gradient(circle at 30% 30%, color-mix(in oklab, var(--spark-iq), transparent 20%), transparent 70%), radial-gradient(circle at 80% 70%, color-mix(in oklab, var(--spark-amber), transparent 35%), transparent 72%), var(--spark-ink-deep)",
@@ -153,7 +165,7 @@ function ArtefactCard({ artefact }: { artefact: HubArtefact }) {
         />
         <div
           aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-[rgba(5,11,46,0.55)] via-transparent to-transparent"
+          className="absolute inset-0 bg-gradient-to-t from-[rgba(5,11,46,0.55)] to-transparent"
         />
       </div>
       <div className="flex flex-1 flex-col p-6 md:p-7">
@@ -163,7 +175,7 @@ function ArtefactCard({ artefact }: { artefact: HubArtefact }) {
         <p className="mt-3 flex-1 text-sm leading-relaxed text-[color:color-mix(in_oklab,var(--spark-ink),transparent_35%)]">
           {artefact.description}
         </p>
-        <span className="mt-5 inline-flex items-center gap-2 text-xs font-semibold tracking-wide text-[var(--spark-ink)]">
+        <span className="mt-5 inline-flex items-center gap-2 text-xs font-semibold tracking-wide text-[var(--spark-ink)] transition-transform duration-300 group-hover:translate-x-0.5">
           {artefact.cta}
           <span aria-hidden className="text-[var(--spark-amber)]">
             {artefact.external ? "↗" : "→"}
@@ -179,35 +191,47 @@ function ArtefactCard({ artefact }: { artefact: HubArtefact }) {
     "focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--spark-amber)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--spark-paper)]",
   );
 
+  const motionProps = {
+    initial: reduce ? false : { opacity: 0, y: 22 },
+    animate: { opacity: 1, y: 0 },
+    transition: {
+      duration: reduce ? 0 : 0.5,
+      delay: reduce ? 0 : 0.05 * index,
+      ease: EASE,
+    },
+  };
+
   if (artefact.external) {
     return (
-      <a
+      <motion.a
         href={artefact.href}
         className={className}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`${artefact.label} — ${artefact.cta} (opens in a new tab)`}
+        {...motionProps}
       >
         {content}
-      </a>
+      </motion.a>
     );
   }
 
   return (
-    <Link
-      href={artefact.href}
-      className={className}
-      aria-label={`${artefact.label} — ${artefact.cta}`}
-    >
-      {content}
-    </Link>
+    <motion.div {...motionProps}>
+      <Link
+        href={artefact.href}
+        className={className}
+        aria-label={`${artefact.label} — ${artefact.cta}`}
+      >
+        {content}
+      </Link>
+    </motion.div>
   );
 }
 
 export function HubHome() {
   return (
     <main className="relative min-h-screen overflow-hidden">
-      {/* Hero — Spark cinematic intro language */}
       <section className="relative overflow-hidden bg-[var(--spark-ink-deep)] text-white">
         <div
           aria-hidden
@@ -239,7 +263,6 @@ export function HubHome() {
         </div>
       </section>
 
-      {/* Catalogue grid — Spark paper / card language */}
       <section className="border-t border-[var(--spark-line)] bg-[var(--spark-paper)]">
         <div className="mx-auto max-w-6xl px-6 py-16 md:px-12 md:py-20">
           <div className="mb-12 max-w-2xl">
@@ -257,9 +280,9 @@ export function HubHome() {
 
           <nav aria-label="Sandbox artefacts">
             <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-              {ARTEFACTS.map((artefact) => (
+              {ARTEFACTS.map((artefact, index) => (
                 <li key={artefact.id}>
-                  <ArtefactCard artefact={artefact} />
+                  <ArtefactCard artefact={artefact} index={index} />
                 </li>
               ))}
             </ul>

@@ -11,6 +11,7 @@ export const LABS_CASES: LabsCaseSpot[] = [
       "Site immersion, employee personas and journey mapping across the campus; co-design workshops with site teams; digital touchpoints prototyped for live navigation and occupancy.",
     outcome:
       "An interactive campus experience vision with prioritised quick wins and a scalable roadmap for food, hospitality and digital services.",
+    imageSrc: "/labs/credentials/thales-1.jpg",
   },
   {
     id: "astrazeneca-campus",
@@ -22,6 +23,7 @@ export const LABS_CASES: LabsCaseSpot[] = [
       "Immersive site research, persona mapping and collaborative workshops; employee journeys, food activation and digital enablement structured into a phased roadmap.",
     outcome:
       "Future-state experience principles with high-impact initiatives prioritised — strengthening engagement and innovation culture.",
+    imageSrc: "/labs/credentials/astrazeneca-1.jpg",
   },
   {
     id: "clariane-dining",
@@ -33,6 +35,7 @@ export const LABS_CASES: LabsCaseSpot[] = [
       "Site immersions and stakeholder interviews; resident personas and daily rhythms; meal journey redesign with weekly co-creation workshops for menu planning.",
     outcome:
       "A human-centered dining framework increasing resident engagement and care satisfaction — scalable across dining rooms and care units.",
+    imageSrc: "/labs/credentials/clariane-1.jpg",
   },
   {
     id: "cyber-campus",
@@ -44,6 +47,7 @@ export const LABS_CASES: LabsCaseSpot[] = [
       "Student and staff personas, campus journey mapping and service touchpoint analysis; co-creation workshops on food, spaces and digital services.",
     outcome:
       "Prioritised experience initiatives aligned to campus life — from grab-and-go moments to community spaces that foster peer learning.",
+    imageSrc: "/labs/credentials/cyber-campus-1.jpg",
   },
   {
     id: "newcastle-united",
@@ -55,5 +59,6 @@ export const LABS_CASES: LabsCaseSpot[] = [
       "Fan and guest personas, journey mapping from arrival to departure; immersion in hospitality flows; co-design of service moments and premium touchpoints.",
     outcome:
       "A differentiated hospitality experience vision — strengthening fan engagement and partner value on match days and beyond.",
+    imageSrc: "/labs/credentials/newcastle-united-1.jpg",
   },
 ];

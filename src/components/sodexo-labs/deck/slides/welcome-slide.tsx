@@ -1,34 +1,43 @@
+"use client";
+
+import { motion } from "framer-motion";
+
+import {
+  StaggerIn,
+  staggerItem,
+} from "@/components/sodexo-labs/deck/slide-frame";
+import { SlideBackdrop } from "@/components/sodexo-labs/deck/slide-backdrop";
 import type { LabsPack } from "@/lib/sodexo-labs/schemas";
 
 export function WelcomeSlide({ pack }: { pack: LabsPack }) {
-  const pillars = pack.offers.slice(0, 3).map((offer) => offer.title);
-
   return (
-    <div className="flex h-full w-full flex-col justify-center px-[6vw] py-[8vh]">
-      <p className="mb-4 text-sm font-medium tracking-[0.18em] text-[var(--labs-muted)] uppercase">
-        Welcome
-      </p>
-      <h1 className="labs-display max-w-4xl text-[clamp(2.5rem,6.5vw,5rem)] leading-[1.05] text-[var(--labs-ink)] text-balance">
-        {pack.copy.welcomeHeadline}
-      </h1>
-      <p className="mt-6 max-w-2xl text-[clamp(1.1rem,2vw,1.5rem)] leading-relaxed text-[var(--labs-muted)]">
-        {pack.copy.welcomeBody}
-      </p>
-      <ul className="mt-12 flex flex-wrap gap-x-10 gap-y-4">
-        {pillars.map((title) => (
-          <li
-            key={title}
-            className="text-[clamp(1rem,1.6vw,1.25rem)] font-medium text-[var(--labs-navy)]"
-          >
-            <span
-              className="mr-3 inline-block h-2 w-2 rounded-full align-middle"
-              style={{ background: "var(--labs-accent)" }}
-              aria-hidden
-            />
-            {title}
-          </li>
-        ))}
-      </ul>
+    <div className="relative flex h-full w-full flex-col justify-center px-[6vw] py-[8vh] text-white">
+      <SlideBackdrop src="/labs/presentation/welcome.jpg" dim={0.55} />
+      <div className="relative z-10 max-w-4xl">
+        <p className="mb-4 text-sm font-semibold tracking-[0.18em] text-white/50 uppercase">
+          Introduction
+        </p>
+        <h1 className="labs-display text-[clamp(2.5rem,6vw,4.75rem)] leading-[1.05] text-balance">
+          {pack.copy.welcomeHeadline}
+        </h1>
+        <p className="mt-6 max-w-2xl text-[clamp(1.05rem,1.8vw,1.35rem)] leading-relaxed text-white/70">
+          {pack.copy.welcomeBody}
+        </p>
+        <StaggerIn className="mt-12 grid gap-4 sm:grid-cols-3">
+          {["Teams", "Clients", "Partners"].map((label) => (
+            <motion.div
+              key={label}
+              variants={staggerItem}
+              className="rounded-2xl border border-white/15 bg-white/8 px-5 py-5 backdrop-blur-sm"
+            >
+              <p className="labs-display text-2xl text-white">{label}</p>
+              <p className="mt-2 text-sm leading-snug text-white/55">
+                Co-creating experiences that truly matter
+              </p>
+            </motion.div>
+          ))}
+        </StaggerIn>
+      </div>
     </div>
   );
 }

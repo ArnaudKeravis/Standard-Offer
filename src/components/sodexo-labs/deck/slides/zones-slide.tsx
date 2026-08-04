@@ -1,36 +1,60 @@
+"use client";
+
+import { motion } from "framer-motion";
+
+import {
+  StaggerIn,
+  staggerItem,
+} from "@/components/sodexo-labs/deck/slide-frame";
 import type { LabsPack } from "@/lib/sodexo-labs/schemas";
 
 export function ZonesSlide({ pack }: { pack: LabsPack }) {
   return (
-    <div className="flex h-full w-full flex-col justify-center px-[6vw] py-[8vh]">
-      <p className="mb-3 text-sm font-medium tracking-[0.18em] text-[var(--labs-muted)] uppercase">
-        The space
-      </p>
-      <h1 className="labs-display mb-10 text-[clamp(2.25rem,5vw,4rem)] leading-[1.05] text-[var(--labs-ink)]">
-        Four zones
-      </h1>
-      <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4 sm:gap-5">
+    <div className="relative flex h-full w-full flex-col justify-end">
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, #EEF3F8 0%, color-mix(in srgb, var(--labs-teal) 8%, #EEF3F8) 100%)",
+        }}
+      />
+      <div className="relative z-10 px-[6vw] pt-[10vh]">
+        <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-[var(--labs-muted)] uppercase">
+          The space
+        </p>
+        <h1 className="labs-display mb-8 max-w-3xl text-[clamp(2.25rem,5vw,4rem)] leading-[1.05] text-[var(--labs-ink)]">
+          Four zones — from spark to delivery
+        </h1>
+      </div>
+
+      <StaggerIn className="relative z-10 grid min-h-[52vh] grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
         {pack.zones.map((zone) => (
-          <li
+          <motion.div
             key={zone.id}
-            className="relative overflow-hidden rounded-2xl px-6 py-7"
+            variants={staggerItem}
+            className="group relative flex flex-col justify-end overflow-hidden px-6 py-8 sm:px-7 sm:py-10"
             style={{
-              background: `color-mix(in srgb, ${zone.accent} 12%, white)`,
-              borderTop: `3px solid ${zone.accent}`,
+              background: `linear-gradient(165deg, color-mix(in srgb, ${zone.accent} 88%, #0B1020), color-mix(in srgb, ${zone.accent} 55%, #0B1020))`,
             }}
           >
-            <h2
-              className="labs-display text-[clamp(1.75rem,2.8vw,2.5rem)]"
-              style={{ color: zone.accent }}
-            >
+            <div
+              aria-hidden
+              className="absolute -right-8 -top-8 size-40 rounded-full opacity-30 blur-2xl transition-transform duration-500 group-hover:scale-125"
+              style={{ background: zone.accent }}
+            />
+            <p className="relative text-xs font-semibold tracking-[0.2em] text-white/55 uppercase">
+              Zone
+            </p>
+            <h2 className="labs-display relative mt-2 text-[clamp(1.85rem,3vw,2.75rem)] text-white">
               {zone.name}
             </h2>
-            <p className="mt-4 text-[clamp(0.95rem,1.3vw,1.1rem)] leading-relaxed text-[var(--labs-muted)]">
+            <p className="relative mt-4 max-w-[22ch] text-[clamp(0.9rem,1.2vw,1.05rem)] leading-relaxed text-white/75">
               {zone.verbs.join(" · ")}
             </p>
-          </li>
+          </motion.div>
         ))}
-      </ul>
+      </StaggerIn>
     </div>
   );
 }
