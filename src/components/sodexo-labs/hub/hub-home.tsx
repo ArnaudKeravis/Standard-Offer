@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { OutlinedHeadline } from "@/components/brand/outlined-headline";
+import { cn } from "@/lib/utils";
 
 type HubArtefact = {
   id: string;
@@ -8,7 +10,7 @@ type HubArtefact = {
   href: string;
   cta: string;
   image?: { src: string; alt: string };
-  tone: "navy" | "teal" | "blue" | "ink";
+  accent: string;
   external?: boolean;
 };
 
@@ -24,7 +26,7 @@ const ARTEFACTS: HubArtefact[] = [
       src: "/labs/credentials/lilly-1.jpg",
       alt: "Sodexo Labs co-creation space",
     },
-    tone: "navy",
+    accent: "bg-[var(--spark-iq)]",
   },
   {
     id: "studio",
@@ -37,7 +39,7 @@ const ARTEFACTS: HubArtefact[] = [
       src: "/persona-studio/areas/areas-isometric.png",
       alt: "Persona Studio XP areas map",
     },
-    tone: "teal",
+    accent: "bg-[var(--spark-os)]",
   },
   {
     id: "spark",
@@ -50,7 +52,7 @@ const ARTEFACTS: HubArtefact[] = [
       src: "/labs/credentials/microsoft-1.jpg",
       alt: "Spark Standard Offer presentation",
     },
-    tone: "blue",
+    accent: "bg-[var(--spark-amber)]",
   },
   {
     id: "thales",
@@ -63,7 +65,7 @@ const ARTEFACTS: HubArtefact[] = [
       src: "/labs/credentials/thales-1.jpg",
       alt: "Thales campus experience",
     },
-    tone: "ink",
+    accent: "bg-[var(--spark-iq)]",
   },
   {
     id: "lenotre",
@@ -75,7 +77,7 @@ const ARTEFACTS: HubArtefact[] = [
       src: "/lenotre/access-map.png",
       alt: "École Lenôtre access map",
     },
-    tone: "navy",
+    accent: "bg-[var(--spark-xp)]",
   },
   {
     id: "spark-os",
@@ -83,7 +85,7 @@ const ARTEFACTS: HubArtefact[] = [
     description: "Operator platform wireframe for Spark OS journeys.",
     href: "/en/demos/spark-os-wireframe",
     cta: "Open wireframe",
-    tone: "blue",
+    accent: "bg-[var(--spark-os)]",
   },
   {
     id: "spark-xp",
@@ -91,7 +93,7 @@ const ARTEFACTS: HubArtefact[] = [
     description: "Experience-layer wireframe for front-stage journeys.",
     href: "/en/demos/spark-xp-wireframe",
     cta: "Open wireframe",
-    tone: "teal",
+    accent: "bg-[var(--spark-xp)]",
   },
   {
     id: "codesign-os",
@@ -104,7 +106,7 @@ const ARTEFACTS: HubArtefact[] = [
       src: "/labs/credentials/astrazeneca-1.jpg",
       alt: "CoDesign OS credentials and method",
     },
-    tone: "navy",
+    accent: "bg-[var(--spark-iq)]",
     external: true,
   },
   {
@@ -118,59 +120,64 @@ const ARTEFACTS: HubArtefact[] = [
       src: "/labs/credentials/newcastle-united-1.jpg",
       alt: "CoDesign credentials library",
     },
-    tone: "ink",
+    accent: "bg-[var(--spark-amber)]",
     external: true,
   },
 ];
 
-const TONE_GRADIENT: Record<HubArtefact["tone"], string> = {
-  navy: "linear-gradient(145deg, #16267A 0%, #1E2F9A 45%, #1968FF 100%)",
-  teal: "linear-gradient(145deg, #0E7A74 0%, #2BB8B0 100%)",
-  blue: "linear-gradient(145deg, #1968FF 0%, #4C8CFF 100%)",
-  ink: "linear-gradient(145deg, #0B1020 0%, #1E2F9A 100%)",
-};
-
 function ArtefactCard({ artefact }: { artefact: HubArtefact }) {
   const content = (
     <>
-      <div className="relative aspect-[16/10] overflow-hidden bg-[var(--labs-navy)]">
+      <div className="relative aspect-[16/10] overflow-hidden bg-[var(--spark-ink-deep)]">
         {artefact.image ? (
           <Image
             src={artefact.image.src}
             alt={artefact.image.alt}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           />
         ) : (
           <div
             aria-hidden
-            className="absolute inset-0"
-            style={{ background: TONE_GRADIENT[artefact.tone] }}
+            className="absolute inset-0 opacity-90"
+            style={{
+              background:
+                "radial-gradient(circle at 30% 30%, color-mix(in oklab, var(--spark-iq), transparent 20%), transparent 70%), radial-gradient(circle at 80% 70%, color-mix(in oklab, var(--spark-amber), transparent 35%), transparent 72%), var(--spark-ink-deep)",
+            }}
           />
         )}
         <div
           aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-[rgba(11,16,32,0.55)] via-transparent to-transparent"
+          className={cn("absolute left-0 top-0 h-1 w-full", artefact.accent)}
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-t from-[rgba(5,11,46,0.55)] via-transparent to-transparent"
         />
       </div>
-      <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
-        <h2 className="labs-display text-[1.45rem] leading-tight text-[var(--labs-ink)] sm:text-[1.6rem]">
+      <div className="flex flex-1 flex-col p-6 md:p-7">
+        <h2 className="font-[var(--font-display)] text-xl tracking-[-0.03em] text-[var(--spark-ink)]">
           {artefact.label}
         </h2>
-        <p className="flex-1 text-[0.95rem] leading-relaxed text-[var(--labs-muted)]">
+        <p className="mt-3 flex-1 text-sm leading-relaxed text-[color:color-mix(in_oklab,var(--spark-ink),transparent_35%)]">
           {artefact.description}
         </p>
-        <span className="mt-1 inline-flex items-center gap-2 text-sm font-semibold tracking-wide text-[var(--labs-blue)] uppercase">
+        <span className="mt-5 inline-flex items-center gap-2 text-xs font-semibold tracking-wide text-[var(--spark-ink)]">
           {artefact.cta}
-          <span aria-hidden>{artefact.external ? "↗" : "→"}</span>
+          <span aria-hidden className="text-[var(--spark-amber)]">
+            {artefact.external ? "↗" : "→"}
+          </span>
         </span>
       </div>
     </>
   );
 
-  const className =
-    "group flex h-full flex-col overflow-hidden rounded-2xl border border-[color-mix(in_srgb,var(--labs-navy)_12%,transparent)] bg-white shadow-[0_12px_40px_rgba(30,47,154,0.06)] transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(30,47,154,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--labs-blue)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--labs-paper)]";
+  const className = cn(
+    "group flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--spark-line)] bg-white",
+    "shadow-[0_18px_40px_rgba(14,26,74,0.06)] transition-transform duration-300 hover:-translate-y-1",
+    "focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--spark-amber)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--spark-paper)]",
+  );
 
   if (artefact.external) {
     return (
@@ -199,40 +206,66 @@ function ArtefactCard({ artefact }: { artefact: HubArtefact }) {
 
 export function HubHome() {
   return (
-    <main className="labs-body relative min-h-screen px-[5vw] py-[8vh]">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 70% 50% at 12% 0%, color-mix(in srgb, var(--labs-blue) 16%, transparent), transparent 55%), radial-gradient(ellipse 55% 40% at 92% 100%, color-mix(in srgb, var(--labs-teal) 14%, transparent), transparent 50%)",
-        }}
-      />
+    <main className="relative min-h-screen overflow-hidden">
+      {/* Hero — Spark cinematic intro language */}
+      <section className="relative overflow-hidden bg-[var(--spark-ink-deep)] text-white">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -left-1/4 top-1/4 h-[min(80vw,420px)] w-[min(80vw,420px)] rounded-full bg-[radial-gradient(circle_at_30%_30%,color-mix(in_oklab,var(--spark-iq),transparent_20%),transparent_70%)] opacity-40"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-1/3 bottom-0 h-[min(70vw,360px)] w-[min(70vw,360px)] rounded-full bg-[radial-gradient(circle_at_70%_70%,color-mix(in_oklab,var(--spark-amber),transparent_25%),transparent_72%)] opacity-35"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:linear-gradient(90deg,white_1px,transparent_1px),linear-gradient(white_1px,transparent_1px)] [background-size:64px_64px]"
+        />
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl">
-        <header className="mb-12 max-w-2xl sm:mb-16">
-          <p className="mb-3 text-sm font-medium tracking-[0.2em] text-[var(--labs-blue)] uppercase">
-            Sodexo · Digital, AI & Innovation
+        <div className="relative mx-auto flex min-h-[min(52vh,520px)] max-w-6xl flex-col justify-center px-6 py-20 md:px-12 md:py-24">
+          <p className="mb-4 text-xs font-semibold tracking-[0.2em] text-[color:color-mix(in_oklab,white,transparent_35%)]">
+            Sodexo · Digital, AI & Innovation · CoDesign
           </p>
-          <h1 className="labs-display mb-4 text-[clamp(2.75rem,6.5vw,4.75rem)] leading-[1.02] text-[var(--labs-ink)]">
-            CoDesign <em className="font-normal italic text-[var(--labs-navy)]">sandbox</em>
-          </h1>
-          <p className="max-w-xl text-lg leading-relaxed text-[var(--labs-muted)]">
-            Live artefacts for pitches, workshops and Labs sessions — open a card
-            to present, explore or build.
+          <OutlinedHeadline
+            tone="dark"
+            solid="CoDesign"
+            outline="sandbox"
+            className="max-w-3xl"
+          />
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-[color:color-mix(in_oklab,white,transparent_28%)] md:text-xl">
+            Live artefacts for pitches, workshops and Labs sessions — open a
+            card to present, explore or build.
           </p>
-        </header>
+        </div>
+      </section>
 
-        <nav aria-label="Sandbox artefacts">
-          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7">
-            {ARTEFACTS.map((artefact) => (
-              <li key={artefact.id}>
-                <ArtefactCard artefact={artefact} />
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
+      {/* Catalogue grid — Spark paper / card language */}
+      <section className="border-t border-[var(--spark-line)] bg-[var(--spark-paper)]">
+        <div className="mx-auto max-w-6xl px-6 py-16 md:px-12 md:py-20">
+          <div className="mb-12 max-w-2xl">
+            <p className="text-xs font-semibold tracking-[0.18em] text-[color:color-mix(in_oklab,var(--spark-ink),transparent_45%)]">
+              Artefacts
+            </p>
+            <h2 className="mt-3 font-[var(--font-display)] text-3xl tracking-[-0.03em] text-[var(--spark-ink)] md:text-4xl">
+              Choose where to go next
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-[color:color-mix(in_oklab,var(--spark-ink),transparent_32%)] md:text-lg">
+              Same ecosystem as the Spark deck — Labs, Studio, demos and
+              CoDesign OS in one place.
+            </p>
+          </div>
+
+          <nav aria-label="Sandbox artefacts">
+            <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+              {ARTEFACTS.map((artefact) => (
+                <li key={artefact.id}>
+                  <ArtefactCard artefact={artefact} />
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      </section>
     </main>
   );
 }
