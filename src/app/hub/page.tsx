@@ -1,5 +1,6 @@
-import { HubHome } from "@/components/sodexo-labs/hub/hub-home";
+import { redirect } from "next/navigation";
 
-export default function HubPage() {
-  return <HubHome />;
+/** Legacy path — hub now lives at `/`. */
+export default function HubRedirectPage() {
+  redirect("/");
 }
