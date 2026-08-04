@@ -45,6 +45,20 @@ const ARTEFACTS: HubArtefact[] = [
     accent: "bg-[var(--spark-os)]",
   },
   {
+    id: "xp-catalogue",
+    label: "XP Catalogue",
+    description:
+      "Digital & AI Innovation Experience Catalogue — areas, solutions, Spark offer and big bets.",
+    href: "https://xpcatalogue.vercel.app/",
+    cta: "Open catalogue",
+    image: {
+      src: "/persona-studio/areas/work-area-info-iso.png",
+      alt: "XP Catalogue — Work area experience",
+    },
+    accent: "bg-[var(--spark-xp)]",
+    external: true,
+  },
+  {
     id: "spark",
     label: "Spark Standard Offer",
     description:
