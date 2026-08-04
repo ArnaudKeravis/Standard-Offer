@@ -18,6 +18,7 @@ export function StudioNav({
   lang,
   projectId,
   showWorkshopBar = false,
+  showMethodLink = true,
 }: {
   crumbs?: Crumb[];
   actions?: React.ReactNode;
@@ -27,6 +28,8 @@ export function StudioNav({
   projectId?: string;
   /** Show the compact workshop pill strip under the main nav. */
   showWorkshopBar?: boolean;
+  /** Method link in the header (hide on dense persona sheets). */
+  showMethodLink?: boolean;
 }) {
   const showBar = Boolean(projectId && lang && showWorkshopBar);
 
@@ -83,7 +86,7 @@ export function StudioNav({
               </span>
             </Link>
           ) : null}
-          {lang ? (
+          {lang && showMethodLink ? (
             <Link
               href="/studio/method"
               className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium text-[var(--studio-muted)] transition-colors hover:text-[var(--studio-ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"

@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  History,
-  MessageCircle,
-  Pencil,
-  Presentation,
-  UsersRound,
-} from "lucide-react";
+import { MessageCircle, Pencil, Presentation } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getRepository } from "@/lib/persona-studio/repository";
 import {
@@ -65,38 +59,19 @@ export default async function PersonaDetailPage({
       <StudioNav
         lang={lang}
         projectId={project.id}
-        showWorkshopBar
+        showMethodLink={false}
         crumbs={[
-          { label: tUI(lang, "areasCrumb"), href: "/studio" },
           { label: project.name, href: `/studio/projects/${project.id}` },
-          {
-            label: tUI(lang, "personaGallery"),
-            href: `/studio/projects/${project.id}/personas`,
-          },
           { label: persona.name },
         ]}
         actions={
           <>
             <Link
-              href={`/studio/projects/${project.id}/compare?ids=${persona.id}`}
-              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium text-[var(--studio-muted)] transition-colors hover:text-[var(--studio-ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
-            >
-              <UsersRound aria-hidden className="size-4" />
-              {tWorkshop(lang, "compare")}
-            </Link>
-            <Link
               href={`/studio/projects/${project.id}/present?ids=${persona.id}`}
               className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium text-[var(--studio-muted)] transition-colors hover:text-[var(--studio-ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
             >
               <Presentation aria-hidden className="size-4" />
-              {tWorkshop(lang, "present")}
-            </Link>
-            <Link
-              href={`/studio/projects/${project.id}/personas/${persona.id}/history`}
-              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium text-[var(--studio-muted)] transition-colors hover:text-[var(--studio-ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
-            >
-              <History aria-hidden className="size-4" />
-              {tUI(lang, "history")}
+              <span className="hidden sm:inline">{tWorkshop(lang, "present")}</span>
             </Link>
             {canWrite ? (
               <Link
@@ -104,7 +79,7 @@ export default async function PersonaDetailPage({
                 className="inline-flex items-center gap-1.5 rounded-full border border-[var(--studio-line)] px-3.5 py-1.5 text-sm font-medium text-[var(--studio-ink)] transition-colors hover:border-[var(--studio-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
               >
                 <Pencil aria-hidden className="size-4" />
-                {tUI(lang, "editPersona")}
+                <span className="hidden sm:inline">{tUI(lang, "editPersona")}</span>
               </Link>
             ) : gateOn ? (
               <Link
@@ -119,7 +94,7 @@ export default async function PersonaDetailPage({
               className="inline-flex items-center gap-1.5 rounded-full bg-[var(--studio-accent)] px-3.5 py-1.5 text-sm font-medium text-white transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
             >
               <MessageCircle aria-hidden className="size-4" />
-              {tWorkshop(lang, "askThisPersona")}
+              <span className="hidden sm:inline">{tWorkshop(lang, "askThisPersona")}</span>
             </Link>
           </>
         }
@@ -129,6 +104,7 @@ export default async function PersonaDetailPage({
         peers={peers}
         sources={sources}
         lang={lang}
+        projectId={project.id}
       />
     </div>
   );

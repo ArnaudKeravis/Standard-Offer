@@ -1,4 +1,5 @@
-import { MapPin, Quote, Tag } from "lucide-react";
+import Link from "next/link";
+import { History, Quote, Tag, UsersRound } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Persona } from "@/lib/persona-studio/ai/schemas/persona";
 import type { SourceDocument } from "@/lib/persona-studio/ai/schemas/evidence";
@@ -12,11 +13,11 @@ import {
 } from "@/lib/persona-studio/utils/confidence";
 import {
   tBreakdown,
-  tFamily,
   tQuoteType,
   tUI,
   type StudioLang,
 } from "@/lib/persona-studio/utils/i18n";
+import { tWorkshop } from "@/lib/persona-studio/utils/workshop-i18n";
 import {
   isJourneySection,
   PersonaDayJourney,
@@ -29,24 +30,22 @@ import { PersonaPortrait } from "@/components/persona-studio/shared/persona-port
 import { SectionCard } from "@/components/persona-studio/shared/section-card";
 
 /**
- * Persona detail as an asymmetric bento grid where size encodes hierarchy: a
- * large identity anchor, a bold quote, a coverage ring, a confidence tile, the
- * empathy-map centerpiece, and the remaining sections as varied-span tiles.
- *
- * DOM order deliberately follows a logical reading order (identity → coverage →
- * confidence → quote → synthesis → detail) so the screen-reader experience is
- * coherent regardless of the visual bento arrangement.
+ * Persona detail as an asymmetric bento grid where size encodes hierarchy.
+ * Sticky chrome stays light; identity shows archetype, name, essence, then a
+ * quiet meta line and secondary links (Who / What / Compare / History).
  */
 export function PersonaDetail({
   persona,
   peers = [],
   sources,
   lang = "en",
+  projectId,
 }: {
   persona: Persona;
   peers?: Persona[];
   sources: SourceDocument[];
   lang?: StudioLang;
+  projectId?: string;
 }) {
   const sourcesById = new Map(sources.map((s) => [s.id, s]));
   const sections = orderedSections(persona);
@@ -66,29 +65,15 @@ export function PersonaDetail({
   const hasJourney = journeySections.some((s) =>
     s.statements.some((st) => st.content.trim().length > 0),
   );
+  const historyHref = projectId
+    ? `/studio/projects/${projectId}/personas/${persona.id}/history`
+    : null;
+  const compareHref = projectId
+    ? `/studio/projects/${projectId}/compare?ids=${persona.id}`
+    : null;
 
   return (
     <article className="mx-auto max-w-6xl px-4 pb-24 pt-8 sm:px-6">
-      {hasJourney ? (
-        <nav
-          aria-label={tUI(lang, "onThisPage")}
-          className="mb-6 flex flex-wrap gap-2"
-        >
-          <a
-            href="#who-i-am"
-            className="studio-focusable rounded-full border border-[var(--studio-line)] bg-[var(--studio-paper)] px-3 py-1.5 text-xs font-medium text-[var(--studio-muted)] transition-colors hover:border-[var(--studio-accent)] hover:text-[var(--studio-ink)]"
-          >
-            {tUI(lang, "whoIAm")}
-          </a>
-          <a
-            href="#journey"
-            className="studio-focusable rounded-full border border-[var(--studio-line)] bg-[var(--studio-paper)] px-3 py-1.5 text-xs font-medium text-[var(--studio-muted)] transition-colors hover:border-[var(--studio-accent)] hover:text-[var(--studio-ink)]"
-          >
-            {tUI(lang, "whatIDo")}
-          </a>
-        </nav>
-      ) : null}
-
       {/* Hero bento — Who I am */}
       <div
         id="who-i-am"
@@ -111,27 +96,26 @@ export function PersonaDetail({
                 {persona.oneLineEssence}
               </p>
 
-              <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-[var(--studio-muted)]">
-                <span className="rounded-full studio-accent-soft px-2.5 py-1 font-medium">
-                  {tFamily(lang, persona.family)}
-                </span>
-                {persona.category && <span>{persona.category}</span>}
-                {persona.demographicContext.ageRange && (
-                  <span>
-                    {tUI(lang, "age")} {persona.demographicContext.ageRange}
-                  </span>
-                )}
-                {persona.demographicContext.location && (
-                  <span className="inline-flex items-center gap-1">
-                    <MapPin aria-hidden className="size-3.5 text-[var(--studio-accent)]" />
-                    {persona.demographicContext.location}
-                  </span>
-                )}
-              </div>
+              {/* Single quiet meta line instead of chip cluster */}
+              {(persona.category ||
+                persona.demographicContext.ageRange ||
+                persona.demographicContext.location) && (
+                <p className="mt-4 text-sm text-[var(--studio-muted)]">
+                  {[
+                    persona.category,
+                    persona.demographicContext.ageRange
+                      ? `${tUI(lang, "age")} ${persona.demographicContext.ageRange}`
+                      : null,
+                    persona.demographicContext.location,
+                  ]
+                    .filter(Boolean)
+                    .join(" · ")}
+                </p>
+              )}
 
               {persona.behaviouralTags.length > 0 && (
                 <ul className="mt-3 flex flex-wrap gap-1.5">
-                  {persona.behaviouralTags.map((tag) => (
+                  {persona.behaviouralTags.slice(0, 4).map((tag) => (
                     <li
                       key={tag}
                       className="inline-flex items-center gap-1 rounded-md border border-[var(--studio-line)] px-2 py-0.5 text-xs text-[var(--studio-muted)]"
@@ -142,6 +126,43 @@ export function PersonaDetail({
                   ))}
                 </ul>
               )}
+
+              <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-[var(--studio-line)] pt-4 text-sm">
+                {hasJourney ? (
+                  <>
+                    <a
+                      href="#who-i-am"
+                      className="font-medium text-[var(--studio-ink)] hover:text-[var(--studio-accent)]"
+                    >
+                      {tUI(lang, "whoIAm")}
+                    </a>
+                    <a
+                      href="#journey"
+                      className="text-[var(--studio-muted)] hover:text-[var(--studio-accent)]"
+                    >
+                      {tUI(lang, "whatIDo")}
+                    </a>
+                  </>
+                ) : null}
+                {compareHref ? (
+                  <Link
+                    href={compareHref}
+                    className="inline-flex items-center gap-1 text-[var(--studio-muted)] hover:text-[var(--studio-accent)]"
+                  >
+                    <UsersRound aria-hidden className="size-3.5" />
+                    {tWorkshop(lang, "compare")}
+                  </Link>
+                ) : null}
+                {historyHref ? (
+                  <Link
+                    href={historyHref}
+                    className="inline-flex items-center gap-1 text-[var(--studio-muted)] hover:text-[var(--studio-accent)]"
+                  >
+                    <History aria-hidden className="size-3.5" />
+                    {tUI(lang, "history")}
+                  </Link>
+                ) : null}
+              </div>
             </div>
 
             <PersonaPortrait
