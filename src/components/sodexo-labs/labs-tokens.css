@@ -1,0 +1,28 @@
+:root {
+  --labs-navy: #1e2f9a;
+  --labs-blue: #1968ff;
+  --labs-paper: #eef3f8;
+  --labs-teal: #2bb8b0;
+  --labs-ink: #0b1020;
+  --labs-muted: #5b6478;
+  --labs-accent: var(--labs-blue);
+}
+
+.labs-display {
+  font-family: var(--font-labs-display), "Instrument Serif", Georgia, serif;
+}
+
+.labs-body {
+  font-family: var(--font-labs-body), "DM Sans", system-ui, sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-labs-root] *,
+  [data-labs-root] *::before,
+  [data-labs-root] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

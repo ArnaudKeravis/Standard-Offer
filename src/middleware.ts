@@ -8,6 +8,6 @@ export default createMiddleware({
 });
 
 export const config = {
-  matcher: ["/((?!_next|thales|studio|api|.*\\..*).*)"],
+  matcher: ["/((?!_next|thales|studio|labs|hub|api|.*\\..*).*)"],
 };
 
