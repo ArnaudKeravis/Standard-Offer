@@ -63,4 +63,6 @@ export const LabsPack = z.object({
 export type LabsOffer = z.infer<typeof LabsOffer>;
 export type LabsPersonaSpot = z.infer<typeof LabsPersonaSpot>;
 export type LabsCaseSpot = z.infer<typeof LabsCaseSpot>;
+export type LabsZone = z.infer<typeof LabsZone>;
+export type LabsFormat = z.infer<typeof LabsFormat>;
 export type LabsPack = z.infer<typeof LabsPack>;
