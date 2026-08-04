@@ -62,8 +62,9 @@ export function HubHome() {
                     className={linkClassName}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={`${artefact.label} (opens in a new tab)`}
                   >
-                    <span>{artefact.label}</span>
+                    <span aria-hidden="true">{artefact.label}</span>
                     <span
                       aria-hidden
                       className="labs-body text-base font-medium tracking-normal text-[var(--labs-muted)] transition-colors group-hover:text-[var(--labs-blue)]"

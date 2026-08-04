@@ -38,20 +38,20 @@ export function LabsHud({
   const credentialsHref = `/labs/credentials?audience=${audience}&area=${area}`;
   const tone = dark
     ? {
-        text: "text-white/70",
+        text: "text-white/85",
         strong: "text-white",
-        muted: "text-white/45",
-        dot: "bg-white/25",
+        muted: "text-white/65",
+        dot: "bg-white/35",
         dotActive: "bg-white",
-        link: "text-white/80 hover:text-white",
+        link: "text-white hover:text-white",
         button:
-          "text-white/80 hover:text-white focus-visible:ring-white/60",
+          "text-white hover:text-white focus-visible:ring-white/70",
       }
     : {
         text: "text-[var(--labs-muted)]",
         strong: "text-[var(--labs-ink)]",
-        muted: "text-[color-mix(in_srgb,var(--labs-ink)_40%,transparent)]",
-        dot: "bg-[color-mix(in_srgb,var(--labs-ink)_18%,transparent)]",
+        muted: "text-[color-mix(in_srgb,var(--labs-ink)_55%,transparent)]",
+        dot: "bg-[color-mix(in_srgb,var(--labs-ink)_22%,transparent)]",
         dotActive: "bg-[var(--labs-accent)]",
         link: "text-[var(--labs-navy)] hover:text-[var(--labs-blue)]",
         button:
@@ -115,6 +115,7 @@ export function LabsHud({
         <button
           type="button"
           onClick={onChangeSession}
+          aria-label="Change session"
           className={`text-sm font-medium underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${tone.button} ${
             dark
               ? "focus-visible:ring-offset-[#0B1020]"

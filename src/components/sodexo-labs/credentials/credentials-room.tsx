@@ -194,6 +194,10 @@ export function CredentialsRoom({
         ref={dialogRef}
         className="labs-body m-auto w-[min(44rem,calc(100vw-2rem))] max-h-[min(90vh,52rem)] overflow-y-auto rounded-2xl border border-[color-mix(in_srgb,var(--labs-navy)_14%,transparent)] bg-white p-0 text-[var(--labs-ink)] shadow-xl open:flex open:flex-col backdrop:bg-[color-mix(in_srgb,var(--labs-ink)_45%,transparent)]"
         onClose={closeDetail}
+        onCancel={(e) => {
+          e.preventDefault();
+          closeDetail();
+        }}
         onClick={(e) => {
           if (e.target === dialogRef.current) closeDetail();
         }}

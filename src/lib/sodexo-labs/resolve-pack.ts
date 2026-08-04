@@ -12,7 +12,11 @@ export function resolveLabsPack(session: LabsSessionConfig) {
   const offers =
     audience === "internal"
       ? LABS_OFFERS
-      : LABS_OFFERS.map(({ internalExtra: _internalExtra, ...offer }) => offer);
+      : LABS_OFFERS.map((offer) => {
+          const externalOffer = { ...offer };
+          delete externalOffer.internalExtra;
+          return externalOffer;
+        });
 
   const cases = LABS_CASES.filter((c) => c.area === area).slice(0, 2);
 

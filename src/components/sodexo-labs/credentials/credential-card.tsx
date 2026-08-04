@@ -26,6 +26,8 @@ export function CredentialCard({ credential, onOpen }: CredentialCardProps) {
     <button
       type="button"
       onClick={() => onOpen(credential)}
+      aria-haspopup="dialog"
+      aria-label={`Open credential: ${credential.client} — ${credential.title}`}
       className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-[color-mix(in_srgb,var(--labs-navy)_14%,transparent)] bg-[color-mix(in_srgb,white_78%,var(--labs-paper))] text-left shadow-[0_1px_0_color-mix(in_srgb,var(--labs-navy)_5%,transparent)] outline-none transition-colors hover:border-[var(--labs-blue)] hover:bg-white focus-visible:ring-2 focus-visible:ring-[var(--labs-blue)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--labs-paper)]"
     >
       {image ? (
