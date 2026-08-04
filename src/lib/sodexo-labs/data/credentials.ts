@@ -14,7 +14,7 @@ export const LABS_CREDENTIALS = z.array(LabsCredential).parse([
     approach: "Through immersive research (site visit, user interviews, benchmark) and workshops with Lilly teams, we mapped employee personas and key journeys, structuring opportunities across Spaces, Services, Technologies, and Ways of Working.",
     outcome: "Delivered a strategic Experience Playbook outlining the vision for the expected experiences at the future site",
     year: "2026",
-    images: [],
+    images: [{ src: "/labs/credentials/lilly-1.jpg", alt: "Eli Lilly — The Cell — XP Greenfield Giga Factory" }],
   },
 {
     id: "astrazeneca",
@@ -28,7 +28,7 @@ export const LABS_CREDENTIALS = z.array(LabsCredential).parse([
     approach: "Through immersive site research, persona mapping, and collaborative workshops, we identified friction points and structured opportunities across: Employee journeys & campus rhythms, Food & hospitality activation, Community & collaboration spaces, Digital enablement & service integration.",
     outcome: "Defined future-state experience principles for the DISC campus",
     year: "2026",
-    images: [],
+    images: [{ src: "/labs/credentials/astrazeneca-1.jpg", alt: "AstraZeneca — Flagship Campus in Cambridge" }],
   },
 {
     id: "microsoft",
@@ -42,7 +42,7 @@ export const LABS_CREDENTIALS = z.array(LabsCredential).parse([
     approach: "Through immersive research, persona mapping, and collaborative workshops, we structured opportunities across: Employee journeys & hybrid rhythms, Food, hospitality & social activation, Wellness & community engagement, Digital enablement & seamless services.",
     outcome: "Defined future workplace experience principles",
     year: "2026",
-    images: [],
+    images: [{ src: "/labs/credentials/microsoft-1.jpg", alt: "Microsoft — Future of Workplace & Community — The Good Life" }],
   },
 {
     id: "rolland-garros",
@@ -56,7 +56,7 @@ export const LABS_CREDENTIALS = z.array(LabsCredential).parse([
     approach: "Through collaborative workshops with Roland-Garros stakeholders, we explored key moments of the visitor and player journeys. Focus areas included flow management, service efficiency, premium hospitality, personalization, and digital enablement.",
     outcome: "User personas and journey maps across spectators, players, families, and staff",
     year: "2026",
-    images: [],
+    images: [{ src: "/labs/credentials/rolland-garros-1.jpg", alt: "Roland-Garros — Food & Beverage Experience" }],
   },
 {
     id: "newcastle-united",
@@ -70,7 +70,7 @@ export const LABS_CREDENTIALS = z.array(LabsCredential).parse([
     approach: "Through co-design with Newcastle United teams, we pinpointed priorities around mobility, engagement, convenience, and digital upgrades, mapping opportunities across the full before–during–after match experience.",
     outcome: "User journeys mapped across 5 supporter profiles",
     year: "2024",
-    images: [],
+    images: [{ src: "/labs/credentials/newcastle-united-1.jpg", alt: "Newcastle United — Fan Experience — St James' Park" }],
   },
 {
     id: "edinburgh-zoo",
@@ -154,7 +154,7 @@ export const LABS_CREDENTIALS = z.array(LabsCredential).parse([
     approach: "Through immersive benchmarking (luxury hospitality, retail, CES & NRF tech trends), persona mapping, and structured ideation workshops, we defined opportunities across: Premium guest journey & personalization, F&B innovation & brand partnerships, AI & digital enablement, Operational efficiency & inventory optimization.",
     outcome: "Target personas for typical & premium guests defined",
     year: "2024",
-    images: [],
+    images: [{ src: "/labs/credentials/american-airlines-1.jpg", alt: "American Airlines — Reimagining the Next-Generation Lounge Experience" }],
   },
 {
     id: "colgate",
@@ -168,7 +168,7 @@ export const LABS_CREDENTIALS = z.array(LabsCredential).parse([
     approach: "Through on-site immersion, persona mapping, and co-creation workshops, we uncovered key friction points and structured opportunities across: Daily journey & shift rhythms, Food & service accessibility, Space optimization & amenities, Digital touchpoints & communication.",
     outcome: "Blue-collar and new-collar personas defined",
     year: "2024",
-    images: [],
+    images: [{ src: "/labs/credentials/colgate-1.jpg", alt: "Colgate-Palmolive — Improving Everyday Experience for Frontline Workers" }],
   },
 {
     id: "clariane",
@@ -182,7 +182,7 @@ export const LABS_CREDENTIALS = z.array(LabsCredential).parse([
     approach: "Through site immersions, stakeholder interviews, research, and collaborative workshops, we structured opportunities across: Resident personas & daily rhythms, Meal journey & service touchpoints, Menu personalization & autonomy, Staff processes & operational alignment.",
     outcome: "Weekly co-creation workshops for menu planning designed",
     year: "2025",
-    images: [],
+    images: [{ src: "/labs/credentials/clariane-1.jpg", alt: "Clariane — Rethinking Food Experience in Care & Memory Units" }],
   },
 {
     id: "coeur-defense",
@@ -210,7 +210,7 @@ export const LABS_CREDENTIALS = z.array(LabsCredential).parse([
     approach: "Through research and co-design with Cyber Campus stakeholders, we mapped multi-profile journeys, defined experience territories, and co-created concepts across community, food, services, and digital enablement.",
     outcome: "Multi-persona experience mapping across 4 user profiles",
     year: "2025",
-    images: [],
+    images: [{ src: "/labs/credentials/cyber-campus-1.jpg", alt: "Cyber Campus — Innovation Hub — Experience Design" }],
   },
 {
     id: "domitys",
@@ -266,7 +266,7 @@ export const LABS_CREDENTIALS = z.array(LabsCredential).parse([
     approach: "Research & insights on-site across mobility, dining, workspace, digital. Personas & Journeys: 6 user profiles mapped. Co-Creation: 4 workshops → 143 ideas → 30 concept sheets. Prioritization across 5 themes. Roadmap & Governance defined.",
     outcome: "Unified experience vision across 3 sites",
     year: "2025",
-    images: [],
+    images: [{ src: "/labs/credentials/thales-1.jpg", alt: "Thales — Workplace & Culinary Experience Convergence" }],
   },
 {
     id: "scottish-parliament",
@@ -308,7 +308,7 @@ export const LABS_CREDENTIALS = z.array(LabsCredential).parse([
     approach: "Focus group, insights and data gathering, identification of use cases and prioritization, co-creation workshop, implementation roadmap development.",
     outcome: "5 personas mapping all supporter profiles",
     year: "2025",
-    images: [],
+    images: [{ src: "/labs/credentials/arsenal-fc-1.jpg", alt: "Arsenal FC — Rethinking Emirates Stadium XP" }],
   },
 {
     id: "arsenal-women",
@@ -350,7 +350,7 @@ export const LABS_CREDENTIALS = z.array(LabsCredential).parse([
     approach: "Through site immersion, interviews with patients and staff, and co-design sessions, we mapped journeys, identified friction points, and co-created service innovations across food, reception, and patient experience dimensions.",
     outcome: "Multi-profile journey maps for patients, families, and staff",
     year: "2026",
-    images: [],
+    images: [{ src: "/labs/credentials/hstv-1.jpg", alt: "HSTV — Hospitalité Saint-Thomas de Villeneuve — Healthcare Hospitality Experience" }],
   },
 {
     id: "abeille",
