@@ -42,29 +42,36 @@ const COPY: Record<
 };
 
 /**
- * Studio home gateway — same isometric map pattern as XP Catalogue /areas,
- * linking into Persona Studio projects (one sheet format for every persona).
+ * Areas gateway — isometric map linking into Persona Studio projects.
+ * On the lobby home, used as the working entry after the Studio presentation.
  */
 export function AreasExplorer({
   lang,
   areas,
+  headingLevel = "h1",
 }: {
   lang: StudioLang;
   areas: AreaCard[];
+  /** Use h2 when embedded under a page-level hero. */
+  headingLevel?: "h1" | "h2";
 }) {
   const copy = COPY[lang];
+  const Heading = headingLevel;
 
   return (
-    <section aria-labelledby="studio-areas-heading" className="mt-8">
+    <section aria-labelledby="studio-areas-heading" className="mt-2">
       <div className="mx-auto max-w-3xl text-center">
-        <h1
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--studio-accent)]">
+          {tUI(lang, "homeAreasEyebrow")}
+        </p>
+        <Heading
           id="studio-areas-heading"
-          className="studio-display text-3xl font-bold tracking-tight text-[var(--studio-ink)] sm:text-4xl lg:text-5xl"
+          className="studio-display mt-2 text-3xl font-bold tracking-tight text-[var(--studio-ink)] sm:text-4xl lg:text-5xl"
         >
           {tUI(lang, "areasTitle")}
-        </h1>
+        </Heading>
         <p className="mt-3 text-base text-[var(--studio-muted)] sm:text-lg">
-          {tUI(lang, "areasSubtitle")}
+          {tUI(lang, "homeAreasSubtitle")}
         </p>
       </div>
 

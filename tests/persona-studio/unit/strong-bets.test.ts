@@ -75,6 +75,7 @@ describe("living journey enrichment", () => {
     archetype: "Worker",
     category: "c",
     family: "WORK",
+    stakeholderRole: "CONSUMER",
     oneLineEssence: "Busy desk worker",
     accentColor: "#000",
     quote: "",

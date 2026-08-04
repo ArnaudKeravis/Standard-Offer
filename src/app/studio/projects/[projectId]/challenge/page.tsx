@@ -58,6 +58,8 @@ export default async function ChallengePage({
     >
       <StudioNav
         lang={lang}
+        projectId={project.id}
+        showWorkshopBar
         crumbs={[
           { label: project.name, href: `/studio/projects/${project.id}` },
           { label: tWorkshop(lang, "challengeTitle") },

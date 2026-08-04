@@ -37,6 +37,7 @@ describe("computeDifferentiation", () => {
       archetype: "A",
       category: "c",
       family: "WORK",
+      stakeholderRole: "CONSUMER",
       oneLineEssence: "e",
       accentColor: "#000",
       quote: "",

@@ -143,6 +143,7 @@ export function localizePersona(src: PersonaSource, lang: StudioLang): Persona {
     name: resolveText(src.name, lang),
     archetype: resolveText(src.archetype, lang),
     category: resolveText(src.category, lang),
+    stakeholderRole: src.stakeholderRole ?? "CONSUMER",
     segment: opt(src.segment, lang),
     oneLineEssence: resolveText(src.oneLineEssence, lang),
     quote: resolveText(src.quote, lang),

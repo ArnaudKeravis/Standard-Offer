@@ -8,17 +8,27 @@ import {
   type PersonaSource,
   type SourceDocumentSource,
 } from "../localized";
+import {
+  EATING_MOMENTS_SOURCE,
+  EATING_MOMENTS_SOURCE_ID,
+  PERSONIX_FRAMEWORK_SOURCE,
+  PERSONIX_FRAMEWORK_SOURCE_ID,
+  PERSONIX_MOMENTS,
+  type MomentSource,
+} from "./personix-moments";
 
 /**
- * Corporate workplace archetypes (the Personix standard profiles), bilingual.
+ * Corporate workplace archetypes (Personix Standard Persona Profiles).
  *
- * Authored in English first (source of truth) and mirrored faithfully in
- * French. Described behaviour, eating moments and expectations come from the
- * Personix framework document and are tagged EVIDENCE against it. Local GOALS
- * and FRUSTRATIONS are intentionally left as TO_VALIDATE — they must be
- * co-defined with client HR & operations before the persona guides design.
- * Confidence is LOW for exactly this reason, a deliberate demonstration that
- * confidence ≠ evidence coverage.
+ * Structure matches the PDF reference sheet and is the template for all Work
+ * personas: Lifestyle · Daily job · Key eating moments · Expectations vs
+ * workplace · Expectations vs food · Goals · Frustrations.
+ *
+ * Food content (eating moments + food expectations) is evidenced against the
+ * Eating Moments study (Ipsos × Sodexo). Behaviour / lifestyle / workplace
+ * expectations come from the Personix PDF. Goals and frustrations are taken
+ * from companion XP Catalogue personas (white / blue / grey collar) and tagged
+ * for site validation.
  */
 
 /** Corporate / Personix personas live inside the WORK area project. */
@@ -27,116 +37,61 @@ import { XP_WORK_PROJECT_ID } from "./xp-work-personas";
 
 const ACCENT = "#1e3a8a";
 
-const FRAMEWORK_SOURCE: SourceDocumentSource = {
-  id: "src-personix-framework",
-  projectId: XP_WORK_PROJECT_ID,
-  name: {
-    en: "Personix — Standard Persona Profiles",
-    fr: "Personix — Profils de personas standard",
-  },
-  type: "pdf",
-  date: SEED_TIMESTAMP,
-  author: "Sodexo × Ipsos",
-  category: "EXISTING_PERSONA",
-  extractedText:
-    "Personix proprietary segmentation. 11 Eating Moments identified from a survey of 7,100+ eating moments among 3,800+ individuals across France, UK and USA. Standard workplace archetypes: Leader, Conductor, Enabler, Expert, Junior, Day Operator, Night Operator, Specialist.",
-  processingStatus: "READY",
-  confidentiality: "INTERNAL",
-  createdAt: SEED_TIMESTAMP,
-};
+/** XP Work catalogue — companion source for goals & frustrations. */
+const XP_WORK_SOURCE_ID = "src-xp-work";
 
-export const CORPORATE_SOURCE_SOURCES: SourceDocumentSource[] = [FRAMEWORK_SOURCE];
-const S = [FRAMEWORK_SOURCE.id];
+export const CORPORATE_SOURCE_SOURCES: SourceDocumentSource[] = [
+  PERSONIX_FRAMEWORK_SOURCE,
+  EATING_MOMENTS_SOURCE,
+];
+const S_PERSONIX = [PERSONIX_FRAMEWORK_SOURCE_ID];
+const S_EATING = [EATING_MOMENTS_SOURCE_ID, PERSONIX_FRAMEWORK_SOURCE_ID];
+const S_GOALS = [XP_WORK_SOURCE_ID, PERSONIX_FRAMEWORK_SOURCE_ID];
 
-type MomentSource = { title: LocalizedText; content: LocalizedText };
+const MOMENTS = PERSONIX_MOMENTS;
 
-/** Recurring Personix eating moments, translated once and reused. */
-const MOMENTS = {
-  nomadicDiscovery: {
-    title: { en: "Nomadic Discovery", fr: "Découverte nomade" },
-    content: {
-      en: "A mostly solo, on-the-go meal, often picked up on the high street as a way to discover something new, with high expectations for quality and sustainability.",
-      fr: "Un repas essentiellement solo, pris sur le pouce, souvent acheté en ville pour découvrir quelque chose de nouveau, avec des attentes élevées en matière de qualité et de durabilité.",
-    },
-  },
-  myHealthyMeal: {
-    title: { en: "My Healthy Meal", fr: "Mon repas sain" },
-    content: {
-      en: "A healthy, tailor-made meal designed to suit specific eating habits, made with fresh, natural and sustainable ingredients and meant to be savored in the workplace restaurant or outside.",
-      fr: "Un repas sain et sur mesure, conçu pour s'adapter à des habitudes alimentaires spécifiques, préparé avec des ingrédients frais, naturels et durables, à savourer au restaurant d'entreprise ou à l'extérieur.",
-    },
-  },
-  myHealthyMealJunior: {
-    title: { en: "My Healthy Meal", fr: "Mon repas sain" },
-    content: {
-      en: "A healthy, tailor-made meal suited to specific eating habits, made with fresh, natural and sustainable ingredients, encouraging discovery while being savored in or outside the workplace.",
-      fr: "Un repas sain et sur mesure, adapté à des habitudes alimentaires spécifiques, préparé avec des ingrédients frais, naturels et durables, qui encourage la découverte tout en se savourant sur le lieu de travail ou à l'extérieur.",
-    },
-  },
-  specialGathering: {
-    title: { en: "Special Gathering", fr: "Rassemblement spécial" },
-    content: {
-      en: "A shared moment of celebration where co-workers come together in a meeting room or casual space, around freshly prepared catering.",
-      fr: "Un moment de célébration partagé où les collègues se réunissent dans une salle de réunion ou un espace informel, autour d'un traiteur préparé sur le moment.",
-    },
-  },
-  routineMorningBoost: {
-    title: { en: "Routine Morning Boost", fr: "Coup de fouet matinal" },
-    content: {
-      en: "A quick, convenient, healthy, and inexpensive ritual solo meal usually consumed at a desk or workstation to efficiently get the energy boost needed to start the workday.",
-      fr: "Un repas solo rituel, rapide, pratique, sain et peu coûteux, généralement pris au bureau ou au poste de travail pour trouver efficacement l'énergie nécessaire pour démarrer la journée.",
-    },
-  },
-  spontaneousSocialBreak: {
-    title: { en: "Spontaneous Social Break", fr: "Pause conviviale spontanée" },
-    content: {
-      en: "A short but relaxed group eating moment, sharing a generous but healthy meal or snack in a break room or casual space while connecting informally with colleagues.",
-      fr: "Un moment de repas en groupe court mais détendu, où l'on partage un repas ou un en-cas généreux mais sain dans une salle de pause ou un espace informel, tout en échangeant de façon informelle avec ses collègues.",
-    },
-  },
-  informalLunchTogether: {
-    title: { en: "Informal Lunch Together", fr: "Déjeuner informel ensemble" },
-    content: {
-      en: "A ritual of togetherness where colleagues gather and relax over a freshly prepared lunch, chosen from the wide, good value offer of the workplace restaurant.",
-      fr: "Un rituel de convivialité où les collègues se réunissent et se détendent autour d'un déjeuner préparé sur le moment, choisi dans l'offre large et à bon rapport qualité-prix du restaurant d'entreprise.",
-    },
-  },
-  refuelingBudgetMeal: {
-    title: { en: "Refueling Budget Meal", fr: "Repas économique pour recharger" },
-    content: {
-      en: "A satisfying, budget-friendly solo meal with generous portions to disconnect and recharge after intense work hours, mostly consumed in a quiet break room atmosphere.",
-      fr: "Un repas solo satisfaisant et économique, aux portions généreuses, pour déconnecter et se ressourcer après des heures de travail intenses, généralement pris dans l'atmosphère calme d'une salle de pause.",
-    },
-  },
-  indulgentSnack: {
-    title: { en: "Indulgent Snack", fr: "En-cas plaisir" },
-    content: {
-      en: "A quick and convenient, tasty solo snacking moment at a desk or workstation that serves as an afternoon break for comfort and reward to unwind and recharge.",
-      fr: "Un moment de grignotage solo rapide, pratique et savoureux, au bureau ou au poste de travail, qui fait office de pause de l'après-midi, pour le réconfort et la récompense, afin de se détendre et de se ressourcer.",
-    },
-  },
-  meTimeLunch: {
-    title: { en: "Me-Time Lunch", fr: "Déjeuner pour soi" },
-    content: {
-      en: "A solo lunch, mainly enjoyed in a break room, to relax and savor a quiet moment with good and generous food.",
-      fr: "Un déjeuner solo, principalement pris dans une salle de pause, pour se détendre et savourer un moment de calme avec une nourriture bonne et généreuse.",
-    },
-  },
-  greenSpace: {
-    title: { en: "Green Space", fr: "Espace vert" },
-    content: {
-      en: "An outdoor meal (in a park…) where food choices are guided by sustainability, local and seasonal cues, and specific dietary needs.",
-      fr: "Un repas en plein air (dans un parc…) où les choix alimentaires sont guidés par la durabilité, les repères locaux et de saison, et des besoins alimentaires spécifiques.",
-    },
-  },
-  energizingSnack: {
-    title: { en: "Energizing Snack", fr: "En-cas énergisant" },
-    content: {
-      en: "A quick, solo snack at a desk or workstation that provides comfort and reward while giving a boost to stay sharp and focused.",
-      fr: "Un en-cas solo rapide, au bureau ou au poste de travail, qui apporte réconfort et récompense tout en donnant un coup de fouet pour rester vif et concentré.",
-    },
-  },
-} satisfies Record<string, MomentSource>;
+/** Shared XP white-collar goals / frustrations (Admin Function). */
+const WHITE_COLLAR_GOALS: LocalizedText[] = [
+  { en: "Eat healthy and fast during busy workdays", fr: "Manger sainement et rapidement pendant les journées de travail chargées" },
+  { en: "Stay productive and focused throughout the day", fr: "Rester productif et concentré tout au long de la journée" },
+  { en: "Maintain work-life balance despite high pressure", fr: "Maintenir l'équilibre travail-vie personnelle malgré la pression élevée" },
+  { en: "Feel supported physically and mentally at work", fr: "Se sentir soutenu physiquement et mentalement au travail" },
+];
+const WHITE_COLLAR_FRUSTRATIONS: LocalizedText[] = [
+  { en: "Long lines at the cafeteria or poor meal options", fr: "Longues files d'attente à la cafétéria ou options de repas médiocres" },
+  { en: "Lack of vegetarian/vegan/gluten-free choices", fr: "Manque de choix végétariens/végétaliens/sans gluten" },
+  { en: "Rigid opening hours or lack of flexibility for hybrid workers", fr: "Horaires d'ouverture rigides ou manque de flexibilité pour les travailleurs hybrides" },
+  { en: "Apps or systems that are buggy or complicated", fr: "Applications ou systèmes bogués ou compliqués" },
+  { en: "Perceived low quality or unattractiveness of food offerings", fr: "Perception de la mauvaise qualité ou du manque d'attrait des offres alimentaires" },
+];
+
+const GREY_COLLAR_GOALS: LocalizedText[] = [
+  { en: "Conduct high-level research while managing time and scientific rigor", fr: "Mener des recherches de haut niveau tout en gérant le temps et la rigueur scientifique" },
+  { en: "Stay focused and precise throughout demanding experiments", fr: "Rester concentré et précis tout au long des expériences exigeantes" },
+  { en: "Collaborate effectively and share results with colleagues", fr: "Collaborer efficacement et partager les résultats avec les collègues" },
+  { en: "Maintain physical and mental well-being despite intense work rhythms", fr: "Maintenir le bien-être physique et mental malgré des rythmes de travail intenses" },
+];
+const GREY_COLLAR_FRUSTRATIONS: LocalizedText[] = [
+  { en: "Meals not adapted to irregular lab schedules (long experiments, shifted breaks)", fr: "Repas non adaptés aux horaires irréguliers du laboratoire (expériences longues, pauses décalées)" },
+  { en: "Lack of quick and nutritious options between experiments", fr: "Manque d'options rapides et nutritives entre les expériences" },
+  { en: "Crowded cafeteria at peak hours, loss of critical time", fr: "Cafétéria bondée aux heures de pointe, perte de temps critique" },
+  { en: "Limited flexibility for ordering or picking up meals outside fixed hours", fr: "Flexibilité limitée pour commander ou récupérer des repas en dehors des horaires fixes" },
+  { en: "Digital tools that feel buggy, complicated or not suited to scientific work habits", fr: "Des outils numériques qui paraissent buggés, compliqués ou inadaptés aux habitudes de travail scientifique" },
+];
+
+const BLUE_COLLAR_GOALS: LocalizedText[] = [
+  { en: "Work safely and efficiently during physical shifts", fr: "Travailler de manière sécuritaire et efficace pendant les quarts de travail physiques" },
+  { en: "Maintain energy and focus throughout long workdays", fr: "Maintenir son énergie et sa concentration tout au long des longues journées de travail" },
+  { en: "Access quick services without losing break time", fr: "Accéder à des services rapides sans perdre de temps de pause" },
+  { en: "Feel recognized and valued for hands-on work", fr: "Se sentir reconnu et valorisé pour un travail pratique" },
+];
+const BLUE_COLLAR_FRUSTRATIONS: LocalizedText[] = [
+  { en: "Long queues eating into already short breaks", fr: "De longues files d'attente qui rongent des pauses déjà courtes" },
+  { en: "Limited food options for late shifts or dietary needs", fr: "Options alimentaires limitées pour les quarts tardifs ou les besoins alimentaires" },
+  { en: "Complex payment or ordering systems", fr: "Systèmes de paiement ou de commande complexes" },
+  { en: "Not enough satisfying meals that provide lasting energy", fr: "Pas assez de repas satisfaisants qui fournissent une énergie durable" },
+  { en: "Rigid timing that doesn't match shift schedules", fr: "Horaires rigides qui ne correspondent pas aux plannings d'équipe" },
+];
 
 type ArchetypeSpec = {
   id: string;
@@ -152,6 +107,8 @@ type ArchetypeSpec = {
   eatingMoments: MomentSource[];
   foodExpectations: LocalizedText[];
   workplaceExpectations: LocalizedText[];
+  goals: LocalizedText[];
+  frustrations: LocalizedText[];
 };
 
 const ARCHETYPES: ArchetypeSpec[] = [
@@ -204,6 +161,8 @@ const ARCHETYPES: ArchetypeSpec[] = [
       { en: "Confidentiality and discretion.", fr: "Confidentialité et discrétion." },
       { en: "Expects premium, frictionless services.", fr: "Attend des services premium et sans friction." },
     ],
+    goals: WHITE_COLLAR_GOALS,
+    frustrations: WHITE_COLLAR_FRUSTRATIONS,
   },
   {
     id: "persona-corp-conductor",
@@ -253,6 +212,8 @@ const ARCHETYPES: ArchetypeSpec[] = [
       { en: "Environment that supports team engagement.", fr: "Un environnement qui favorise l'engagement de l'équipe." },
       { en: "Recognition as both a leader and an enabler.", fr: "Une reconnaissance à la fois comme leader et comme facilitateur." },
     ],
+    goals: WHITE_COLLAR_GOALS,
+    frustrations: WHITE_COLLAR_FRUSTRATIONS,
   },
   {
     id: "persona-corp-enabler",
@@ -302,6 +263,8 @@ const ARCHETYPES: ArchetypeSpec[] = [
       { en: "Responsive collaboration and functional support.", fr: "Une collaboration réactive et un support fonctionnel." },
       { en: "Recognition for keeping operations running smoothly.", fr: "De la reconnaissance pour maintenir le bon fonctionnement des opérations." },
     ],
+    goals: WHITE_COLLAR_GOALS,
+    frustrations: WHITE_COLLAR_FRUSTRATIONS,
   },
   {
     id: "persona-corp-expert",
@@ -350,6 +313,8 @@ const ARCHETYPES: ArchetypeSpec[] = [
       { en: "Autonomy and control over tasks.", fr: "De l'autonomie et de la maîtrise sur ses tâches." },
       { en: "Minimal unnecessary interactions.", fr: "Un minimum d'interactions superflues." },
     ],
+    goals: GREY_COLLAR_GOALS,
+    frustrations: GREY_COLLAR_FRUSTRATIONS,
   },
   {
     id: "persona-corp-junior",
@@ -400,6 +365,8 @@ const ARCHETYPES: ArchetypeSpec[] = [
       { en: "Frequent constructive feedback.", fr: "Des retours constructifs fréquents." },
       { en: "Simple, intuitive systems and spaces.", fr: "Des systèmes et des espaces simples et intuitifs." },
     ],
+    goals: WHITE_COLLAR_GOALS,
+    frustrations: WHITE_COLLAR_FRUSTRATIONS,
   },
   {
     id: "persona-corp-day-operator",
@@ -449,6 +416,8 @@ const ARCHETYPES: ArchetypeSpec[] = [
       { en: "Predictable routines and schedules.", fr: "Des routines et des horaires prévisibles." },
       { en: "Fair treatment across teams.", fr: "Un traitement équitable entre les équipes." },
     ],
+    goals: BLUE_COLLAR_GOALS,
+    frustrations: BLUE_COLLAR_FRUSTRATIONS,
   },
   {
     id: "persona-corp-night-operator",
@@ -500,6 +469,8 @@ const ARCHETYPES: ArchetypeSpec[] = [
       { en: "Recognition despite off-hours work.", fr: "De la reconnaissance malgré le travail en horaires décalés." },
       { en: "Smooth coordination with peers.", fr: "Une coordination fluide avec ses pairs." },
     ],
+    goals: BLUE_COLLAR_GOALS,
+    frustrations: BLUE_COLLAR_FRUSTRATIONS,
   },
   {
     id: "persona-corp-specialist",
@@ -550,6 +521,8 @@ const ARCHETYPES: ArchetypeSpec[] = [
       { en: "Simple, predictable services that reduce mental load.", fr: "Des services simples et prévisibles qui réduisent la charge mentale." },
       { en: "Recognition as a skilled contributor, not \u201cjust support\u201d.", fr: "Une reconnaissance en tant que contributeur qualifié, et non « simple support »." },
     ],
+    goals: GREY_COLLAR_GOALS,
+    frustrations: GREY_COLLAR_FRUSTRATIONS,
   },
 ];
 
@@ -560,14 +533,14 @@ function buildCorporatePersona(spec: ArchetypeSpec): PersonaSource {
       title: { en: "Who I am", fr: "Qui je suis" },
       type: "text",
       order: 0,
-      items: [{ content: spec.essence, sourceIds: S, confidence: "MEDIUM" }],
+      items: [{ content: spec.essence, sourceIds: S_PERSONIX, confidence: "MEDIUM" }],
     }),
     section(spec.id, {
       key: "lifestyle",
       title: { en: "How I live the day", fr: "Comment je vis ma journée" },
       type: "text",
       order: 1,
-      items: [{ content: spec.lifestyle, sourceIds: S, confidence: "MEDIUM" }],
+      items: [{ content: spec.lifestyle, sourceIds: S_PERSONIX, confidence: "MEDIUM" }],
     }),
     section(spec.id, {
       key: "goals",
@@ -577,16 +550,12 @@ function buildCorporatePersona(spec: ArchetypeSpec): PersonaSource {
       },
       type: "bullets",
       order: 2,
-      items: [
-        {
-          content: {
-            en: "Local goals must be co-defined with client HR & operations during Discovery.",
-            fr: "Les objectifs locaux doivent être co-définis avec les RH et les opérations du client pendant la Discovery.",
-          },
-          status: "TO_VALIDATE",
-          confidence: "LOW",
-        },
-      ],
+      items: spec.goals.map((content) => ({
+        content,
+        sourceIds: S_GOALS,
+        status: "TO_VALIDATE" as const,
+        confidence: "MEDIUM" as const,
+      })),
     }),
     section(spec.id, {
       key: "frustrations",
@@ -596,16 +565,12 @@ function buildCorporatePersona(spec: ArchetypeSpec): PersonaSource {
       },
       type: "bullets",
       order: 7,
-      items: [
-        {
-          content: {
-            en: "Local frustrations must be captured from real site data before use.",
-            fr: "Les frustrations locales doivent être recueillies à partir de données réelles du site avant utilisation.",
-          },
-          status: "TO_VALIDATE",
-          confidence: "LOW",
-        },
-      ],
+      items: spec.frustrations.map((content) => ({
+        content,
+        sourceIds: S_GOALS,
+        status: "TO_VALIDATE" as const,
+        confidence: "MEDIUM" as const,
+      })),
     }),
   ];
 
@@ -615,21 +580,30 @@ function buildCorporatePersona(spec: ArchetypeSpec): PersonaSource {
       title: { en: "How my work day runs", fr: "Comment se déroule ma journée de travail" },
       type: "bullets",
       order: 21,
-      items: spec.dailyJob.map((content) => ({ content, sourceIds: S })),
+      items: spec.dailyJob.map((content) => ({
+        content,
+        sourceIds: S_PERSONIX,
+      })),
     }),
     section(spec.id, {
       key: "workplace_expectations",
       title: { en: "What I expect from the workplace", fr: "Ce que j'attends du lieu de travail" },
       type: "bullets",
       order: 22,
-      items: spec.workplaceExpectations.map((content) => ({ content, sourceIds: S })),
+      items: spec.workplaceExpectations.map((content) => ({
+        content,
+        sourceIds: S_PERSONIX,
+      })),
     }),
     section(spec.id, {
       key: "food_expectations",
       title: { en: "What I expect from food", fr: "Ce que j'attends de la restauration" },
       type: "bullets",
       order: 23,
-      items: spec.foodExpectations.map((content) => ({ content, sourceIds: S })),
+      items: spec.foodExpectations.map((content) => ({
+        content,
+        sourceIds: S_EATING,
+      })),
     }),
     section(spec.id, {
       key: "key_eating_moments",
@@ -639,7 +613,7 @@ function buildCorporatePersona(spec: ArchetypeSpec): PersonaSource {
       items: spec.eatingMoments.map((m) => ({
         label: m.title,
         content: m.content,
-        sourceIds: S,
+        sourceIds: S_EATING,
       })),
     }),
   ];
@@ -651,16 +625,17 @@ function buildCorporatePersona(spec: ArchetypeSpec): PersonaSource {
     archetype: spec.archetype,
     category: spec.category,
     family: "WORK",
+    stakeholderRole: "CONSUMER",
     segment: { en: "Corporate Services — Work", fr: "Services aux entreprises — Work" },
     oneLineEssence: spec.essence,
     portraitUrl: `/persona-studio/corporate/${spec.id.replace("persona-corp-", "")}.png`,
     accentColor: ACCENT,
     quote: spec.quote,
     quoteType: "COMPOSITE",
-    confidenceLevel: "LOW",
+    confidenceLevel: "MEDIUM",
     confidenceExplanation: {
-      en: "Standard Personix archetype. Behaviour and eating moments are evidenced by the framework, but local goals and frustrations are unvalidated, so this profile is a hypothesis until confirmed with client HR & operations.",
-      fr: "Archétype Personix standard. Le comportement et les moments de repas sont étayés par le référentiel, mais les objectifs et frustrations locaux ne sont pas validés : ce profil reste une hypothèse tant qu'il n'est pas confirmé avec les RH et les opérations du client.",
+      en: "Personix Standard Persona Profile. Lifestyle, daily job and workplace expectations from the Personix PDF; food expectations and key eating moments evidenced by the Eating Moments study (Ipsos × Sodexo). Goals and frustrations imported from companion XP Catalogue personas — validate locally with client HR & operations.",
+      fr: "Profil Standard Personix. Lifestyle, journée type et attentes workplace issus du PDF Personix ; attentes food et eating moments étayés par l'étude Eating Moments (Ipsos × Sodexo). Goals et frustrations repris des personas XP Catalogue compagnons — à valider localement avec RH & opérations client.",
     },
     evidenceCoverage: sourceEvidenceCoverage([...commonSections, ...domainSections]),
     demographicContext: {
@@ -671,8 +646,12 @@ function buildCorporatePersona(spec: ArchetypeSpec): PersonaSource {
       },
     },
     behaviouralTags: spec.tags,
-    sourceIds: S,
-    status: "IN_REVIEW",
+    sourceIds: [
+      PERSONIX_FRAMEWORK_SOURCE_ID,
+      EATING_MOMENTS_SOURCE_ID,
+      XP_WORK_SOURCE_ID,
+    ],
+    status: "PUBLISHED",
     version: 1,
     createdAt: SEED_TIMESTAMP,
     updatedAt: SEED_TIMESTAMP,

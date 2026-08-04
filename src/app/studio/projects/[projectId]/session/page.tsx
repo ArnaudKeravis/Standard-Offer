@@ -82,6 +82,8 @@ export default async function FacilitatorSessionPage({
     >
       <StudioNav
         lang={lang}
+        projectId={project.id}
+        showWorkshopBar
         crumbs={[
           { label: project.name, href: `/studio/projects/${project.id}` },
           { label: tWorkshop(lang, "sessionTitle") },

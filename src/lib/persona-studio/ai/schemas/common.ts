@@ -44,6 +44,13 @@ export const PersonaFamily = z.enum([
 ]);
 export type PersonaFamily = z.infer<typeof PersonaFamily>;
 
+/**
+ * Sodexo stakeholder lens used across XP Catalogue areas: who buys (Client),
+ * who runs the service (Operator), who experiences it day-to-day (Consumer).
+ */
+export const StakeholderRole = z.enum(["CLIENT", "OPERATOR", "CONSUMER"]);
+export type StakeholderRole = z.infer<typeof StakeholderRole>;
+
 /** Research posture for a project. */
 export const ResearchMode = z.enum(["RESEARCH_GROUNDED", "PROTO_PERSONA"]);
 export type ResearchMode = z.infer<typeof ResearchMode>;

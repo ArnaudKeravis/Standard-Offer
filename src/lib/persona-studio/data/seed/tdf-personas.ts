@@ -66,6 +66,7 @@ const david = finalise({
     en: "International business VIP client",
   },
   family: "PLAY",
+  stakeholderRole: "CLIENT",
   segment: { fr: "Sports & Loisirs — Play", en: "Sports & Leisure — Play" },
   oneLineEssence: {
     fr: "Un dirigeant international au temps compté qui utilise le Tour comme une scène premium et authentique pour recevoir ses clients stratégiques.",
@@ -234,6 +235,7 @@ const sophie = finalise({
   archetype: { fr: "L'Invitée Famille", en: "The Family Guest" },
   category: { fr: "Invitée famille", en: "Family guest" },
   family: "PLAY",
+  stakeholderRole: "CONSUMER",
   segment: { fr: "Sports & Loisirs — Play", en: "Sports & Leisure — Play" },
   oneLineEssence: {
     fr: "Une cadre supérieure qui transforme une rare invitation partenaire en une journée exceptionnelle et sans complication avec son conjoint et ses enfants.",
@@ -400,6 +402,7 @@ const thomas = finalise({
   archetype: { fr: "L'Invité Sportif", en: "The Sports Fan Guest" },
   category: { fr: "Invité sportif", en: "Sports fan guest" },
   family: "PLAY",
+  stakeholderRole: "CONSUMER",
   segment: { fr: "Sports & Loisirs — Play", en: "Sports & Leisure — Play" },
   oneLineEssence: {
     fr: "Un passionné de cyclisme qui accepte l'invitation pour être au plus près de la course — l'hospitalité est un bonus, le sport est l'essentiel.",
@@ -567,6 +570,7 @@ const claire = finalise({
   archetype: { fr: "La Partenaire / Sponsor", en: "The Partner / Sponsor" },
   category: { fr: "Sponsor / Partenaire du Tour", en: "Tour sponsor / partner" },
   family: "PLAY",
+  stakeholderRole: "OPERATOR",
   segment: { fr: "Sports & Loisirs — Play", en: "Sports & Leisure — Play" },
   oneLineEssence: {
     fr: "Une directrice partenariats qui pilote un programme d'hospitalité sur toute la saison et doit rentabiliser chaque invitation.",

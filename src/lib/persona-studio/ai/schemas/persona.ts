@@ -7,6 +7,7 @@ import {
   LifecycleStatus,
   PersonaFamily,
   QuoteType,
+  StakeholderRole,
 } from "./common";
 import { PersonaSection, PersonaSectionTemplate } from "./section";
 
@@ -39,6 +40,11 @@ export const Persona = z.object({
   archetype: z.string().min(1),
   category: z.string().min(1),
   family: PersonaFamily,
+  /**
+   * Client / Operator / Consumer — gallery filter on area pages.
+   * Defaults to CONSUMER (the majority of XP profiles).
+   */
+  stakeholderRole: StakeholderRole.default("CONSUMER"),
   segment: z.string().optional(),
   oneLineEssence: z.string().min(1),
   portraitUrl: z.string().optional(),

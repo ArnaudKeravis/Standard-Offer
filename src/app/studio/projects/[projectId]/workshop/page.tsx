@@ -50,6 +50,8 @@ export default async function WorkshopPage({
     >
       <StudioNav
         lang={lang}
+        projectId={project.id}
+        showWorkshopBar
         crumbs={[
           { label: project.name, href: `/studio/projects/${project.id}` },
           { label: tWorkshop(lang, "workshopTitle") },

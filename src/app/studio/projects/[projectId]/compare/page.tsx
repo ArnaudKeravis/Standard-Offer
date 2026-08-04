@@ -71,6 +71,8 @@ export default async function ComparePage({
     >
       <StudioNav
         lang={lang}
+        projectId={project.id}
+        showWorkshopBar
         crumbs={[
           { label: project.name, href: `/studio/projects/${project.id}` },
           { label: tWorkshop(lang, "compareTitle") },

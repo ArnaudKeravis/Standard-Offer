@@ -132,6 +132,7 @@ export function scaffoldPersona(input: ScaffoldPersonaInput): Persona {
     archetype: input.archetype,
     category: input.category,
     family: input.family,
+    stakeholderRole: "CONSUMER",
     oneLineEssence:
       input.oneLineEssence && input.oneLineEssence.length > 0
         ? input.oneLineEssence

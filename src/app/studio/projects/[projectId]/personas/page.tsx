@@ -6,7 +6,7 @@ import { familyTheme } from "@/lib/persona-studio/utils/persona-view";
 import { langFromProject, tUI } from "@/lib/persona-studio/utils/i18n";
 import { getLangPreference } from "@/lib/persona-studio/utils/lang-cookie";
 import { StudioNav } from "@/components/persona-studio/shared/studio-nav";
-import { PersonaGalleryCard } from "@/components/persona-studio/personas/persona-gallery-card";
+import { PersonaRoleGallery } from "@/components/persona-studio/personas/persona-role-gallery";
 
 export default async function PersonaGalleryPage({
   params,
@@ -25,6 +25,8 @@ export default async function PersonaGalleryPage({
     <div data-studio-theme={familyTheme(project.family)}>
       <StudioNav
         lang={lang}
+        projectId={project.id}
+        showWorkshopBar
         crumbs={[
           { label: tUI(lang, "areasCrumb"), href: "/studio" },
           { label: project.name, href: `/studio/projects/${project.id}` },
@@ -47,16 +49,12 @@ export default async function PersonaGalleryPage({
         <p className="mt-1 text-[var(--studio-muted)]">
           {personas.length} {tUI(lang, "personas")} · {project.name}
         </p>
-        <div className="mt-8 grid auto-rows-min gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {personas.map((persona, i) => (
-            <PersonaGalleryCard
-              key={persona.id}
-              persona={persona}
-              projectId={project.id}
-              lang={lang}
-              staggerIndex={i}
-            />
-          ))}
+        <div className="mt-8">
+          <PersonaRoleGallery
+            personas={personas}
+            projectId={project.id}
+            lang={lang}
+          />
         </div>
       </main>
     </div>

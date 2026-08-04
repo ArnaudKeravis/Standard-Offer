@@ -14,22 +14,12 @@ import {
   tUI,
 } from "@/lib/persona-studio/utils/i18n";
 import { getLangPreference } from "@/lib/persona-studio/utils/lang-cookie";
-import { tWorkshop } from "@/lib/persona-studio/utils/workshop-i18n";
 import { StudioNav } from "@/components/persona-studio/shared/studio-nav";
-import { PersonaGalleryCard } from "@/components/persona-studio/personas/persona-gallery-card";
+import { PersonaRoleGallery } from "@/components/persona-studio/personas/persona-role-gallery";
 import { NeedsMap } from "@/components/persona-studio/shared/needs-map";
 import { JourneyLens } from "@/components/persona-studio/journeys/journey-lens";
-import {
-  FileText,
-  Lightbulb,
-  Presentation,
-  Plus,
-  Route,
-  StickyNote,
-  Users,
-  UsersRound,
-  Waypoints,
-} from "lucide-react";
+import { WorkshopToolsStrip } from "@/components/persona-studio/workshop/workshop-tools-strip";
+import { FileText, Plus, Route, Users } from "lucide-react";
 
 export default async function ProjectOverviewPage({
   params,
@@ -61,6 +51,8 @@ export default async function ProjectOverviewPage({
     >
       <StudioNav
         lang={lang}
+        projectId={project.id}
+        showWorkshopBar={personas.length > 0}
         crumbs={[
           { label: tUI(lang, "areasCrumb"), href: "/studio" },
           { label: project.name },
@@ -119,7 +111,15 @@ export default async function ProjectOverviewPage({
           </dl>
         </header>
 
-        <section className="mt-8" aria-label="Personas">
+        {personas.length > 0 && (
+          <WorkshopToolsStrip
+            projectId={project.id}
+            lang={lang}
+            className="mt-8"
+          />
+        )}
+
+        <section className="mt-10" aria-label="Personas">
           <div className="mb-4 flex items-center gap-2">
             <Users aria-hidden className="size-4 text-[var(--studio-accent)]" />
             <h2 className="studio-display text-lg font-semibold text-[var(--studio-ink)]">
@@ -132,69 +132,15 @@ export default async function ProjectOverviewPage({
               {tUI(lang, "openGallery")}
             </Link>
           </div>
-          <div className="grid auto-rows-min gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {personas.map((persona, i) => (
-              <PersonaGalleryCard
-                key={persona.id}
-                persona={persona}
-                projectId={project.id}
-                lang={lang}
-                staggerIndex={i}
-              />
-            ))}
-          </div>
+          <PersonaRoleGallery
+            personas={personas}
+            projectId={project.id}
+            lang={lang}
+          />
         </section>
 
         {personas.length > 0 && (
           <NeedsMap personas={personas} lang={lang} className="mt-8" />
-        )}
-
-        {personas.length > 0 && (
-          <section className="mt-10" aria-labelledby="workshop-tools-title">
-            <div className="mb-2">
-              <h2
-                id="workshop-tools-title"
-                className="studio-display text-lg font-semibold text-[var(--studio-ink)]"
-              >
-                {tWorkshop(lang, "workshopTools")}
-              </h2>
-              <p className="mt-1 max-w-2xl text-sm text-[var(--studio-muted)]">
-                {tWorkshop(lang, "workshopToolsIntro")}
-              </p>
-            </div>
-            <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-              <WorkshopToolLink
-                href={`/studio/projects/${project.id}/session`}
-                icon={<Waypoints className="size-4" />}
-                title={tWorkshop(lang, "facilitatorSession")}
-                description={tWorkshop(lang, "facilitatorSessionDesc")}
-              />
-              <WorkshopToolLink
-                href={`/studio/projects/${project.id}/compare`}
-                icon={<UsersRound className="size-4" />}
-                title={tWorkshop(lang, "compare")}
-                description={tWorkshop(lang, "compareDesc")}
-              />
-              <WorkshopToolLink
-                href={`/studio/projects/${project.id}/present`}
-                icon={<Presentation className="size-4" />}
-                title={tWorkshop(lang, "present")}
-                description={tWorkshop(lang, "presentDesc")}
-              />
-              <WorkshopToolLink
-                href={`/studio/projects/${project.id}/challenge`}
-                icon={<Lightbulb className="size-4" />}
-                title={tWorkshop(lang, "challenge")}
-                description={tWorkshop(lang, "challengeDesc")}
-              />
-              <WorkshopToolLink
-                href={`/studio/projects/${project.id}/workshop`}
-                icon={<StickyNote className="size-4" />}
-                title={tWorkshop(lang, "workshopBoard")}
-                description={tWorkshop(lang, "workshopBoardDesc")}
-              />
-            </ul>
-          </section>
         )}
 
         <div className="mt-10 grid gap-6 md:grid-cols-2">
@@ -267,34 +213,5 @@ function Panel({
       </div>
       {children}
     </section>
-  );
-}
-
-function WorkshopToolLink({
-  href,
-  icon,
-  title,
-  description,
-}: {
-  href: string;
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-}) {
-  return (
-    <li>
-      <Link
-        href={href}
-        className="flex h-full flex-col rounded-3xl border border-[var(--studio-line)] bg-[var(--studio-paper)] p-5 transition-colors hover:border-[var(--studio-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--studio-accent)]"
-      >
-        <span className="text-[var(--studio-accent)]">{icon}</span>
-        <span className="studio-display mt-3 text-sm font-semibold text-[var(--studio-ink)]">
-          {title}
-        </span>
-        <span className="mt-1 text-xs text-[var(--studio-muted)]">
-          {description}
-        </span>
-      </Link>
-    </li>
   );
 }

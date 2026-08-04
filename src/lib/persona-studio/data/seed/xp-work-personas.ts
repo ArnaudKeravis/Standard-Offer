@@ -10,6 +10,11 @@ import {
   type PersonaSource,
   type SourceDocumentSource,
 } from "../localized";
+import {
+  EATING_MOMENTS_SOURCE_ID,
+  PERSONIX_FRAMEWORK_SOURCE_ID,
+  PERSONIX_MOMENTS,
+} from "./personix-moments";
 
 /**
  * XP Catalogue — WORK area personas.
@@ -248,6 +253,38 @@ const SPECS: XpPersonaSpec[] = [
         content: { en: 'Between intense work blocks, I want easy ways to pause, move, breathe and look after my physical and mental health. I need simple access to healthy breaks, wellbeing activities and nudges that help me disconnect for a moment and come back focused and energized.', fr: 'Entre les blocs de travail intenses, je recherche des moyens faciles de faire une pause, de bouger, de respirer et de prendre soin de ma santé physique et mentale. J\'ai besoin d\'un accès simple à des pauses saines, à des activités de bien-être et à des coups de pouce qui m\'aident à me déconnecter un instant et à revenir concentré et plein d\'énergie.' },
       },
     ],
+    // Personix Standard Persona Profile layer — food from Eating Moments study
+    personix: {
+      lifestyle: {
+        en: "For white-collar desk workers, success means staying productive without burning out. Work comes first on busy days, but daily choices are guided by health, convenience and a need for services that remove friction.",
+        fr: "Pour les cols blancs au bureau, réussir c'est rester productif sans s'épuiser. Le travail passe avant sur les journées chargées, mais les choix quotidiens sont guidés par la santé, la praticité et le besoin de services qui retirent les frictions.",
+      },
+      dailyJob: [
+        { en: "Meeting-heavy days with rapid topic shifts between focus and collaboration.", fr: "Journées riches en réunions, avec des bascules rapides entre concentration et collaboration." },
+        { en: "Hybrid mix of desk, collaborative and occasional nomadic work.", fr: "Mix hybride bureau, collaboratif et travail occasionnellement nomade." },
+        { en: "Relies on digital tools for food, spaces and wellbeing services.", fr: "S'appuie sur des outils numériques pour la restauration, les espaces et les services de bien-être." },
+        { en: "Short, unprotected breaks — lunch is often the only reset.", fr: "Pauses courtes et peu protégées — le déjeuner est souvent le seul vrai reset." },
+      ],
+      workplaceExpectations: [
+        { en: "Quiet, low-distraction spaces when focus is needed.", fr: "Des espaces calmes et peu distrayants quand la concentration est nécessaire." },
+        { en: "Reliable and seamless digital tools.", fr: "Des outils numériques fiables et fluides." },
+        { en: "Smooth shifts between solo and team work.", fr: "Des transitions fluides entre travail solo et travail d'équipe." },
+        { en: "Services that respect hybrid rhythms and irregular lunch windows.", fr: "Des services qui respectent les rythmes hybrides et les fenêtres de déjeuner irrégulières." },
+      ],
+      foodExpectations: [
+        { en: "Healthy and balanced meals for sustained focus.", fr: "Des repas sains et équilibrés pour une concentration durable." },
+        { en: "Quick, convenient, and easily accessible options.", fr: "Des options rapides, pratiques et facilement accessibles." },
+        { en: "Customisable choices to fit dietary needs.", fr: "Des choix personnalisables adaptés aux besoins alimentaires." },
+        { en: "Flexibility to eat alone or with colleagues.", fr: "La liberté de manger seul ou avec des collègues." },
+      ],
+      eatingMoments: [
+        PERSONIX_MOMENTS.routineMorningBoost,
+        PERSONIX_MOMENTS.indulgentSnack,
+        PERSONIX_MOMENTS.meTimeLunch,
+      ],
+      eatingSourceIds: [EATING_MOMENTS_SOURCE_ID, PERSONIX_FRAMEWORK_SOURCE_ID],
+      personixSourceIds: [PERSONIX_FRAMEWORK_SOURCE_ID, EATING_MOMENTS_SOURCE_ID],
+    },
   },
   {
     slug: 'blue-collar',

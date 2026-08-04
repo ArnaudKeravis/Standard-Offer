@@ -8,10 +8,10 @@ import {
 import { getLangPreference } from "@/lib/persona-studio/utils/lang-cookie";
 import { tUI, type StudioLang } from "@/lib/persona-studio/utils/i18n";
 import { StudioNav } from "@/components/persona-studio/shared/studio-nav";
-import {
-  AreasExplorer,
-  type AreaCard,
-  type StudioAreaId,
+import { StudioHome } from "@/components/persona-studio/home/studio-home";
+import type {
+  AreaCard,
+  StudioAreaId,
 } from "@/components/persona-studio/areas/areas-explorer";
 
 const AREA_ORDER: StudioAreaId[] = ["WORK", "HEAL", "LEARN", "PLAY"];
@@ -104,12 +104,8 @@ export default async function StudioLibraryPage() {
           </>
         }
       />
-      <main className="mx-auto max-w-7xl px-4 pb-24 pt-8 sm:px-6">
-        <p className="text-center text-sm font-semibold uppercase tracking-widest text-[var(--studio-accent)]">
-          Persona Studio
-        </p>
-
-        <AreasExplorer lang={lang} areas={areas} />
+      <main className="mx-auto max-w-7xl px-4 pb-24 sm:px-6">
+        <StudioHome lang={lang} areas={areas} />
       </main>
     </>
   );

@@ -159,6 +159,47 @@ const UI: Record<StudioLang, Record<string, string>> = {
     heroTitle: "Create, understand and design with the people you serve.",
     heroSubtitle:
       "Evidence-based personas for CoDesign workshops. Every statement is traceable, every confidence score is explained.",
+    // Lobby home
+    homeHeroTitle: "Understand the people you serve — then design with them.",
+    homeHeroSubtitle:
+      "Evidence-based personas for product teams and CoDesign workshops. Pick a territory, open a sheet, and keep every statement traceable.",
+    homeCtaAreas: "Choose an area",
+    homeCtaMethod: "How we build",
+    homeAudienceProductEyebrow: "Product & offer teams",
+    homeAudienceProductTitle: "Decide with the same evidence day to day",
+    homeAudienceProductBody:
+      "Browse personas, journeys and needs coverage when you shape offers, services or experiences — not only in a workshop room.",
+    homeAudienceWorkshopEyebrow: "CoDesign workshops",
+    homeAudienceWorkshopTitle: "Facilitate with Challenge, Present, Compare",
+    homeAudienceWorkshopBody:
+      "Run a room session: pressure-test an idea, present full-screen, compare personas side by side, and capture notes on the board.",
+    homeFeaturesEyebrow: "What you can do",
+    homeFeaturesTitle: "Key features of the Studio",
+    homeFeaturesIntro:
+      "One sheet format across territories. Start from an area — tools stay available once you are inside.",
+    homeFeaturesNote:
+      "Compare, Challenge and Present open on WORK by default. Switch territory from the area map when you need another context.",
+    homeFeatureBrowseTitle: "Browse persona sheets",
+    homeFeatureBrowseBody:
+      "Open Client, Operator and Consumer profiles with evidence, confidence and coverage.",
+    homeFeatureJourneyTitle: "Follow the day journey",
+    homeFeatureJourneyBody:
+      "Left-to-right moments — including Eating Moments grounded in Personix research.",
+    homeFeatureCompareTitle: "Compare personas",
+    homeFeatureCompareBody:
+      "Surface what is shared, what differs, and where tensions appear.",
+    homeFeatureChallengeTitle: "Challenge an idea",
+    homeFeatureChallengeBody:
+      "Pressure-test a concept against selected personas before you commit.",
+    homeFeaturePresentTitle: "Present in the room",
+    homeFeaturePresentBody:
+      "Full-screen sheets for workshops, steering and product reviews.",
+    homeFeatureMethodTitle: "How we build",
+    homeFeatureMethodBody:
+      "Identify, Personix, interviews and AI signals — then client validation.",
+    homeAreasEyebrow: "Start here",
+    homeAreasSubtitle:
+      "Choose WORK, HEAL, LEARN or PLAY — then open the personas for that territory and start working.",
     areasTitle: "Areas where we operate",
     areasSubtitle:
       "WORK, HEAL, LEARN or PLAY — open a territory to browse its personas in one Studio sheet format.",
@@ -176,6 +217,12 @@ const UI: Record<StudioLang, Record<string, string>> = {
     openGallery: "Open gallery",
     personaGallery: "Persona gallery",
     personas: "personas",
+    stakeholderFilter: "Filter by stakeholder role",
+    stakeholderAll: "All",
+    stakeholderClient: "Client",
+    stakeholderOperator: "Operator",
+    stakeholderConsumer: "Consumer",
+    stakeholderEmpty: "No personas in this role.",
     sources: "Sources",
     journeys: "Journeys",
     client: "Client",
@@ -211,7 +258,7 @@ const UI: Record<StudioLang, Record<string, string>> = {
     whatIDo: "What I do",
     whoIAm: "Who I am",
     journeyIntro:
-      "A day in their shoes — {n} moments that shape the experience.",
+      "A left-to-right day journey — {n} moments that shape the experience. Scroll sideways to follow the sequence.",
     onThisPage: "On this page",
     unlockTitle: "Facilitator unlock",
     unlockIntro:
@@ -248,6 +295,65 @@ const UI: Record<StudioLang, Record<string, string>> = {
     journeyInsufficient: "Not enough linked evidence for this slot.",
     simulationNote:
       "“Talk to this persona” is a research-grounded simulation built from the evidence above — not a real customer or employee. It arrives in a later phase.",
+    // Method — how we build personas
+    methodNav: "How we build",
+    methodEyebrow: "CoDesign for workshops",
+    methodTitle: "How we build our personas",
+    methodIntro:
+      "A clear, repeatable method: co-define profiles with the client, standardise them with Personix, bring them to life with interviews, then enrich with live signals — always validated before they guide design.",
+    methodBuildEyebrow: "01 · Build",
+    methodBuildTitle: "Four steps from data to personas you can design from",
+    methodStep1Title: "Identify — map employee profiles",
+    methodStep1Body:
+      "Read client HR data together (headcount, roles, gender, sites) and co-define 4 to 6 distinct employee profiles with HR & operations stakeholders.",
+    methodStep2Title: "Standardise — apply Personix",
+    methodStep2Body:
+      "Map each profile onto our proprietary need dimensions, built with Ipsos, to give every persona a structured, comparable baseline.",
+    methodStep3Title: "Humanise — bring to life with interviews",
+    methodStep3Body:
+      "Direct conversations with employees add nuance, emotion and lived experience — turning data profiles into personas you can design from.",
+    methodStep4Title: "Enrich — deepen with AI signals",
+    methodStep4Body:
+      "CoDesign OS agents scan LinkedIn, Glassdoor and job boards to layer in live behavioural signals: motivations, frustrations, expectations.",
+    methodValidationTitle: "Client validation",
+    methodValidationBody:
+      "A final review session with HR and operations confirms personas reflect reality before they guide design decisions.",
+    methodPersonixEyebrow: "02 · Personix foundation",
+    methodPersonixTitle: "Listening to how people eat at work",
+    methodPersonixIntro:
+      "Every Sodexo site has its own culture. Personix is our proprietary segmentation tool — based on an Ipsos study for Sodexo — that helps us understand how consumers eat at work so we can shape food experiences that meet their needs.",
+    methodStatMomentsValue: "11",
+    methodStatMomentsLabel: "Eating Moments where consumer needs are central",
+    methodStatSurveyValue: "7,100+",
+    methodStatSurveyLabel: "Detailed eating moments collected in the survey",
+    methodStatPeopleValue: "3,800+",
+    methodStatPeopleLabel: "Individuals across different work environments",
+    methodStatCountriesValue: "3",
+    methodStatCountriesLabel: "Countries — France, UK and USA",
+    methodDimsTitle: "What we ask of every eating moment",
+    methodDimsIntro:
+      "Each moment is read through six lenses so needs stay comparable across sites.",
+    methodDimWho: "Who? (attitudes)",
+    methodDimWhy: "Why? (needs)",
+    methodDimWhat: "What?",
+    methodDimWhere: "Where?",
+    methodDimWithWhom: "With whom?",
+    methodDimWhen: "When?",
+    methodFlowEyebrow: "03 · On site",
+    methodFlowTitle: "How Personix works for your site",
+    methodFlowIntro:
+      "From a short anonymous survey to a site-specific Eating Moments map, then a benchmark that shows what makes your population distinctive.",
+    methodFlow1Title: "Survey",
+    methodFlow1Body:
+      "A short, anonymous survey is administered to employees via email or an on-site QR code. No identifiable data is collected — GDPR standards apply worldwide.",
+    methodFlow2Title: "Eating Moments map",
+    methodFlow2Body:
+      "Our proprietary algorithm turns survey responses into the share of different Eating Moments for your on-site population.",
+    methodFlow3Title: "Benchmark",
+    methodFlow3Body:
+      "We compare your site against the base study so you see what is specific — then use the map to inform solution design.",
+    methodFlowNote:
+      "The map is analysed with you and used to inform solution design for your site — not as a black-box score.",
     // Actions
     newProject: "New project",
     templates: "Templates",
@@ -380,6 +486,47 @@ const UI: Record<StudioLang, Record<string, string>> = {
     heroTitle: "Créer, comprendre et concevoir avec les personnes que vous servez.",
     heroSubtitle:
       "Des personas fondés sur des preuves pour les ateliers CoDesign. Chaque affirmation est traçable, chaque score de confiance est expliqué.",
+    // Accueil lobby
+    homeHeroTitle: "Comprendre les personnes que vous servez — puis designer avec elles.",
+    homeHeroSubtitle:
+      "Des personas fondés sur des preuves pour les équipes produit et les ateliers CoDesign. Choisissez un territoire, ouvrez une fiche, gardez chaque affirmation traçable.",
+    homeCtaAreas: "Choisir un territoire",
+    homeCtaMethod: "Comment on construit",
+    homeAudienceProductEyebrow: "Équipes produit & offre",
+    homeAudienceProductTitle: "Décider au quotidien avec la même preuve",
+    homeAudienceProductBody:
+      "Parcourez personas, parcours et couverture des besoins pour façonner offres, services ou expériences — pas seulement en salle d'atelier.",
+    homeAudienceWorkshopEyebrow: "Ateliers CoDesign",
+    homeAudienceWorkshopTitle: "Animer avec Challenge, Present, Compare",
+    homeAudienceWorkshopBody:
+      "Menez une session : tester une idée, présenter en plein écran, comparer les personas, capturer les notes sur le board.",
+    homeFeaturesEyebrow: "Ce que vous pouvez faire",
+    homeFeaturesTitle: "Fonctionnalités clés du Studio",
+    homeFeaturesIntro:
+      "Un seul format de fiche sur tous les territoires. Partez d'un area — les outils restent disponibles une fois à l'intérieur.",
+    homeFeaturesNote:
+      "Compare, Challenge et Present s'ouvrent sur WORK par défaut. Changez de territoire depuis la carte quand il faut un autre contexte.",
+    homeFeatureBrowseTitle: "Parcourir les fiches",
+    homeFeatureBrowseBody:
+      "Ouvrez les profils Client, Opérateur et Consommateur avec preuves, confiance et couverture.",
+    homeFeatureJourneyTitle: "Suivre le parcours du jour",
+    homeFeatureJourneyBody:
+      "Moments de gauche à droite — dont les Eating Moments ancrés dans Personix.",
+    homeFeatureCompareTitle: "Comparer les personas",
+    homeFeatureCompareBody:
+      "Faites apparaître le commun, les différences et les tensions.",
+    homeFeatureChallengeTitle: "Challenger une idée",
+    homeFeatureChallengeBody:
+      "Testez un concept contre des personas sélectionnés avant de vous engager.",
+    homeFeaturePresentTitle: "Présenter en salle",
+    homeFeaturePresentBody:
+      "Fiches plein écran pour ateliers, comités et revues produit.",
+    homeFeatureMethodTitle: "Comment on construit",
+    homeFeatureMethodBody:
+      "Identifier, Personix, entretiens et signaux IA — puis validation client.",
+    homeAreasEyebrow: "Commencer ici",
+    homeAreasSubtitle:
+      "Choisissez WORK, HEAL, LEARN ou PLAY — puis ouvrez les personas de ce territoire et commencez à travailler.",
     areasTitle: "Territoires où nous opérons",
     areasCrumb: "Territoires",
     areasSubtitle:
@@ -397,6 +544,12 @@ const UI: Record<StudioLang, Record<string, string>> = {
     openGallery: "Ouvrir la galerie",
     personaGallery: "Galerie de personas",
     personas: "personas",
+    stakeholderFilter: "Filtrer par rôle stakeholder",
+    stakeholderAll: "Tous",
+    stakeholderClient: "Client",
+    stakeholderOperator: "Opérateur",
+    stakeholderConsumer: "Consommateur",
+    stakeholderEmpty: "Aucun persona dans ce rôle.",
     sources: "Sources",
     journeys: "Parcours",
     client: "Client",
@@ -432,7 +585,7 @@ const UI: Record<StudioLang, Record<string, string>> = {
     whatIDo: "Ce que je fais",
     whoIAm: "Qui je suis",
     journeyIntro:
-      "Une journée dans leurs chaussures — {n} moments qui façonnent l'expérience.",
+      "Un parcours de gauche à droite — {n} moments qui façonnent l'expérience. Faites défiler horizontalement pour suivre la séquence.",
     onThisPage: "Sur cette page",
     unlockTitle: "Déverrouillage facilitateur",
     unlockIntro:
@@ -470,6 +623,65 @@ const UI: Record<StudioLang, Record<string, string>> = {
     journeyInsufficient: "Pas assez de preuves liées pour ce slot.",
     simulationNote:
       "« Parler à ce persona » est une simulation fondée sur la recherche, construite à partir des preuves ci-dessus — et non un vrai client ou collaborateur. Cette fonctionnalité arrivera dans une phase ultérieure.",
+    // Méthode — comment nous créons nos personas
+    methodNav: "Comment on construit",
+    methodEyebrow: "CoDesign pour les ateliers",
+    methodTitle: "Comment nous construisons nos personas",
+    methodIntro:
+      "Une méthode claire et répétable : co-définir les profils avec le client, les standardiser avec Personix, les humaniser par des entretiens, puis les enrichir avec des signaux vivants — toujours validés avant de guider le design.",
+    methodBuildEyebrow: "01 · Construire",
+    methodBuildTitle: "Quatre étapes des données aux personas actionnables",
+    methodStep1Title: "Identifier — cartographier les profils",
+    methodStep1Body:
+      "Lire ensemble les données RH client (effectifs, rôles, genre, sites) et co-définir 4 à 6 profils collaborateurs distincts avec les RH et les opérations.",
+    methodStep2Title: "Standardiser — appliquer Personix",
+    methodStep2Body:
+      "Projeter chaque profil sur nos dimensions de besoins propriétaires, construites avec Ipsos, pour donner à chaque persona une base structurée et comparable.",
+    methodStep3Title: "Humaniser — donner vie par les entretiens",
+    methodStep3Body:
+      "Des conversations directes avec les collaborateurs ajoutent nuance, émotion et vécu — pour transformer des profils data en personas dont on peut designer.",
+    methodStep4Title: "Enrichir — approfondir avec l'IA",
+    methodStep4Body:
+      "Les agents CoDesign OS scannent LinkedIn, Glassdoor et les job boards pour ajouter des signaux comportementaux vivants : motivations, frustrations, attentes.",
+    methodValidationTitle: "Validation client",
+    methodValidationBody:
+      "Une revue finale avec RH et opérations confirme que les personas reflètent la réalité avant de guider les décisions de design.",
+    methodPersonixEyebrow: "02 · Fondations Personix",
+    methodPersonixTitle: "Écouter comment les gens mangent au travail",
+    methodPersonixIntro:
+      "Chaque site Sodexo a sa culture. Personix est notre outil de segmentation propriétaire — fondé sur une étude Ipsos pour Sodexo — pour comprendre comment les consommateurs mangent au travail et concevoir des expériences food adaptées.",
+    methodStatMomentsValue: "11",
+    methodStatMomentsLabel: "Eating Moments où les besoins consommateurs sont centraux",
+    methodStatSurveyValue: "7 100+",
+    methodStatSurveyLabel: "Moments de repas détaillés collectés dans l'enquête",
+    methodStatPeopleValue: "3 800+",
+    methodStatPeopleLabel: "Personnes dans différents environnements de travail",
+    methodStatCountriesValue: "3",
+    methodStatCountriesLabel: "Pays — France, Royaume-Uni et USA",
+    methodDimsTitle: "Ce que nous lisons dans chaque moment",
+    methodDimsIntro:
+      "Chaque moment est lu à travers six lentilles pour garder les besoins comparables d'un site à l'autre.",
+    methodDimWho: "Qui ? (attitudes)",
+    methodDimWhy: "Pourquoi ? (besoins)",
+    methodDimWhat: "Quoi ?",
+    methodDimWhere: "Où ?",
+    methodDimWithWhom: "Avec qui ?",
+    methodDimWhen: "Quand ?",
+    methodFlowEyebrow: "03 · Sur site",
+    methodFlowTitle: "Comment Personix fonctionne pour votre site",
+    methodFlowIntro:
+      "D'une courte enquête anonyme à une carte Eating Moments propre au site, puis un benchmark qui montre ce qui rend votre population distinctive.",
+    methodFlow1Title: "Enquête",
+    methodFlow1Body:
+      "Une courte enquête anonyme est proposée aux collaborateurs par e-mail ou QR code sur site. Aucune donnée identifiable n'est collectée — standards RGPD partout.",
+    methodFlow2Title: "Carte Eating Moments",
+    methodFlow2Body:
+      "Notre algorithme propriétaire transforme les réponses en parts des différents Eating Moments pour la population sur site.",
+    methodFlow3Title: "Benchmark",
+    methodFlow3Body:
+      "Nous comparons votre site à l'étude de base pour voir ce qui est spécifique — puis utilisons la carte pour informer le design de solutions.",
+    methodFlowNote:
+      "La carte est analysée avec vous et sert à informer le design de solutions pour votre site — pas comme un score boîte noire.",
     // Actions
     newProject: "Nouveau projet",
     templates: "Modèles",

@@ -64,6 +64,8 @@ export default async function PersonaDetailPage({
     >
       <StudioNav
         lang={lang}
+        projectId={project.id}
+        showWorkshopBar
         crumbs={[
           { label: tUI(lang, "areasCrumb"), href: "/studio" },
           { label: project.name, href: `/studio/projects/${project.id}` },

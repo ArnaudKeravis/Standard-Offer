@@ -60,12 +60,12 @@ export const XP_WORK_PROJECT_SOURCE: ProjectSource = {
   language: "English",
   researchMode: "RESEARCH_GROUNDED",
   description: {
-    en: "WORK personas: XP Catalogue workplace profiles plus the Personix corporate archetypes — one Studio sheet format for every role.",
-    fr: "Personas WORK : profils catalogue XP du lieu de travail et archétypes Personix corporate — un seul format de fiche Studio pour chaque rôle.",
+    en: "WORK personas on the Personix Standard Persona Profile sheet — XP Catalogue roles plus Personix archetypes. Food content is grounded in the Eating Moments study (Ipsos × Sodexo).",
+    fr: "Personas WORK sur la fiche Personix Standard Persona Profile — rôles catalogue XP et archétypes Personix. Le contenu food est fondé sur l'étude Eating Moments (Ipsos × Sodexo).",
   },
   workshopObjective: {
-    en: "Design workplace services that fit client, operator, employee and Personix archetype journeys.",
-    fr: "Concevoir des services workplace adaptés aux parcours client, opérateur, collaborateur et archétypes Personix.",
+    en: "Design workplace services using the Personix reference sheet: lifestyle, daily job, workplace & food expectations, and key eating moments.",
+    fr: "Concevoir des services workplace avec la fiche de référence Personix : lifestyle, journée type, attentes workplace & food, et key eating moments.",
   },
   audience: [
     { en: "Clients & operators", fr: "Clients & opérateurs" },
