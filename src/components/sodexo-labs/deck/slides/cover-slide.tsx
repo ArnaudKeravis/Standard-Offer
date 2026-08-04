@@ -2,21 +2,40 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 
-import { SlideBackdrop } from "@/components/sodexo-labs/deck/slide-backdrop";
+import { SlideAccent } from "@/components/sodexo-labs/deck/slide-accent";
 import type { LabsPack } from "@/lib/sodexo-labs/schemas";
 
 export function CoverSlide({ pack }: { pack: LabsPack }) {
   const reduce = useReducedMotion();
 
   return (
-    <div className="relative flex h-full w-full flex-col justify-end px-[6vw] pb-[12vh] pt-[8vh] text-white">
-      <SlideBackdrop src="/labs/presentation/cover.jpg" dim={0.42} />
+    <div className="relative flex h-full w-full flex-col justify-end overflow-hidden px-[6vw] pb-[12vh] pt-[8vh] text-white">
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          background: `
+            radial-gradient(ellipse 55% 50% at 85% 20%, color-mix(in srgb, var(--labs-accent) 35%, transparent), transparent 55%),
+            linear-gradient(165deg, #0B1020 0%, #121A38 45%, #1E2F9A 100%)
+          `,
+        }}
+      />
+      <SlideAccent
+        src="/labs/elements/space-collage.png"
+        className="absolute right-[-2vw] top-[8vh] w-[min(52vw,640px)] opacity-95"
+        sizes="52vw"
+        delay={0.15}
+      />
 
       <motion.div
         className="relative z-10 max-w-5xl"
         initial={reduce ? false : { opacity: 0, y: 28 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: reduce ? 0 : 0.65, ease: [0.25, 1, 0.5, 1], delay: reduce ? 0 : 0.15 }}
+        transition={{
+          duration: reduce ? 0 : 0.65,
+          ease: [0.25, 1, 0.5, 1],
+          delay: reduce ? 0 : 0.15,
+        }}
       >
         <p className="mb-5 text-sm font-semibold tracking-[0.22em] text-white/55 uppercase">
           Sodexo Labs

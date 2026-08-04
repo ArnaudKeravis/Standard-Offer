@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 
+import { SlideAccent } from "@/components/sodexo-labs/deck/slide-accent";
 import {
   StaggerIn,
   staggerItem,
@@ -17,18 +18,23 @@ const PHASES = [
 
 export function MethodSlide({ pack }: { pack: LabsPack }) {
   return (
-    <div className="flex h-full w-full flex-col justify-center px-[6vw] py-[8vh]">
-      <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-[var(--labs-muted)] uppercase">
+    <div className="relative flex h-full w-full flex-col justify-center overflow-hidden px-[6vw] py-[8vh]">
+      <SlideAccent
+        src="/labs/elements/accent-collab.png"
+        className="absolute right-[-2vw] top-[8vh] hidden w-[min(26vw,280px)] opacity-80 xl:block"
+      />
+      <p className="relative z-10 mb-3 text-sm font-semibold tracking-[0.18em] text-[var(--labs-muted)] uppercase">
         Method
       </p>
-      <h1 className="labs-display mb-4 text-[clamp(2.25rem,5vw,4rem)] leading-[1.05] text-[var(--labs-ink)]">
+      <h1 className="labs-display relative z-10 mb-4 text-[clamp(2.25rem,5vw,4rem)] leading-[1.05] text-[var(--labs-ink)]">
         Double diamond
       </h1>
-      <p className="mb-12 max-w-2xl text-[clamp(1.05rem,1.8vw,1.35rem)] text-[var(--labs-muted)]">
-        From insight to tested experience — a shared path for every Labs session.
+      <p className="relative z-10 mb-12 max-w-2xl text-[clamp(1.05rem,1.8vw,1.35rem)] text-[var(--labs-muted)]">
+        An end-to-end CoDesign method — diverge to explore, converge to decide —
+        blending what users do with what users think.
       </p>
 
-      <StaggerIn className="grid gap-4 sm:grid-cols-4 sm:gap-5">
+      <StaggerIn className="relative z-10 grid gap-4 sm:grid-cols-4 sm:gap-5">
         {PHASES.map((phase, i) => (
           <motion.div
             key={phase.id}

@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
   type CSSProperties,
@@ -18,7 +19,9 @@ import {
   CloseSlide,
   CoverSlide,
   CredentialsSlide,
-  FormatsSlide,
+  EngagementsSlide,
+  GrowthSlide,
+  KpiSlide,
   MethodSlide,
   NetworkSlide,
   OffersSlide,
@@ -27,44 +30,85 @@ import {
   ZonesSlide,
 } from "@/components/sodexo-labs/deck/slides";
 import { labsCssVars } from "@/lib/sodexo-labs/area-theme";
-import type { LabsPack } from "@/lib/sodexo-labs/schemas";
+import type { LabsAudience, LabsPack } from "@/lib/sodexo-labs/schemas";
 
-const SLIDE_COUNT = 11;
-const DARK_SLIDES = new Set([0, 1, 7, 10]);
+type SlideId =
+  | "cover"
+  | "welcome"
+  | "kpi"
+  | "growth"
+  | "offers"
+  | "method"
+  | "zones"
+  | "persona"
+  | "cases"
+  | "network"
+  | "engagements"
+  | "credentials"
+  | "close";
 
-type LabsDeckProps = {
-  pack: LabsPack;
-  onChangeSession: () => void;
-};
+const DARK_SLIDES = new Set<SlideId>([
+  "cover",
+  "welcome",
+  "network",
+  "close",
+]);
 
-function renderSlide(index: number, pack: LabsPack): ReactNode {
-  switch (index) {
-    case 0:
+function slideIdsForAudience(audience: LabsAudience): SlideId[] {
+  const head: SlideId[] = ["cover", "welcome"];
+  const internal: SlideId[] =
+    audience === "internal" ? ["kpi", "growth"] : [];
+  const rest: SlideId[] = [
+    "offers",
+    "method",
+    "zones",
+    "persona",
+    "cases",
+    "network",
+    "engagements",
+    "credentials",
+    "close",
+  ];
+  return [...head, ...internal, ...rest];
+}
+
+function renderSlide(id: SlideId, pack: LabsPack): ReactNode {
+  switch (id) {
+    case "cover":
       return <CoverSlide pack={pack} />;
-    case 1:
+    case "welcome":
       return <WelcomeSlide pack={pack} />;
-    case 2:
+    case "kpi":
+      return <KpiSlide pack={pack} />;
+    case "growth":
+      return <GrowthSlide pack={pack} />;
+    case "offers":
       return <OffersSlide pack={pack} />;
-    case 3:
+    case "method":
       return <MethodSlide pack={pack} />;
-    case 4:
+    case "zones":
       return <ZonesSlide pack={pack} />;
-    case 5:
+    case "persona":
       return <PersonaSlide pack={pack} />;
-    case 6:
+    case "cases":
       return <CasesSlide pack={pack} />;
-    case 7:
+    case "network":
       return <NetworkSlide />;
-    case 8:
-      return <FormatsSlide pack={pack} />;
-    case 9:
+    case "engagements":
+      return <EngagementsSlide pack={pack} />;
+    case "credentials":
       return <CredentialsSlide pack={pack} />;
-    case 10:
+    case "close":
       return <CloseSlide pack={pack} />;
     default:
       return null;
   }
 }
+
+type LabsDeckProps = {
+  pack: LabsPack;
+  onChangeSession: () => void;
+};
 
 function isInteractiveTarget(target: EventTarget | null): boolean {
   if (!(target instanceof Element)) return false;
@@ -78,15 +122,24 @@ function isInteractiveTarget(target: EventTarget | null): boolean {
 export function LabsDeck({ pack, onChangeSession }: LabsDeckProps) {
   const reduceMotion = useReducedMotion();
   const duration = reduceMotion ? 0 : 0.5;
+  const slides = useMemo(
+    () => slideIdsForAudience(pack.session.audience),
+    [pack.session.audience],
+  );
+  const slideCount = slides.length;
   const [index, setIndex] = useState(0);
   const directionRef = useRef(1);
   const [direction, setDirection] = useState(1);
 
+  useEffect(() => {
+    setIndex((current) => Math.min(current, slideCount - 1));
+  }, [slideCount]);
+
   const goNext = useCallback(() => {
     directionRef.current = 1;
     setDirection(1);
-    setIndex((current) => Math.min(current + 1, SLIDE_COUNT - 1));
-  }, []);
+    setIndex((current) => Math.min(current + 1, slideCount - 1));
+  }, [slideCount]);
 
   const goPrev = useCallback(() => {
     directionRef.current = -1;
@@ -94,14 +147,18 @@ export function LabsDeck({ pack, onChangeSession }: LabsDeckProps) {
     setIndex((current) => Math.max(current - 1, 0));
   }, []);
 
-  const goTo = useCallback((next: number) => {
-    setIndex((current) => {
-      const dir = next >= current ? 1 : -1;
-      directionRef.current = dir;
-      setDirection(dir);
-      return Math.max(0, Math.min(next, SLIDE_COUNT - 1));
-    });
-  }, []);
+  const goTo = useCallback(
+    (next: number) => {
+      setIndex((current) => {
+        const clamped = Math.max(0, Math.min(next, slideCount - 1));
+        const dir = clamped >= current ? 1 : -1;
+        directionRef.current = dir;
+        setDirection(dir);
+        return clamped;
+      });
+    },
+    [slideCount],
+  );
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -137,7 +194,7 @@ export function LabsDeck({ pack, onChangeSession }: LabsDeckProps) {
           break;
         case "End":
           event.preventDefault();
-          goTo(SLIDE_COUNT - 1);
+          goTo(slideCount - 1);
           break;
         default:
           break;
@@ -146,16 +203,17 @@ export function LabsDeck({ pack, onChangeSession }: LabsDeckProps) {
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [goNext, goPrev, goTo]);
+  }, [goNext, goPrev, goTo, slideCount]);
 
   function onStageClick(event: MouseEvent<HTMLDivElement>) {
     if (isInteractiveTarget(event.target)) return;
     goNext();
   }
 
-  const dark = DARK_SLIDES.has(index);
-  const slide = renderSlide(index, pack);
-  const progress = ((index + 1) / SLIDE_COUNT) * 100;
+  const slideId = slides[index] ?? "cover";
+  const dark = DARK_SLIDES.has(slideId);
+  const slide = renderSlide(slideId, pack);
+  const progress = ((index + 1) / slideCount) * 100;
 
   return (
     <div
@@ -167,7 +225,7 @@ export function LabsDeck({ pack, onChangeSession }: LabsDeckProps) {
       <div className="relative h-full w-full" aria-live="polite">
         <AnimatePresence mode="wait" custom={direction}>
           <SlideFrame
-            key={index}
+            key={slideId}
             duration={duration}
             direction={direction}
             className="absolute inset-0 h-full w-full overflow-hidden"
@@ -177,7 +235,6 @@ export function LabsDeck({ pack, onChangeSession }: LabsDeckProps) {
         </AnimatePresence>
       </div>
 
-      {/* Easy-going progress rail */}
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-1 bg-black/10"
         aria-hidden
@@ -187,7 +244,10 @@ export function LabsDeck({ pack, onChangeSession }: LabsDeckProps) {
           style={{ background: "var(--labs-accent)" }}
           initial={false}
           animate={{ width: `${progress}%` }}
-          transition={{ duration: reduceMotion ? 0 : 0.35, ease: [0.25, 1, 0.5, 1] }}
+          transition={{
+            duration: reduceMotion ? 0 : 0.35,
+            ease: [0.25, 1, 0.5, 1],
+          }}
         />
       </div>
 
@@ -195,7 +255,7 @@ export function LabsDeck({ pack, onChangeSession }: LabsDeckProps) {
         audience={pack.session.audience}
         area={pack.session.area}
         index={index}
-        total={SLIDE_COUNT}
+        total={slideCount}
         dark={dark}
         onSelectSlide={goTo}
         onChangeSession={onChangeSession}

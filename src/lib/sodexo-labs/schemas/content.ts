@@ -36,11 +36,29 @@ export const LabsZone = z.object({
   accent: z.string(),
 });
 
-export const LabsFormat = z.object({
+export const LabsKpi = z.object({
+  value: z.string(),
+  label: z.string(),
+});
+
+export const LabsGrowthImpact = z.object({
+  title: z.string(),
+  outcome: z.string(),
+});
+
+export const LabsGrowth = z.object({
+  headline: z.string(),
+  body: z.string(),
+  impacts: z.array(LabsGrowthImpact).length(4),
+});
+
+export const LabsEngagement = z.object({
   id: z.string(),
   name: z.string(),
   duration: z.string(),
+  framing: z.string(),
   summary: z.string(),
+  investment: z.string().optional(),
 });
 
 export const LabsPack = z.object({
@@ -49,7 +67,9 @@ export const LabsPack = z.object({
   persona: LabsPersonaSpot,
   cases: z.array(LabsCaseSpot).min(1).max(2),
   zones: z.array(LabsZone).length(4),
-  formats: z.array(LabsFormat).length(4),
+  engagements: z.array(LabsEngagement).length(4),
+  kpis: z.array(LabsKpi).length(4).optional(),
+  growth: LabsGrowth.optional(),
   copy: z.object({
     coverSubtitle: z.string(),
     welcomeHeadline: z.string(),
@@ -64,5 +84,8 @@ export type LabsOffer = z.infer<typeof LabsOffer>;
 export type LabsPersonaSpot = z.infer<typeof LabsPersonaSpot>;
 export type LabsCaseSpot = z.infer<typeof LabsCaseSpot>;
 export type LabsZone = z.infer<typeof LabsZone>;
-export type LabsFormat = z.infer<typeof LabsFormat>;
+export type LabsKpi = z.infer<typeof LabsKpi>;
+export type LabsGrowthImpact = z.infer<typeof LabsGrowthImpact>;
+export type LabsGrowth = z.infer<typeof LabsGrowth>;
+export type LabsEngagement = z.infer<typeof LabsEngagement>;
 export type LabsPack = z.infer<typeof LabsPack>;

@@ -26,8 +26,8 @@ const ARTEFACTS: HubArtefact[] = [
     href: "/labs",
     cta: "Open Labs",
     image: {
-      src: "/labs/presentation/cover.jpg",
-      alt: "Sodexo Labs co-creation space",
+      src: "/labs/elements/space-collage.png",
+      alt: "Sodexo Labs co-creation space illustration",
     },
     accent: "bg-[var(--spark-iq)]",
   },

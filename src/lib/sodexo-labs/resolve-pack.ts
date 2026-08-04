@@ -1,6 +1,8 @@
 import { LABS_CASES } from "./data/cases";
 import { getLabsCopy } from "./data/copy";
-import { LABS_FORMATS } from "./data/formats";
+import { LABS_ENGAGEMENTS } from "./data/engagements";
+import { LABS_GROWTH } from "./data/growth";
+import { LABS_KPIS } from "./data/kpis";
 import { LABS_OFFERS } from "./data/offers";
 import { LABS_ZONES } from "./data/zones";
 import { mapPersonaToLabsSpot } from "./map-persona";
@@ -26,7 +28,10 @@ export function resolveLabsPack(session: LabsSessionConfig) {
     persona: mapPersonaToLabsSpot(area),
     cases,
     zones: LABS_ZONES,
-    formats: LABS_FORMATS,
+    engagements: LABS_ENGAGEMENTS,
+    ...(audience === "internal"
+      ? { kpis: LABS_KPIS, growth: LABS_GROWTH }
+      : {}),
     copy: getLabsCopy(audience),
   };
 

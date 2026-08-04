@@ -7,13 +7,18 @@ describe("resolveLabsPack", () => {
     const pack = resolveLabsPack({ audience: "external", area: "work" });
     expect(LabsPack.parse(pack).persona.area).toBe("work");
     expect(pack.copy.methodNote).toBeUndefined();
+    expect(pack.kpis).toBeUndefined();
+    expect(pack.growth).toBeUndefined();
+    expect(pack.engagements).toHaveLength(4);
   });
 
-  it("adds internal extras on offers and method note", () => {
+  it("adds internal extras, KPIs and growth engine copy", () => {
     const pack = resolveLabsPack({ audience: "internal", area: "heal" });
     expect(pack.offers.every((o) => o.internalExtra)).toBe(true);
     expect(pack.copy.methodNote).toBeTruthy();
     expect(pack.persona.area).toBe("heal");
+    expect(pack.kpis).toHaveLength(4);
+    expect(pack.growth?.impacts).toHaveLength(4);
   });
 
   it("changes persona when area changes", () => {

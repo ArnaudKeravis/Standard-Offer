@@ -1,16 +1,24 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 import {
   StaggerIn,
   staggerItem,
 } from "@/components/sodexo-labs/deck/slide-frame";
-import type { LabsPack } from "@/lib/sodexo-labs/schemas";
+import type { LabsPack, LabsZone } from "@/lib/sodexo-labs/schemas";
+
+const ZONE_ART: Record<LabsZone["id"], string> = {
+  theatre: "/labs/elements/accent-theatre-figure.png",
+  immersion: "/labs/elements/zone-immersion.png",
+  hub: "/labs/elements/zone-hub.png",
+  garage: "/labs/elements/zone-garage.png",
+};
 
 export function ZonesSlide({ pack }: { pack: LabsPack }) {
   return (
-    <div className="relative flex h-full w-full flex-col justify-end">
+    <div className="relative flex h-full w-full flex-col justify-end overflow-hidden">
       <div
         aria-hidden
         className="absolute inset-0"
@@ -38,11 +46,15 @@ export function ZonesSlide({ pack }: { pack: LabsPack }) {
               background: `linear-gradient(165deg, color-mix(in srgb, ${zone.accent} 88%, #0B1020), color-mix(in srgb, ${zone.accent} 55%, #0B1020))`,
             }}
           >
-            <div
-              aria-hidden
-              className="absolute -right-8 -top-8 size-40 rounded-full opacity-30 blur-2xl transition-transform duration-500 group-hover:scale-125"
-              style={{ background: zone.accent }}
-            />
+            <div className="pointer-events-none absolute -right-4 top-4 h-[42%] w-[70%] opacity-90 transition-transform duration-500 group-hover:scale-105">
+              <Image
+                src={ZONE_ART[zone.id]}
+                alt=""
+                fill
+                className="object-contain object-right-top"
+                sizes="25vw"
+              />
+            </div>
             <p className="relative text-xs font-semibold tracking-[0.2em] text-white/55 uppercase">
               Zone
             </p>

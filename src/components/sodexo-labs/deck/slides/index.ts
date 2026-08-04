@@ -1,11 +1,13 @@
 export { CoverSlide } from "./cover-slide";
 export { WelcomeSlide } from "./welcome-slide";
+export { KpiSlide } from "./kpi-slide";
+export { GrowthSlide } from "./growth-slide";
 export { OffersSlide } from "./offers-slide";
 export { MethodSlide } from "./method-slide";
 export { ZonesSlide } from "./zones-slide";
 export { PersonaSlide } from "./persona-slide";
 export { CasesSlide } from "./cases-slide";
 export { NetworkSlide } from "./network-slide";
-export { FormatsSlide } from "./formats-slide";
+export { EngagementsSlide } from "./engagements-slide";
 export { CredentialsSlide } from "./credentials-slide";
 export { CloseSlide } from "./close-slide";
