@@ -9,7 +9,10 @@ export default defineConfig({
   },
   test: {
     environment: "node",
-    include: ["tests/persona-studio/**/*.test.ts"],
+    include: [
+      "tests/persona-studio/**/*.test.ts",
+      "tests/sodexo-labs/**/*.test.ts",
+    ],
     globals: true,
   },
 });
