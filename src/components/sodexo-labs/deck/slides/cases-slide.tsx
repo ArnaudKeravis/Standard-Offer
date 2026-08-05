@@ -13,10 +13,10 @@ export function CasesSlide({ pack }: { pack: LabsPack }) {
   return (
     <div className="flex h-full w-full flex-col justify-center px-[6vw] py-[8vh]">
       <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-[var(--labs-muted)] uppercase">
-        Proof
+        {pack.chrome.casesEyebrow}
       </p>
       <h1 className="labs-display mb-8 text-[clamp(2.25rem,5vw,4rem)] leading-[1.05] text-[var(--labs-ink)]">
-        {pack.cases.length === 1 ? "Case in point" : "Cases in point"}
+        {pack.chrome.casesHeadline}
       </h1>
 
       <StaggerIn

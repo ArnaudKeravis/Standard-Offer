@@ -14,10 +14,10 @@ export function OffersSlide({ pack }: { pack: LabsPack }) {
   return (
     <div className="flex h-full w-full flex-col justify-center px-[6vw] py-[8vh]">
       <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-[var(--labs-muted)] uppercase">
-        Four offers
+        {pack.chrome.offersEyebrow}
       </p>
       <h1 className="labs-display mb-10 text-[clamp(2.25rem,5vw,4rem)] leading-[1.05] text-[var(--labs-ink)]">
-        How we create value
+        {pack.chrome.offersHeadline}
       </h1>
       <StaggerIn className="grid gap-5 sm:grid-cols-2 sm:gap-6 xl:gap-8">
         {pack.offers.map((offer, i) => (

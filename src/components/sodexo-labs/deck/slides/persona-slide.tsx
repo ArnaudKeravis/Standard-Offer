@@ -15,7 +15,7 @@ export function PersonaSlide({ pack }: { pack: LabsPack }) {
   return (
     <div className="flex h-full w-full flex-col justify-center px-[6vw] py-[8vh]">
       <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-[var(--labs-muted)] uppercase">
-        Meet the people
+        {pack.chrome.personaEyebrow}
       </p>
       <div className="grid items-stretch gap-8 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-12">
         <motion.div

@@ -2,40 +2,37 @@
 
 import Link from "next/link";
 
-import type { LabsArea, LabsAudience } from "@/lib/sodexo-labs/schemas";
-
-const AUDIENCE_LABEL: Record<LabsAudience, string> = {
-  internal: "Internal",
-  external: "External",
-};
-
-const AREA_LABEL: Record<LabsArea, string> = {
-  work: "Work",
-  heal: "Heal",
-  play: "Play",
-  learn: "Learn",
-};
+import { getLabsGateUi } from "@/lib/sodexo-labs/i18n/gates";
+import { labsSessionQuery } from "@/lib/sodexo-labs/parse-session";
+import type { LabsArea, LabsAudience, LabsLang } from "@/lib/sodexo-labs/schemas";
 
 type LabsHudProps = {
+  lang: LabsLang;
   audience: LabsAudience;
   area: LabsArea;
   index: number;
   total: number;
   dark: boolean;
+  credentialsLabel: string;
+  changeLabel: string;
   onSelectSlide: (index: number) => void;
   onChangeSession: () => void;
 };
 
 export function LabsHud({
+  lang,
   audience,
   area,
   index,
   total,
   dark,
+  credentialsLabel,
+  changeLabel,
   onSelectSlide,
   onChangeSession,
 }: LabsHudProps) {
-  const credentialsHref = `/labs/credentials?audience=${audience}&area=${area}`;
+  const ui = getLabsGateUi(lang);
+  const credentialsHref = `/labs/credentials${labsSessionQuery({ lang, audience, area })}`;
   const tone = dark
     ? {
         text: "text-white/85",
@@ -44,8 +41,7 @@ export function LabsHud({
         dot: "bg-white/35",
         dotActive: "bg-white",
         link: "text-white hover:text-white",
-        button:
-          "text-white hover:text-white focus-visible:ring-white/70",
+        button: "text-white hover:text-white focus-visible:ring-white/70",
       }
     : {
         text: "text-[var(--labs-muted)]",
@@ -64,12 +60,16 @@ export function LabsHud({
       data-labs-hud={dark ? "dark" : "light"}
     >
       <div className="pointer-events-auto flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 text-sm tracking-[0.04em]">
-        <span className={tone.strong}>{AUDIENCE_LABEL[audience]}</span>
+        <span className={tone.strong}>{ui.langLabel[lang]}</span>
+        <span className={tone.muted} aria-hidden>
+          ·
+        </span>
+        <span className={tone.strong}>{ui.audienceLabel[audience]}</span>
         <span className={tone.muted} aria-hidden>
           ·
         </span>
         <span className={tone.strong} style={{ color: "var(--labs-accent)" }}>
-          {AREA_LABEL[area]}
+          {ui.areaLabel[area]}
         </span>
       </div>
 
@@ -109,20 +109,20 @@ export function LabsHud({
               : "focus-visible:ring-[var(--labs-blue)] focus-visible:ring-offset-[var(--labs-paper)]"
           }`}
         >
-          Credentials
+          {credentialsLabel}
         </Link>
 
         <button
           type="button"
           onClick={onChangeSession}
-          aria-label="Change session"
+          aria-label={changeLabel}
           className={`text-sm font-medium underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${tone.button} ${
             dark
               ? "focus-visible:ring-offset-[#0B1020]"
               : "focus-visible:ring-offset-[var(--labs-paper)]"
           }`}
         >
-          Change
+          {changeLabel}
         </button>
       </nav>
     </header>

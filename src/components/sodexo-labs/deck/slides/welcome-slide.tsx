@@ -10,6 +10,8 @@ import {
 import type { LabsPack } from "@/lib/sodexo-labs/schemas";
 
 export function WelcomeSlide({ pack }: { pack: LabsPack }) {
+  const { chrome, copy } = pack;
+
   return (
     <div className="relative flex h-full w-full flex-col justify-center overflow-hidden px-[6vw] py-[8vh] text-white">
       <div
@@ -29,24 +31,24 @@ export function WelcomeSlide({ pack }: { pack: LabsPack }) {
 
       <div className="relative z-10 max-w-4xl">
         <p className="mb-4 text-sm font-semibold tracking-[0.18em] text-white/50 uppercase">
-          Introduction
+          {chrome.welcomeEyebrow}
         </p>
         <h1 className="labs-display text-[clamp(2.5rem,6vw,4.75rem)] leading-[1.05] text-balance">
-          {pack.copy.welcomeHeadline}
+          {copy.welcomeHeadline}
         </h1>
         <p className="mt-6 max-w-2xl text-[clamp(1.05rem,1.8vw,1.35rem)] leading-relaxed text-white/70">
-          {pack.copy.welcomeBody}
+          {copy.welcomeBody}
         </p>
         <StaggerIn className="mt-12 grid max-w-3xl gap-4 sm:grid-cols-3">
-          {["Teams", "Clients", "Partners"].map((label) => (
+          {chrome.welcomePillars.map((pillar) => (
             <motion.div
-              key={label}
+              key={pillar.label}
               variants={staggerItem}
               className="rounded-2xl border border-white/15 bg-white/8 px-5 py-5 backdrop-blur-sm"
             >
-              <p className="labs-display text-2xl text-white">{label}</p>
+              <p className="labs-display text-2xl text-white">{pillar.label}</p>
               <p className="mt-2 text-sm leading-snug text-white/55">
-                Co-creating experiences that truly matter
+                {pillar.body}
               </p>
             </motion.div>
           ))}

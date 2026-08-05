@@ -32,7 +32,7 @@ export function CloseSlide({ pack }: { pack: LabsPack }) {
         transition={{ duration: reduce ? 0 : 0.55, ease: [0.25, 1, 0.5, 1] }}
       >
         <p className="mb-4 text-sm font-semibold tracking-[0.2em] text-white/50 uppercase">
-          Bring your challenge
+          {pack.chrome.closeEyebrow}
         </p>
         <h1 className="labs-display text-[clamp(2.75rem,6.5vw,5.25rem)] leading-[1.05] text-balance">
           {pack.copy.closeHeadline}

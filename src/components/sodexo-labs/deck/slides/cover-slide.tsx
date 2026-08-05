@@ -7,6 +7,7 @@ import type { LabsPack } from "@/lib/sodexo-labs/schemas";
 
 export function CoverSlide({ pack }: { pack: LabsPack }) {
   const reduce = useReducedMotion();
+  const { chrome, copy } = pack;
 
   return (
     <div className="relative flex h-full w-full flex-col justify-end overflow-hidden px-[6vw] pb-[12vh] pt-[8vh] text-white">
@@ -38,16 +39,16 @@ export function CoverSlide({ pack }: { pack: LabsPack }) {
         }}
       >
         <p className="mb-5 text-sm font-semibold tracking-[0.22em] text-white/55 uppercase">
-          Sodexo Labs
+          {chrome.coverEyebrow}
         </p>
         <h1 className="labs-display text-[clamp(3rem,7.5vw,6.25rem)] leading-[1.02] text-balance">
-          Co-creating the future of{" "}
+          {chrome.coverTitleLead}{" "}
           <span className="text-[color-mix(in_srgb,var(--labs-accent)_85%,white)]">
-            experiences
+            {chrome.coverTitleAccent}
           </span>
         </h1>
         <p className="mt-8 max-w-2xl text-[clamp(1.125rem,2.1vw,1.65rem)] leading-snug text-white/72">
-          {pack.copy.coverSubtitle}
+          {copy.coverSubtitle}
         </p>
       </motion.div>
 
@@ -57,7 +58,7 @@ export function CoverSlide({ pack }: { pack: LabsPack }) {
         animate={{ opacity: 1 }}
         transition={{ delay: reduce ? 0 : 0.7, duration: reduce ? 0 : 0.5 }}
       >
-        Click or → to continue
+        {chrome.coverHint}
       </motion.p>
     </div>
   );

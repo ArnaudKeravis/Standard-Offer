@@ -29,10 +29,10 @@ export function ZonesSlide({ pack }: { pack: LabsPack }) {
       />
       <div className="relative z-10 px-[6vw] pt-[10vh]">
         <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-[var(--labs-muted)] uppercase">
-          The space
+          {pack.chrome.zonesEyebrow}
         </p>
         <h1 className="labs-display mb-8 max-w-3xl text-[clamp(2.25rem,5vw,4rem)] leading-[1.05] text-[var(--labs-ink)]">
-          Four zones — from spark to delivery
+          {pack.chrome.zonesHeadline}
         </h1>
       </div>
 
@@ -56,7 +56,7 @@ export function ZonesSlide({ pack }: { pack: LabsPack }) {
               />
             </div>
             <p className="relative text-xs font-semibold tracking-[0.2em] text-white/55 uppercase">
-              Zone
+              {pack.chrome.zoneLabel}
             </p>
             <h2 className="labs-display relative mt-2 text-[clamp(1.85rem,3vw,2.75rem)] text-white">
               {zone.name}

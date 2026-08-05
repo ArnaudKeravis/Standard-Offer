@@ -3,41 +3,21 @@
 import { motion, useReducedMotion } from "framer-motion";
 
 import { accentForLabsArea } from "@/lib/sodexo-labs/area-theme";
-import type { LabsArea } from "@/lib/sodexo-labs/schemas";
-
-const CHOICES: {
-  value: LabsArea;
-  label: string;
-  description: string;
-}[] = [
-  {
-    value: "work",
-    label: "Work",
-    description: "Workplace & corporate life",
-  },
-  {
-    value: "heal",
-    label: "Heal",
-    description: "Healthcare & patient journeys",
-  },
-  {
-    value: "play",
-    label: "Play",
-    description: "Sports, hospitality & events",
-  },
-  {
-    value: "learn",
-    label: "Learn",
-    description: "Campuses & student life",
-  },
-];
+import { getLabsGateUi } from "@/lib/sodexo-labs/i18n/gates";
+import type { LabsArea, LabsLang } from "@/lib/sodexo-labs/schemas";
 
 type TerritoryGateProps = {
+  lang: LabsLang;
   onSelect: (area: LabsArea) => void;
 };
 
-export function TerritoryGate({ onSelect }: TerritoryGateProps) {
+export function TerritoryGate({ lang, onSelect }: TerritoryGateProps) {
   const reduceMotion = useReducedMotion();
+  const ui = getLabsGateUi(lang);
+  const choices = (["work", "heal", "play", "learn"] as const).map((value) => ({
+    value,
+    ...ui.territoryChoices[value],
+  }));
 
   return (
     <motion.section
@@ -59,20 +39,20 @@ export function TerritoryGate({ onSelect }: TerritoryGateProps) {
 
       <div className="relative z-10 mx-auto w-full max-w-5xl">
         <p className="mb-3 text-sm font-medium tracking-[0.18em] text-[var(--labs-muted)] uppercase">
-          Territory
+          {ui.territoryEyebrow}
         </p>
         <h1
           id="labs-territory-title"
           className="labs-display mb-3 text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.05] text-[var(--labs-ink)]"
         >
-          Which world are we entering?
+          {ui.territoryTitle}
         </h1>
         <p className="mb-12 max-w-xl text-lg text-[var(--labs-muted)]">
-          Territory shapes the persona, proof stories, and credential defaults.
+          {ui.territoryLead}
         </p>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {CHOICES.map((choice, index) => {
+          {choices.map((choice, index) => {
             const accent = accentForLabsArea(choice.value);
 
             return (

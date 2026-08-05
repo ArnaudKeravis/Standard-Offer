@@ -10,12 +10,17 @@ export default async function LabsPage({
   const params = await searchParams;
   const parsed = parseLabsSession(params);
   const initialPack =
-    parsed.audience && parsed.area
-      ? resolveLabsPack({ audience: parsed.audience, area: parsed.area })
+    parsed.lang && parsed.audience && parsed.area
+      ? resolveLabsPack({
+          lang: parsed.lang,
+          audience: parsed.audience,
+          area: parsed.area,
+        })
       : null;
 
   return (
     <LabsSession
+      initialLang={parsed.lang}
       initialAudience={parsed.audience}
       initialArea={parsed.area}
       initialPack={initialPack}

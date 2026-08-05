@@ -2,26 +2,36 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 
-import { getLabsGateUi } from "@/lib/sodexo-labs/i18n/gates";
-import type { LabsAudience, LabsLang } from "@/lib/sodexo-labs/schemas";
+import type { LabsLang } from "@/lib/sodexo-labs/schemas";
 
-type AudienceGateProps = {
-  lang: LabsLang;
-  onSelect: (audience: LabsAudience) => void;
+const CHOICES: {
+  value: LabsLang;
+  label: string;
+  description: string;
+}[] = [
+  {
+    value: "en",
+    label: "English",
+    description: "Presentation in English · Présentation en anglais",
+  },
+  {
+    value: "fr",
+    label: "Français",
+    description: "Présentation en français · Presentation in French",
+  },
+];
+
+type LanguageGateProps = {
+  onSelect: (lang: LabsLang) => void;
 };
 
-export function AudienceGate({ lang, onSelect }: AudienceGateProps) {
+export function LanguageGate({ onSelect }: LanguageGateProps) {
   const reduceMotion = useReducedMotion();
-  const ui = getLabsGateUi(lang);
-  const choices = (["internal", "external"] as const).map((value) => ({
-    value,
-    ...ui.audienceChoices[value],
-  }));
 
   return (
     <motion.section
       className="labs-body relative flex min-h-screen flex-col justify-center px-[6vw] py-[8vh]"
-      aria-labelledby="labs-audience-title"
+      aria-labelledby="labs-language-title"
       initial={reduceMotion ? false : { opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={reduceMotion ? undefined : { opacity: 0 }}
@@ -32,26 +42,29 @@ export function AudienceGate({ lang, onSelect }: AudienceGateProps) {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 80% 60% at 20% 10%, color-mix(in srgb, var(--labs-blue) 18%, transparent), transparent 55%), radial-gradient(ellipse 70% 50% at 90% 80%, color-mix(in srgb, var(--labs-navy) 14%, transparent), transparent 50%)",
+            "radial-gradient(ellipse 80% 60% at 15% 20%, color-mix(in srgb, var(--labs-teal) 16%, transparent), transparent 55%), radial-gradient(ellipse 70% 50% at 90% 75%, color-mix(in srgb, var(--labs-blue) 14%, transparent), transparent 50%)",
         }}
       />
 
       <div className="relative z-10 mx-auto w-full max-w-5xl">
         <p className="mb-3 text-sm font-medium tracking-[0.18em] text-[var(--labs-muted)] uppercase">
-          {ui.audienceEyebrow}
+          Sodexo Labs
         </p>
         <h1
-          id="labs-audience-title"
+          id="labs-language-title"
           className="labs-display mb-3 text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.05] text-[var(--labs-ink)]"
         >
-          {ui.audienceTitle}
+          Choose your language
+          <span className="mt-2 block text-[clamp(1.5rem,3.5vw,2.5rem)] font-normal text-[var(--labs-muted)]">
+            Choisissez votre langue
+          </span>
         </h1>
         <p className="mb-12 max-w-xl text-lg text-[var(--labs-muted)]">
-          {ui.audienceLead}
+          Then pick audience and territory. · Ensuite audience et territoire.
         </p>
 
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
-          {choices.map((choice, index) => (
+          {CHOICES.map((choice, index) => (
             <motion.button
               key={choice.value}
               type="button"

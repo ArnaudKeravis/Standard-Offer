@@ -13,14 +13,14 @@ export function LifecycleSlide({ pack }: { pack: LabsPack }) {
     <div className="relative flex h-full w-full flex-col justify-center overflow-hidden bg-[var(--labs-paper)] px-[5vw] py-[6vh]">
       <div className="relative z-10 mx-auto w-full max-w-[1200px]">
         <p className="mb-2 text-sm font-semibold tracking-[0.18em] text-[var(--labs-muted)] uppercase">
-          Across the client lifecycle
+          {pack.chrome.lifecycleEyebrow}
         </p>
         <h1 className="labs-display mb-8 max-w-4xl text-[clamp(1.85rem,4vw,3.25rem)] leading-[1.08] text-[var(--labs-ink)]">
-          We co-design through the{" "}
+          {pack.chrome.lifecycleHeadlineLead}{" "}
           <span className="text-[color-mix(in_srgb,#7C3AED_85%,var(--labs-ink))]">
-            whole contract
+            {pack.chrome.lifecycleHeadlineAccent}
           </span>{" "}
-          — from bid to strategic partner.
+          {pack.chrome.lifecycleHeadlineTail}
         </h1>
 
         <StaggerIn className="grid gap-0 sm:grid-cols-2 xl:grid-cols-4">

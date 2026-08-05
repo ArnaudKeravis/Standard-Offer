@@ -96,7 +96,7 @@ function renderSlide(id: SlideId, pack: LabsPack): ReactNode {
     case "cases":
       return <CasesSlide pack={pack} />;
     case "network":
-      return <NetworkSlide />;
+      return <NetworkSlide pack={pack} />;
     case "lifecycle":
       return <LifecycleSlide pack={pack} />;
     case "engagements":
@@ -257,11 +257,14 @@ export function LabsDeck({ pack, onChangeSession }: LabsDeckProps) {
       </div>
 
       <LabsHud
+        lang={pack.session.lang}
         audience={pack.session.audience}
         area={pack.session.area}
         index={index}
         total={slideCount}
         dark={dark}
+        credentialsLabel={pack.chrome.hudCredentials}
+        changeLabel={pack.chrome.hudChange}
         onSelectSlide={goTo}
         onChangeSession={onChangeSession}
       />

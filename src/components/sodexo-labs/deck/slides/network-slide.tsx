@@ -7,6 +7,7 @@ import {
   StaggerIn,
   staggerItem,
 } from "@/components/sodexo-labs/deck/slide-frame";
+import type { LabsPack } from "@/lib/sodexo-labs/schemas";
 
 const REGIONS = [
   "France · Paris Group HQ",
@@ -16,7 +17,9 @@ const REGIONS = [
   "India",
 ];
 
-export function NetworkSlide() {
+export function NetworkSlide({ pack }: { pack: LabsPack }) {
+  const { chrome } = pack;
+
   return (
     <div className="relative flex h-full w-full flex-col justify-center overflow-hidden px-[6vw] py-[8vh] text-white">
       <div
@@ -35,14 +38,13 @@ export function NetworkSlide() {
 
       <div className="relative z-10 max-w-4xl">
         <p className="mb-4 text-sm font-semibold tracking-[0.18em] text-white/50 uppercase">
-          A glocal model
+          {chrome.networkEyebrow}
         </p>
         <h1 className="labs-display text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[1.05] text-balance">
-          A worldwide network — local insight, global reach
+          {chrome.networkHeadline}
         </h1>
         <p className="mt-6 max-w-2xl text-[clamp(1.05rem,1.7vw,1.25rem)] leading-relaxed text-white/70">
-          We combine regional expertise with Sodexo&apos;s global innovation
-          network to source ideas, benchmark best practice and scale what works.
+          {chrome.networkBody}
         </p>
         <StaggerIn className="mt-12 flex flex-wrap gap-3">
           {REGIONS.map((region) => (

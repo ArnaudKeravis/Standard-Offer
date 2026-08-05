@@ -1,46 +1,53 @@
-import { LABS_CASES } from "./data/cases";
+import { getLabsCases } from "./data/cases";
+import { getLabsChrome } from "./data/chrome";
 import { getLabsCopy } from "./data/copy";
-import { LABS_ENGAGEMENTS } from "./data/engagements";
-import { LABS_GROWTH } from "./data/growth";
-import { LABS_KPIS } from "./data/kpis";
-import { LABS_LIFECYCLE } from "./data/lifecycle";
-import { LABS_OFFERS } from "./data/offers";
-import { LABS_ZONES } from "./data/zones";
+import { getLabsEngagements } from "./data/engagements";
+import { getLabsGrowth } from "./data/growth";
+import { getLabsKpis } from "./data/kpis";
+import { getLabsLifecycle } from "./data/lifecycle";
+import { getLabsMethodPhases } from "./data/method";
+import { getLabsOffers } from "./data/offers";
+import { getLabsZones } from "./data/zones";
 import { mapPersonaToLabsSpot } from "./map-persona";
 import { LabsPack, type LabsSessionConfig } from "./schemas";
 
 export function resolveLabsPack(session: LabsSessionConfig) {
-  const { audience, area } = session;
+  const { lang, audience, area } = session;
 
   const offers =
     audience === "internal"
-      ? LABS_OFFERS
-      : LABS_OFFERS.map((offer) => {
+      ? getLabsOffers(lang)
+      : getLabsOffers(lang).map((offer) => {
           const externalOffer = { ...offer };
           delete externalOffer.internalExtra;
           return externalOffer;
         });
 
-  const cases = LABS_CASES.filter((c) => c.area === area).slice(0, 2);
+  const cases = getLabsCases(lang)
+    .filter((c) => c.area === area)
+    .slice(0, 2);
 
-  // Client-facing: keep engagement models, hide investment / pricing lines.
   const engagements =
     audience === "external"
-      ? LABS_ENGAGEMENTS.map(({ investment: _investment, ...rest }) => rest)
-      : LABS_ENGAGEMENTS;
+      ? getLabsEngagements(lang).map(
+          ({ investment: _investment, ...rest }) => rest,
+        )
+      : getLabsEngagements(lang);
 
   const pack = {
     session,
     offers,
-    persona: mapPersonaToLabsSpot(area),
+    persona: mapPersonaToLabsSpot(area, lang),
     cases,
-    zones: LABS_ZONES,
+    zones: getLabsZones(lang),
     engagements,
-    lifecycle: LABS_LIFECYCLE,
+    lifecycle: getLabsLifecycle(lang),
+    methodPhases: getLabsMethodPhases(lang),
+    chrome: getLabsChrome(lang),
     ...(audience === "internal"
-      ? { kpis: LABS_KPIS, growth: LABS_GROWTH }
+      ? { kpis: getLabsKpis(lang), growth: getLabsGrowth(lang) }
       : {}),
-    copy: getLabsCopy(audience),
+    copy: getLabsCopy(audience, lang),
   };
 
   return LabsPack.parse(pack);

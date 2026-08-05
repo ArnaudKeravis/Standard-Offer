@@ -22,7 +22,7 @@ export function GrowthSlide({ pack }: { pack: LabsPack }) {
 
       <div className="relative z-10 max-w-6xl">
         <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-[var(--labs-muted)] uppercase">
-          Why CoDesign
+          {pack.chrome.growthEyebrow}
         </p>
         <h1 className="labs-display mb-5 max-w-4xl text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.08] text-[var(--labs-ink)]">
           {growth.headline}

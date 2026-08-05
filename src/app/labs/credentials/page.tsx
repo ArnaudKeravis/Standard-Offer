@@ -10,9 +10,10 @@ export default async function LabsCredentialsPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const params = await searchParams;
-  const { audience, area } = parseLabsSession(params);
+  const { lang, audience, area } = parseLabsSession(params);
 
   const qs = new URLSearchParams();
+  if (lang) qs.set("lang", lang);
   if (audience) qs.set("audience", audience);
   if (area) qs.set("area", area);
   const backHref = qs.size > 0 ? `/labs?${qs.toString()}` : "/labs";

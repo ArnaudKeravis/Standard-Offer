@@ -36,7 +36,7 @@ export function KpiSlide({ pack }: { pack: LabsPack }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduce ? 0 : 0.4 }}
         >
-          Proof · CoDesign
+          {pack.chrome.kpiEyebrow}
         </motion.p>
         <motion.h1
           className="labs-display mb-12 max-w-3xl text-[clamp(2.25rem,5vw,4rem)] leading-[1.05] text-[var(--labs-ink)]"
@@ -44,7 +44,7 @@ export function KpiSlide({ pack }: { pack: LabsPack }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduce ? 0 : 0.5, delay: reduce ? 0 : 0.05 }}
         >
-          Not an experiment — a commercial engine
+          {pack.chrome.kpiHeadline}
         </motion.h1>
 
         <StaggerIn className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">

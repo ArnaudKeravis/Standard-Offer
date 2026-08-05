@@ -20,13 +20,13 @@ export function EngagementsSlide({ pack }: { pack: LabsPack }) {
 
       <div className="relative z-10 px-[6vw] py-[8vh]">
         <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-[var(--labs-muted)] uppercase">
-          Engagement models
+          {pack.chrome.engagementsEyebrow}
         </p>
         <h1 className="labs-display mb-3 max-w-2xl text-[clamp(2.25rem,5vw,4rem)] leading-[1.05] text-[var(--labs-ink)]">
-          From a single workshop to a premium program
+          {pack.chrome.engagementsHeadline}
         </h1>
         <p className="mb-10 max-w-xl text-[clamp(1rem,1.4vw,1.15rem)] text-[var(--labs-muted)]">
-          Timeboxed project consulting — scaled to the value at stake.
+          {pack.chrome.engagementsLead}
         </p>
 
         <StaggerIn className="grid max-w-3xl gap-4 sm:grid-cols-2">

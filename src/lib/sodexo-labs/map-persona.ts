@@ -1,7 +1,7 @@
 import { SEED_DATA } from "@/lib/persona-studio/data/seed";
 import { localizePersona } from "@/lib/persona-studio/data/localized";
 import type { Persona } from "@/lib/persona-studio/ai/schemas/persona";
-import type { LabsArea, LabsPersonaSpot } from "./schemas";
+import type { LabsArea, LabsLang, LabsPersonaSpot } from "./schemas";
 
 const FLAGSHIP_PERSONA_IDS: Record<LabsArea, string> = {
   work: "persona-xp-white-collar",
@@ -27,14 +27,17 @@ function extractTensions(persona: Persona): string[] {
     .slice(0, 3);
 }
 
-export function mapPersonaToLabsSpot(area: LabsArea): LabsPersonaSpot {
+export function mapPersonaToLabsSpot(
+  area: LabsArea,
+  lang: LabsLang = "en",
+): LabsPersonaSpot {
   const personaId = FLAGSHIP_PERSONA_IDS[area];
   const source = SEED_DATA.personas.find((p) => p.id === personaId);
   if (!source) {
     throw new Error(`Flagship persona not found in seed: ${personaId}`);
   }
 
-  const persona = localizePersona(source, "en");
+  const persona = localizePersona(source, lang);
   const essence =
     persona.oneLineEssence || findSectionText(persona, "essence") || persona.name;
   const tensions = extractTensions(persona);
