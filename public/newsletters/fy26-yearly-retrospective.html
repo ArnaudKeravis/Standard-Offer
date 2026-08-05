@@ -191,18 +191,32 @@ h1 .yr-big{display:block;font-size:clamp(64px,8.5vw,112px);font-weight:700;color
 .sec-intro{font-size:14px;color:var(--text2);line-height:1.65;max-width:780px;margin-bottom:28px;}
 
 /* ── IMPACT GRID ── */
-.impact-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;background:var(--border);border:1px solid var(--border);}
+.impact-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--border);border:1px solid var(--border);}
 .ic{background:var(--surface);padding:30px 22px 24px;text-align:left;position:relative;overflow:hidden;transition:all .25s;cursor:default;}
 .ic:hover{background:var(--surface2);transform:translateY(-2px);}
 .ic-num{font-family:'Open Sans',sans-serif;font-size:42px;font-weight:300;line-height:1;margin-bottom:6px;letter-spacing:-.02em;}
 .ic-label{font-size:11px;color:var(--muted);letter-spacing:.13em;text-transform:uppercase;line-height:1.5;}
 .ic-bar{position:absolute;bottom:0;left:0;height:3px;width:100%;}
 
-/* ── COUNTRIES ── */
-.countries-row{background:var(--surface);padding:22px 0;display:flex;border-top:1px solid var(--border);}
-.country-cell{flex:1;display:flex;align-items:center;gap:12px;padding:8px 24px;border-right:1px solid var(--border);}
-.country-cell:last-child{border-right:none;}
-.flag{font-size:26px;line-height:1;flex-shrink:0;}
+/* ── COUNTRIES (separate band — not aligned to KPI columns) ── */
+.countries-band{
+  margin-top:28px;padding:22px 26px;
+  background:var(--surface2);border:1px solid var(--border);border-radius:8px;
+}
+.countries-band-label{
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:14px;font-weight:700;
+}
+.countries-chips{display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+.country-chip{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--surface);border:1px solid var(--border);
+  padding:8px 14px;border-radius:999px;
+  font-size:13px;font-weight:500;color:var(--text2);
+  transition:all .15s;
+}
+.country-chip:hover{border-color:var(--border2);transform:translateY(-1px);}
+.flag{font-size:18px;line-height:1;flex-shrink:0;}
 .cname{font-size:13px;font-weight:500;color:var(--text2);}
 
 /* ── COMMERCIAL IMPACT ── */
@@ -640,7 +654,8 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
 .fn-foot{font-size:10px;color:rgba(255,255,255,.3);font-family:'Space Mono',monospace;letter-spacing:.08em;}
 
 @media(max-width:1100px){
-  .impact-grid,.insights-band{grid-template-columns:repeat(3,1fr);}
+  .impact-grid{grid-template-columns:repeat(3,1fr);}
+  .insights-band{grid-template-columns:repeat(3,1fr);}
   .hero-kpi{grid-template-columns:repeat(2,1fr);}
   .ci-grid,.fb-hero{grid-template-columns:1fr;}
   .ev-tabs,.cred-grid,.testimonials,.inno-grid,.next-grid,.budget-grid{grid-template-columns:1fr 1fr;}
@@ -651,8 +666,7 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
   .hright{text-align:left;}
   .impact-grid,.insights-band,.hero-kpi,.es-pillars{grid-template-columns:repeat(2,1fr);}
   .ev-tabs,.cred-grid,.testimonials,.inno-grid,.next-grid,.budget-grid,.sc-grid,.scale-map{grid-template-columns:1fr;}
-  .countries-row{flex-wrap:wrap;}
-  .country-cell{flex:1 1 30%;border-right:none;}
+  .countries-chips{gap:8px;}
   footer{flex-direction:column;gap:10px;text-align:center;}
 }
 ::-webkit-scrollbar{width:6px;}
@@ -758,7 +772,7 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
 <div class="hero-kpi">
   <div class="hk fade-in delay-1">
     <div class="hk-label">FY26 Active Impact</div>
-    <div class="hk-num"><span class="accent">€800M</span></div>
+    <div class="hk-num"><span class="accent">€1.1B</span></div>
     <div class="hk-sub">Annualised contract value actively progressed via CoDesign this year — across won, run and proposition stages</div>
   </div>
   <div class="hk fade-in delay-2">
@@ -768,7 +782,7 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
   </div>
   <div class="hk fade-in delay-3">
     <div class="hk-label">Lab Bookings</div>
-    <div class="hk-num"><span class="accent">82</span></div>
+    <div class="hk-num"><span class="accent">102</span></div>
     <div class="hk-sub">Workshops, events and visits hosted at the Labs since opening</div>
   </div>
   <div class="hk fade-in delay-4">
@@ -783,10 +797,10 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
   <div class="labs-banner-full" style="max-width:fit-content;margin:0 0 22px;">— Co-creating the future of experiences —</div>
   <div class="es-tag reveal">Executive Summary</div>
   <h2 class="es-headline reveal">CoDesign & Labs is no longer a pilot. It is a <em>commercial engine</em> — embedded in major sales cycles, generating measurable uplift, and scaling globally.</h2>
-  <p class="es-body reveal">In FY26 we moved from proving the concept to delivering against it. CoDesign actively progressed <strong>~€800M of annualised contract value this year</strong>, across <strong>8 confirmed wins</strong> and 8 strategic projects in delivery. The Sodexo Labs in Paris hosted <strong>82 sessions</strong> — half generated by client-facing CoDesign engagements (we bring clients in to anchor commitment), half by internal teams using the Labs to align on growth, sustainability and innovation. Workshops scored 4.37/5 average with an NPS of +53 across 43 surveyed participants, producing 1,000+ ideas, 50+ concepts and 20 client roadmaps. The model is now requested by 4 regions, with 2 US sites in framing.</p>
+  <p class="es-body reveal">In FY26 we moved from proving the concept to delivering against it. CoDesign actively progressed <strong>~€1.1B of annualised contract value this year</strong>, across <strong>8 confirmed wins</strong> and <strong>13 strategic projects</strong> in delivery. The Sodexo Labs in Paris hosted <strong>102 sessions</strong> — roughly half generated by client-facing CoDesign engagements (we bring clients in to anchor commitment), half by internal teams using the Labs to align on growth, sustainability and innovation. Workshops scored 4.37/5 average with an NPS of +53 across 43 surveyed participants, producing 1,000+ ideas, 50+ concepts and 20 client roadmaps. The model is now requested by 4 regions, with 2 US sites in framing.</p>
   <div class="es-pillars reveal-stagger">
     <div class="es-pill">
-      <div class="es-pill-num">€800M</div>
+      <div class="es-pill-num">€1.1B</div>
       <div class="es-pill-label">FY26 Active Commercial Impact</div>
       <div class="es-pill-desc">Contract value actively progressed this year through CoDesign engagements — won, in delivery, or in active proposition.</div>
     </div>
@@ -812,20 +826,22 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
     <span class="sbadge sb-both">● CoDesign & Labs</span>
   </div>
   <div class="impact-grid reveal-stagger">
-    <div class="ic"><div class="ic-num" style="color:var(--blue)">25</div><div class="ic-label">Strategic<br>Clients Engaged</div><div class="ic-bar" style="background:var(--blue)"></div></div>
+    <div class="ic"><div class="ic-num" style="color:var(--blue)">30</div><div class="ic-label">Strategic<br>Clients Engaged</div><div class="ic-bar" style="background:var(--blue)"></div></div>
     <div class="ic"><div class="ic-num" style="color:var(--orange)">8</div><div class="ic-label">Wins<br>FY26</div><div class="ic-bar" style="background:var(--orange)"></div></div>
-    <div class="ic"><div class="ic-num" style="color:var(--green)">8</div><div class="ic-label">Active CoDesign<br>Projects</div><div class="ic-bar" style="background:var(--green)"></div></div>
-    <div class="ic"><div class="ic-num" style="color:var(--purple)">82</div><div class="ic-label">Lab Sessions<br>Hosted</div><div class="ic-bar" style="background:var(--purple)"></div></div>
-    <div class="ic"><div class="ic-num" style="color:var(--teal);font-size:30px;padding-top:6px;">€800M</div><div class="ic-label">FY26 Active<br>Impact</div><div class="ic-bar" style="background:var(--teal)"></div></div>
-    <div class="ic"><div class="ic-num" style="color:var(--pink)">6</div><div class="ic-label">Countries<br>Covered</div><div class="ic-bar" style="background:var(--pink)"></div></div>
+    <div class="ic"><div class="ic-num" style="color:var(--green)">13</div><div class="ic-label">Active CoDesign<br>Projects</div><div class="ic-bar" style="background:var(--green)"></div></div>
+    <div class="ic"><div class="ic-num" style="color:var(--purple)">102</div><div class="ic-label">Lab Sessions<br>Hosted</div><div class="ic-bar" style="background:var(--purple)"></div></div>
+    <div class="ic"><div class="ic-num" style="color:var(--teal);font-size:30px;padding-top:6px;">€1.1B</div><div class="ic-label">FY26 Active<br>Impact</div><div class="ic-bar" style="background:var(--teal)"></div></div>
   </div>
-  <div class="countries-row reveal-stagger">
-    <div class="country-cell"><span class="flag">🇫🇷</span><span class="cname">France</span></div>
-    <div class="country-cell"><span class="flag">🇬🇧</span><span class="cname">UK&I</span></div>
-    <div class="country-cell"><span class="flag">🇺🇸</span><span class="cname">USA</span></div>
-    <div class="country-cell"><span class="flag">🇪🇸</span><span class="cname">Spain (COEU)</span></div>
-    <div class="country-cell"><span class="flag">🇳🇱</span><span class="cname">Netherlands</span></div>
-    <div class="country-cell"><span class="flag">🌍</span><span class="cname">Global GSA</span></div>
+  <div class="countries-band reveal">
+    <div class="countries-band-label">Countries &amp; territories covered · 6</div>
+    <div class="countries-chips">
+      <span class="country-chip"><span class="flag">🇫🇷</span><span class="cname">France</span></span>
+      <span class="country-chip"><span class="flag">🇬🇧</span><span class="cname">UK&I</span></span>
+      <span class="country-chip"><span class="flag">🇺🇸</span><span class="cname">USA</span></span>
+      <span class="country-chip"><span class="flag">🇪🇸</span><span class="cname">Spain (COEU)</span></span>
+      <span class="country-chip"><span class="flag">🇳🇱</span><span class="cname">Netherlands</span></span>
+      <span class="country-chip"><span class="flag">🌍</span><span class="cname">Global GSA</span></span>
+    </div>
   </div>
 </div>
 
@@ -854,7 +870,7 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
           <circle class="seg-bid" cx="100" cy="100" r="90"/>
         </svg>
         <div class="donut-center">
-          <div class="donut-num">€800M</div>
+          <div class="donut-num">€1.1B</div>
           <div class="donut-label">FY26 Mix</div>
         </div>
       </div>
@@ -935,7 +951,7 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
     <h2 class="stitle">Key CoDesign <em>projects</em></h2>
     <span class="sbadge sb-cd">● CoDesign Portfolio</span>
   </div>
-  <p class="sec-intro reveal">A representative selection of FY26 strategic engagements across food services, FM, healthcare, hospitality and workplace. Combined annualised contract value of these 12 projects: <strong>~€800M</strong>.</p>
+  <p class="sec-intro reveal">A representative selection of FY26 strategic engagements across food services, FM, healthcare, hospitality and workplace. Combined annualised contract value of these 17 projects: <strong>~€1.1B</strong>.</p>
   <div class="cred-grid reveal-stagger">
 
     <div class="cred-card" style="border-top-color:var(--green);">
@@ -1077,6 +1093,65 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
       <div class="cc-amount">€191M/yr · Maintain</div>
       <div class="cc-challenge">Sustainably reduce carbon footprint while elevating employee value proposition across sites.</div>
       <div class="cc-kw"><span class="kw">CSR</span><span class="kw">Strategy</span><span class="kw">Experience</span></div>
+    </div>
+
+    <div class="cred-card" style="border-top-color:var(--orange);">
+      <div class="cc-logo">
+        <img src="https://logo.clearbit.com/letour.fr" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
+        <div class="cc-fi" style="display:none">TdF</div>
+        <div><div class="cc-name">Tour de France</div><div class="cc-sub">Hospitality Experience</div></div>
+      </div>
+      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">FR · Live!</span></div>
+      <div class="cc-amount">€6M/yr extension · +€3M additional</div>
+      <div class="cc-challenge">Elevate hospitality across the race — seamless guest journeys for partners, VIPs and media from village to finish line.</div>
+      <div class="cc-kw"><span class="kw">Hospitality XP</span><span class="kw">Live events</span><span class="kw">Premium service</span></div>
+    </div>
+
+    <div class="cred-card" style="border-top-color:var(--teal);">
+      <div class="cc-logo">
+        <img src="https://logo.clearbit.com/cincinnatichildrens.org" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
+        <div class="cc-fi" style="display:none">CCH</div>
+        <div><div class="cc-name">Cincinnati Children's</div><div class="cc-sub">Childcare Center of Excellence</div></div>
+      </div>
+      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">USA · HC</span></div>
+      <div class="cc-amount">$6M/yr · + campus opportunity</div>
+      <div class="cc-challenge">Design a childcare center of excellence that supports families and caregivers — with a broader campus experience opportunity beyond the first perimeter.</div>
+      <div class="cc-kw"><span class="kw">Childcare XP</span><span class="kw">Family journey</span><span class="kw">Campus</span></div>
+    </div>
+
+    <div class="cred-card" style="border-top-color:var(--teal);">
+      <div class="cc-logo">
+        <img src="https://logo.clearbit.com/cooperhealth.org" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
+        <div class="cc-fi" style="display:none">CUH</div>
+        <div><div class="cc-name">Cooper University Hospital</div><div class="cc-sub">Caregiver Experience</div></div>
+      </div>
+      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">USA · HC</span></div>
+      <div class="cc-amount">$16M/yr · + campus opportunity</div>
+      <div class="cc-challenge">Reimagine the caregiver experience — services, spaces and support that reduce friction for clinical teams and open a wider campus opportunity.</div>
+      <div class="cc-kw"><span class="kw">Caregiver XP</span><span class="kw">Hospital services</span><span class="kw">Campus</span></div>
+    </div>
+
+    <div class="cred-card" style="border-top-color:var(--green);">
+      <div class="cc-logo">
+        <img src="https://logo.clearbit.com/lenotre.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
+        <div class="cc-fi" style="display:none">ÉL</div>
+        <div><div class="cc-name">École Lenôtre</div><div class="cc-sub">Strategy &amp; Experience Review</div></div>
+      </div>
+      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">FR · Live!</span></div>
+      <div class="cc-amount">€80M/yr · Strategic review</div>
+      <div class="cc-challenge">Strategy and experience review for the school — clarify the offer, elevate the learning journey, and align hospitality with brand excellence.</div>
+      <div class="cc-kw"><span class="kw">Strategy</span><span class="kw">Learning XP</span><span class="kw">Brand</span></div>
+    </div>
+
+    <div class="cred-card" style="border-top-color:var(--purple);">
+      <div class="cc-logo">
+        <div class="cc-fi">SA</div>
+        <div><div class="cc-name">SoAppro</div><div class="cc-sub">Strategic &amp; Product Review</div></div>
+      </div>
+      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">FR · Global</span></div>
+      <div class="cc-amount">€140M/yr · Strategic review</div>
+      <div class="cc-challenge">Strategic and product review to sharpen the offer, clarify value for operators and clients, and set the next chapter of the platform.</div>
+      <div class="cc-kw"><span class="kw">Product review</span><span class="kw">Strategy</span><span class="kw">Offer design</span></div>
     </div>
 
   </div>
@@ -1241,7 +1316,7 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
   <p class="sec-intro reveal">Across the year, our CoDesign engagements consistently delivered high-volume, high-quality intellectual output for our clients. These are the building blocks that translate into experience playbooks, value propositions and roadmaps.</p>
   <div class="insights-band reveal-stagger">
     <div class="ins-cell"><div class="ins-num" style="color:var(--blue)">25</div><div class="ins-lbl">Discovery<br>Phases</div><div class="ins-bar" style="background:var(--blue)"></div></div>
-    <div class="ins-cell"><div class="ins-num" style="color:var(--green)">35</div><div class="ins-lbl">Co-creation<br>Workshops</div><div class="ins-bar" style="background:var(--green)"></div></div>
+    <div class="ins-cell"><div class="ins-num" style="color:var(--green)">42</div><div class="ins-lbl">Co-creation<br>Workshops</div><div class="ins-bar" style="background:var(--green)"></div></div>
     <div class="ins-cell"><div class="ins-num" style="color:var(--orange)">1000+</div><div class="ins-lbl">Ideas<br>Generated</div><div class="ins-bar" style="background:var(--orange)"></div></div>
     <div class="ins-cell"><div class="ins-num" style="color:var(--purple)">50+</div><div class="ins-lbl">Concept<br>Sheets</div><div class="ins-bar" style="background:var(--purple)"></div></div>
     <div class="ins-cell"><div class="ins-num" style="color:var(--teal)">20</div><div class="ins-lbl">Action Plans<br>Delivered</div><div class="ins-bar" style="background:var(--teal)"></div></div>
@@ -1257,54 +1332,61 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
 <div class="section">
   <div class="sec-hdr reveal">
     <span class="stag" style="color:var(--blue)">05</span>
-    <h2 class="stitle">82 Lab <em>sessions</em> hosted</h2>
+    <h2 class="stitle">102 Lab <em>sessions</em> hosted</h2>
     <span class="sbadge sb-labs">● Sodexo Labs</span>
   </div>
-  <p class="sec-intro reveal">From C-level visits to immersive client workshops, the Sodexo Labs hosted a steady stream of strategic engagements. Three categories: <strong>client workshops driving CoDesign delivery</strong> (most are extensions of an active CoDesign engagement), <strong>internal & partner events</strong> for inspiration and alignment, and <strong>account visits</strong> where the Labs serves as a credibility play that opens the door to CoDesign.</p>
+  <p class="sec-intro reveal">From C-level visits to immersive client workshops, the Sodexo Labs hosted a steady stream of strategic engagements through July 2026. Three categories: <strong>client workshops driving CoDesign delivery</strong> (most are extensions of an active CoDesign engagement), <strong>internal & partner events</strong> for inspiration and alignment, and <strong>account visits</strong> where the Labs serves as a credibility play that opens the door to CoDesign.</p>
   <div class="ev-tabs reveal-stagger">
     <div class="ev-col ws">
       <div class="ev-col-tag">CoDesign Workshops · at the Labs</div>
-      <div class="ev-col-num" style="color:var(--green)">26</div>
+      <div class="ev-col-num" style="color:var(--green)">30</div>
       <div class="lc-grid">
-        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— Octobre —</div>
+        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— October —</div>
         <div class="lc done" data-logo="lilly.com">Lilly · client</div>
         <div class="lc done" data-logo="clariane.com">Clariane · client</div>
-        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— Novembre —</div>
+        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— November —</div>
         <div class="lc done">Plateforme digital services</div>
         <div class="lc done">Care Management</div>
         <div class="lc done">Eat 2.0</div>
         <div class="lc done" data-logo="clariane.com">Clariane · client</div>
-        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— Décembre —</div>
+        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— December —</div>
         <div class="lc done" data-logo="rolandgarros.com">Roland-Garros</div>
-        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— Janvier —</div>
+        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— January —</div>
         <div class="lc done" data-logo="lilly.com">Lilly · Alzey prios WS</div>
         <div class="lc done" data-logo="clariane.com">Clariane · client</div>
         <div class="lc done">Personae augmenté</div>
-        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— Février —</div>
+        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— February —</div>
         <div class="lc done" data-logo="microsoft.com">Microsoft · client</div>
         <div class="lc done">Entegra</div>
         <div class="lc done">Entegra</div>
-        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— Mars —</div>
+        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— March —</div>
         <div class="lc done">Abeille · client</div>
         <div class="lc done">Entegra</div>
-        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— Avril —</div>
+        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— April —</div>
         <div class="lc done">HSTV</div>
         <div class="lc done" data-logo="ipsen.com">Ipsen · client</div>
         <div class="lc done" data-logo="astrazeneca.com">AZ governance · client</div>
         <div class="lc done" data-logo="clariane.com">Clariane QBR · client</div>
         <div class="lc done">Entegra</div>
         <div class="lc done">Entegra</div>
-        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— Mai —</div>
+        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— May —</div>
         <div class="lc done" data-logo="accenture.com">Accenture</div>
-        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— Juin —</div>
-        <div class="lc done">Abeille</div>
-        <div class="lc done">COEU</div>
+        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— June —</div>
+        <div class="lc done">Abeille · IA workshop</div>
+        <div class="lc done">JTC · client</div>
+        <div class="lc done">Fiera Milano · client</div>
+        <div class="lc done">Novae · client</div>
         <div class="lc done">TDDI Seminar</div>
+        <div class="lc done">Board AI training</div>
+        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— July —</div>
+        <div class="lc done">Gustav Roussev wargame · HC</div>
+        <div class="lc done">Product &amp; Design Hub workshop</div>
+        <div class="lc done">Shell · Growth workshop</div>
       </div>
     </div>
     <div class="ev-col ev">
       <div class="ev-col-tag">Events & Showcases</div>
-      <div class="ev-col-num" style="color:var(--purple)">22</div>
+      <div class="ev-col-num" style="color:var(--purple)">28</div>
       <div class="lc-grid">
         <div class="lc done">Innovision Robotics · 800+</div>
         <div class="lc done">Innovision AI Food & FM</div>
@@ -1316,11 +1398,17 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
         <div class="lc done">SoSmart for Growth</div>
         <div class="lc done">QVT Microsoft Inclusion</div>
         <div class="lc done">Comms Sync Day</div>
+        <div class="lc done">Future of Food · HQ</div>
+        <div class="lc done">Kumulus showcase</div>
+        <div class="lc done">TECH board seminar</div>
+        <div class="lc done">Totem showcase</div>
+        <div class="lc done">InnoVision Webinar</div>
+        <div class="lc done">Adobe Day · Design</div>
       </div>
     </div>
     <div class="ev-col vs">
       <div class="ev-col-tag">Client & Account Visits</div>
-      <div class="ev-col-num" style="color:var(--blue)">48</div>
+      <div class="ev-col-num" style="color:var(--blue)">44</div>
       <div class="lc-grid">
         <div class="lc done" data-logo="disneylandparis.com">Disneyland Paris</div>
         <div class="lc done" data-logo="edf.fr">EDF</div>
@@ -1335,7 +1423,10 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
         <div class="lc done">Worldwide Sales Winners</div>
         <div class="lc done">UK&I TDDI</div>
         <div class="lc done">Sodexo Live! UK</div>
-        <div class="lc done">+ 35 more</div>
+        <div class="lc done" data-logo="nokia.com">Nokia · GSA</div>
+        <div class="lc done">ASO · FR kickoff</div>
+        <div class="lc done" data-logo="telekom.com">Deutsche Telekom · flash</div>
+        <div class="lc done">+ 28 more</div>
       </div>
     </div>
   </div>
@@ -1346,9 +1437,9 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
   <div class="sec-hdr reveal">
     <span class="stag" style="color:var(--blue)">05b</span>
     <h2 class="stitle">Lab activity — <em>deep dive</em></h2>
-    <span class="sbadge sb-labs">● 82 sessions analysed</span>
+    <span class="sbadge sb-labs">● 102 sessions analysed</span>
   </div>
-  <p class="sec-intro reveal">Breaking down all 82 Lab bookings since opening to understand: who comes, why they come, which spaces get used, and how the Labs and CoDesign feed each other as <strong>two complementary acquisition tools</strong> — both bring clients in, often together.</p>
+  <p class="sec-intro reveal">Breaking down all 102 Lab bookings since opening (through July 2026) to understand: who comes, why they come, which spaces get used, and how the Labs and CoDesign feed each other as <strong>two complementary acquisition tools</strong> — both bring clients in, often together.</p>
 
   <!-- Row 1: Client vs Internal stack + Function -->
   <div class="analytics-grid">
@@ -1356,14 +1447,14 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
       <div class="ana-card-title">Client vs Internal split</div>
       <div class="ana-card-sub">Who attends Lab sessions</div>
       <div class="tier-stack" style="margin-top:14px;">
-        <div class="tier-seg" style="background:var(--blue);width:42%;">42% Client</div>
-        <div class="tier-seg" style="background:var(--purple);width:46%;">46% Internal</div>
-        <div class="tier-seg" style="background:var(--orange);width:12%;">12% Mixed</div>
+        <div class="tier-seg" style="background:var(--blue);width:38%;">38% Client</div>
+        <div class="tier-seg" style="background:var(--purple);width:51%;">51% Internal</div>
+        <div class="tier-seg" style="background:var(--orange);width:11%;">11% Mixed</div>
       </div>
       <div class="tier-legend">
-        <div class="tl-item"><span class="tl-dot" style="background:var(--blue)"></span><strong>34 client sessions</strong> · workshops, visits, pitches</div>
-        <div class="tl-item"><span class="tl-dot" style="background:var(--purple)"></span><strong>38 internal sessions</strong> · team breakfasts, training, alignment</div>
-        <div class="tl-item"><span class="tl-dot" style="background:var(--orange)"></span><strong>10 mixed sessions</strong> · client + Sodexo combined</div>
+        <div class="tl-item"><span class="tl-dot" style="background:var(--blue)"></span><strong>39 client sessions</strong> · workshops, visits, pitches</div>
+        <div class="tl-item"><span class="tl-dot" style="background:var(--purple)"></span><strong>52 internal sessions</strong> · team breakfasts, training, alignment</div>
+        <div class="tl-item"><span class="tl-dot" style="background:var(--orange)"></span><strong>11 mixed sessions</strong> · client + Sodexo combined</div>
       </div>
       <div style="margin-top:18px;padding-top:16px;border-top:1px solid var(--border);font-size:12px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Insight:</strong> Internal sessions are critical for adoption and capability-building — but client-facing time is what generates pipeline. Target <strong>50/50</strong> in FY27 with structured pre-sales journey.</div>
     </div>
@@ -1372,12 +1463,13 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
       <div class="ana-card-title">By Sodexo Function (internal sessions)</div>
       <div class="ana-card-sub">Which teams use the Labs most</div>
       <div id="hbar-function">
-        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">Sales & Account teams</span><span class="hbar-val">14 sessions</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:100%;background:var(--purple);"></div></div></div>
-        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">FM operations</span><span class="hbar-val">8 sessions</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:57%;background:var(--purple);"></div></div></div>
-        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">Marketing & Comms</span><span class="hbar-val">6 sessions</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:43%;background:var(--purple);"></div></div></div>
-        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">Group Strategy & CSR</span><span class="hbar-val">5 sessions</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:36%;background:var(--purple);"></div></div></div>
-        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">L&D · HR · People</span><span class="hbar-val">3 sessions</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:21%;background:var(--purple);"></div></div></div>
-        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">Digital · IT · AI</span><span class="hbar-val">2 sessions</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:14%;background:var(--purple);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">Sales & Account teams</span><span class="hbar-val">16 sessions</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:100%;background:var(--purple);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">FM operations</span><span class="hbar-val">9 sessions</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:56%;background:var(--purple);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">Marketing & Comms</span><span class="hbar-val">7 sessions</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:44%;background:var(--purple);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">Product · Design · TDDI</span><span class="hbar-val">8 sessions</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:50%;background:var(--purple);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">Group Strategy & CSR</span><span class="hbar-val">5 sessions</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:31%;background:var(--purple);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">Digital · IT · AI</span><span class="hbar-val">4 sessions</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:25%;background:var(--purple);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">L&D · HR · People</span><span class="hbar-val">3 sessions</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:19%;background:var(--purple);"></div></div></div>
       </div>
     </div>
   </div>
@@ -1386,40 +1478,37 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
   <div class="analytics-grid">
     <div class="ana-card reveal">
       <div class="ana-card-title">Session typology</div>
-      <div class="ana-card-sub">Format mix across all 82 events</div>
+      <div class="ana-card-sub">Format mix across all 102 events · aligned to hosted categories</div>
       <div class="mini-donut-wrap" style="margin-top:8px;">
         <div class="mini-donut" id="type-donut">
           <svg viewBox="0 0 200 200">
             <circle class="dt" cx="100" cy="100" r="70"/>
-            <circle class="ds" cx="100" cy="100" r="70" stroke="#1A69FF" style="stroke-dasharray:440;--off:175;"/>
-            <circle class="ds" cx="100" cy="100" r="70" stroke="#1E9E58" style="stroke-dasharray:440;stroke-dashoffset:440;--off:295;transform:rotate(102deg);transform-origin:center;"/>
-            <circle class="ds" cx="100" cy="100" r="70" stroke="#7A4FBF" style="stroke-dasharray:440;stroke-dashoffset:440;--off:330;transform:rotate(204deg);transform-origin:center;"/>
-            <circle class="ds" cx="100" cy="100" r="70" stroke="#E85A0E" style="stroke-dasharray:440;stroke-dashoffset:440;--off:370;transform:rotate(264deg);transform-origin:center;"/>
-            <circle class="ds" cx="100" cy="100" r="70" stroke="#0E8A8A" style="stroke-dasharray:440;stroke-dashoffset:440;--off:405;transform:rotate(316deg);transform-origin:center;"/>
+            <circle class="ds" cx="100" cy="100" r="70" stroke="#1A69FF" style="stroke-dasharray:440;--off:190;"/>
+            <circle class="ds" cx="100" cy="100" r="70" stroke="#1E9E58" style="stroke-dasharray:440;stroke-dashoffset:440;--off:278;transform:rotate(90deg);transform-origin:center;"/>
+            <circle class="ds" cx="100" cy="100" r="70" stroke="#7A4FBF" style="stroke-dasharray:440;stroke-dashoffset:440;--off:361;transform:rotate(184deg);transform-origin:center;"/>
           </svg>
           <div class="mini-donut-center">
-            <div class="mdc-num">82</div>
+            <div class="mdc-num">102</div>
             <div class="mdc-lbl">Sessions</div>
           </div>
         </div>
         <div class="mini-legend">
-          <div class="ml-row"><span class="ml-lbl"><span class="ml-dot" style="background:#1A69FF"></span>Visits</span><span class="ml-val">48 · 59%</span></div>
-          <div class="ml-row"><span class="ml-lbl"><span class="ml-dot" style="background:#1E9E58"></span>Workshops</span><span class="ml-val">12 · 15%</span></div>
-          <div class="ml-row"><span class="ml-lbl"><span class="ml-dot" style="background:#7A4FBF"></span>Events</span><span class="ml-val">10 · 12%</span></div>
-          <div class="ml-row"><span class="ml-lbl"><span class="ml-dot" style="background:#E85A0E"></span>Demos / Showcases</span><span class="ml-val">8 · 10%</span></div>
-          <div class="ml-row"><span class="ml-lbl"><span class="ml-dot" style="background:#0E8A8A"></span>Trainings</span><span class="ml-val">4 · 5%</span></div>
+          <div class="ml-row"><span class="ml-lbl"><span class="ml-dot" style="background:#1A69FF"></span>Client &amp; account visits</span><span class="ml-val">44 · 43%</span></div>
+          <div class="ml-row"><span class="ml-lbl"><span class="ml-dot" style="background:#1E9E58"></span>CoDesign workshops</span><span class="ml-val">30 · 29%</span></div>
+          <div class="ml-row"><span class="ml-lbl"><span class="ml-dot" style="background:#7A4FBF"></span>Events &amp; showcases</span><span class="ml-val">28 · 27%</span></div>
         </div>
       </div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:12px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">June–July add:</strong> +20 bookings — including JTC, Fiera Milano, Novae, Abeille IA, Nokia, Deutsche Telekom, Shell Growth, TDDI Seminar and HQ showcases.</div>
     </div>
 
     <div class="ana-card reveal">
       <div class="ana-card-title">Spaces used</div>
       <div class="ana-card-sub">Lab zones · 1 session = 1+ spaces</div>
       <div id="hbar-space">
-        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">🎭 The Theatre</span><span class="hbar-val">52 uses</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:100%;background:var(--blue);"></div></div><div class="hbar-pct">Communicate · Inspire · Narrate</div></div>
-        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">🛠️ The Hub</span><span class="hbar-val">46 uses</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:88%;background:var(--purple);"></div></div><div class="hbar-pct">Engage · Workshop · Co-design</div></div>
-        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">🚀 The Immersion</span><span class="hbar-val">38 uses</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:73%;background:var(--orange);"></div></div><div class="hbar-pct">Explore · Innovation · Showcase</div></div>
-        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">🔧 The Garage</span><span class="hbar-val">22 uses</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:42%;background:var(--green);"></div></div><div class="hbar-pct">Create · Prototype · Test</div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">🎭 The Theatre</span><span class="hbar-val">64 uses</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:100%;background:var(--blue);"></div></div><div class="hbar-pct">Communicate · Inspire · Narrate</div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">🛠️ The Hub</span><span class="hbar-val">58 uses</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:91%;background:var(--purple);"></div></div><div class="hbar-pct">Engage · Workshop · Co-design</div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">🚀 The Immersion</span><span class="hbar-val">48 uses</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:75%;background:var(--orange);"></div></div><div class="hbar-pct">Explore · Innovation · Showcase</div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name">🔧 The Garage</span><span class="hbar-val">28 uses</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:44%;background:var(--green);"></div></div><div class="hbar-pct">Create · Prototype · Test</div></div>
       </div>
       <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:12px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Read:</strong> The Theatre + Hub combo is the most-used pairing (story + workshop). The Garage is under-used vs intent — a focus area for FY27 with new prototyping setups.</div>
     </div>
@@ -1431,31 +1520,33 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
       <div class="ana-card-title">Client country of origin</div>
       <div class="ana-card-sub">Where the visiting clients come from · Lab is in Paris</div>
       <div id="hbar-client-country">
-        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇫🇷</span>France</span><span class="hbar-val">22 visits</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:100%;background:var(--blue);"></div></div></div>
-        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇬🇧</span>UK&I</span><span class="hbar-val">7 visits</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:32%;background:var(--blue);"></div></div></div>
-        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇺🇸</span>USA</span><span class="hbar-val">5 visits</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:23%;background:var(--blue);"></div></div></div>
-        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇪🇸</span>Spain · COEU</span><span class="hbar-val">4 visits</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:18%;background:var(--blue);"></div></div></div>
-        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇸🇪</span>Sweden / NL</span><span class="hbar-val">3 visits</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:14%;background:var(--blue);"></div></div></div>
-        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🌍</span>Multi-country</span><span class="hbar-val">3 visits</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:14%;background:var(--blue);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇫🇷</span>France</span><span class="hbar-val">26 visits</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:100%;background:var(--blue);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇬🇧</span>UK&I</span><span class="hbar-val">7 visits</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:27%;background:var(--blue);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇺🇸</span>USA</span><span class="hbar-val">5 visits</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:19%;background:var(--blue);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇮🇹</span>Italy · Fiera Milano</span><span class="hbar-val">2 visits</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:8%;background:var(--blue);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇸🇬</span>Singapore · JTC</span><span class="hbar-val">2 visits</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:8%;background:var(--blue);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🇩🇪</span>Germany · DT</span><span class="hbar-val">2 visits</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:8%;background:var(--blue);"></div></div></div>
+        <div class="hbar-row"><div class="hbar-label"><span class="hbar-name"><span class="hbar-flag">🌍</span>Multi-country · Novae &amp; others</span><span class="hbar-val">5 visits</span></div><div class="hbar-track"><div class="hbar-fill" style="--w:19%;background:var(--blue);"></div></div></div>
       </div>
     </div>
 
     <div class="ana-card reveal">
       <div class="ana-card-title">Sessions per month</div>
-      <div class="ana-card-sub">Activity intensity · Sept 2025 → June 2026</div>
+      <div class="ana-card-sub">Activity intensity · Sept 2025 → July 2026</div>
       <div class="vbar-chart" id="month-chart">
-        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1A69FF,#3D8AFF);--h:55px;"><span class="vbar-num">3</span></div><span class="vbar-label">Sep</span></div>
-        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1A69FF,#3D8AFF);--h:145px;"><span class="vbar-num">8</span></div><span class="vbar-label">Oct</span></div>
-        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1A69FF,#3D8AFF);--h:182px;"><span class="vbar-num">10</span></div><span class="vbar-label">Nov</span></div>
-        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1A69FF,#3D8AFF);--h:164px;"><span class="vbar-num">9</span></div><span class="vbar-label">Dec</span></div>
-        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1E9E58,#3DCB7D);--h:145px;"><span class="vbar-num">8</span></div><span class="vbar-label">Jan</span></div>
-        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1E9E58,#3DCB7D);--h:200px;"><span class="vbar-num">11</span></div><span class="vbar-label">Feb</span></div>
-        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1E9E58,#3DCB7D);--h:182px;"><span class="vbar-num">10</span></div><span class="vbar-label">Mar</span></div>
-        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#E85A0E,#FF8A4D);--h:127px;"><span class="vbar-num">7</span></div><span class="vbar-label">Apr</span></div>
-        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#E85A0E,#FF8A4D);--h:91px;"><span class="vbar-num">5</span></div><span class="vbar-label">May</span></div>
-        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#E85A0E,#FF8A4D);--h:55px;"><span class="vbar-num">3</span></div><span class="vbar-label">Jun</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1A69FF,#3D8AFF);--h:53px;"><span class="vbar-num">4</span></div><span class="vbar-label">Sep</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1A69FF,#3D8AFF);--h:120px;"><span class="vbar-num">9</span></div><span class="vbar-label">Oct</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1A69FF,#3D8AFF);--h:147px;"><span class="vbar-num">11</span></div><span class="vbar-label">Nov</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1A69FF,#3D8AFF);--h:133px;"><span class="vbar-num">10</span></div><span class="vbar-label">Dec</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1E9E58,#3DCB7D);--h:120px;"><span class="vbar-num">9</span></div><span class="vbar-label">Jan</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1E9E58,#3DCB7D);--h:160px;"><span class="vbar-num">12</span></div><span class="vbar-label">Feb</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#1E9E58,#3DCB7D);--h:147px;"><span class="vbar-num">11</span></div><span class="vbar-label">Mar</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#E85A0E,#FF8A4D);--h:107px;"><span class="vbar-num">8</span></div><span class="vbar-label">Apr</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#E85A0E,#FF8A4D);--h:80px;"><span class="vbar-num">6</span></div><span class="vbar-label">May</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#E85A0E,#FF8A4D);--h:200px;"><span class="vbar-num">15</span></div><span class="vbar-label">Jun</span></div>
+        <div class="vbar"><div class="vbar-tower" style="background:linear-gradient(to top,#7A4FBF,#A37AE0);--h:93px;"><span class="vbar-num">7</span></div><span class="vbar-label">Jul</span></div>
       </div>
-      <div style="margin-top:12px;font-size:12px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Peak season:</strong> Feb–Mar (21 sessions) drove by client visit spikes ahead of FY26 mid-year reviews. Average <strong>~8 sessions/month</strong>.</div>
+      <div style="margin-top:12px;font-size:12px;color:var(--text2);line-height:1.6;"><strong style="color:var(--text);">Peak months:</strong> June (15) from the latest calendar — multiclient COEU visit (JTC / Fiera Milano / Novae), Abeille IA, Nokia, Deutsche Telekom, TDDI Seminar and HQ showcases. July (7) includes Shell Growth, Product &amp; Design Hub and HC wargame. Average <strong>~9 sessions/month</strong> across 11 months · <strong>102 total</strong>.</div>
     </div>
   </div>
 
@@ -1477,15 +1568,15 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
     </div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px;">
       <div style="background:rgba(255,255,255,.05);padding:18px;border-radius:6px;">
-        <div style="font-family:'Open Sans',sans-serif;font-size:32px;font-weight:300;color:#fff;line-height:1;">34</div>
+        <div style="font-family:'Open Sans',sans-serif;font-size:32px;font-weight:300;color:#fff;line-height:1;">39</div>
         <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:6px;letter-spacing:.06em;text-transform:uppercase;">Client-facing sessions</div>
       </div>
       <div style="background:rgba(255,255,255,.05);padding:18px;border-radius:6px;">
-        <div style="font-family:'Open Sans',sans-serif;font-size:32px;font-weight:300;color:#fff;line-height:1;">7</div>
-        <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:6px;letter-spacing:.06em;text-transform:uppercase;">Full CoDesign workshops</div>
+        <div style="font-family:'Open Sans',sans-serif;font-size:32px;font-weight:300;color:#fff;line-height:1;">30</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:6px;letter-spacing:.06em;text-transform:uppercase;">CoDesign workshops</div>
       </div>
       <div style="background:rgba(255,255,255,.05);padding:18px;border-radius:6px;">
-        <div style="font-family:'Open Sans',sans-serif;font-size:32px;font-weight:300;color:#fff;line-height:1;">8</div>
+        <div style="font-family:'Open Sans',sans-serif;font-size:32px;font-weight:300;color:#fff;line-height:1;">13</div>
         <div style="font-size:11px;color:rgba(255,255,255,.55);margin-top:6px;letter-spacing:.06em;text-transform:uppercase;">Active CoDesign delivery</div>
       </div>
       <div style="background:rgba(255,255,255,.05);padding:18px;border-radius:6px;">
@@ -1529,11 +1620,11 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
     <h3 style="font-family:'Open Sans';font-weight:300;font-size:22px;margin-bottom:18px;letter-spacing:-.01em;" class="reveal">In their own <em style="font-style:italic;font-weight:600;color:var(--blue);">words</em></h3>
     <div class="testimonials reveal-stagger">
       <div class="t-card">
-        <p class="t-text">L'énergie de l'équipe, la compréhension de notre problématique, la qualité du travail fourni en amont, la bonne coordination… Le workshop était très bien préparé.</p>
+        <p class="t-text">The team's energy, the understanding of our challenge, the quality of the prep work, the coordination… The workshop was very well prepared.</p>
         <div class="t-meta"><span class="t-source">Client workshop participant</span><span class="t-rating">4/5 · 9/10</span></div>
       </div>
       <div class="t-card">
-        <p class="t-text">La méthode de design thinking permet de faire émerger et grandir des idées grâce à l'intelligence collective. La démarche est très efficace.</p>
+        <p class="t-text">The design-thinking method lets ideas emerge and grow through collective intelligence. The approach is highly effective.</p>
         <div class="t-meta"><span class="t-source">Senior stakeholder</span><span class="t-rating">5/5 · 10/10</span></div>
       </div>
       <div class="t-card">
@@ -1541,15 +1632,15 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
         <div class="t-meta"><span class="t-source">International client</span><span class="t-rating">5/5 · 10/10</span></div>
       </div>
       <div class="t-card">
-        <p class="t-text">Atmosphère collaborative, échanges fluides et constructifs, outils proposés pour co-créer des solutions concrètes. Un moment utile, dynamique et agréable.</p>
+        <p class="t-text">A collaborative atmosphere, fluid and constructive exchanges, and tools that helped us co-create concrete solutions. Useful, dynamic and enjoyable.</p>
         <div class="t-meta"><span class="t-source">Workshop attendee</span><span class="t-rating">5/5 · 10/10</span></div>
       </div>
       <div class="t-card">
-        <p class="t-text">Méthode efficace pour aboutir à des options très concrètes à explorer. Le format permet la créativité sans se brider.</p>
+        <p class="t-text">An effective method for landing on very concrete options to explore. The format lets creativity run free without holding back.</p>
         <div class="t-meta"><span class="t-source">CoDesign session lead</span><span class="t-rating">5/5 · 10/10</span></div>
       </div>
       <div class="t-card">
-        <p class="t-text">La très forte préparation par vos équipes ! Le format en petits groupes était particulièrement efficace, et les supports proposés très utiles.</p>
+        <p class="t-text">Outstanding preparation from your teams! The small-group format was especially effective, and the materials provided were very useful.</p>
         <div class="t-meta"><span class="t-source">Strategic partner</span><span class="t-rating">4/5 · 7/10</span></div>
       </div>
     </div>
@@ -1561,7 +1652,7 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;font-size:13px;color:var(--text2);line-height:1.6;">
       <div><strong style="color:var(--text);">More time per workshop.</strong> Recurring ask: lengthen the deep-dive phase, especially the prioritization step.</div>
       <div><strong style="color:var(--text);">Better client onboarding.</strong> Add an embedded intro and pre-read so external participants engage faster.</div>
-      <div><strong style="color:var(--text);">More digital tools.</strong> Several participants found post-it methods "scolaires" — moving toward more digital co-creation in v2.</div>
+      <div><strong style="color:var(--text);">More digital tools.</strong> Several participants found post-it methods too "classroom-like" — moving toward more digital co-creation in v2.</div>
     </div>
   </div>
 </div>
@@ -1628,25 +1719,61 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
     <h2 class="stitle">Scaling the Labs <em>globally</em></h2>
     <span class="sbadge sb-labs">● FY27 Roadmap</span>
   </div>
-  <p class="sec-intro reveal">Four regions actively engaged on replicating the Labs model. The first US satellite is moving from framing to delivery, Brazil and UK&I are progressing through scoping, and Australia is in early talks for the APAC footprint.</p>
-  <div class="sc-grid reveal-stagger">
-    <div class="scard">
-      <div class="scardtitle">Global Expansion Roadmap</div>
-      <div class="scale-map">
-        <div class="smc"><span class="smc-flag">🇺🇸</span><span class="smc-name">USA · 2 sites</span><div class="smc-status">Active framing</div></div>
-        <div class="smc discuss"><span class="smc-flag">🇧🇷</span><span class="smc-name">Brazil</span><div class="smc-status">Scoping</div></div>
-        <div class="smc discuss"><span class="smc-flag">🇬🇧</span><span class="smc-name">UK&I</span><div class="smc-status">In discussion</div></div>
-        <div class="smc discuss"><span class="smc-flag">🇦🇺</span><span class="smc-name">Australia · APAC</span><div class="smc-status">Potential · early talks</div></div>
-      </div>
+  <p class="sec-intro reveal">This is not “prepare the Philadelphia session.” The ambition is higher: make our CoDesign method <strong>transferable and deployable in regions</strong> — by teams who are not designers (including IT). We bring 5 years of proven method, a CoDesign OS with 23 agents, Persona Studio, an Experience Catalogue, and credentials across a ~€2B perimeter. The year’s challenge: turn that into an <strong>acculturation and upskilling system</strong> others can own. Philadelphia (9 Sept · US Tech team) is our first pilot — not the endgame.</p>
+
+  <!-- Two horizons -->
+  <div class="analytics-grid reveal-stagger" style="margin-bottom:24px;">
+    <div style="background:var(--lab-blue-bg);border:1px solid rgba(26,105,255,.2);padding:26px 28px;border-radius:6px;border-top:3px solid var(--blue);">
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:10px;">Horizon 1 · Now → 9 Sept</div>
+      <div style="font-size:18px;font-weight:600;color:var(--navy);margin-bottom:10px;letter-spacing:-.01em;">The pilot</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:14px;">Finite scope — finish cleanly, without drowning it:</div>
+      <div class="si" style="border-bottom:1px solid rgba(26,105,255,.12);"><span class="arr">→</span>Restructured Miro training</div>
+      <div class="si" style="border-bottom:1px solid rgba(26,105,255,.12);"><span class="arr">→</span>Pre-read pack</div>
+      <div class="si" style="border-bottom:1px solid rgba(26,105,255,.12);"><span class="arr">→</span>Session design</div>
+      <div class="si" style="border-bottom:1px solid rgba(26,105,255,.12);"><span class="arr">→</span>Facilitator guide</div>
+      <div class="si"><span class="arr">→</span>Workbook</div>
     </div>
-    <div class="scard">
-      <div class="scardtitle">Space Design v2</div>
-      <div class="si"><span class="arr">→</span>More immersion, sound and information layers</div>
-      <div class="si"><span class="arr">→</span>Sound experience with <strong>IRCAM</strong> partnership</div>
-      <div class="si"><span class="arr">→</span>E-ink rollout — Samsung & Philips signage</div>
-      <div class="si"><span class="arr">→</span>Glocal Catalog implemented</div>
-      <div class="si"><span class="arr">→</span>Neat Frame 65" interactive display deployed</div>
-      <div class="si"><span class="arr">→</span>Hub reorg in progress</div>
+    <div style="background:var(--surface2);border:1px solid var(--border);padding:26px 28px;border-radius:6px;border-top:3px solid var(--purple);">
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--purple);font-weight:700;margin-bottom:10px;">Horizon 2 · The year</div>
+      <div style="font-size:18px;font-weight:600;color:var(--text);margin-bottom:10px;letter-spacing:-.01em;">The full regional system</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:14px;">Frame now; build after the pilot teaches us:</div>
+      <div class="si"><span class="arr">→</span><strong>Blueprint</strong> for regional rollout</div>
+      <div class="si"><span class="arr">→</span><strong>Capability levels 0→4</strong></div>
+      <div class="si"><span class="arr">→</span><strong>Documentation</strong> &amp; playbooks</div>
+      <div class="si"><span class="arr">→</span><strong>SharePoint / Miro / OS</strong> architecture</div>
+      <div class="si"><span class="arr">→</span><strong>Adoption measurement</strong></div>
+    </div>
+  </div>
+
+  <!-- Ecosystem -->
+  <div class="ana-card reveal">
+    <div class="ana-card-title">The ecosystem — one canonical home per asset</div>
+    <div class="ana-card-sub">We do not put everything in Miro · zero duplication · link everywhere else</div>
+    <div class="analytics-grid three" style="margin-top:18px;margin-bottom:0;">
+      <div style="background:var(--surface2);padding:16px 18px;border-radius:4px;border-left:3px solid var(--blue);">
+        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px;">SharePoint</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.55;">Source of truth for documents &amp; templates — pre-reads, visit playbooks, discovery reports, examples, credentials.</div>
+      </div>
+      <div style="background:var(--surface2);padding:16px 18px;border-radius:4px;border-left:3px solid var(--orange);">
+        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px;">Miro</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.55;">Navigation, training &amp; facilitation. The training board is our hero asset for Philadelphia.</div>
+      </div>
+      <div style="background:var(--surface2);padding:16px 18px;border-radius:4px;border-left:3px solid var(--purple);">
+        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px;">CoDesign OS</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.55;">Execution accelerator — every method card points to its agent. 23 agents ready to scale the practice.</div>
+      </div>
+      <div style="background:var(--surface2);padding:16px 18px;border-radius:4px;border-left:3px solid var(--green);">
+        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px;">Persona Studio · XP Catalogue · Figma</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.55;">Specialised tools, linked from the relevant method card — not duplicated into Miro.</div>
+      </div>
+      <div style="background:var(--surface2);padding:16px 18px;border-radius:4px;border-left:3px solid var(--teal);">
+        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px;">Credentials</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.55;">The proof — surfaced in Presales and in a living library across ~€2B of perimeter.</div>
+      </div>
+      <div style="background:linear-gradient(135deg,#E8EFFE,#D0DCFF);padding:16px 18px;border-radius:4px;border-left:3px solid var(--navy);">
+        <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px;">🇺🇸 First pilot · Philadelphia</div>
+        <div style="font-size:12px;color:var(--navy);opacity:.8;line-height:1.55;">9 Sept · US Tech team — prove the method can travel before we industrialise the regional system.</div>
+      </div>
     </div>
   </div>
 </div>
@@ -1685,13 +1812,13 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
   <div class="next-grid reveal-stagger">
     <div class="next-card">
       <div class="next-tag">▶ Geographic Expansion</div>
-      <div class="next-name">2 US satellite Labs</div>
+      <div class="next-name">First Satellite Labs</div>
       <div class="next-desc">First international deployments — pilot in framing for FY27 H1, leveraging Paris methodology with local content.</div>
     </div>
     <div class="next-card">
       <div class="next-tag">▶ Methodology Evolution</div>
-      <div class="next-name">CoDesign V2 — more digital</div>
-      <div class="next-desc">Address participant feedback by integrating digital co-creation tools. Reduce intro time, add embedded onboarding.</div>
+      <div class="next-name">CoDesign OS — the tool to scale</div>
+      <div class="next-desc">Scale the practice with a shared operating system — agents, prompts, credentials and solutioning — so every team can run CoDesign consistently.</div>
     </div>
     <div class="next-card">
       <div class="next-tag">▶ Tech Cohort #2</div>
@@ -1700,13 +1827,13 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
     </div>
     <div class="next-card">
       <div class="next-tag">▶ Commercial Activation</div>
-      <div class="next-name">CoDesign as default for €50M+ deals</div>
-      <div class="next-desc">Embed the practice systematically in major bid cycles — target 6 net new wins in FY27.</div>
+      <div class="next-name">CoDesign for must-retain and renew</div>
+      <div class="next-desc">Prioritise CoDesign on must-retain and renewal cycles — protect strategic accounts and embed the practice where loyalty and uplift matter most.</div>
     </div>
     <div class="next-card">
-      <div class="next-tag">▶ Sabine Interview · Late May</div>
-      <div class="next-name">Group-level visibility</div>
-      <div class="next-desc">Coordinated comms with Charlotte, Domitille, Laura, Matthieu — board-ready storytelling on CoDesign impact.</div>
+      <div class="next-tag">▶ Capability Build</div>
+      <div class="next-name">Scalability of CoDesign & first hiring</div>
+      <div class="next-desc">Put the right people in regions — starting with the US — backed by full documentation, tools, training and local champions.</div>
     </div>
     <div class="next-card">
       <div class="next-tag">▶ KPI Dashboard</div>
@@ -1720,41 +1847,41 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
 <div class="section" style="background:var(--surface);">
   <div class="sec-hdr reveal">
     <span class="stag" style="color:var(--teal)">11b</span>
-    <h2 class="stitle">Benchmark — <em>où se situe Sodexo Labs</em></h2>
+    <h2 class="stitle">Benchmark — <em>where Sodexo Labs sits</em></h2>
     <span class="sbadge sb-both">● External benchmark · EY · PwC · Frog · Intermarché</span>
   </div>
-  <p class="sec-intro reveal">Nous avons analysé 4 labs corporate de référence. Trois grands modèles émergent : <strong>showroom tech/démonstrateur</strong> (Intermarché, PwC partiel) · <strong>acculturation + storytelling</strong> (PwC, EY v1) · <strong>co-création opérationnelle</strong> (Frog, Sodexo Labs). Sodexo Labs se situe dans le troisième modèle — le seul orienté delivery et impact business.</p>
+  <p class="sec-intro reveal">We analysed 4 reference corporate labs. Three models emerge: <strong>tech showroom / demonstrator</strong> (Intermarché, PwC partial) · <strong>acculturation + storytelling</strong> (PwC, EY v1) · <strong>operational co-creation</strong> (Frog, Sodexo Labs). Sodexo Labs sits in the third model — the only one oriented to delivery and business impact.</p>
 
   <!-- Position map header -->
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:24px;background:var(--border);" class="reveal">
     <div style="background:var(--surface2);padding:18px 20px;text-align:center;">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Modèle 1</div>
-      <div style="font-size:14px;font-weight:600;color:var(--text);">Showroom & Démo</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:4px;">Convaincre · Démontrer · Standardiser</div>
-      <div style="margin-top:10px;font-size:11px;color:var(--orange);font-weight:500;">Intermarché · PwC (partiel)</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Model 1</div>
+      <div style="font-size:14px;font-weight:600;color:var(--text);">Showroom & Demo</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px;">Convince · Demonstrate · Standardise</div>
+      <div style="margin-top:10px;font-size:11px;color:var(--orange);font-weight:500;">Intermarché · PwC (partial)</div>
     </div>
     <div style="background:var(--surface2);padding:18px 20px;text-align:center;">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Modèle 2</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Model 2</div>
       <div style="font-size:14px;font-weight:600;color:var(--text);">Acculturation & Storytelling</div>
-      <div style="font-size:11px;color:var(--muted);margin-top:4px;">Inspirer · Sensibiliser · Raconter</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px;">Inspire · Raise awareness · Narrate</div>
       <div style="margin-top:10px;font-size:11px;color:var(--purple);font-weight:500;">PwC (public) · EY v1</div>
     </div>
     <div style="background:linear-gradient(135deg,#E8EFFE,#D0DCFF);padding:18px 20px;text-align:center;border:2px solid var(--blue);">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;">Modèle 3 · Notre position</div>
-      <div style="font-size:14px;font-weight:600;color:var(--navy);">Co-création opérationnelle</div>
-      <div style="font-size:11px;color:var(--navy);opacity:.7;margin-top:4px;">Produire · Tester · Délivrer</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;">Model 3 · Our position</div>
+      <div style="font-size:14px;font-weight:600;color:var(--navy);">Operational co-creation</div>
+      <div style="font-size:11px;color:var(--navy);opacity:.7;margin-top:4px;">Produce · Test · Deliver</div>
       <div style="margin-top:10px;font-size:11px;color:var(--blue);font-weight:700;">Frog · ✦ Sodexo Labs</div>
     </div>
   </div>
 
   <!-- Comparison table -->
   <div class="ana-card reveal" style="margin-bottom:24px;overflow-x:auto;">
-    <div class="ana-card-title">Tableau de benchmark comparatif</div>
-    <div class="ana-card-sub">5 critères clés · 4 labs observés vs Sodexo Labs</div>
+    <div class="ana-card-title">Comparative benchmark table</div>
+    <div class="ana-card-sub">5 key criteria · 4 labs observed vs Sodexo Labs</div>
     <table style="width:100%;border-collapse:collapse;font-size:12px;margin-top:16px;min-width:700px;">
       <thead>
         <tr style="border-bottom:2px solid var(--border2);">
-          <th style="text-align:left;padding:10px 12px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);width:18%;">Critère</th>
+          <th style="text-align:left;padding:10px 12px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);width:18%;">Criterion</th>
           <th style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);text-align:center;">Intermarché</th>
           <th style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);text-align:center;">PwC</th>
           <th style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--pink);text-align:center;">EY</th>
@@ -1764,44 +1891,44 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
       </thead>
       <tbody>
         <tr style="border-bottom:1px solid var(--border);">
-          <td style="padding:10px 12px;font-weight:600;color:var(--text);">Production<br><span style="font-weight:400;color:var(--muted);font-size:11px;">Livrables concrets</span></td>
-          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Faible</span></td>
-          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Moyenne</span></td>
-          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Faible</span></td>
-          <td style="text-align:center;padding:10px;"><span style="background:#E6F7EE;color:var(--green);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Forte</span></td>
-          <td style="text-align:center;padding:10px;background:var(--lab-blue-bg);"><span style="background:var(--blue);color:#fff;padding:3px 10px;border-radius:3px;font-size:11px;font-weight:700;">Très forte ✦</span></td>
+          <td style="padding:10px 12px;font-weight:600;color:var(--text);">Production<br><span style="font-weight:400;color:var(--muted);font-size:11px;">Concrete deliverables</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Low</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Medium</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Low</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#E6F7EE;color:var(--green);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Strong</span></td>
+          <td style="text-align:center;padding:10px;background:var(--lab-blue-bg);"><span style="background:var(--blue);color:#fff;padding:3px 10px;border-radius:3px;font-size:11px;font-weight:700;">Very strong ✦</span></td>
         </tr>
         <tr style="border-bottom:1px solid var(--border);">
-          <td style="padding:10px 12px;font-weight:600;color:var(--text);">Modularité<br><span style="font-weight:400;color:var(--muted);font-size:11px;">Flexibilité du dispositif</span></td>
-          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Faible</span></td>
-          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Moyenne</span></td>
-          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Moyenne</span></td>
-          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Moyenne</span></td>
-          <td style="text-align:center;padding:10px;background:var(--lab-blue-bg);"><span style="background:var(--blue);color:#fff;padding:3px 10px;border-radius:3px;font-size:11px;font-weight:700;">Très forte ✦</span></td>
+          <td style="padding:10px 12px;font-weight:600;color:var(--text);">Modularity<br><span style="font-weight:400;color:var(--muted);font-size:11px;">Flexibility of the setup</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Low</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Medium</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Medium</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Medium</span></td>
+          <td style="text-align:center;padding:10px;background:var(--lab-blue-bg);"><span style="background:var(--blue);color:#fff;padding:3px 10px;border-radius:3px;font-size:11px;font-weight:700;">Very strong ✦</span></td>
         </tr>
         <tr style="border-bottom:1px solid var(--border);">
-          <td style="padding:10px 12px;font-weight:600;color:var(--text);">Scalabilité<br><span style="font-weight:400;color:var(--muted);font-size:11px;">Reproductibilité modèle</span></td>
-          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Faible</span></td>
-          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Moyenne</span></td>
-          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Faible</span></td>
-          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Moyenne</span></td>
-          <td style="text-align:center;padding:10px;background:var(--lab-blue-bg);"><span style="background:var(--blue);color:#fff;padding:3px 10px;border-radius:3px;font-size:11px;font-weight:700;">Forte ✦</span></td>
+          <td style="padding:10px 12px;font-weight:600;color:var(--text);">Scalability<br><span style="font-weight:400;color:var(--muted);font-size:11px;">Model reproducibility</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Low</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Medium</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Low</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Medium</span></td>
+          <td style="text-align:center;padding:10px;background:var(--lab-blue-bg);"><span style="background:var(--blue);color:#fff;padding:3px 10px;border-radius:3px;font-size:11px;font-weight:700;">Strong ✦</span></td>
         </tr>
         <tr style="border-bottom:1px solid var(--border);">
-          <td style="padding:10px 12px;font-weight:600;color:var(--text);">CAPEX<br><span style="font-weight:400;color:var(--muted);font-size:11px;">Investissement initial</span></td>
-          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Très élevé</span></td>
-          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Élevé</span></td>
-          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Très élevé</span></td>
-          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Moyen</span></td>
-          <td style="text-align:center;padding:10px;background:var(--lab-blue-bg);"><span style="background:var(--green);color:#fff;padding:3px 10px;border-radius:3px;font-size:11px;font-weight:700;">Raisonné ✦</span></td>
+          <td style="padding:10px 12px;font-weight:600;color:var(--text);">CAPEX<br><span style="font-weight:400;color:var(--muted);font-size:11px;">Initial investment</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Very high</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">High</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Very high</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Medium</span></td>
+          <td style="text-align:center;padding:10px;background:var(--lab-blue-bg);"><span style="background:var(--green);color:#fff;padding:3px 10px;border-radius:3px;font-size:11px;font-weight:700;">Measured ✦</span></td>
         </tr>
         <tr>
-          <td style="padding:10px 12px;font-weight:600;color:var(--text);">OPEX<br><span style="font-weight:400;color:var(--muted);font-size:11px;">Coût de fonctionnement</span></td>
-          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Élevé</span></td>
-          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Élevé</span></td>
-          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Élevé</span></td>
-          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Moyen</span></td>
-          <td style="text-align:center;padding:10px;background:var(--lab-blue-bg);"><span style="background:var(--green);color:#fff;padding:3px 10px;border-radius:3px;font-size:11px;font-weight:700;">Faible ✦</span></td>
+          <td style="padding:10px 12px;font-weight:600;color:var(--text);">OPEX<br><span style="font-weight:400;color:var(--muted);font-size:11px;">Operating cost</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">High</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">High</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#FEF0E8;color:var(--orange);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">High</span></td>
+          <td style="text-align:center;padding:10px;"><span style="background:#F3EEFF;color:var(--purple);padding:3px 10px;border-radius:3px;font-size:11px;font-weight:600;">Medium</span></td>
+          <td style="text-align:center;padding:10px;background:var(--lab-blue-bg);"><span style="background:var(--green);color:#fff;padding:3px 10px;border-radius:3px;font-size:11px;font-weight:700;">Low ✦</span></td>
         </tr>
       </tbody>
     </table>
@@ -1814,84 +1941,84 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
         <div>
           <div style="font-size:15px;font-weight:700;color:var(--text);">Intermarché Lab</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:2px;">Retail tech showroom opérationnel</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">Operational retail tech showroom</div>
         </div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:3px;white-space:nowrap;">Modèle 1</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:3px;white-space:nowrap;">Model 1</div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px;">
         <div>
-          <div style="color:var(--green);font-weight:700;margin-bottom:6px;font-size:11px;">✓ Forces</div>
-          <div style="color:var(--text2);line-height:1.6;">Démo en conditions réelles — très convaincant. Position clair sur le retail tech. Aligné avec objectifs business.</div>
+          <div style="color:var(--green);font-weight:700;margin-bottom:6px;font-size:11px;">✓ Strengths</div>
+          <div style="color:var(--text2);line-height:1.6;">Real-conditions demo — highly convincing. Clear retail-tech positioning. Aligned with business objectives.</div>
         </div>
         <div>
-          <div style="color:var(--orange);font-weight:700;margin-bottom:6px;font-size:11px;">✗ Faiblesses</div>
-          <div style="color:var(--text2);line-height:1.6;">CAPEX + OPEX très élevés. Peu flexible. Obsolescence rapide des démos (~18 mois).</div>
+          <div style="color:var(--orange);font-weight:700;margin-bottom:6px;font-size:11px;">✗ Weaknesses</div>
+          <div style="color:var(--text2);line-height:1.6;">Very high CAPEX + OPEX. Limited flexibility. Demos age quickly (~18 months).</div>
         </div>
       </div>
-      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);font-style:italic;">→ Logique : lab de validation & standardisation</div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);font-style:italic;">→ Logic: validation & standardisation lab</div>
     </div>
 
     <div style="background:var(--surface2);border:1px solid var(--border);border-left:4px solid var(--purple);padding:24px 22px;border-radius:0 6px 6px 0;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
         <div>
           <div style="font-size:15px;font-weight:700;color:var(--text);">PwC Lab</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:2px;">Vitrine publique + espace expert</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">Public showcase + expert space</div>
         </div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:3px;white-space:nowrap;">Modèles 1 & 2</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:3px;white-space:nowrap;">Models 1 & 2</div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px;">
         <div>
-          <div style="color:var(--green);font-weight:700;margin-bottom:6px;font-size:11px;">✓ Forces</div>
-          <div style="color:var(--text2);line-height:1.6;">Accessibilité (effet vitrine). Parcours scénarisé via catalogue digital. Double usage : inspiration + business.</div>
+          <div style="color:var(--green);font-weight:700;margin-bottom:6px;font-size:11px;">✓ Strengths</div>
+          <div style="color:var(--text2);line-height:1.6;">Accessibility (showcase effect). Scripted journeys via digital catalogue. Dual use: inspiration + business.</div>
         </div>
         <div>
-          <div style="color:var(--orange);font-weight:700;margin-bottom:6px;font-size:11px;">✗ Faiblesses</div>
-          <div style="color:var(--text2);line-height:1.6;">Expérience peu immersive. Dépendance à la scénarisation humaine. Peu orienté delivery.</div>
+          <div style="color:var(--orange);font-weight:700;margin-bottom:6px;font-size:11px;">✗ Weaknesses</div>
+          <div style="color:var(--text2);line-height:1.6;">Limited immersion. Dependent on human facilitation. Weak delivery orientation.</div>
         </div>
       </div>
-      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);font-style:italic;">→ Logique : lab d'orientation & qualification commerciale</div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);font-style:italic;">→ Logic: orientation & commercial qualification lab</div>
     </div>
 
     <div style="background:var(--surface2);border:1px solid var(--border);border-left:4px solid var(--pink);padding:24px 22px;border-radius:0 6px 6px 0;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
         <div>
           <div style="font-size:15px;font-weight:700;color:var(--text);">EY Lab (v1 → v2)</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:2px;">Storytelling immersif RSE → multi-vertical</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">Immersive CSR storytelling → multi-vertical</div>
         </div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:3px;white-space:nowrap;">Modèle 2</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:3px;white-space:nowrap;">Model 2</div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px;">
         <div>
-          <div style="color:var(--green);font-weight:700;margin-bottom:6px;font-size:11px;">✓ Forces</div>
-          <div style="color:var(--text2);line-height:1.6;">Très fort impact émotionnel (immersion). Positionnement RSE clair en v1. Virage v2 pertinent : plus modulaire, plus business-driven.</div>
+          <div style="color:var(--green);font-weight:700;margin-bottom:6px;font-size:11px;">✓ Strengths</div>
+          <div style="color:var(--text2);line-height:1.6;">Very strong emotional impact (immersion). Clear CSR positioning in v1. Relevant v2 shift: more modular, more business-driven.</div>
         </div>
         <div>
-          <div style="color:var(--orange);font-weight:700;margin-bottom:6px;font-size:11px;">✗ Faiblesses</div>
-          <div style="color:var(--text2);line-height:1.6;">Contenus rapidement obsolètes (films). Peu interactif, peu productif. CAPEX + OPEX très élevés.</div>
+          <div style="color:var(--orange);font-weight:700;margin-bottom:6px;font-size:11px;">✗ Weaknesses</div>
+          <div style="color:var(--text2);line-height:1.6;">Content ages quickly (films). Low interactivity, low productivity. Very high CAPEX + OPEX.</div>
         </div>
       </div>
-      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);font-style:italic;">→ Logique : lab d'inspiration & storytelling</div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);font-style:italic;">→ Logic: inspiration & storytelling lab</div>
     </div>
 
     <div style="background:var(--surface2);border:1px solid var(--border);border-left:4px solid var(--teal);padding:24px 22px;border-radius:0 6px 6px 0;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
         <div>
           <div style="font-size:15px;font-weight:700;color:var(--text);">Frog Design Lab</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:2px;">Design studio + Fablab + conception avancée</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">Design studio + Fab Lab + advanced design</div>
         </div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:3px;white-space:nowrap;">Modèle 3</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:3px;white-space:nowrap;">Model 3</div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px;">
         <div>
-          <div style="color:var(--green);font-weight:700;margin-bottom:6px;font-size:11px;">✓ Forces</div>
-          <div style="color:var(--text2);line-height:1.6;">Fort ADN design & prototypage. Fablab = production réelle. Expérience qualitative (mur LED + objets).</div>
+          <div style="color:var(--green);font-weight:700;margin-bottom:6px;font-size:11px;">✓ Strengths</div>
+          <div style="color:var(--text2);line-height:1.6;">Strong design & prototyping DNA. Fab Lab = real production. High-quality experience (LED wall + objects).</div>
         </div>
         <div>
-          <div style="color:var(--orange);font-weight:700;margin-bottom:6px;font-size:11px;">✗ Faiblesses</div>
-          <div style="color:var(--text2);line-height:1.6;">Moins scalable. Moins orienté démonstration large. CAPEX ciblé mais non négligeable.</div>
+          <div style="color:var(--orange);font-weight:700;margin-bottom:6px;font-size:11px;">✗ Weaknesses</div>
+          <div style="color:var(--text2);line-height:1.6;">Less scalable. Less oriented to broad demonstration. Targeted CAPEX, but still material.</div>
         </div>
       </div>
-      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);font-style:italic;">→ Logique : lab de conception avancée</div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);font-style:italic;">→ Logic: advanced design lab</div>
     </div>
 
   </div>
@@ -1900,29 +2027,29 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
   <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:18px;" class="reveal">
 
     <div style="background:linear-gradient(135deg,#1A4FCC 0%,#1A69FF 100%);padding:30px 32px;border-radius:6px;">
-      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:12px;">✦ Sodexo Labs · Notre position</div>
-      <div style="font-size:18px;font-weight:300;color:#fff;line-height:1.4;margin-bottom:16px;">Co-création + delivery. <em style="font-weight:700;font-style:italic;color:#A5F0F0;">Le seul modèle orienté résultats.</em></div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:12px;">✦ Sodexo Labs · Our position</div>
+      <div style="font-size:18px;font-weight:300;color:#fff;line-height:1.4;margin-bottom:16px;">Co-creation + delivery. <em style="font-weight:700;font-style:italic;color:#A5F0F0;">The only outcomes-oriented model.</em></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;">
         <div>
-          <div style="color:#A5F0F0;font-weight:700;font-size:11px;margin-bottom:8px;">✓ Nos forces clés</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.82);line-height:1.7;">Modularité très élevée<br>Production concrète & livrables<br>Faible OPEX vs concurrents<br>Parcours client personnalisés<br>Scalabilité forte<br>Co-création + business : position unique</div>
+          <div style="color:#A5F0F0;font-weight:700;font-size:11px;margin-bottom:8px;">✓ Our key strengths</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.82);line-height:1.7;">Very high modularity<br>Concrete production & deliverables<br>Low OPEX vs peers<br>Personalised client journeys<br>Strong scalability<br>Co-creation + business: unique position</div>
         </div>
         <div>
-          <div style="color:#FFB3A7;font-weight:700;font-size:11px;margin-bottom:8px;">→ Nos axes d'amélioration</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.72);line-height:1.7;">Moins de "wow instantané"<br>vs immersion EY ou retail lab<br><br>Dépendant qualité des use cases<br><br>Ajouter une couche d'immersion légère mais renouvelable</div>
+          <div style="color:#FFB3A7;font-weight:700;font-size:11px;margin-bottom:8px;">→ Our improvement areas</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.72);line-height:1.7;">Less instant "wow"<br>vs EY immersion or retail lab<br><br>Dependent on use-case quality<br><br>Add a light but renewable immersion layer</div>
         </div>
       </div>
       <div style="display:flex;flex-direction:column;gap:7px;padding-top:16px;border-top:1px solid rgba(255,255,255,.15);">
-        <div style="font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:8px;"><span style="color:#A5F0F0;flex-shrink:0;">✦</span>82 sessions en an 1 — au-dessus du benchmark pair</div>
-        <div style="font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:8px;"><span style="color:#A5F0F0;flex-shrink:0;">✦</span>NPS +53 — world-class pour un lab innovation</div>
-        <div style="font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:8px;"><span style="color:#A5F0F0;flex-shrink:0;">✦</span>Clariane ×4 · Lilly ×2 · Entegra ×6 — la boucle de fidélisation est en marche</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:8px;"><span style="color:#A5F0F0;flex-shrink:0;">✦</span>102 sessions in year 1 — above peer benchmark</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:8px;"><span style="color:#A5F0F0;flex-shrink:0;">✦</span>NPS +53 — world-class for an innovation lab</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:8px;"><span style="color:#A5F0F0;flex-shrink:0;">✦</span>Clariane ×4 · Lilly ×2 · Entegra ×6 — the loyalty loop is underway</div>
       </div>
     </div>
 
     <div style="background:var(--cream);border:1px solid var(--border);padding:30px 28px;border-radius:6px;display:flex;flex-direction:column;justify-content:center;">
       <div style="font-size:60px;color:var(--blue);opacity:.18;font-family:Georgia,serif;line-height:1;margin-bottom:8px;">"</div>
-      <div style="font-size:14px;color:var(--navy);line-height:1.75;font-style:italic;font-weight:400;margin-bottom:20px;">Les labs les plus impressionnants ne sont pas toujours les plus utiles.<br><br>Sodexo Labs se différencie en passant de la <strong style="font-style:normal;">démonstration</strong> à la <strong style="font-style:normal;">transformation</strong>, avec un modèle modulaire, scalable et orienté résultats.</div>
-      <div style="font-size:10px;font-family:'Space Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);">— Synthèse benchmark corpo labs · FY26</div>
+      <div style="font-size:14px;color:var(--navy);line-height:1.75;font-style:italic;font-weight:400;margin-bottom:20px;">The most impressive labs are not always the most useful.<br><br>Sodexo Labs differentiates by moving from <strong style="font-style:normal;">demonstration</strong> to <strong style="font-style:normal;">transformation</strong>, with a modular, scalable, outcomes-oriented model.</div>
+      <div style="font-size:10px;font-family:'Space Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);">— Corporate labs benchmark summary · FY26</div>
     </div>
 
   </div>
@@ -1960,7 +2087,7 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
     <div class="postits" id="postits">
       <div class="postit pi-yellow"><span class="postit-tag">Q</span><div>How do we accelerate the Lab → CoDesign opp conversion above 62%?</div><div class="postit-author">— Seed example</div></div>
       <div class="postit pi-pink"><span class="postit-tag">Idea</span><div>Could we replicate the Lab format inside one of the GSA client sites for offsite immersion?</div><div class="postit-author">— Seed example</div></div>
-      <div class="postit pi-blue"><span class="postit-tag">Improve</span><div>Add a digital co-creation toolkit to address the "scolaire" feedback from participants.</div><div class="postit-author">— Seed example</div></div>
+      <div class="postit pi-blue"><span class="postit-tag">Improve</span><div>Add a digital co-creation toolkit to address the "classroom-like" feedback from participants.</div><div class="postit-author">— Seed example</div></div>
       <div class="postit pi-green"><span class="postit-tag">Praise</span><div>NPS +53 with 100% retention intent — exceptional benchmark for a year-1 program.</div><div class="postit-author">— Seed example</div></div>
     </div>
 
