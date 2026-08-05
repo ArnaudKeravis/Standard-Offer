@@ -8,6 +8,7 @@ export { ZonesSlide } from "./zones-slide";
 export { PersonaSlide } from "./persona-slide";
 export { CasesSlide } from "./cases-slide";
 export { NetworkSlide } from "./network-slide";
+export { LifecycleSlide } from "./lifecycle-slide";
 export { EngagementsSlide } from "./engagements-slide";
 export { CredentialsSlide } from "./credentials-slide";
 export { CloseSlide } from "./close-slide";

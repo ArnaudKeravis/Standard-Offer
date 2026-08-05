@@ -61,6 +61,16 @@ export const LabsEngagement = z.object({
   investment: z.string().optional(),
 });
 
+export const LabsLifecycleStage = z.object({
+  id: z.string(),
+  year: z.string(),
+  claim: z.string(),
+  phase: z.string(),
+  items: z.array(z.string()).min(2).max(6),
+  accent: z.string(),
+  accentSoft: z.string(),
+});
+
 export const LabsPack = z.object({
   session: z.object({ audience: LabsAudience, area: LabsArea }),
   offers: z.array(LabsOffer).length(4),
@@ -68,6 +78,7 @@ export const LabsPack = z.object({
   cases: z.array(LabsCaseSpot).min(1).max(2),
   zones: z.array(LabsZone).length(4),
   engagements: z.array(LabsEngagement).length(4),
+  lifecycle: z.array(LabsLifecycleStage).length(4),
   kpis: z.array(LabsKpi).length(4).optional(),
   growth: LabsGrowth.optional(),
   copy: z.object({
@@ -88,4 +99,5 @@ export type LabsKpi = z.infer<typeof LabsKpi>;
 export type LabsGrowthImpact = z.infer<typeof LabsGrowthImpact>;
 export type LabsGrowth = z.infer<typeof LabsGrowth>;
 export type LabsEngagement = z.infer<typeof LabsEngagement>;
+export type LabsLifecycleStage = z.infer<typeof LabsLifecycleStage>;
 export type LabsPack = z.infer<typeof LabsPack>;

@@ -22,6 +22,7 @@ import {
   EngagementsSlide,
   GrowthSlide,
   KpiSlide,
+  LifecycleSlide,
   MethodSlide,
   NetworkSlide,
   OffersSlide,
@@ -43,6 +44,7 @@ type SlideId =
   | "persona"
   | "cases"
   | "network"
+  | "lifecycle"
   | "engagements"
   | "credentials"
   | "close";
@@ -65,6 +67,7 @@ function slideIdsForAudience(audience: LabsAudience): SlideId[] {
     "persona",
     "cases",
     "network",
+    "lifecycle",
     "engagements",
     "credentials",
     "close",
@@ -94,6 +97,8 @@ function renderSlide(id: SlideId, pack: LabsPack): ReactNode {
       return <CasesSlide pack={pack} />;
     case "network":
       return <NetworkSlide />;
+    case "lifecycle":
+      return <LifecycleSlide pack={pack} />;
     case "engagements":
       return <EngagementsSlide pack={pack} />;
     case "credentials":

@@ -10,6 +10,10 @@ describe("resolveLabsPack", () => {
     expect(pack.kpis).toBeUndefined();
     expect(pack.growth).toBeUndefined();
     expect(pack.engagements).toHaveLength(4);
+    expect(pack.engagements.every((e) => e.investment === undefined)).toBe(
+      true,
+    );
+    expect(pack.lifecycle).toHaveLength(4);
   });
 
   it("adds internal extras, KPIs and growth engine copy", () => {
@@ -19,6 +23,7 @@ describe("resolveLabsPack", () => {
     expect(pack.persona.area).toBe("heal");
     expect(pack.kpis).toHaveLength(4);
     expect(pack.growth?.impacts).toHaveLength(4);
+    expect(pack.engagements.some((e) => e.investment)).toBe(true);
   });
 
   it("changes persona when area changes", () => {
