@@ -14,7 +14,7 @@ const LIFECYCLE: Localized<LabsLifecycleStage[]> = {
         "Experience & service concepts",
         "Innovation vision for the bid",
       ],
-      accent: "#14B8A6",
+      accent: "#2BB8B0",
       accentSoft: "#E6FAF7",
     },
     {
@@ -28,7 +28,7 @@ const LIFECYCLE: Localized<LabsLifecycleStage[]> = {
         "Digital & data readiness",
         "MVP for priority innovations",
       ],
-      accent: "#2563EB",
+      accent: "#1968FF",
       accentSoft: "#EBF1FE",
     },
     {
@@ -42,7 +42,7 @@ const LIFECYCLE: Localized<LabsLifecycleStage[]> = {
         "Sodexo Labs journeys",
         "Learning expeditions",
       ],
-      accent: "#1E3A8A",
+      accent: "#1E2F9A",
       accentSoft: "#E8ECF8",
     },
     {
@@ -56,8 +56,8 @@ const LIFECYCLE: Localized<LabsLifecycleStage[]> = {
         "Innovation Days & executive storytelling",
         "Rebid preparation, early",
       ],
-      accent: "#7C3AED",
-      accentSoft: "#F3ECFE",
+      accent: "#0B1020",
+      accentSoft: "#E8ECF0",
     },
   ],
   fr: [
@@ -72,7 +72,7 @@ const LIFECYCLE: Localized<LabsLifecycleStage[]> = {
         "Concepts d'expérience & de service",
         "Vision d'innovation pour le bid",
       ],
-      accent: "#14B8A6",
+      accent: "#2BB8B0",
       accentSoft: "#E6FAF7",
     },
     {
@@ -86,7 +86,7 @@ const LIFECYCLE: Localized<LabsLifecycleStage[]> = {
         "Préparation digitale & data",
         "MVP sur les innovations prioritaires",
       ],
-      accent: "#2563EB",
+      accent: "#1968FF",
       accentSoft: "#EBF1FE",
     },
     {
@@ -100,7 +100,7 @@ const LIFECYCLE: Localized<LabsLifecycleStage[]> = {
         "Parcours Sodexo Labs",
         "Learning expeditions",
       ],
-      accent: "#1E3A8A",
+      accent: "#1E2F9A",
       accentSoft: "#E8ECF8",
     },
     {
@@ -114,8 +114,8 @@ const LIFECYCLE: Localized<LabsLifecycleStage[]> = {
         "Innovation Days & storytelling exécutif",
         "Préparation anticipée du rebid",
       ],
-      accent: "#7C3AED",
-      accentSoft: "#F3ECFE",
+      accent: "#0B1020",
+      accentSoft: "#E8ECF0",
     },
   ],
 };

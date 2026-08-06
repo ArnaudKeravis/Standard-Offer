@@ -9,9 +9,18 @@ const CHROME: Localized<LabsChrome> = {
     coverHint: "Click or → to continue",
     welcomeEyebrow: "Introduction",
     welcomePillars: [
-      { label: "Teams", body: "Co-creating experiences that truly matter" },
-      { label: "Clients", body: "Co-creating experiences that truly matter" },
-      { label: "Partners", body: "Co-creating experiences that truly matter" },
+      {
+        label: "Teams",
+        body: "A shared room to align sales, ops and design before the client walks in.",
+      },
+      {
+        label: "Clients",
+        body: "Co-create journeys that feel true to their people — not a slideware promise.",
+      },
+      {
+        label: "Partners",
+        body: "Bring tech and service partners into the same evidence loop, early.",
+      },
     ],
     kpiEyebrow: "Proof · CoDesign",
     kpiHeadline: "Not an experiment — a commercial engine",
@@ -64,9 +73,18 @@ const CHROME: Localized<LabsChrome> = {
     coverHint: "Cliquez ou → pour continuer",
     welcomeEyebrow: "Introduction",
     welcomePillars: [
-      { label: "Équipes", body: "Co-créer des expériences qui comptent vraiment" },
-      { label: "Clients", body: "Co-créer des expériences qui comptent vraiment" },
-      { label: "Partenaires", body: "Co-créer des expériences qui comptent vraiment" },
+      {
+        label: "Équipes",
+        body: "Un espace partagé pour aligner sales, ops et design avant le client.",
+      },
+      {
+        label: "Clients",
+        body: "Co-créer des parcours fidèles à leurs communautés — pas une promesse slide.",
+      },
+      {
+        label: "Partenaires",
+        body: "Faire entrer tech et partenaires service dans la même boucle d'évidence, tôt.",
+      },
     ],
     kpiEyebrow: "Preuves · CoDesign",
     kpiHeadline: "Pas une expérimentation — un moteur commercial",

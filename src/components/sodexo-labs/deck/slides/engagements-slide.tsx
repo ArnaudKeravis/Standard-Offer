@@ -25,31 +25,31 @@ export function EngagementsSlide({ pack }: { pack: LabsPack }) {
         <h1 className="labs-display mb-3 max-w-2xl text-[clamp(2.25rem,5vw,4rem)] leading-[1.05] text-[var(--labs-ink)]">
           {pack.chrome.engagementsHeadline}
         </h1>
-        <p className="mb-10 max-w-xl text-[clamp(1rem,1.4vw,1.15rem)] text-[var(--labs-muted)]">
+        <p className="mb-12 max-w-xl text-[clamp(1rem,1.4vw,1.15rem)] text-[var(--labs-muted)]">
           {pack.chrome.engagementsLead}
         </p>
 
-        <StaggerIn className="grid max-w-3xl gap-4 sm:grid-cols-2">
-          {pack.engagements.map((item) => (
+        <StaggerIn className="grid max-w-4xl gap-0 sm:grid-cols-2 xl:grid-cols-4">
+          {pack.engagements.map((item, i) => (
             <motion.article
               key={item.id}
               variants={staggerItem}
-              className="rounded-2xl border border-[var(--labs-line)] bg-white/95 p-6 shadow-[0_12px_32px_rgba(30,47,154,0.05)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(30,47,154,0.1)]"
+              className="border-t border-[var(--labs-line)] py-6 sm:border-t-0 sm:border-l sm:px-5 sm:py-0 sm:first:border-l-0 sm:first:pl-0"
             >
-              <p className="text-xs font-semibold tracking-[0.16em] text-[var(--labs-blue)] uppercase">
-                {item.framing}
+              <p className="text-xs font-semibold tracking-[0.14em] text-[var(--labs-accent)] uppercase">
+                {String(i + 1).padStart(2, "0")} · {item.framing}
               </p>
-              <h2 className="labs-display mt-2 text-[clamp(1.35rem,2.1vw,1.75rem)] text-[var(--labs-navy)]">
+              <h2 className="labs-display mt-3 text-[clamp(1.35rem,2vw,1.7rem)] text-[var(--labs-navy)]">
                 {item.name}
               </h2>
               <p className="mt-1 text-sm font-semibold text-[var(--labs-ink)]">
                 {item.duration}
               </p>
-              <p className="mt-3 text-[clamp(0.9rem,1.25vw,1.05rem)] leading-relaxed text-[var(--labs-muted)]">
+              <p className="mt-3 text-[clamp(0.9rem,1.2vw,1.02rem)] leading-relaxed text-[var(--labs-muted)]">
                 {item.summary}
               </p>
               {item.investment ? (
-                <p className="mt-4 text-xs font-semibold tracking-[0.08em] text-[var(--labs-navy)] uppercase">
+                <p className="mt-4 text-xs font-semibold tracking-[0.06em] text-[var(--labs-navy)]">
                   {item.investment}
                 </p>
               ) : null}

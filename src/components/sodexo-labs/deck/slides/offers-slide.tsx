@@ -19,24 +19,24 @@ export function OffersSlide({ pack }: { pack: LabsPack }) {
       <h1 className="labs-display mb-10 text-[clamp(2.25rem,5vw,4rem)] leading-[1.05] text-[var(--labs-ink)]">
         {pack.chrome.offersHeadline}
       </h1>
-      <StaggerIn className="grid gap-5 sm:grid-cols-2 sm:gap-6 xl:gap-8">
+      <StaggerIn className="grid gap-0 sm:grid-cols-2 xl:grid-cols-4">
         {pack.offers.map((offer, i) => (
           <motion.article
             key={offer.id}
             variants={staggerItem}
-            className="rounded-2xl border border-[var(--labs-line)] bg-white/80 p-6 shadow-[0_10px_28px_rgba(30,47,154,0.04)]"
+            className="relative border-t border-[var(--labs-line)] pt-6 sm:border-t-0 sm:border-l sm:pt-0 sm:pl-6 sm:first:border-l-0 sm:first:pl-0 xl:pl-7"
           >
-            <p className="mb-1 text-xs font-semibold tracking-[0.14em] text-[var(--labs-accent)] uppercase">
+            <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-[var(--labs-accent)] uppercase">
               {String(i + 1).padStart(2, "0")} · {offer.whenLabel}
             </p>
-            <h2 className="labs-display text-[clamp(1.5rem,2.4vw,2.15rem)] text-[var(--labs-navy)]">
+            <h2 className="labs-display text-[clamp(1.45rem,2.3vw,2rem)] text-[var(--labs-navy)]">
               {offer.title}
             </h2>
-            <p className="mt-2 max-w-md text-[clamp(0.95rem,1.35vw,1.1rem)] leading-relaxed text-[var(--labs-muted)]">
+            <p className="mt-3 max-w-[28ch] text-[clamp(0.95rem,1.3vw,1.08rem)] leading-relaxed text-[var(--labs-muted)]">
               {offer.summary}
             </p>
             {showInternal && offer.internalExtra ? (
-              <p className="mt-3 max-w-md border-l-2 border-[var(--labs-accent)] pl-3 text-[clamp(0.85rem,1.2vw,0.98rem)] leading-snug text-[var(--labs-ink)]">
+              <p className="mt-4 max-w-[28ch] border-l-2 border-[var(--labs-accent)] pl-3 text-[clamp(0.85rem,1.15vw,0.95rem)] leading-snug text-[var(--labs-ink)]">
                 {offer.internalExtra}
               </p>
             ) : null}

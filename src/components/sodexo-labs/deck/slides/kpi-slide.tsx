@@ -12,6 +12,7 @@ import type { LabsPack } from "@/lib/sodexo-labs/schemas";
 export function KpiSlide({ pack }: { pack: LabsPack }) {
   const reduce = useReducedMotion();
   const kpis = pack.kpis ?? [];
+  const [hero, ...rest] = kpis;
 
   return (
     <div className="relative flex h-full w-full flex-col justify-center overflow-hidden bg-[var(--labs-paper)] px-[6vw] py-[8vh]">
@@ -47,17 +48,32 @@ export function KpiSlide({ pack }: { pack: LabsPack }) {
           {pack.chrome.kpiHeadline}
         </motion.h1>
 
-        <StaggerIn className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-          {kpis.map((kpi) => (
-            <motion.article
-              key={kpi.label}
-              variants={staggerItem}
-              className="rounded-2xl border border-[var(--labs-line)] bg-white/90 px-6 py-7 shadow-[0_12px_32px_rgba(30,47,154,0.06)]"
-            >
-              <p className="labs-display text-[clamp(2.5rem,4.5vw,3.75rem)] leading-none text-[var(--labs-navy)]">
+        {hero ? (
+          <motion.div
+            className="mb-12"
+            initial={reduce ? false : { opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: reduce ? 0 : 0.5,
+              delay: reduce ? 0 : 0.1,
+            }}
+          >
+            <p className="labs-display text-[clamp(4rem,9vw,7.5rem)] leading-none text-[var(--labs-navy)]">
+              {hero.value}
+            </p>
+            <p className="mt-4 max-w-md text-[clamp(1.05rem,1.6vw,1.25rem)] leading-snug text-[var(--labs-muted)]">
+              {hero.label}
+            </p>
+          </motion.div>
+        ) : null}
+
+        <StaggerIn className="grid gap-8 border-t border-[var(--labs-line)] pt-8 sm:grid-cols-3">
+          {rest.map((kpi) => (
+            <motion.article key={kpi.label} variants={staggerItem}>
+              <p className="labs-display text-[clamp(2.25rem,4vw,3.25rem)] leading-none text-[var(--labs-navy)]">
                 {kpi.value}
               </p>
-              <p className="mt-4 text-[clamp(0.9rem,1.2vw,1.05rem)] leading-snug text-[var(--labs-muted)]">
+              <p className="mt-3 text-[clamp(0.95rem,1.25vw,1.05rem)] leading-snug text-[var(--labs-muted)]">
                 {kpi.label}
               </p>
             </motion.article>

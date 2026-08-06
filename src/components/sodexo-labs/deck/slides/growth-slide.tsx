@@ -27,21 +27,24 @@ export function GrowthSlide({ pack }: { pack: LabsPack }) {
         <h1 className="labs-display mb-5 max-w-4xl text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.08] text-[var(--labs-ink)]">
           {growth.headline}
         </h1>
-        <p className="mb-10 max-w-3xl text-[clamp(1rem,1.5vw,1.2rem)] leading-relaxed text-[var(--labs-muted)]">
+        <p className="mb-12 max-w-3xl text-[clamp(1rem,1.5vw,1.2rem)] leading-relaxed text-[var(--labs-muted)]">
           {growth.body}
         </p>
 
-        <StaggerIn className="grid gap-4 sm:grid-cols-2">
-          {growth.impacts.map((impact) => (
+        <StaggerIn className="grid max-w-4xl gap-8 sm:grid-cols-2">
+          {growth.impacts.map((impact, i) => (
             <motion.article
               key={impact.title}
               variants={staggerItem}
-              className="rounded-2xl border border-[var(--labs-line)] bg-white/90 p-6 shadow-[0_10px_28px_rgba(30,47,154,0.05)] transition-transform duration-300 hover:-translate-y-0.5"
+              className="border-t border-[var(--labs-line)] pt-5"
             >
-              <h2 className="labs-display text-[clamp(1.25rem,2vw,1.55rem)] text-[var(--labs-navy)]">
+              <p className="text-xs font-semibold tracking-[0.14em] text-[var(--labs-accent)] uppercase">
+                {String(i + 1).padStart(2, "0")}
+              </p>
+              <h2 className="labs-display mt-2 text-[clamp(1.35rem,2.1vw,1.7rem)] text-[var(--labs-navy)]">
                 {impact.title}
               </h2>
-              <p className="mt-3 text-[clamp(0.9rem,1.25vw,1.05rem)] leading-relaxed text-[var(--labs-muted)]">
+              <p className="mt-3 text-[clamp(0.95rem,1.3vw,1.1rem)] leading-relaxed text-[var(--labs-muted)]">
                 {impact.outcome}
               </p>
             </motion.article>

@@ -46,15 +46,20 @@ export function NetworkSlide({ pack }: { pack: LabsPack }) {
         <p className="mt-6 max-w-2xl text-[clamp(1.05rem,1.7vw,1.25rem)] leading-relaxed text-white/70">
           {chrome.networkBody}
         </p>
-        <StaggerIn className="mt-12 flex flex-wrap gap-3">
-          {REGIONS.map((region) => (
-            <motion.span
+        <StaggerIn className="mt-12 flex max-w-xl flex-col gap-0 border-t border-white/20">
+          {REGIONS.map((region, i) => (
+            <motion.div
               key={region}
               variants={staggerItem}
-              className="rounded-full border border-white/20 bg-white/10 px-5 py-2.5 text-sm font-medium text-white/90 backdrop-blur-sm"
+              className="flex items-baseline gap-4 border-b border-white/15 py-3.5"
             >
-              {region}
-            </motion.span>
+              <span className="w-8 shrink-0 text-xs font-semibold tracking-[0.12em] text-[color-mix(in_srgb,var(--labs-teal)_85%,white)] tabular-nums">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="text-[clamp(1rem,1.4vw,1.15rem)] text-white/90">
+                {region}
+              </span>
+            </motion.div>
           ))}
         </StaggerIn>
       </div>

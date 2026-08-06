@@ -15,27 +15,17 @@ export function LifecycleSlide({ pack }: { pack: LabsPack }) {
         <p className="mb-2 text-sm font-semibold tracking-[0.18em] text-[var(--labs-muted)] uppercase">
           {pack.chrome.lifecycleEyebrow}
         </p>
-        <h1 className="labs-display mb-8 max-w-4xl text-[clamp(1.85rem,4vw,3.25rem)] leading-[1.08] text-[var(--labs-ink)]">
+        <h1 className="labs-display mb-10 max-w-4xl text-[clamp(1.85rem,4vw,3.25rem)] leading-[1.08] text-[var(--labs-ink)]">
           {pack.chrome.lifecycleHeadlineLead}{" "}
-          <span className="text-[color-mix(in_srgb,#7C3AED_85%,var(--labs-ink))]">
+          <span className="text-[var(--labs-blue)]">
             {pack.chrome.lifecycleHeadlineAccent}
           </span>{" "}
           {pack.chrome.lifecycleHeadlineTail}
         </h1>
 
-        <StaggerIn className="grid gap-0 sm:grid-cols-2 xl:grid-cols-4">
-          {pack.lifecycle.map((stage, index) => (
-            <motion.article
-              key={stage.id}
-              variants={staggerItem}
-              className="relative px-5 py-2 sm:px-6 sm:first:pl-0"
-              style={{
-                borderLeft:
-                  index === 0
-                    ? "none"
-                    : `2px solid color-mix(in srgb, var(--labs-navy) 12%, transparent)`,
-              }}
-            >
+        <StaggerIn className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4 xl:gap-10">
+          {pack.lifecycle.map((stage) => (
+            <motion.article key={stage.id} variants={staggerItem}>
               <div
                 className="mb-4 size-3.5 rounded-full"
                 style={{
@@ -43,23 +33,23 @@ export function LifecycleSlide({ pack }: { pack: LabsPack }) {
                   boxShadow: `0 0 0 5px ${stage.accentSoft}`,
                 }}
               />
-              <p className="text-[10px] font-semibold tracking-[0.12em] text-[var(--labs-muted)] uppercase">
+              <p className="text-xs font-semibold tracking-[0.1em] text-[var(--labs-muted)] uppercase">
                 {stage.year}
               </p>
-              <p className="labs-display mt-2.5 text-[clamp(1.15rem,1.9vw,1.45rem)] leading-snug text-[var(--labs-ink)] italic">
-                &ldquo;{stage.claim}&rdquo;
+              <p className="labs-display mt-3 text-[clamp(1.2rem,2vw,1.55rem)] leading-snug text-[var(--labs-ink)]">
+                {stage.claim}
               </p>
               <p
-                className="mt-3 text-[10px] font-semibold tracking-[0.1em] uppercase"
+                className="mt-3 text-xs font-semibold tracking-[0.1em] uppercase"
                 style={{ color: stage.accent }}
               >
                 {stage.phase}
               </p>
-              <ul className="mt-3 flex flex-col gap-2">
-                {stage.items.map((item) => (
+              <ul className="mt-4 flex flex-col gap-2.5">
+                {stage.items.slice(0, 3).map((item) => (
                   <li
                     key={item}
-                    className="relative pl-4 text-[clamp(0.8rem,1.05vw,0.92rem)] leading-snug text-[var(--labs-muted)]"
+                    className="relative pl-4 text-[clamp(0.92rem,1.2vw,1.05rem)] leading-snug text-[var(--labs-muted)]"
                   >
                     <span
                       className="absolute left-0 top-0"

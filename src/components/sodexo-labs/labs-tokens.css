@@ -9,15 +9,15 @@
   --labs-line: color-mix(in srgb, var(--labs-navy) 12%, transparent);
 }
 
-/* Share Spark typography (Inter / Inter Tight from root layout). */
+/* Labs-scoped typography (Instrument Serif + DM Sans from labs layout). */
 .labs-display {
-  font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-family: var(--font-labs-display), "Iowan Old Style", Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
 }
 
 .labs-body {
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-labs-sans), var(--font-sans), system-ui, sans-serif;
 }
 
 @media (prefers-reduced-motion: reduce) {

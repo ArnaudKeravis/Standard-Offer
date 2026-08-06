@@ -39,15 +39,17 @@ export function WelcomeSlide({ pack }: { pack: LabsPack }) {
         <p className="mt-6 max-w-2xl text-[clamp(1.05rem,1.8vw,1.35rem)] leading-relaxed text-white/70">
           {copy.welcomeBody}
         </p>
-        <StaggerIn className="mt-12 grid max-w-3xl gap-4 sm:grid-cols-3">
-          {chrome.welcomePillars.map((pillar) => (
+        <StaggerIn className="mt-12 grid max-w-3xl gap-8 sm:grid-cols-3 sm:gap-10">
+          {chrome.welcomePillars.map((pillar, i) => (
             <motion.div
               key={pillar.label}
               variants={staggerItem}
-              className="rounded-2xl border border-white/15 bg-white/8 px-5 py-5 backdrop-blur-sm"
+              className="border-t border-white/25 pt-5"
             >
-              <p className="labs-display text-2xl text-white">{pillar.label}</p>
-              <p className="mt-2 text-sm leading-snug text-white/55">
+              <p className="text-xs font-semibold tracking-[0.16em] text-[color-mix(in_srgb,var(--labs-teal)_90%,white)] uppercase">
+                {String(i + 1).padStart(2, "0")} · {pillar.label}
+              </p>
+              <p className="mt-3 text-[clamp(0.95rem,1.3vw,1.1rem)] leading-snug text-white/75">
                 {pillar.body}
               </p>
             </motion.div>
