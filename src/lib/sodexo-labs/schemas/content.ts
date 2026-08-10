@@ -128,6 +128,23 @@ export const LabsChrome = z.object({
   preparingSession: z.string(),
   hudCredentials: z.string(),
   hudChange: z.string(),
+  /** Short labels for HUD slide dots / wayfinding. */
+  slideNav: z.object({
+    cover: z.string(),
+    welcome: z.string(),
+    kpi: z.string(),
+    growth: z.string(),
+    offers: z.string(),
+    method: z.string(),
+    zones: z.string(),
+    persona: z.string(),
+    cases: z.string(),
+    network: z.string(),
+    lifecycle: z.string(),
+    engagements: z.string(),
+    credentials: z.string(),
+    close: z.string(),
+  }),
 });
 
 export const LabsPack = z.object({

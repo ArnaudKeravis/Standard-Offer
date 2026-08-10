@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 
 import { SlideAccent } from "@/components/sodexo-labs/deck/slide-accent";
+import { labsSpringUi } from "@/lib/sodexo-labs/motion";
 import type { LabsPack } from "@/lib/sodexo-labs/schemas";
 
 export function CoverSlide({ pack }: { pack: LabsPack }) {
@@ -32,11 +33,9 @@ export function CoverSlide({ pack }: { pack: LabsPack }) {
         className="relative z-10 max-w-5xl"
         initial={reduce ? false : { opacity: 0, y: 28 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: reduce ? 0 : 0.65,
-          ease: [0.25, 1, 0.5, 1],
-          delay: reduce ? 0 : 0.15,
-        }}
+        transition={
+          reduce ? { duration: 0 } : { ...labsSpringUi, delay: 0.12 }
+        }
       >
         <p className="mb-5 text-sm font-semibold tracking-[0.22em] text-white/55 uppercase">
           {chrome.coverEyebrow}
@@ -56,7 +55,9 @@ export function CoverSlide({ pack }: { pack: LabsPack }) {
         className="relative z-10 mt-14 text-xs font-semibold tracking-[0.2em] text-white/45 uppercase"
         initial={reduce ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: reduce ? 0 : 0.7, duration: reduce ? 0 : 0.5 }}
+        transition={
+          reduce ? { duration: 0 } : { ...labsSpringUi, delay: 0.45 }
+        }
       >
         {chrome.coverHint}
       </motion.p>

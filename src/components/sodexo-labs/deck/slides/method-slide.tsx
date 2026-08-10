@@ -7,6 +7,7 @@ import {
   StaggerIn,
   staggerItem,
 } from "@/components/sodexo-labs/deck/slide-frame";
+import { labsSpringUi } from "@/lib/sodexo-labs/motion";
 import type { LabsPack } from "@/lib/sodexo-labs/schemas";
 
 export function MethodSlide({ pack }: { pack: LabsPack }) {
@@ -45,11 +46,9 @@ export function MethodSlide({ pack }: { pack: LabsPack }) {
           aria-hidden
           initial={reduce ? false : { opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{
-            duration: reduce ? 0 : 0.65,
-            delay: reduce ? 0 : 0.08,
-            ease: [0.25, 1, 0.5, 1],
-          }}
+          transition={
+            reduce ? { duration: 0 } : { ...labsSpringUi, delay: 0.06 }
+          }
         >
           <defs>
             <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="0">

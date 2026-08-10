@@ -3,23 +3,23 @@
 import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 
-const EASE = [0.25, 1, 0.5, 1] as const;
+import {
+  labsSpringStagger,
+  labsSpringUi,
+} from "@/lib/sodexo-labs/motion";
 
 type SlideFrameProps = {
   children: ReactNode;
-  duration: number;
   direction?: number;
   className?: string;
 };
 
 export function SlideFrame({
   children,
-  duration,
   direction = 1,
   className,
 }: SlideFrameProps) {
   const reduce = useReducedMotion();
-  const d = reduce ? 0 : duration;
 
   return (
     <motion.section
@@ -30,15 +30,15 @@ export function SlideFrame({
       initial={
         reduce
           ? { opacity: 0 }
-          : { opacity: 0, x: direction * 48, scale: 0.985 }
+          : { opacity: 0, x: direction * 56, scale: 0.985 }
       }
       animate={{ opacity: 1, x: 0, scale: 1 }}
       exit={
         reduce
           ? { opacity: 0 }
-          : { opacity: 0, x: direction * -36, scale: 1.01 }
+          : { opacity: 0, x: direction * -40, scale: 1.01 }
       }
-      transition={{ duration: d, ease: EASE }}
+      transition={reduce ? { duration: 0 } : labsSpringUi}
     >
       {children}
     </motion.section>
@@ -49,7 +49,7 @@ export function SlideFrame({
 export function StaggerIn({
   children,
   className,
-  delay = 0.08,
+  delay = 0.07,
 }: {
   children: ReactNode;
   className?: string;
@@ -66,7 +66,7 @@ export function StaggerIn({
         show: {
           transition: {
             staggerChildren: reduce ? 0 : delay,
-            delayChildren: reduce ? 0 : 0.12,
+            delayChildren: reduce ? 0 : 0.08,
           },
         },
       }}
@@ -77,10 +77,10 @@ export function StaggerIn({
 }
 
 export const staggerItem = {
-  hidden: { opacity: 0, y: 18 },
+  hidden: { opacity: 0, y: 16 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.45, ease: EASE },
+    transition: labsSpringStagger,
   },
 };

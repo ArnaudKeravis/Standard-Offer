@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 
 import { accentForLabsArea } from "@/lib/sodexo-labs/area-theme";
 import { getLabsGateUi } from "@/lib/sodexo-labs/i18n/gates";
+import { labsSpringChrome } from "@/lib/sodexo-labs/motion";
 import type { LabsArea, LabsLang } from "@/lib/sodexo-labs/schemas";
 
 type TerritoryGateProps = {
@@ -66,12 +67,13 @@ export function TerritoryGate({ lang, onSelect }: TerritoryGateProps) {
                 }}
                 initial={reduceMotion ? false : { opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: reduceMotion ? 0 : 0.35,
-                  delay: reduceMotion ? 0 : 0.06 + index * 0.05,
-                }}
+                transition={
+                  reduceMotion
+                    ? { duration: 0 }
+                    : { ...labsSpringChrome, delay: 0.06 + index * 0.05 }
+                }
                 whileHover={reduceMotion ? undefined : { y: -3 }}
-                whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+                whileTap={reduceMotion ? undefined : { scale: 0.97 }}
               >
                 <span
                   aria-hidden

@@ -7,6 +7,7 @@ import {
   StaggerIn,
   staggerItem,
 } from "@/components/sodexo-labs/deck/slide-frame";
+import { labsSpringUi } from "@/lib/sodexo-labs/motion";
 import type { LabsPack } from "@/lib/sodexo-labs/schemas";
 
 export function KpiSlide({ pack }: { pack: LabsPack }) {
@@ -35,7 +36,7 @@ export function KpiSlide({ pack }: { pack: LabsPack }) {
           className="mb-3 text-sm font-semibold tracking-[0.18em] text-[var(--labs-muted)] uppercase"
           initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduce ? 0 : 0.4 }}
+          transition={reduce ? { duration: 0 } : labsSpringUi}
         >
           {pack.chrome.kpiEyebrow}
         </motion.p>
@@ -43,7 +44,9 @@ export function KpiSlide({ pack }: { pack: LabsPack }) {
           className="labs-display mb-12 max-w-3xl text-[clamp(2.25rem,5vw,4rem)] leading-[1.05] text-[var(--labs-ink)]"
           initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduce ? 0 : 0.5, delay: reduce ? 0 : 0.05 }}
+          transition={
+            reduce ? { duration: 0 } : { ...labsSpringUi, delay: 0.04 }
+          }
         >
           {pack.chrome.kpiHeadline}
         </motion.h1>
@@ -53,10 +56,9 @@ export function KpiSlide({ pack }: { pack: LabsPack }) {
             className="mb-12"
             initial={reduce ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: reduce ? 0 : 0.5,
-              delay: reduce ? 0 : 0.1,
-            }}
+            transition={
+              reduce ? { duration: 0 } : { ...labsSpringUi, delay: 0.08 }
+            }
           >
             <p className="labs-display text-[clamp(4rem,9vw,7.5rem)] leading-none text-[var(--labs-navy)]">
               {hero.value}

@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 
 import { SlideAccent } from "@/components/sodexo-labs/deck/slide-accent";
 import { labsSessionQuery } from "@/lib/sodexo-labs/parse-session";
+import { labsSpringUi } from "@/lib/sodexo-labs/motion";
 import type { LabsPack } from "@/lib/sodexo-labs/schemas";
 
 export function CloseSlide({ pack }: { pack: LabsPack }) {
@@ -33,7 +34,7 @@ export function CloseSlide({ pack }: { pack: LabsPack }) {
         className="relative z-10 max-w-4xl"
         initial={reduce ? false : { opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: reduce ? 0 : 0.55, ease: [0.25, 1, 0.5, 1] }}
+        transition={reduce ? { duration: 0 } : labsSpringUi}
       >
         <p className="mb-4 text-sm font-semibold tracking-[0.2em] text-white/50 uppercase">
           {pack.chrome.closeEyebrow}

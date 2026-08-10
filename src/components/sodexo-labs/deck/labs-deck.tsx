@@ -1,6 +1,12 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import {
+  AnimatePresence,
+  animate,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+} from "framer-motion";
 import {
   useCallback,
   useEffect,
@@ -8,7 +14,7 @@ import {
   useRef,
   useState,
   type CSSProperties,
-  type MouseEvent,
+  type PointerEvent as ReactPointerEvent,
   type ReactNode,
 } from "react";
 
@@ -31,9 +37,16 @@ import {
   ZonesSlide,
 } from "@/components/sodexo-labs/deck/slides";
 import { labsCssVars } from "@/lib/sodexo-labs/area-theme";
+import {
+  labsSpringChrome,
+  labsSpringMomentum,
+  labsSpringUi,
+  projectVelocity,
+  rubberband,
+} from "@/lib/sodexo-labs/motion";
 import type { LabsAudience, LabsPack } from "@/lib/sodexo-labs/schemas";
 
-type SlideId =
+export type LabsSlideId =
   | "cover"
   | "welcome"
   | "kpi"
@@ -49,18 +62,21 @@ type SlideId =
   | "credentials"
   | "close";
 
-const DARK_SLIDES = new Set<SlideId>([
+const DARK_SLIDES = new Set<LabsSlideId>([
   "cover",
   "welcome",
   "network",
   "close",
 ]);
 
-function slideIdsForAudience(audience: LabsAudience): SlideId[] {
-  const head: SlideId[] = ["cover", "welcome"];
-  const internal: SlideId[] =
+const SWIPE_HYSTERESIS_PX = 10;
+const COMMIT_DISTANCE_PX = 72;
+
+function slideIdsForAudience(audience: LabsAudience): LabsSlideId[] {
+  const head: LabsSlideId[] = ["cover", "welcome"];
+  const internal: LabsSlideId[] =
     audience === "internal" ? ["kpi", "growth"] : [];
-  const rest: SlideId[] = [
+  const rest: LabsSlideId[] = [
     "offers",
     "method",
     "zones",
@@ -75,7 +91,7 @@ function slideIdsForAudience(audience: LabsAudience): SlideId[] {
   return [...head, ...internal, ...rest];
 }
 
-function renderSlide(id: SlideId, pack: LabsPack): ReactNode {
+function renderSlide(id: LabsSlideId, pack: LabsPack): ReactNode {
   switch (id) {
     case "cover":
       return <CoverSlide pack={pack} />;
@@ -124,41 +140,84 @@ function isInteractiveTarget(target: EventTarget | null): boolean {
   );
 }
 
+type PointerSample = { x: number; t: number };
+
 export function LabsDeck({ pack, onChangeSession }: LabsDeckProps) {
   const reduceMotion = useReducedMotion();
-  const duration = reduceMotion ? 0 : 0.5;
   const slides = useMemo(
     () => slideIdsForAudience(pack.session.audience),
     [pack.session.audience],
   );
   const slideCount = slides.length;
   const [index, setIndex] = useState(0);
-  const directionRef = useRef(1);
   const [direction, setDirection] = useState(1);
+  const indexRef = useRef(0);
+  const dragX = useMotionValue(0);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const pointerIdRef = useRef<number | null>(null);
+  const startXRef = useRef(0);
+  const samplesRef = useRef<PointerSample[]>([]);
+  const draggingRef = useRef(false);
+  const suppressClickRef = useRef(false);
+
+  useEffect(() => {
+    indexRef.current = index;
+  }, [index]);
 
   useEffect(() => {
     setIndex((current) => Math.min(current, slideCount - 1));
   }, [slideCount]);
 
+  const settleDrag = useCallback(
+    (velocityX = 0) => {
+      if (reduceMotion) {
+        dragX.set(0);
+        return;
+      }
+      void animate(dragX, 0, {
+        ...labsSpringMomentum,
+        velocity: velocityX,
+      });
+    },
+    [dragX, reduceMotion],
+  );
+
+  const bumpEdge = useCallback(
+    (dir: 1 | -1) => {
+      if (reduceMotion) return;
+      const width = stageRef.current?.clientWidth ?? 800;
+      const bump = dir * Math.min(28, width * 0.035);
+      dragX.set(bump);
+      void animate(dragX, 0, labsSpringUi);
+    },
+    [dragX, reduceMotion],
+  );
+
   const goNext = useCallback(() => {
-    directionRef.current = 1;
+    const current = indexRef.current;
+    if (current >= slideCount - 1) {
+      bumpEdge(-1);
+      return;
+    }
     setDirection(1);
-    setIndex((current) => Math.min(current + 1, slideCount - 1));
-  }, [slideCount]);
+    setIndex(current + 1);
+  }, [bumpEdge, slideCount]);
 
   const goPrev = useCallback(() => {
-    directionRef.current = -1;
+    const current = indexRef.current;
+    if (current <= 0) {
+      bumpEdge(1);
+      return;
+    }
     setDirection(-1);
-    setIndex((current) => Math.max(current - 1, 0));
-  }, []);
+    setIndex(current - 1);
+  }, [bumpEdge]);
 
   const goTo = useCallback(
     (next: number) => {
       setIndex((current) => {
         const clamped = Math.max(0, Math.min(next, slideCount - 1));
-        const dir = clamped >= current ? 1 : -1;
-        directionRef.current = dir;
-        setDirection(dir);
+        setDirection(clamped >= current ? 1 : -1);
         return clamped;
       });
     },
@@ -210,35 +269,139 @@ export function LabsDeck({ pack, onChangeSession }: LabsDeckProps) {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [goNext, goPrev, goTo, slideCount]);
 
-  function onStageClick(event: MouseEvent<HTMLDivElement>) {
+  function onPointerDown(event: ReactPointerEvent<HTMLDivElement>) {
+    if (event.button !== 0) return;
     if (isInteractiveTarget(event.target)) return;
-    goNext();
+    pointerIdRef.current = event.pointerId;
+    startXRef.current = event.clientX;
+    samplesRef.current = [{ x: event.clientX, t: event.timeStamp }];
+    draggingRef.current = false;
+    event.currentTarget.setPointerCapture(event.pointerId);
+  }
+
+  function onPointerMove(event: ReactPointerEvent<HTMLDivElement>) {
+    if (pointerIdRef.current !== event.pointerId) return;
+    const rawDx = event.clientX - startXRef.current;
+    const samples = samplesRef.current;
+    samples.push({ x: event.clientX, t: event.timeStamp });
+    if (samples.length > 5) samples.shift();
+
+    if (!draggingRef.current) {
+      if (Math.abs(rawDx) < SWIPE_HYSTERESIS_PX) return;
+      draggingRef.current = true;
+      suppressClickRef.current = true;
+    }
+
+    const width = stageRef.current?.clientWidth ?? 800;
+    const atStart = indexRef.current <= 0;
+    const atEnd = indexRef.current >= slideCount - 1;
+    // Swipe left (negative) → next; swipe right (positive) → prev
+    let dx = rawDx;
+    if ((atStart && dx > 0) || (atEnd && dx < 0)) {
+      dx = rubberband(dx, width);
+    } else if (reduceMotion) {
+      dx = 0;
+    }
+
+    dragX.set(dx);
+  }
+
+  function onPointerUp(event: ReactPointerEvent<HTMLDivElement>) {
+    if (pointerIdRef.current !== event.pointerId) return;
+    pointerIdRef.current = null;
+    try {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    } catch {
+      /* already released */
+    }
+
+    const samples = samplesRef.current;
+    const last = samples[samples.length - 1];
+    const prev = samples[0];
+    let velocityX = 0;
+    if (last && prev && last.t !== prev.t) {
+      velocityX = ((last.x - prev.x) / (last.t - prev.t)) * 1000;
+    }
+
+    const dx = event.clientX - startXRef.current;
+    const projected = dx + projectVelocity(velocityX);
+    const wasDragging = draggingRef.current;
+    draggingRef.current = false;
+
+    if (!wasDragging) {
+      // Tap → advance (unless suppressed by a prior drag ending)
+      if (suppressClickRef.current) {
+        suppressClickRef.current = false;
+        settleDrag(0);
+        return;
+      }
+      settleDrag(0);
+      goNext();
+      return;
+    }
+
+    const commit =
+      Math.abs(projected) > COMMIT_DISTANCE_PX ||
+      Math.abs(dx) > COMMIT_DISTANCE_PX;
+
+    if (commit) {
+      // Negative projection → next; positive → prev
+      if (projected < 0 || (projected === 0 && dx < 0)) {
+        goNext();
+      } else {
+        goPrev();
+      }
+      settleDrag(velocityX);
+    } else {
+      settleDrag(velocityX);
+    }
+
+    // Swallow the synthetic click after a drag
+    suppressClickRef.current = true;
+    window.setTimeout(() => {
+      suppressClickRef.current = false;
+    }, 0);
+  }
+
+  function onPointerCancel(event: ReactPointerEvent<HTMLDivElement>) {
+    if (pointerIdRef.current !== event.pointerId) return;
+    pointerIdRef.current = null;
+    draggingRef.current = false;
+    settleDrag(0);
   }
 
   const slideId = slides[index] ?? "cover";
   const dark = DARK_SLIDES.has(slideId);
   const slide = renderSlide(slideId, pack);
   const progress = ((index + 1) / slideCount) * 100;
+  const slideLabels = slides.map((id) => pack.chrome.slideNav[id]);
 
   return (
     <div
-      className="labs-body relative h-svh w-screen overflow-hidden bg-[var(--labs-paper)]"
+      ref={stageRef}
+      className="labs-body relative h-svh w-screen touch-pan-y overflow-hidden bg-[var(--labs-paper)]"
       style={labsCssVars(pack.session.area) as CSSProperties}
-      onClick={onStageClick}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerCancel}
       role="presentation"
     >
-      <div className="relative h-full w-full" aria-live="polite">
-        <AnimatePresence mode="wait" custom={direction}>
+      <motion.div
+        className="relative h-full w-full"
+        style={{ x: dragX }}
+        aria-live="polite"
+      >
+        <AnimatePresence initial={false} mode="sync" custom={direction}>
           <SlideFrame
             key={slideId}
-            duration={duration}
             direction={direction}
-            className="absolute inset-0 h-full w-full overflow-hidden"
+            className="absolute inset-0 h-full w-full overflow-hidden will-change-transform"
           >
             {slide}
           </SlideFrame>
         </AnimatePresence>
-      </div>
+      </motion.div>
 
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-1 bg-black/10"
@@ -249,10 +412,7 @@ export function LabsDeck({ pack, onChangeSession }: LabsDeckProps) {
           style={{ background: "var(--labs-accent)" }}
           initial={false}
           animate={{ width: `${progress}%` }}
-          transition={{
-            duration: reduceMotion ? 0 : 0.35,
-            ease: [0.25, 1, 0.5, 1],
-          }}
+          transition={reduceMotion ? { duration: 0 } : labsSpringChrome}
         />
       </div>
 
@@ -263,6 +423,7 @@ export function LabsDeck({ pack, onChangeSession }: LabsDeckProps) {
         index={index}
         total={slideCount}
         dark={dark}
+        slideLabels={slideLabels}
         credentialsLabel={pack.chrome.hudCredentials}
         changeLabel={pack.chrome.hudChange}
         onSelectSlide={goTo}

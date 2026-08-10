@@ -14,10 +14,22 @@
   font-family: var(--font-labs-sans), "Open Sans", system-ui, sans-serif;
   font-weight: 700;
   letter-spacing: -0.03em;
+  line-height: 1.05;
+  font-optical-sizing: auto;
+}
+
+/* Slightly less tracking on mid-size display headings */
+.labs-display.text-2xl,
+.labs-display.text-3xl {
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 
 .labs-body {
   font-family: var(--font-labs-sans), "Open Sans", system-ui, sans-serif;
+  letter-spacing: 0;
+  line-height: 1.5;
+  font-optical-sizing: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -28,5 +40,19 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  [data-labs-root] .labs-hud-material {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--labs-paper) !important;
+    border-color: color-mix(in srgb, var(--labs-navy) 18%, transparent) !important;
+  }
+
+  [data-labs-root] [data-labs-hud="dark"] .labs-hud-material {
+    background: #0b1020 !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
   }
 }

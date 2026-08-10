@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 
+import { labsSpringChrome } from "@/lib/sodexo-labs/motion";
 import type { LabsLang } from "@/lib/sodexo-labs/schemas";
 
 const CHOICES: {
@@ -72,12 +73,13 @@ export function LanguageGate({ onSelect }: LanguageGateProps) {
               className="group relative min-h-[11rem] rounded-2xl border border-[color-mix(in_srgb,var(--labs-navy)_18%,transparent)] bg-[color-mix(in_srgb,white_72%,var(--labs-paper))] px-8 py-8 text-left shadow-[0_1px_0_color-mix(in_srgb,var(--labs-navy)_6%,transparent)] outline-none transition-colors hover:border-[var(--labs-blue)] hover:bg-white focus-visible:ring-2 focus-visible:ring-[var(--labs-blue)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--labs-paper)]"
               initial={reduceMotion ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: reduceMotion ? 0 : 0.35,
-                delay: reduceMotion ? 0 : 0.08 + index * 0.06,
-              }}
+              transition={
+                reduceMotion
+                  ? { duration: 0 }
+                  : { ...labsSpringChrome, delay: 0.08 + index * 0.05 }
+              }
               whileHover={reduceMotion ? undefined : { y: -2 }}
-              whileTap={reduceMotion ? undefined : { scale: 0.985 }}
+              whileTap={reduceMotion ? undefined : { scale: 0.97 }}
             >
               <span className="labs-display block text-[clamp(1.75rem,3vw,2.5rem)] text-[var(--labs-navy)]">
                 {choice.label}

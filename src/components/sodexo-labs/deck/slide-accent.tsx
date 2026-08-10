@@ -26,11 +26,11 @@ export function SlideAccent({
       className={`pointer-events-none z-[1] ${className}`}
       initial={reduce ? false : { opacity: 0, y: 16, scale: 0.96 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{
-        duration: reduce ? 0 : 0.65,
-        delay: reduce ? 0 : delay,
-        ease: [0.25, 1, 0.5, 1],
-      }}
+      transition={
+        reduce
+          ? { duration: 0 }
+          : { type: "spring", bounce: 0, duration: 0.5, delay }
+      }
     >
       <Image
         src={src}

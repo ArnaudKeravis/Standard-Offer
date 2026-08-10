@@ -6,7 +6,7 @@ const CHROME: Localized<LabsChrome> = {
     coverEyebrow: "Sodexo Labs",
     coverTitleLead: "Co-creating the future of",
     coverTitleAccent: "experiences",
-    coverHint: "Click or → to continue",
+    coverHint: "Swipe, click or → · F fullscreen",
     welcomeEyebrow: "Introduction",
     welcomePillars: [
       {
@@ -65,12 +65,28 @@ const CHROME: Localized<LabsChrome> = {
     preparingSession: "Preparing session…",
     hudCredentials: "Credentials",
     hudChange: "Change",
+    slideNav: {
+      cover: "Cover",
+      welcome: "Welcome",
+      kpi: "KPIs",
+      growth: "Growth",
+      offers: "Offers",
+      method: "Method",
+      zones: "Zones",
+      persona: "Persona",
+      cases: "Cases",
+      network: "Network",
+      lifecycle: "Lifecycle",
+      engagements: "Engage",
+      credentials: "Proof",
+      close: "Close",
+    },
   },
   fr: {
     coverEyebrow: "Sodexo Labs",
     coverTitleLead: "Co-créer le futur des",
     coverTitleAccent: "expériences",
-    coverHint: "Cliquez ou → pour continuer",
+    coverHint: "Glissez, cliquez ou → · F plein écran",
     welcomeEyebrow: "Introduction",
     welcomePillars: [
       {
@@ -130,6 +146,22 @@ const CHROME: Localized<LabsChrome> = {
     preparingSession: "Préparation de la session…",
     hudCredentials: "Références",
     hudChange: "Changer",
+    slideNav: {
+      cover: "Couverture",
+      welcome: "Accueil",
+      kpi: "KPIs",
+      growth: "Growth",
+      offers: "Offres",
+      method: "Méthode",
+      zones: "Zones",
+      persona: "Persona",
+      cases: "Cas",
+      network: "Réseau",
+      lifecycle: "Cycle",
+      engagements: "Engager",
+      credentials: "Preuves",
+      close: "Clôture",
+    },
   },
 };
 
