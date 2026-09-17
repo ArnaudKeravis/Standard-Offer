@@ -2,12 +2,17 @@ import { describe, expect, it } from "vitest";
 import { NEWSLETTER_ISSUES } from "@/lib/newsletters/registry";
 
 describe("NEWSLETTER_ISSUES", () => {
-  it("includes FY26 as the first issue", () => {
-    expect(NEWSLETTER_ISSUES.length).toBeGreaterThanOrEqual(1);
-    expect(NEWSLETTER_ISSUES[0]).toMatchObject({
-      id: "fy26-yearly-retrospective",
-      href: "/newsletters/fy26-yearly-retrospective.html",
-    });
+  it("includes the leadership brief and FY26 retrospective", () => {
+    expect(NEWSLETTER_ISSUES.length).toBeGreaterThanOrEqual(2);
+    expect(NEWSLETTER_ISSUES.map((i) => i.id)).toEqual(
+      expect.arrayContaining([
+        "fy26-leadership-brief",
+        "fy26-yearly-retrospective",
+      ]),
+    );
+    expect(
+      NEWSLETTER_ISSUES.find((i) => i.id === "fy26-leadership-brief")?.href,
+    ).toBe("/newsletters/fy26-leadership-brief.html");
   });
 
   it("has unique ids and hrefs", () => {

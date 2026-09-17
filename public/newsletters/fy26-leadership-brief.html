@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CoDesign & Labs · FY26 Leadership Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Sora:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1A69FF;--navy:#1E2D8A;--green:#1E9E58;--orange:#E85A0E;
+  --purple:#7A4FBF;--teal:#0E8A8A;--cyan:#5DD4D4;--cream:#F5F1EA;
+  --bg:#F2F4FA;--surface:#FFFFFF;--surface2:#EEF1F9;
+  --text:#0F1220;--text2:#3A3F5C;--muted:#7A82AA;
+  --border:rgba(0,0,0,0.07);--border2:rgba(0,0,0,0.13);
+  --font-sans:'Sora',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-sans);line-height:1.5;overflow-x:hidden;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes shine{0%{background-position:-200% center;}100%{background-position:200% center;}}
+.fade-in{opacity:0;animation:fadeUp .7s ease-out forwards;}
+.delay-1{animation-delay:.08s;}
+.delay-2{animation-delay:.16s;}
+.delay-3{animation-delay:.24s;}
+.delay-4{animation-delay:.32s;}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1);}
+.reveal.in{opacity:1;transform:translateY(0);}
+.reveal-stagger>*{opacity:0;transform:translateY(16px);transition:opacity .55s ease-out,transform .55s ease-out;}
+.reveal-stagger.in>*{opacity:1;transform:translateY(0);}
+.reveal-stagger.in>*:nth-child(1){transition-delay:.05s;}
+.reveal-stagger.in>*:nth-child(2){transition-delay:.1s;}
+.reveal-stagger.in>*:nth-child(3){transition-delay:.15s;}
+.reveal-stagger.in>*:nth-child(4){transition-delay:.2s;}
+.reveal-stagger.in>*:nth-child(5){transition-delay:.25s;}
+
+.newsletters-back{
+  position:fixed;top:16px;left:16px;z-index:50;
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;text-decoration:none;font-weight:700;
+  color:#fff;background:rgba(15,18,32,.55);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.28);padding:8px 12px;border-radius:4px;
+}
+.newsletters-back:hover{background:rgba(15,18,32,.75);}
+
+header{
+  background:linear-gradient(135deg,#1A4FCC 0%,#2666E6 40%,#1A69FF 75%,#0F4FBF 100%);
+  color:#fff;padding:72px 64px 56px;position:relative;overflow:hidden;min-height:320px;
+}
+header::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 25% 20%,rgba(255,255,255,.14) 0%,transparent 55%);
+}
+header > *{position:relative;z-index:2;}
+.wm{font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:14px;}
+h1{font-size:clamp(34px,5vw,64px);font-weight:300;line-height:.98;letter-spacing:-.025em;max-width:920px;}
+h1 em{font-style:italic;font-weight:600;
+  background:linear-gradient(90deg,#A5F0F0 0%,#fff 50%,#A5F0F0 100%);
+  background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:shine 4s ease-in-out infinite;
+}
+.hmeta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+.hbadge{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;background:rgba(255,255,255,.95);color:var(--blue);padding:6px 12px;border-radius:2px;}
+.hchip{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.35);padding:5px 12px;}
+.hsub{margin-top:18px;font-size:15px;color:rgba(255,255,255,.8);max-width:560px;line-height:1.65;}
+
+.kpi-band{
+  background:linear-gradient(180deg,#0F4FBF 0%,#0A2D80 100%);
+  color:#fff;padding:36px 64px 40px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+}
+.kpi{padding:22px 20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);}
+.kpi-l{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:10px;}
+.kpi-n{font-size:clamp(28px,3.2vw,44px);font-weight:300;line-height:1;letter-spacing:-.02em;}
+.kpi-n strong{font-weight:700;
+  background:linear-gradient(135deg,#A5F0F0 0%,#fff 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.kpi-s{margin-top:8px;font-size:12px;color:rgba(255,255,255,.65);line-height:1.45;}
+
+.section{padding:56px 64px;border-bottom:1px solid var(--border);}
+.sec-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:12px;}
+.sec-title{font-size:clamp(26px,3vw,38px);font-weight:300;letter-spacing:-.02em;margin-bottom:12px;}
+.sec-title em{font-style:italic;font-weight:600;color:var(--blue);}
+.sec-lead{font-size:15px;color:var(--text2);max-width:760px;line-height:1.65;margin-bottom:28px;}
+
+.wins{display:flex;flex-wrap:wrap;gap:8px;}
+.win{
+  background:#fff;border:1px solid rgba(232,90,14,.22);padding:10px 14px;border-radius:4px;
+  font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:8px;
+}
+.win span{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;color:var(--orange);font-weight:700;}
+
+.proof{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.pcard{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--blue);padding:20px 18px;}
+.pcard:nth-child(2){border-top-color:var(--orange);}
+.pcard:nth-child(3){border-top-color:var(--green);}
+.pcard:nth-child(4){border-top-color:var(--purple);}
+.pc-name{font-size:16px;font-weight:700;margin-bottom:4px;}
+.pc-sub{font-size:12px;color:var(--muted);margin-bottom:10px;}
+.pc-amt{font-size:14px;font-weight:700;color:var(--blue);margin-bottom:8px;}
+.pc-desc{font-size:12px;color:var(--text2);line-height:1.5;}
+
+.system{
+  background:linear-gradient(135deg,#0F1429 0%,#1A2052 100%);
+  color:#fff;padding:56px 64px;
+}
+.system .sec-tag{color:#6EA8FF;}
+.system .sec-title{color:#fff;}
+.system .sec-title em{color:#A5F0F0;}
+.system .sec-lead{color:rgba(255,255,255,.72);}
+.loop{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch;margin-top:8px;}
+.loop-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);padding:24px 22px;border-radius:6px;}
+.loop-arrow{align-self:center;font-family:var(--font-mono);font-size:22px;color:#A5F0F0;text-align:center;}
+.loop-h{font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#6EA8FF;margin-bottom:10px;}
+.loop-n{font-size:28px;font-weight:700;margin-bottom:8px;}
+.loop-d{font-size:13px;color:rgba(255,255,255,.7);line-height:1.6;}
+
+.priorities{background:var(--cream);}
+.prio-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+.prio{
+  background:#fff;border:1px solid var(--border);padding:22px 18px;border-radius:6px;
+  min-height:190px;display:flex;flex-direction:column;
+}
+.prio-n{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;color:var(--blue);font-weight:700;margin-bottom:10px;}
+.prio-t{font-size:17px;font-weight:700;margin-bottom:8px;letter-spacing:-.015em;}
+.prio-d{font-size:12px;color:var(--text2);line-height:1.55;flex:1;}
+
+.ask{
+  background:linear-gradient(135deg,#1A4FCC 0%,#1A69FF 100%);
+  color:#fff;padding:56px 64px;
+}
+.ask .sec-tag{color:rgba(255,255,255,.7);}
+.ask .sec-title{color:#fff;}
+.ask .sec-title em{color:#A5F0F0;}
+.ask-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;margin-top:8px;}
+.ask-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);padding:26px 24px;border-radius:8px;}
+.ask-card h3{font-size:18px;font-weight:600;margin-bottom:8px;}
+.ask-card p{font-size:14px;color:rgba(255,255,255,.78);line-height:1.6;margin-bottom:16px;}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;color:var(--blue);text-decoration:none;font-weight:700;font-size:13px;
+  padding:12px 18px;border-radius:4px;letter-spacing:.02em;
+}
+.btn:hover{transform:translateY(-1px);}
+.btn.ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.45);}
+.placeholder{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:10px;}
+
+footer{background:#0A0D1A;padding:28px 64px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.fb-foot{font-size:14px;font-weight:300;color:#EEF2FF;}
+.fb-foot span{color:#6EA8FF;font-weight:600;}
+.fn-foot{font-size:10px;color:rgba(255,255,255,.35);font-family:var(--font-mono);letter-spacing:.08em;}
+
+@media(max-width:1100px){
+  .kpi-band,.proof,.prio-grid{grid-template-columns:repeat(2,1fr);}
+  .loop,.ask-grid{grid-template-columns:1fr;}
+  .loop-arrow{transform:rotate(90deg);padding:4px 0;}
+}
+@media(max-width:760px){
+  header,.section,.system,.ask,.kpi-band,footer{padding:36px 24px;}
+  .kpi-band,.proof,.prio-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<a class="newsletters-back" href="/newsletters">← Newsletters</a>
+
+<header>
+  <div>
+    <div class="wm fade-in">Leadership brief · 15 minutes</div>
+    <h1 class="fade-in delay-1">CoDesign & Labs<br><em>FY26 → FY27</em></h1>
+    <p class="hsub fade-in delay-2">A short leadership story: what we delivered this year, why it matters commercially, and where we need your sponsorship next.</p>
+    <div class="hmeta fade-in delay-3">
+      <div class="hbadge">15-min brief</div>
+      <div class="hchip">Then feedback + Q&amp;A</div>
+      <div class="hchip">Full retrospective available</div>
+    </div>
+  </div>
+</header>
+
+<div class="kpi-band">
+  <div class="kpi fade-in delay-1">
+    <div class="kpi-l">Active impact</div>
+    <div class="kpi-n"><strong>€1.1B</strong></div>
+    <div class="kpi-s">Annualised contract value progressed via CoDesign</div>
+  </div>
+  <div class="kpi fade-in delay-2">
+    <div class="kpi-l">Wins closed</div>
+    <div class="kpi-n"><strong>8</strong></div>
+    <div class="kpi-s">Strategic bids &amp; renewals attributed to CoDesign</div>
+  </div>
+  <div class="kpi fade-in delay-3">
+    <div class="kpi-l">Labs sessions</div>
+    <div class="kpi-n"><strong>102</strong></div>
+    <div class="kpi-s">Workshops, visits and events hosted in Paris</div>
+  </div>
+  <div class="kpi fade-in delay-4">
+    <div class="kpi-l">NPS</div>
+    <div class="kpi-n"><strong>+53</strong></div>
+    <div class="kpi-s">Excellent · 4.37/5 · 43 participant surveys</div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="sec-tag reveal">01 · Proof</div>
+  <h2 class="sec-title reveal">We delivered — <em>and it shows</em></h2>
+  <p class="sec-lead reveal">Eight strategic wins, thirteen active projects, and a Labs that now hosts client commitment and internal alignment at scale.</p>
+
+  <div class="wins reveal-stagger" style="margin-bottom:28px;">
+    <div class="win">Edinburgh Zoo <span>£4M/yr</span></div>
+    <div class="win">Newcastle United <span>£20M/yr</span></div>
+    <div class="win">American Airlines <span>$70M/yr</span></div>
+    <div class="win">Eli Lilly <span>€70M/yr</span></div>
+    <div class="win">Roland-Garros <span>€50M/yr</span></div>
+    <div class="win">Abeille <span>FR · Win</span></div>
+    <div class="win">Total Link <span>FR · New bid</span></div>
+    <div class="win">JDA <span>Win</span></div>
+  </div>
+
+  <div class="proof reveal-stagger">
+    <div class="pcard">
+      <div class="pc-name">Tour de France</div>
+      <div class="pc-sub">Hospitality experience</div>
+      <div class="pc-amt">€6M/yr + €3M</div>
+      <div class="pc-desc">Extension and uplift on live hospitality journeys.</div>
+    </div>
+    <div class="pcard">
+      <div class="pc-name">Cooper University Hospital</div>
+      <div class="pc-sub">Caregiver experience · USA</div>
+      <div class="pc-amt">$16M/yr + campus</div>
+      <div class="pc-desc">Caregiver XP with a wider campus opportunity.</div>
+    </div>
+    <div class="pcard">
+      <div class="pc-name">École Lenôtre</div>
+      <div class="pc-sub">Strategy &amp; experience review</div>
+      <div class="pc-amt">€80M/yr</div>
+      <div class="pc-desc">Offer clarity and learning journey redesign.</div>
+    </div>
+    <div class="pcard">
+      <div class="pc-name">SoAppro</div>
+      <div class="pc-sub">Strategic &amp; product review</div>
+      <div class="pc-amt">€140M/yr</div>
+      <div class="pc-desc">Sharpen the platform offer for operators and clients.</div>
+    </div>
+  </div>
+</section>
+
+<section class="system">
+  <div class="sec-tag reveal">02 · The system</div>
+  <h2 class="sec-title reveal">Labs + CoDesign = <em>one commercial engine</em></h2>
+  <p class="sec-lead reveal">Neither stands alone. CoDesign brings clients into the Labs to anchor commitment. The Labs create discovery moments that open the next CoDesign conversation.</p>
+  <div class="loop reveal-stagger">
+    <div class="loop-card">
+      <div class="loop-h">CoDesign → Labs</div>
+      <div class="loop-n">~70%</div>
+      <div class="loop-d">of client visits originate from an active CoDesign engagement — immersion that locks methodology and commitment.</div>
+    </div>
+    <div class="loop-arrow" aria-hidden="true">↔</div>
+    <div class="loop-card">
+      <div class="loop-h">Labs → CoDesign</div>
+      <div class="loop-n">~30%</div>
+      <div class="loop-d">of visits are discovery-led — credibility plays that trigger follow-up CoDesign opportunities.</div>
+    </div>
+  </div>
+</section>
+
+<section class="section priorities">
+  <div class="sec-tag reveal">03 · FY27 priorities</div>
+  <h2 class="sec-title reveal">Where we need to go <em>next</em></h2>
+  <p class="sec-lead reveal">Five priorities for leadership sponsorship — scale the method, build capability, protect value, and run longer with the right teams.</p>
+  <div class="prio-grid reveal-stagger">
+    <div class="prio">
+      <div class="prio-n">01</div>
+      <div class="prio-t">Scale</div>
+      <div class="prio-d">First Satellite Labs and a transferable CoDesign system — Philadelphia pilot (9 Sept) as the start, not the end.</div>
+    </div>
+    <div class="prio">
+      <div class="prio-n">02</div>
+      <div class="prio-t">Train</div>
+      <div class="prio-d">Upskill non-designer teams (incl. IT &amp; regions) with documentation, Miro training, playbooks and CoDesign OS.</div>
+    </div>
+    <div class="prio">
+      <div class="prio-n">03</div>
+      <div class="prio-t">Sponsorship</div>
+      <div class="prio-d">Make CoDesign the default on must-retain and renew cycles — visible leadership support in major deals.</div>
+    </div>
+    <div class="prio">
+      <div class="prio-n">04</div>
+      <div class="prio-t">More value</div>
+      <div class="prio-d">Push measured uplift on renewals, new bids and extensions — turn every engagement into commercial proof.</div>
+    </div>
+    <div class="prio">
+      <div class="prio-n">05</div>
+      <div class="prio-t">Longer-term delivery</div>
+      <div class="prio-d">Staff projects with tech + account teams who can run the work beyond the workshop — continuity and ownership in-region.</div>
+    </div>
+  </div>
+</section>
+
+<section class="ask" id="feedback">
+  <div class="sec-tag reveal">04 · Your turn</div>
+  <h2 class="sec-title reveal">Feedback + <em>Q&amp;A</em></h2>
+  <div class="ask-grid reveal-stagger">
+    <div class="ask-card">
+      <h3>Written feedback</h3>
+      <p>Share what landed, what to sharpen, and where you can sponsor FY27 priorities. 2–3 minutes.</p>
+      <a class="btn" href="#feedback-form-placeholder" id="feedback-form-link">Open feedback form →</a>
+      <div class="placeholder" id="feedback-form-placeholder">Form URL placeholder — replace before the session</div>
+    </div>
+    <div class="ask-card">
+      <h3>Oral Q&amp;A</h3>
+      <p>Open floor after the brief. Challenge the priorities, ask for proof, tell us where sponsorship is hardest.</p>
+      <a class="btn ghost" href="/newsletters/fy26-yearly-retrospective.html">Open full retrospective ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fb-foot">CoDesign &amp; <span>Sodexo Labs</span></div>
+  <div class="fn-foot">FY26 Leadership Brief · 15 min · Then feedback &amp; Q&amp;A</div>
+</footer>
+
+<script>
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
