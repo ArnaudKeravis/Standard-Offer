@@ -683,13 +683,168 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
   transition:background .2s,transform .2s;
 }
 .newsletters-back:hover{background:rgba(15,18,32,.75);transform:translateY(-1px);}
+
+/* ── DECK SHELL · 16:9 click-through ── */
+html,body{height:100%;margin:0;overflow:hidden;background:#070A14;}
+body{font-family:'Open Sans',sans-serif;}
+.newsletters-back{top:12px;left:12px;z-index:80;}
+.deck-shell{height:100svh;width:100vw;display:flex;align-items:center;justify-content:center;position:relative;}
+.stage-frame{
+  aspect-ratio:16/9;
+  width:min(100vw - 8px, calc(100svh * 16 / 9));
+  height:min(100svh - 8px, calc((100vw - 8px) * 9 / 16));
+  position:relative;overflow:hidden;background:var(--bg);
+  box-shadow:0 24px 80px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.06);
+  border-radius:4px;
+}
+.slide{
+  position:absolute;inset:0;opacity:0;visibility:hidden;pointer-events:none;
+  overflow:hidden;display:flex;flex-direction:column;
+  transform:translateY(18px) scale(.985);
+  transition:opacity .45s cubic-bezier(.2,.8,.2,1),transform .45s cubic-bezier(.2,.8,.2,1),visibility 0s linear .45s;
+}
+.slide.is-active{
+  opacity:1;visibility:visible;pointer-events:auto;
+  transform:translateY(0) scale(1);
+  transition:opacity .45s cubic-bezier(.2,.8,.2,1),transform .45s cubic-bezier(.2,.8,.2,1),visibility 0s;
+}
+.slide-scroll{
+  flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+}
+.slide .section,.slide .ci-section,.slide .next-section,.slide .qa-section,
+.slide .exec-summary,.slide .hero-kpi,.slide header,.slide footer{
+  padding:clamp(18px,3.2vh,36px) clamp(28px,4.5vw,56px) !important;
+  border-bottom:none !important;
+  min-height:100%;
+  box-sizing:border-box;
+}
+.slide header{min-height:100% !important;display:grid;align-content:center;}
+.slide .hero-kpi{min-height:100%;align-content:center;}
+.slide .sec-hdr{margin-bottom:clamp(12px,2vh,24px);}
+.slide .sec-intro{margin-bottom:clamp(12px,2vh,20px);font-size:13px;}
+.slide .stitle{font-size:clamp(22px,2.8vw,30px);}
+.slide .es-headline{font-size:clamp(22px,2.6vw,34px);margin-bottom:16px;}
+.slide .es-body{font-size:13px;line-height:1.55;}
+.slide .es-pillars{margin-top:18px;gap:12px;}
+.slide .es-pill{padding:14px 16px;}
+.slide .hk{padding:clamp(14px,2.5vh,28px) clamp(14px,2vw,24px);}
+.slide .hk-num{font-size:clamp(28px,3.2vw,48px);}
+.slide .wins-banner{padding:22px 26px;margin-bottom:0;gap:20px;}
+.slide .wb-clients{gap:8px;}
+.slide .fb-hero{gap:16px;}
+.slide .testimonials{gap:10px;}
+.slide .t-card{padding:14px 16px;}
+.slide .next-grid{gap:10px;}
+.slide .next-card{padding:16px 16px;}
+.slide .qa-board{max-height:42%;}
+.slide .postits{min-height:120px;max-height:180px;overflow:auto;}
+.slide .scroll-hint{display:none;}
+.slide .labs-pagenum{display:none;}
+
+/* Left menu — Standard Offer style */
+.deck-nav{
+  position:fixed;left:14px;top:50%;transform:translateY(-50%);z-index:70;
+  pointer-events:none;
+}
+.deck-nav-inner{
+  pointer-events:auto;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(12px);
+  border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:8px;
+  box-shadow:0 18px 50px rgba(15,18,32,.12);
+  max-height:min(78svh,640px);overflow:auto;
+}
+.deck-nav ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;}
+.deck-nav button{
+  display:flex;align-items:center;gap:10px;width:100%;
+  border:0;background:transparent;cursor:pointer;text-align:left;
+  padding:8px 10px;border-radius:12px;
+  font-family:'Open Sans',sans-serif;font-size:11px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:rgba(15,18,32,.45);
+  transition:color .2s,background .2s;
+}
+.deck-nav button:hover{color:var(--text);background:rgba(26,105,255,.06);}
+.deck-nav button[aria-current="true"]{color:var(--text);}
+.deck-nav .dot{
+  width:6px;height:6px;border-radius:50%;flex-shrink:0;
+  border:1px solid rgba(15,18,32,.2);background:transparent;transition:all .2s;
+}
+.deck-nav button[aria-current="true"] .dot{
+  background:var(--blue);border-color:var(--blue);transform:scale(1.15);
+}
+.deck-nav .lab{max-width:9.5rem;line-height:1.25;}
+
+.deck-progress{
+  position:fixed;right:18px;bottom:16px;z-index:70;
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;
+  color:rgba(255,255,255,.55);background:rgba(15,18,32,.55);
+  border:1px solid rgba(255,255,255,.18);padding:6px 10px;border-radius:4px;
+  backdrop-filter:blur(8px);
+}
+.deck-hint{
+  position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:70;
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.4);pointer-events:none;
+}
+
+@media (max-width:900px){
+  .deck-nav{display:none;}
+  .deck-nav-mobile{
+    display:flex !important;position:fixed;left:50%;bottom:12px;transform:translateX(-50%);
+    z-index:70;gap:6px;padding:8px 10px;border-radius:999px;
+    background:rgba(255,255,255,.92);backdrop-filter:blur(10px);
+    border:1px solid rgba(0,0,0,.08);box-shadow:0 10px 30px rgba(0,0,0,.12);
+  }
+  .deck-hint{display:none;}
+  .deck-progress{bottom:58px;right:12px;}
+}
+.deck-nav-mobile{display:none;}
+.deck-nav-mobile button{
+  width:22px;height:22px;border-radius:50%;border:1px solid rgba(15,18,32,.15);
+  background:transparent;padding:0;cursor:pointer;font-size:0;
+}
+.deck-nav-mobile button[aria-current="true"]{background:var(--blue);border-color:var(--blue);}
+
 </style>
 </head>
 <body>
+<a class="newsletters-back" href="/newsletters" data-deck-nav>← Newsletters</a>
 
-<a class="newsletters-back" href="/newsletters">← Newsletters</a>
+<nav class="deck-nav" aria-label="Brief sections" data-deck-nav>
+  <div class="deck-nav-inner">
+    <ul>
+      <li><button type="button" data-deck-nav data-nav-item="0" aria-current="true"><span class="dot" aria-hidden="true"></span><span class="lab">Cover</span></button></li>
+      <li><button type="button" data-deck-nav data-nav-item="1" aria-current="false"><span class="dot" aria-hidden="true"></span><span class="lab">The year in numbers</span></button></li>
+      <li><button type="button" data-deck-nav data-nav-item="2" aria-current="false"><span class="dot" aria-hidden="true"></span><span class="lab">Executive summary</span></button></li>
+      <li><button type="button" data-deck-nav data-nav-item="3" aria-current="false"><span class="dot" aria-hidden="true"></span><span class="lab">Annual impact</span></button></li>
+      <li><button type="button" data-deck-nav data-nav-item="4" aria-current="false"><span class="dot" aria-hidden="true"></span><span class="lab">Commercial impact</span></button></li>
+      <li><button type="button" data-deck-nav data-nav-item="5" aria-current="false"><span class="dot" aria-hidden="true"></span><span class="lab">FY26 wins</span></button></li>
+      <li><button type="button" data-deck-nav data-nav-item="6" aria-current="false"><span class="dot" aria-hidden="true"></span><span class="lab">Projects & Labs</span></button></li>
+      <li><button type="button" data-deck-nav data-nav-item="7" aria-current="false"><span class="dot" aria-hidden="true"></span><span class="lab">Voice</span></button></li>
+      <li><button type="button" data-deck-nav data-nav-item="8" aria-current="false"><span class="dot" aria-hidden="true"></span><span class="lab">Scaling</span></button></li>
+      <li><button type="button" data-deck-nav data-nav-item="9" aria-current="false"><span class="dot" aria-hidden="true"></span><span class="lab">FY27 priorities</span></button></li>
+      <li><button type="button" data-deck-nav data-nav-item="10" aria-current="false"><span class="dot" aria-hidden="true"></span><span class="lab">Feedback & Q&A</span></button></li>
+    </ul>
+  </div>
+</nav>
+<nav class="deck-nav-mobile" aria-label="Brief sections mobile" data-deck-nav>
+    <button type="button" data-deck-nav data-nav-item="0" aria-label="Cover" aria-current="true"></button>
+    <button type="button" data-deck-nav data-nav-item="1" aria-label="The year in numbers" aria-current="false"></button>
+    <button type="button" data-deck-nav data-nav-item="2" aria-label="Executive summary" aria-current="false"></button>
+    <button type="button" data-deck-nav data-nav-item="3" aria-label="Annual impact" aria-current="false"></button>
+    <button type="button" data-deck-nav data-nav-item="4" aria-label="Commercial impact" aria-current="false"></button>
+    <button type="button" data-deck-nav data-nav-item="5" aria-label="FY26 wins" aria-current="false"></button>
+    <button type="button" data-deck-nav data-nav-item="6" aria-label="Projects & Labs" aria-current="false"></button>
+    <button type="button" data-deck-nav data-nav-item="7" aria-label="Voice" aria-current="false"></button>
+    <button type="button" data-deck-nav data-nav-item="8" aria-label="Scaling" aria-current="false"></button>
+    <button type="button" data-deck-nav data-nav-item="9" aria-label="FY27 priorities" aria-current="false"></button>
+    <button type="button" data-deck-nav data-nav-item="10" aria-label="Feedback & Q&A" aria-current="false"></button>
+</nav>
 
-<!-- ─── HEADER ─── -->
+<div class="deck-shell">
+  <div class="stage-frame" id="stage-frame" role="presentation">
+  <section class="slide is-active" data-slide="cover" data-index="0" aria-hidden="false">
+    <div class="slide-scroll">
 <header>
   <div class="particles" aria-hidden="true">
     <svg viewBox="0 0 1440 480" preserveAspectRatio="xMidYMid slice">
@@ -767,8 +922,10 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
   </div>
   <div class="scroll-hint">▾ scroll</div>
 </header>
-
-<!-- ─── HERO KPI ─── -->
+    </div>
+  </section>
+  <section class="slide" data-slide="kpis" data-index="1" aria-hidden="true">
+    <div class="slide-scroll">
 <div class="hero-kpi">
   <div class="hk fade-in delay-1">
     <div class="hk-label">FY26 Active Impact</div>
@@ -778,7 +935,7 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
   <div class="hk fade-in delay-2">
     <div class="hk-label">Wins Closed</div>
     <div class="hk-num"><span class="accent">8</span></div>
-    <div class="hk-sub">Strategic bids &amp; renewals attributed to CoDesign this year</div>
+    <div class="hk-sub">Strategic bids &amp; renewals where CoDesign supported the win</div>
   </div>
   <div class="hk fade-in delay-3">
     <div class="hk-label">Lab Bookings</div>
@@ -791,8 +948,10 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
     <div class="hk-sub">Excellent — based on 43 client & internal participant surveys</div>
   </div>
 </div>
-
-<!-- ─── EXECUTIVE SUMMARY ─── -->
+    </div>
+  </section>
+  <section class="slide" data-slide="summary" data-index="2" aria-hidden="true">
+    <div class="slide-scroll">
 <div class="exec-summary labs-bg labs-dots-tr" style="position:relative;">
   <div class="labs-banner-full" style="max-width:fit-content;margin:0 0 22px;">— Co-creating the future of experiences —</div>
   <div class="es-tag reveal">Executive Summary</div>
@@ -807,7 +966,7 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
     <div class="es-pill">
       <div class="es-pill-num">8 Wins</div>
       <div class="es-pill-label">New Bids & Renewals Closed</div>
-      <div class="es-pill-desc">Edinburgh Zoo, Newcastle United, Total Link, American Airlines, JDA, Lilly, Abeille, Roland-Garros — direct CoDesign-driven outcomes.</div>
+      <div class="es-pill-desc">Edinburgh Zoo, Newcastle United, Total Link, American Airlines, JDA, Lilly, Abeille, Roland-Garros — wins where CoDesign supported the outcome.</div>
     </div>
     <div class="es-pill">
       <div class="es-pill-num">93%</div>
@@ -817,8 +976,10 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
   </div>
   <div class="labs-pagenum">01</div>
 </div>
-
-<!-- ─── ANNUAL IMPACT (KPI BAND) ─── -->
+    </div>
+  </section>
+  <section class="slide" data-slide="impact" data-index="3" aria-hidden="true">
+    <div class="slide-scroll">
 <div class="section">
   <div class="sec-hdr reveal">
     <span class="stag" style="color:var(--blue)">01</span>
@@ -844,8 +1005,10 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
     </div>
   </div>
 </div>
-
-<!-- ─── COMMERCIAL IMPACT ─── -->
+    </div>
+  </section>
+  <section class="slide" data-slide="commercial" data-index="4" aria-hidden="true">
+    <div class="slide-scroll">
 <div class="ci-section">
   <div class="sec-hdr reveal">
     <span class="stag">02</span>
@@ -881,8 +1044,10 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
     </div>
   </div>
 </div>
-
-<!-- ─── WINS BANNER ─── -->
+    </div>
+  </section>
+  <section class="slide" data-slide="wins" data-index="5" aria-hidden="true">
+    <div class="slide-scroll">
 <div class="section" style="background:var(--surface);">
   <div class="sec-hdr reveal">
     <span class="stag" style="color:var(--orange)">03</span>
@@ -892,8 +1057,8 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
   <div class="wins-banner reveal">
     <div class="wb-icon">🏆</div>
     <div class="wb-content">
-      <h3><em>Eight strategic wins</em> directly attributed to CoDesign</h3>
-      <div class="wb-stat">From new bids to renewals and extensions — CoDesign-driven commercial outcomes across FY26.</div>
+      <h3><em>Eight strategic wins</em> where CoDesign supported the outcome</h3>
+      <div class="wb-stat">From new bids to renewals and extensions — commercial outcomes CoDesign helped shape across FY26.</div>
       <div class="wb-clients">
         <div class="wb-client">
           <img src="https://logo.clearbit.com/edinburghzoo.org.uk" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
@@ -943,248 +1108,93 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
     </div>
   </div>
 </div>
-
-<!-- ─── KEY PROJECTS ─── -->
+    </div>
+  </section>
+  <section class="slide" data-slide="field" data-index="6" aria-hidden="true">
+    <div class="slide-scroll">
 <div class="section" style="background:var(--surface);padding-top:0;">
   <div class="sec-hdr reveal">
     <span class="stag" style="color:var(--green)">04</span>
-    <h2 class="stitle">Key CoDesign <em>projects</em></h2>
-    <span class="sbadge sb-cd">● CoDesign Portfolio</span>
+    <h2 class="stitle">Projects &amp; Labs <em>in action</em></h2>
+    <span class="sbadge sb-both">● CoDesign & Labs</span>
   </div>
-  <p class="sec-intro reveal">A leadership sample of FY26 strategic engagements — wins, renewals and live projects. Full portfolio in the yearly retrospective.</p>
-  <div class="cred-grid reveal-stagger">
+  <p class="sec-intro reveal">A compact leadership sample — strategic CoDesign engagements alongside how the Paris Labs ran this year. Full detail in the yearly retrospective.</p>
 
-<div class="cred-card" style="border-top-color:var(--green);">
-      <div class="cc-logo">
-        <img src="https://logo.clearbit.com/lilly.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
-        <div class="cc-fi" style="display:none">Li</div>
-        <div><div class="cc-name">Eli Lilly</div><div class="cc-sub">XP Greenfield Giga Factory · The CELL</div></div>
+  <div class="reveal" style="margin-bottom:22px;">
+    <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:12px;">Key CoDesign projects</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--green);">
+        <div><div style="font-size:13px;font-weight:600;">Eli Lilly</div><div style="font-size:11px;color:var(--muted);">Giga Factory · GSA</div></div>
+        <div style="font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;">€70M/yr</div>
       </div>
-      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">GSA</span></div>
-      <div class="cc-amount">€70M/yr · Impact €80M</div>
-      <div class="cc-challenge">Design a seamless, human-centered workplace framework for Lilly's new gigafactory — built to scale.</div>
-      <div class="cc-kw"><span class="kw">Greenfield</span><span class="kw">Persona mapping</span><span class="kw">Scalable XP</span></div>
-    </div>
-<div class="cred-card" style="border-top-color:var(--green);">
-      <div class="cc-logo">
-        <img src="https://logo.clearbit.com/astrazeneca.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
-        <div class="cc-fi" style="display:none">AZ</div>
-        <div><div class="cc-name">AstraZeneca</div><div class="cc-sub">Flagship Campus · Cambridge</div></div>
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--green);">
+        <div><div style="font-size:13px;font-weight:600;">AstraZeneca</div><div style="font-size:11px;color:var(--muted);">Cambridge campus · GSA / UK&amp;I</div></div>
+        <div style="font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;">€76M/yr</div>
       </div>
-      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">GSA / UK&I</span></div>
-      <div class="cc-amount">€76M/yr · Uplift</div>
-      <div class="cc-challenge">High-impact campus experience supporting innovation, collaboration and scientific excellence.</div>
-      <div class="cc-kw"><span class="kw">Campus XP</span><span class="kw">Food activation</span><span class="kw">Digital enablement</span></div>
-    </div>
-<div class="cred-card" style="border-top-color:var(--green);">
-      <div class="cc-logo">
-        <img src="https://logo.clearbit.com/microsoft.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
-        <div class="cc-fi" style="display:none">MS</div>
-        <div><div class="cc-name">Microsoft</div><div class="cc-sub">Future of Workplace & Community</div></div>
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--green);">
+        <div><div style="font-size:13px;font-weight:600;">Microsoft</div><div style="font-size:11px;color:var(--muted);">Workplace &amp; community · GSA</div></div>
+        <div style="font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;">€55M/yr</div>
       </div>
-      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">GSA</span></div>
-      <div class="cc-amount">€55M/yr · Extension</div>
-      <div class="cc-challenge">Reimagine workplace to foster community, well-being and high-performance culture in a hybrid era.</div>
-      <div class="cc-kw"><span class="kw">Hybrid work</span><span class="kw">Wellness</span><span class="kw">Digital services</span></div>
-    </div>
-<div class="cred-card" style="border-top-color:var(--blue);">
-      <div class="cc-logo">
-        <img src="https://logo.clearbit.com/rolandgarros.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
-        <div class="cc-fi" style="display:none">RG</div>
-        <div><div class="cc-name">Roland-Garros</div><div class="cc-sub">F&B Experience</div></div>
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--blue);">
+        <div><div style="font-size:13px;font-weight:600;">Roland-Garros</div><div style="font-size:11px;color:var(--muted);">F&amp;B experience · FR Live!</div></div>
+        <div style="font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;">€50M/yr</div>
       </div>
-      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">FR · Live!</span></div>
-      <div class="cc-amount">€50M/yr · Rebid</div>
-      <div class="cc-challenge">Transform F&B into a seamless, iconic experience for spectators, players and staff.</div>
-      <div class="cc-kw"><span class="kw">Premium F&B</span><span class="kw">17 concepts</span><span class="kw">VIP XP</span></div>
-    </div>
-<div class="cred-card" style="border-top-color:var(--blue);">
-      <div class="cc-logo">
-        <img src="https://logo.clearbit.com/clariane.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
-        <div class="cc-fi" style="display:none">CL</div>
-        <div><div class="cc-name">Clariane</div><div class="cc-sub">Food Experience in Care Units</div></div>
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--blue);">
+        <div><div style="font-size:13px;font-weight:600;">Clariane</div><div style="font-size:11px;color:var(--muted);">Care dining · COEU</div></div>
+        <div style="font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;">€140M/yr</div>
       </div>
-      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">COEU</span></div>
-      <div class="cc-amount">€140M/yr · Extension</div>
-      <div class="cc-challenge">Redesign dining across care units — joyful, meaningful moments beyond functional food delivery.</div>
-      <div class="cc-kw"><span class="kw">Resident autonomy</span><span class="kw">Menu co-creation</span></div>
-    </div>
-<div class="cred-card" style="border-top-color:var(--orange);">
-      <div class="cc-logo">
-        <img src="https://logo.clearbit.com/edinburghzoo.org.uk" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
-        <div class="cc-fi" style="display:none">EZ</div>
-        <div><div class="cc-name">Edinburgh Zoo 🏆</div><div class="cc-sub">Visitor Experience · WON</div></div>
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--orange);">
+        <div><div style="font-size:13px;font-weight:600;">Edinburgh Zoo · Won</div><div style="font-size:11px;color:var(--muted);">Visitor XP · UK&amp;I</div></div>
+        <div style="font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;">£4M/yr</div>
       </div>
-      <div class="cc-meta"><span class="cc-pill cc-new">New Bid · Won</span><span class="cc-pill cc-region">UK&I</span></div>
-      <div class="cc-amount">£12M/yr · Bid Uplift</div>
-      <div class="cc-challenge">Immersive, sustainable, digitally enhanced visitor experience driving engagement and loyalty.</div>
-      <div class="cc-kw"><span class="kw">Immersive XP</span><span class="kw">AI-powered visits</span></div>
-    </div>
-<div class="cred-card" style="border-top-color:var(--orange);">
-      <div class="cc-logo">
-        <div class="cc-fi">NU</div>
-        <div><div class="cc-name">Newcastle United 🏆</div><div class="cc-sub">Fan Experience · WON</div></div>
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--orange);">
+        <div><div style="font-size:13px;font-weight:600;">Newcastle United · Won</div><div style="font-size:11px;color:var(--muted);">Fan XP · UK&amp;I Live!</div></div>
+        <div style="font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;">£20M/yr</div>
       </div>
-      <div class="cc-meta"><span class="cc-pill cc-new">New Bid · Won</span><span class="cc-pill cc-region">UK&I · Live!</span></div>
-      <div class="cc-amount">£12M/yr · Bid Uplift</div>
-      <div class="cc-challenge">Reimagine seamless, electrifying fan experience across St James' Park for all supporter profiles.</div>
-      <div class="cc-kw"><span class="kw">Fan engagement</span><span class="kw">Match-day flow</span><span class="kw">Loyalty</span></div>
-    </div>
-<div class="cred-card" style="border-top-color:var(--orange);">
-      <div class="cc-logo">
-        <img src="https://logo.clearbit.com/letour.fr" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
-        <div class="cc-fi" style="display:none">TdF</div>
-        <div><div class="cc-name">Tour de France</div><div class="cc-sub">Hospitality Experience</div></div>
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--orange);">
+        <div><div style="font-size:13px;font-weight:600;">Tour de France</div><div style="font-size:11px;color:var(--muted);">Hospitality · FR Live!</div></div>
+        <div style="font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;">€6M + €3M</div>
       </div>
-      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">FR · Live!</span></div>
-      <div class="cc-amount">€6M/yr extension · +€3M additional</div>
-      <div class="cc-challenge">Elevate hospitality across the race — seamless guest journeys for partners, VIPs and media from village to finish line.</div>
-      <div class="cc-kw"><span class="kw">Hospitality XP</span><span class="kw">Live events</span><span class="kw">Premium service</span></div>
-    </div>
-<div class="cred-card" style="border-top-color:var(--teal);">
-      <div class="cc-logo">
-        <img src="https://logo.clearbit.com/cooperhealth.org" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
-        <div class="cc-fi" style="display:none">CUH</div>
-        <div><div class="cc-name">Cooper University Hospital</div><div class="cc-sub">Caregiver Experience</div></div>
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--teal);">
+        <div><div style="font-size:13px;font-weight:600;">Cooper University Hospital</div><div style="font-size:11px;color:var(--muted);">Caregiver XP · USA HC</div></div>
+        <div style="font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;">$16M/yr</div>
       </div>
-      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">USA · HC</span></div>
-      <div class="cc-amount">$16M/yr · + campus opportunity</div>
-      <div class="cc-challenge">Reimagine the caregiver experience — services, spaces and support that reduce friction for clinical teams and open a wider campus opportunity.</div>
-      <div class="cc-kw"><span class="kw">Caregiver XP</span><span class="kw">Hospital services</span><span class="kw">Campus</span></div>
-    </div>
-<div class="cred-card" style="border-top-color:var(--green);">
-      <div class="cc-logo">
-        <img src="https://logo.clearbit.com/lenotre.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
-        <div class="cc-fi" style="display:none">ÉL</div>
-        <div><div class="cc-name">École Lenôtre</div><div class="cc-sub">Strategy &amp; Experience Review</div></div>
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--purple);">
+        <div><div style="font-size:13px;font-weight:600;">École Lenôtre · SoAppro</div><div style="font-size:11px;color:var(--muted);">Strategy reviews · FR</div></div>
+        <div style="font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;">€80M · €140M</div>
       </div>
-      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">FR · Live!</span></div>
-      <div class="cc-amount">€80M/yr · Strategic review</div>
-      <div class="cc-challenge">Strategy and experience review for the school — clarify the offer, elevate the learning journey, and align hospitality with brand excellence.</div>
-      <div class="cc-kw"><span class="kw">Strategy</span><span class="kw">Learning XP</span><span class="kw">Brand</span></div>
     </div>
-<div class="cred-card" style="border-top-color:var(--purple);">
-      <div class="cc-logo">
-        <div class="cc-fi">SA</div>
-        <div><div class="cc-name">SoAppro</div><div class="cc-sub">Strategic &amp; Product Review</div></div>
-      </div>
-      <div class="cc-meta"><span class="cc-pill cc-maint">Maintain</span><span class="cc-pill cc-region">FR · Global</span></div>
-      <div class="cc-amount">€140M/yr · Strategic review</div>
-      <div class="cc-challenge">Strategic and product review to sharpen the offer, clarify value for operators and clients, and set the next chapter of the platform.</div>
-      <div class="cc-kw"><span class="kw">Product review</span><span class="kw">Strategy</span><span class="kw">Offer design</span></div>
-    </div>
+  </div>
 
+  <div class="reveal">
+    <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:12px;">102 Lab sessions hosted</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px;">
+      <div style="background:var(--bg);border:1px solid var(--border);border-top:3px solid var(--green);padding:16px 18px;">
+        <div style="font-size:28px;font-weight:300;color:var(--green);line-height:1;letter-spacing:-.02em;">27</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:8px;">CoDesign workshops</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:6px;line-height:1.45;">Client sessions tied to live engagements</div>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-top:3px solid var(--purple);padding:16px 18px;">
+        <div style="font-size:28px;font-weight:300;color:var(--purple);line-height:1;letter-spacing:-.02em;">31</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:8px;">Events &amp; showcases</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:6px;line-height:1.45;">Inspiration, partners, internal alignment</div>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-top:3px solid var(--blue);padding:16px 18px;">
+        <div style="font-size:28px;font-weight:300;color:var(--blue);line-height:1;letter-spacing:-.02em;">44</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:8px;">Account visits</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:6px;line-height:1.45;">Credibility plays that open CoDesign doors</div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--text2);line-height:1.55;">~70% of client visits come from an active CoDesign engagement · ~30% are discovery-led and feed the next conversation. <a href="/newsletters/fy26-yearly-retrospective.html" style="color:var(--blue);font-weight:600;text-decoration:none;">Full session list →</a></div>
   </div>
 </div>
-
-<!-- ─── EVENTS HOSTED ─── -->
-<div class="section">
-  <div class="sec-hdr reveal">
-    <span class="stag" style="color:var(--blue)">05</span>
-    <h2 class="stitle">102 Lab <em>sessions</em> hosted</h2>
-    <span class="sbadge sb-labs">● Sodexo Labs</span>
-  </div>
-  <p class="sec-intro reveal">From C-level visits to immersive client workshops, the Sodexo Labs hosted a steady stream of strategic engagements through July 2026. Three categories: <strong>client workshops driving CoDesign delivery</strong> (most are extensions of an active CoDesign engagement), <strong>internal & partner events</strong> for inspiration and alignment, and <strong>account visits</strong> where the Labs serves as a credibility play that opens the door to CoDesign.</p>
-  <div class="ev-tabs reveal-stagger">
-    <div class="ev-col ws">
-      <div class="ev-col-tag">CoDesign Workshops · at the Labs</div>
-      <div class="ev-col-num" style="color:var(--green)">27</div>
-      <div class="lc-grid">
-        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— October —</div>
-        <div class="lc done" data-logo="lilly.com">Lilly · client</div>
-        <div class="lc done" data-logo="clariane.com">Clariane · client</div>
-        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— November —</div>
-        <div class="lc done">Plateforme digital services</div>
-        <div class="lc done">Care Management</div>
-        <div class="lc done">Eat 2.0</div>
-        <div class="lc done" data-logo="clariane.com">Clariane · client</div>
-        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— December —</div>
-        <div class="lc done" data-logo="rolandgarros.com">Roland-Garros</div>
-        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— January —</div>
-        <div class="lc done" data-logo="lilly.com">Lilly · Alzey prios WS</div>
-        <div class="lc done" data-logo="clariane.com">Clariane · client</div>
-        <div class="lc done">Personae augmenté</div>
-        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— February —</div>
-        <div class="lc done" data-logo="microsoft.com">Microsoft · client</div>
-        <div class="lc done">Entegra</div>
-        <div class="lc done">Entegra</div>
-        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— March —</div>
-        <div class="lc done">Abeille · client</div>
-        <div class="lc done">Entegra</div>
-        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— April —</div>
-        <div class="lc done">HSTV</div>
-        <div class="lc done" data-logo="ipsen.com">Ipsen · client</div>
-        <div class="lc done" data-logo="astrazeneca.com">AZ governance · client</div>
-        <div class="lc done" data-logo="clariane.com">Clariane QBR · client</div>
-        <div class="lc done">Entegra</div>
-        <div class="lc done">Entegra</div>
-        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— May —</div>
-        <div class="lc done" data-logo="accenture.com">Accenture</div>
-        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— June —</div>
-        <div class="lc done">Abeille · IA workshop</div>
-        <div class="lc done">JTC</div>
-        <div class="lc done">Fiera Milano</div>
-        <div class="lc done">Novae</div>
-        <div class="lc done">TDDI Seminar</div>
-        <div class="lc" style="font-size:10px;color:var(--muted);background:none;border:none;padding:2px 0 4px;width:100%;pointer-events:none;">— July —</div>
-        <div class="lc done">Shell · Growth workshop</div>
-      </div>
     </div>
-    <div class="ev-col ev">
-      <div class="ev-col-tag">Events & Showcases</div>
-      <div class="ev-col-num" style="color:var(--purple)">31</div>
-      <div class="lc-grid">
-        <div class="lc done">Innovision Robotics · 800+</div>
-        <div class="lc done">Innovision AI Food & FM</div>
-        <div class="lc done">Miro Workshop Day</div>
-        <div class="lc done" data-logo="unilever.com">Unilever MR Day</div>
-        <div class="lc done">Food Partners France</div>
-        <div class="lc done">Green IT & AI Breakfast</div>
-        <div class="lc done">Fresque du Numérique</div>
-        <div class="lc done">SoSmart for Growth</div>
-        <div class="lc done">QVT Microsoft Inclusion</div>
-        <div class="lc done">Comms Sync Day</div>
-        <div class="lc done">Future of Food · HQ</div>
-        <div class="lc done">Kumulus showcase</div>
-        <div class="lc done">TECH board seminar</div>
-        <div class="lc done">Totem showcase</div>
-        <div class="lc done">InnoVision Webinar</div>
-        <div class="lc done">Adobe Day · Design</div>
-        <div class="lc done">Board AI training</div>
-        <div class="lc done">Gustav Roussev wargame · HC</div>
-        <div class="lc done">Product &amp; Design Hub workshop</div>
-      </div>
-    </div>
-    <div class="ev-col vs">
-      <div class="ev-col-tag">Client & Account Visits</div>
-      <div class="ev-col-num" style="color:var(--blue)">44</div>
-      <div class="lc-grid">
-        <div class="lc done" data-logo="disneylandparis.com">Disneyland Paris</div>
-        <div class="lc done" data-logo="edf.fr">EDF</div>
-        <div class="lc done" data-logo="pg.com">P&G</div>
-        <div class="lc done" data-logo="colgate.com">Colgate</div>
-        <div class="lc done" data-logo="meta.com">Meta VR</div>
-        <div class="lc done" data-logo="transdev.com">Transdev</div>
-        <div class="lc done">Naval Group</div>
-        <div class="lc done">Lycées Militaires</div>
-        <div class="lc done">CA Lyon Terra Lumia</div>
-        <div class="lc done" data-logo="garance-mutuelle.fr">Garance Mutuelle</div>
-        <div class="lc done">Worldwide Sales Winners</div>
-        <div class="lc done">UK&I TDDI</div>
-        <div class="lc done">Sodexo Live! UK</div>
-        <div class="lc done" data-logo="nokia.com">Nokia · GSA</div>
-        <div class="lc done">ASO · FR kickoff</div>
-        <div class="lc done" data-logo="telekom.com">Deutsche Telekom · flash</div>
-        <div class="lc done">+ 28 more</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ─── FEEDBACK & TESTIMONIALS ─── -->
+  </section>
+  <section class="slide" data-slide="voice" data-index="7" aria-hidden="true">
+    <div class="slide-scroll">
 <div class="section fb-section">
   <div class="sec-hdr reveal">
-    <span class="stag" style="color:var(--green)">06</span>
+    <span class="stag" style="color:var(--green)">05</span>
     <h2 class="stitle">Voice of the <em>participants</em></h2>
     <span class="sbadge sb-cd">● Live Survey Data</span>
   </div>
@@ -1237,11 +1247,13 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
     </div>
   </div>
 </div>
-
-<!-- ─── SCALING ─── -->
+    </div>
+  </section>
+  <section class="slide" data-slide="scaling" data-index="8" aria-hidden="true">
+    <div class="slide-scroll">
 <div class="section" style="background:var(--surface);">
   <div class="sec-hdr reveal">
-    <span class="stag" style="color:var(--pink)">07</span>
+    <span class="stag" style="color:var(--pink)">06</span>
     <h2 class="stitle">Scaling CoDesign &amp; Labs <em>globally</em></h2>
     <span class="sbadge sb-labs">● FY27 Roadmap</span>
   </div>
@@ -1326,11 +1338,13 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
     </div>
   </div>
 </div>
-
-<!-- ─── NEXT YEAR ─── -->
+    </div>
+  </section>
+  <section class="slide" data-slide="fy27" data-index="9" aria-hidden="true">
+    <div class="slide-scroll">
 <div class="next-section">
   <div class="sec-hdr reveal">
-    <span class="stag">08</span>
+    <span class="stag">07</span>
     <h2 class="stitle">FY27 — what's <em>next</em></h2>
   </div>
   <div class="next-grid reveal-stagger">
@@ -1361,11 +1375,13 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
     </div>
   </div>
 </div>
-
-<!-- ─── Q&A / IMPROVEMENT WALL ─── -->
+    </div>
+  </section>
+  <section class="slide" data-slide="qa" data-index="10" aria-hidden="true">
+    <div class="slide-scroll">
 <div class="qa-section">
   <div class="sec-hdr reveal">
-    <span class="stag" style="color:var(--orange);">09</span>
+    <span class="stag" style="color:var(--orange);">08</span>
     <h2 class="stitle">Your turn — <em>Q&A and improvements</em></h2>
     <span class="sbadge sb-win">📌 Live wall</span>
   </div>
@@ -1419,24 +1435,15 @@ footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-b
     </div>
   </div>
 </div>
+    </div>
+  </section>
+  </div>
+</div>
 
-<!-- ─── FOOTER ─── -->
-<footer>
-  <div class="fb-foot">CoDesign & <span>Sodexo Labs</span></div>
-  <div class="fn-foot">FY26 Leadership Brief · 15 min · Then feedback &amp; Q&amp;A · Full retrospective available</div>
-</footer>
+<div class="deck-progress" id="deck-progress">01 / 11</div>
+<div class="deck-hint">Click or → · F fullscreen</div>
 
 <script>
-/* ── INTERSECTION OBSERVER for reveal animations ── */
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('in');
-      io.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
 
 /* ── DONUT animation ── */
 const donutObs = new IntersectionObserver((entries) => {
@@ -1574,6 +1581,110 @@ postits.addEventListener('click', (e) => {
 function updateCount() {
   qaCount.textContent = postits.querySelectorAll('.postit').length;
 }
+
+
+/* ── DECK NAVIGATION ── */
+(function () {
+  const slides = Array.from(document.querySelectorAll(".slide"));
+  const navBtns = Array.from(document.querySelectorAll("[data-nav-item]"));
+  const progress = document.getElementById("deck-progress");
+  let index = 0;
+  let locked = false;
+
+  function isInteractive(t) {
+    return !!(t && t.closest && t.closest("a, button, input, textarea, select, label, .qa-board, .postits, [data-deck-nav], .newsletters-back"));
+  }
+
+  function activateReveals(slide) {
+    slide.querySelectorAll(".reveal, .reveal-stagger, .fade-in, .ana-card, .fb-row, #portfolio-donut").forEach((el) => {
+      el.classList.add("in");
+      el.style.opacity = "1";
+      el.style.transform = "none";
+      el.style.animation = "none";
+    });
+    slide.querySelectorAll(".reveal-stagger > *").forEach((el) => {
+      el.style.opacity = "1";
+      el.style.transform = "none";
+    });
+  }
+
+  function goTo(n) {
+    if (locked) return;
+    const next = Math.max(0, Math.min(n, slides.length - 1));
+    if (next === index && slides[next].classList.contains("is-active")) {
+      activateReveals(slides[next]);
+      return;
+    }
+    locked = true;
+    slides[index].classList.remove("is-active");
+    slides[index].setAttribute("aria-hidden", "true");
+    index = next;
+    slides[index].classList.add("is-active");
+    slides[index].setAttribute("aria-hidden", "false");
+    activateReveals(slides[index]);
+    navBtns.forEach((btn) => {
+      const on = Number(btn.dataset.navItem) === index;
+      btn.setAttribute("aria-current", on ? "true" : "false");
+    });
+    if (progress) progress.textContent = String(index + 1).padStart(2, "0") + " / " + String(slides.length).padStart(2, "0");
+    const sc = slides[index].querySelector(".slide-scroll");
+    if (sc) sc.scrollTop = 0;
+    setTimeout(() => { locked = false; }, 420);
+  }
+
+  const goNext = () => goTo(index + 1);
+  const goPrev = () => goTo(index - 1);
+
+  document.getElementById("stage-frame").addEventListener("click", (e) => {
+    if (isInteractive(e.target)) return;
+    goNext();
+  });
+
+  window.addEventListener("keydown", (e) => {
+    const tag = (e.target && e.target.tagName) || "";
+    if (["INPUT", "TEXTAREA", "SELECT"].includes(tag)) return;
+    if (["ArrowRight", "ArrowDown", "PageDown"].includes(e.key) || e.key === " ") {
+      e.preventDefault(); goNext();
+    } else if (["ArrowLeft", "ArrowUp", "PageUp"].includes(e.key)) {
+      e.preventDefault(); goPrev();
+    } else if (e.key === "Home") { e.preventDefault(); goTo(0); }
+    else if (e.key === "End") { e.preventDefault(); goTo(slides.length - 1); }
+    else if (e.key.toLowerCase() === "f") {
+      e.preventDefault();
+      if (document.fullscreenElement) document.exitFullscreen();
+      else document.documentElement.requestFullscreen().catch(() => {});
+    }
+  });
+
+  navBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      goTo(Number(btn.dataset.navItem));
+    });
+  });
+
+  // swipe
+  let sx = 0, sy = 0, dragging = false;
+  const stage = document.getElementById("stage-frame");
+  stage.addEventListener("pointerdown", (e) => {
+    if (isInteractive(e.target)) return;
+    dragging = true; sx = e.clientX; sy = e.clientY;
+  });
+  stage.addEventListener("pointerup", (e) => {
+    if (!dragging) return;
+    dragging = false;
+    const dx = e.clientX - sx, dy = e.clientY - sy;
+    if (Math.abs(dx) < 40 && Math.abs(dy) < 40) return;
+    if (Math.abs(dx) > Math.abs(dy)) {
+      if (dx < 0) goNext(); else goPrev();
+    } else {
+      if (dy < 0) goNext(); else goPrev();
+    }
+  });
+
+  goTo(0);
+})();
+
 </script>
 </body>
 </html>
