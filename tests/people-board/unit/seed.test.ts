@@ -5,7 +5,8 @@ import { PersonSeat } from "@/lib/people-board/schemas";
 describe("PEOPLE_SEATS seed", () => {
   it("validates every seat and has unique ids", () => {
     const parsed = PEOPLE_SEATS.map((seat) => PersonSeat.parse(seat));
-    expect(parsed).toHaveLength(27);
+    expect(parsed).toHaveLength(26);
+    expect(parsed.some((seat) => seat.id === "clara-nigen")).toBe(false);
     const ids = parsed.map((seat) => seat.id);
     expect(new Set(ids).size).toBe(ids.length);
   });

@@ -18,7 +18,6 @@ const TEAM_ORDER = [
   "B2B Platform",
   "MyApps (B2O Platform)",
   "FM squad APMEA",
-  "Marketing & Communication",
 ] as const;
 
 type TeamFilter = "Product design" | "Co-Design" | "All";
