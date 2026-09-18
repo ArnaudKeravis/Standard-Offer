@@ -27,6 +27,24 @@ const SIGNAL_DEFS: SignalDef[] = [
     lane: "pd-b2c",
     personIds: ["nikhil-soeze", "lead-pd-b2c"],
   },
+  {
+    id: "thomas-exit",
+    kind: "coverage-risk",
+    lane: "management",
+    personIds: ["thomas-didier"],
+  },
+  {
+    id: "data-vacancy",
+    kind: "coverage-risk",
+    lane: "pd-data",
+    personIds: ["vacancy-ai-products"],
+  },
+  {
+    id: "b2o-overlap",
+    kind: "arbitrate",
+    lane: "pd-b2o",
+    personIds: ["pedro-ciat", "lead-pd-b2o"],
+  },
 ];
 
 function byId(seats: PersonSeat[], id: string): PersonSeat | undefined {
@@ -75,6 +93,55 @@ export function signalFor(id: string, seats: PersonSeat[]): PeopleSignal {
     };
   }
 
+  if (def.id === "thomas-exit") {
+    const thomas = byId(seats, "thomas-didier");
+    const active = Boolean(thomas && thomas.endPeriod < 12);
+    return {
+      id: def.id,
+      kind: def.kind,
+      lane: def.lane,
+      personIds: def.personIds,
+      active,
+      headline: "Thomas Didier ends P11-Jul. No successor in Management.",
+      detail:
+        "The apprentice seat closes in July. P12-Aug has no Management cover behind Nicolas.",
+    };
+  }
+
+  if (def.id === "data-vacancy") {
+    const vacancy = byId(seats, "vacancy-ai-products");
+    const active = Boolean(vacancy && vacancy.displayName.toLowerCase().includes("vacancy"));
+    return {
+      id: def.id,
+      kind: def.kind,
+      lane: def.lane,
+      personIds: def.personIds,
+      active,
+      headline: "Data AI products seat is still a vacancy from P2-Oct.",
+      detail:
+        "Javier is on Data / Power BI. The New Products / AI seat is an open external from October.",
+    };
+  }
+
+  if (def.id === "b2o-overlap") {
+    const pedro = byId(seats, "pedro-ciat");
+    const lead = byId(seats, "lead-pd-b2o");
+    const overlap =
+      Boolean(pedro && lead) &&
+      pedro!.startPeriod <= lead!.endPeriod &&
+      lead!.startPeriod <= pedro!.endPeriod;
+    return {
+      id: def.id,
+      kind: def.kind,
+      lane: def.lane,
+      personIds: def.personIds,
+      active: overlap,
+      headline: "B2O Lead and Pedro both run from P4. Double cover to arbitrate.",
+      detail:
+        "The internal Lead PD B2O starts P4-Dec while Pedro stays through P11-Jul. That overlap is paid twice.",
+    };
+  }
+
   return {
     id: def.id,
     kind: def.kind,
@@ -88,6 +155,8 @@ export function signalFor(id: string, seats: PersonSeat[]): PeopleSignal {
   };
 }
 
-export const PEOPLE_SIGNALS: PeopleSignal[] = SIGNAL_DEFS.map((def) =>
-  signalFor(def.id, PEOPLE_SEATS),
-);
+export function peopleSignals(seats: PersonSeat[]): PeopleSignal[] {
+  return SIGNAL_DEFS.map((def) => signalFor(def.id, seats));
+}
+
+export const PEOPLE_SIGNALS: PeopleSignal[] = peopleSignals(PEOPLE_SEATS);

@@ -92,7 +92,7 @@ describe("PEOPLE_SEATS seed", () => {
     expect(byId["michael-watzke"]?.supplier).toBe("Malt");
     expect(byId["quentin-geiger"]?.supplier).toBe("Malt");
     expect(byId["guillaume-sauvanon"]?.supplier).toBe("Malt");
-    expect(byId["neha-b2c"]?.displayName).toBe("Neha Nogaro");
+    expect(byId["neha-b2c"]?.displayName).toBe("Neha");
     expect(byId["neha-b2c"]?.supplier).toBe("Nogaro");
     expect(byId["javier-mora"]?.supplier).toBe("Thiga");
     expect(byId["ismael-casado"]?.supplier).toBe("Thiga");

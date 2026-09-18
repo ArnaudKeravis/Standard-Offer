@@ -29,7 +29,7 @@ const HANDOFF_BY_ID: Record<string, string> = {
 
 const DISPLAY_NAME_BY_ID: Record<string, string> = {
   "nikhil-soeze": "Nikhil",
-  "neha-b2c": "Neha Nogaro",
+  "neha-b2c": "Neha",
   "pedro-ciat": "Pedro",
   "jessica-ciat": "Jessica",
 };

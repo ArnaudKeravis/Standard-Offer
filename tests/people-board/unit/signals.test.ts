@@ -42,11 +42,41 @@ describe("coverage and arbitration signals", () => {
     expect(signal.headline).toMatch(/India/i);
   });
 
-  it("registers the three signals in the catalogue", () => {
+  it("registers the six signals in the catalogue", () => {
     expect(PEOPLE_SIGNALS.map((row) => row.id)).toEqual([
       "design-system",
       "pd-b2b",
       "india-b2c-soeze",
+      "thomas-exit",
+      "data-vacancy",
+      "b2o-overlap",
     ]);
+  });
+
+  it("flags Thomas ending in July with no successor", () => {
+    const signal = signalFor("thomas-exit", PEOPLE_SEATS);
+    expect(signal.kind).toBe("coverage-risk");
+    expect(signal.active).toBe(true);
+    expect(signal.lane).toBe("management");
+    expect(signal.personIds).toEqual(["thomas-didier"]);
+    expect(signal.headline).toMatch(/Thomas/i);
+    expect(signal.headline).toMatch(/P11|July/i);
+  });
+
+  it("flags the Data AI vacancy from P2", () => {
+    const signal = signalFor("data-vacancy", PEOPLE_SEATS);
+    expect(signal.kind).toBe("coverage-risk");
+    expect(signal.active).toBe(true);
+    expect(signal.lane).toBe("pd-data");
+    expect(signal.personIds).toEqual(["vacancy-ai-products"]);
+    expect(signal.headline).toMatch(/AI/i);
+  });
+
+  it("flags Pedro and Lead PD B2O overlapping from P4", () => {
+    const signal = signalFor("b2o-overlap", PEOPLE_SEATS);
+    expect(signal.kind).toBe("arbitrate");
+    expect(signal.active).toBe(true);
+    expect(signal.personIds).toEqual(["pedro-ciat", "lead-pd-b2o"]);
+    expect(signal.headline).toMatch(/overlap|both|double/i);
   });
 });
