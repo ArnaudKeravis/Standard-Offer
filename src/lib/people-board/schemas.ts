@@ -41,6 +41,8 @@ export const PersonSeat = z.object({
   inBudget: z.boolean(),
   budgetGap: z.boolean(),
   chainId: z.string().nullable(),
+  handoffId: z.string().nullable(),
+  supplier: z.string().nullable(),
   decisionId: z.string().nullable(),
   notes: z.string().nullable(),
 });

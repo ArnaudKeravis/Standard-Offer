@@ -83,4 +83,42 @@ describe("PEOPLE_SEATS seed", () => {
     expect(neha?.endPeriod).toBe(11);
     expect(neha?.annualCostFromStart).toBe(107550);
   });
+
+  it("puts supplier on named externals and strips firm prefixes from names", () => {
+    const byId = Object.fromEntries(PEOPLE_SEATS.map((row) => [row.id, row]));
+    expect(byId["nikhil-soeze"]?.displayName).toBe("Nikhil");
+    expect(byId["nikhil-soeze"]?.supplier).toBe("Thoughtworks");
+    expect(byId["laura-geley"]?.supplier).toBe("Malt");
+    expect(byId["michael-watzke"]?.supplier).toBe("Malt");
+    expect(byId["quentin-geiger"]?.supplier).toBe("Malt");
+    expect(byId["guillaume-sauvanon"]?.supplier).toBe("Malt");
+    expect(byId["neha-b2c"]?.displayName).toBe("Neha Nogaro");
+    expect(byId["neha-b2c"]?.supplier).toBe("Nogaro");
+    expect(byId["javier-mora"]?.supplier).toBe("Thiga");
+    expect(byId["ismael-casado"]?.supplier).toBe("Thiga");
+    expect(byId["pedro-ciat"]?.displayName).toBe("Pedro");
+    expect(byId["pedro-ciat"]?.supplier).toBe("CI&T");
+    expect(byId["jessica-ciat"]?.displayName).toBe("Jessica");
+    expect(byId["jessica-ciat"]?.supplier).toBe("CI&T");
+    expect(byId["aron"]?.supplier).toBe("CI&T");
+    expect(byId["nicolas-duval"]?.supplier).toBeNull();
+  });
+
+  it("wires lead intern/extern pairs and keeps Jessica off the B2O lead chain", () => {
+    const byId = Object.fromEntries(PEOPLE_SEATS.map((row) => [row.id, row]));
+    expect(byId["ismael-casado"]?.handoffId).toBe("lead-ds");
+    expect(byId["dsm-internal-pt"]?.handoffId).toBe("lead-ds");
+    expect(byId["michael-watzke"]?.handoffId).toBeNull();
+    expect(byId["aron"]?.handoffId).toBe("lead-b2c");
+    expect(byId["lead-pd-b2c"]?.handoffId).toBe("lead-b2c");
+    expect(byId["laura-geley"]?.handoffId).toBe("lead-b2b");
+    expect(byId["lead-pd-b2b"]?.handoffId).toBe("lead-b2b");
+    expect(byId["pedro-ciat"]?.handoffId).toBe("lead-b2o");
+    expect(byId["lead-pd-b2o"]?.handoffId).toBe("lead-b2o");
+    expect(byId["jessica-ciat"]?.handoffId).toBeNull();
+    expect(byId["jessica-ciat"]?.chainId).toBeNull();
+    expect(byId["dsm-internal-pt"]?.sortOrder).toBeLessThan(
+      byId["michael-watzke"]?.sortOrder ?? 99,
+    );
+  });
 });

@@ -1,6 +1,40 @@
-import type { PersonSeat } from "./schemas";
+import { PersonSeat, type PersonSeat as PersonSeatType } from "./schemas";
 
-export const PEOPLE_SEATS: PersonSeat[] = [
+type SeatDraft = Omit<PersonSeatType, "supplier" | "handoffId">;
+
+const SUPPLIER_BY_ID: Record<string, string> = {
+  "guillaume-sauvanon": "Malt",
+  "ismael-casado": "Thiga",
+  "michael-watzke": "Malt",
+  aron: "CI&T",
+  "quentin-geiger": "Malt",
+  "nikhil-soeze": "Thoughtworks",
+  "neha-b2c": "Nogaro",
+  "laura-geley": "Malt",
+  "pedro-ciat": "CI&T",
+  "jessica-ciat": "CI&T",
+  "javier-mora": "Thiga",
+};
+
+const HANDOFF_BY_ID: Record<string, string> = {
+  "ismael-casado": "lead-ds",
+  "dsm-internal-pt": "lead-ds",
+  aron: "lead-b2c",
+  "lead-pd-b2c": "lead-b2c",
+  "laura-geley": "lead-b2b",
+  "lead-pd-b2b": "lead-b2b",
+  "pedro-ciat": "lead-b2o",
+  "lead-pd-b2o": "lead-b2o",
+};
+
+const DISPLAY_NAME_BY_ID: Record<string, string> = {
+  "nikhil-soeze": "Nikhil",
+  "neha-b2c": "Neha Nogaro",
+  "pedro-ciat": "Pedro",
+  "jessica-ciat": "Jessica",
+};
+
+const RAW_SEATS: SeatDraft[] = [
   {
     id: "nicolas-duval",
     lane: "management",
@@ -812,3 +846,19 @@ export const PEOPLE_SEATS: PersonSeat[] = [
     notes: "Requested, not validated, not in budget.",
   },
 ];
+
+export const PEOPLE_SEATS: PersonSeat[] = RAW_SEATS.map((seat) =>
+  PersonSeat.parse({
+    ...seat,
+    displayName: DISPLAY_NAME_BY_ID[seat.id] ?? seat.displayName,
+    supplier: SUPPLIER_BY_ID[seat.id] ?? null,
+    handoffId: HANDOFF_BY_ID[seat.id] ?? null,
+    chainId: seat.id === "jessica-ciat" ? null : seat.chainId,
+    sortOrder:
+      seat.id === "dsm-internal-pt"
+        ? 2
+        : seat.id === "michael-watzke"
+          ? 3
+          : seat.sortOrder,
+  }),
+);
