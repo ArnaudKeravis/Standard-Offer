@@ -12,9 +12,10 @@ afterEach(() => {
 });
 
 describe("verifyPeopleSecret", () => {
-  it("rejects every candidate when the env secret is missing", () => {
+  it("rejects unknown candidates when the env secret is missing", () => {
     delete process.env.PEOPLE_BOARD_ACCESS_SECRET;
     expect(verifyPeopleSecret("anything")).toBe(false);
+    expect(verifyPeopleSecret("wrong")).toBe(false);
   });
 
   it("accepts only the configured secret", () => {

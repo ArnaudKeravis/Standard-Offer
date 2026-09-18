@@ -5,7 +5,6 @@ import { redirect } from "next/navigation";
 import {
   PEOPLE_ACCESS_COOKIE,
   expectedPeopleToken,
-  isPeopleGateConfigured,
   verifyPeopleSecret,
 } from "@/lib/people-board/auth";
 
@@ -21,18 +20,11 @@ export async function unlockPeopleAction(
   const secret = String(formData.get("secret") ?? "");
   const next = safeNext(String(formData.get("next") ?? "/people"));
 
-  if (!isPeopleGateConfigured()) {
-    return { error: "Access is not configured on this environment." };
-  }
-
   if (!verifyPeopleSecret(secret)) {
     return { error: "Incorrect access code." };
   }
 
   const token = expectedPeopleToken();
-  if (!token) {
-    return { error: "Access is not configured on this environment." };
-  }
 
   const jar = await cookies();
   jar.set(PEOPLE_ACCESS_COOKIE, token, {

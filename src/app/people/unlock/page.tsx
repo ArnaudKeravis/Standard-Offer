@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { hasPeopleAccess } from "@/lib/people-board/access";
-import { isPeopleGateConfigured } from "@/lib/people-board/auth";
 import { PeopleUnlockForm } from "@/components/people-board/unlock-form";
 
 export const metadata = {
@@ -17,7 +16,6 @@ export default async function PeopleUnlockPage({
     next && next.startsWith("/people") && !next.startsWith("/people/unlock")
       ? next
       : "/people";
-  const configured = isPeopleGateConfigured();
   const unlocked = await hasPeopleAccess();
 
   return (
@@ -35,20 +33,17 @@ export default async function PeopleUnlockPage({
         People coverage
       </h1>
       <p className="mt-4 text-base leading-relaxed text-[color:color-mix(in_oklab,var(--spark-ink),transparent_32%)]">
-        {configured
-          ? "Shared access for you, your n-1 and finance PMO. Costs stay behind this gate."
-          : "Access is not configured on this environment. Set PEOPLE_BOARD_ACCESS_SECRET before opening the board."}
+        Shared access for you, your n-1 and finance PMO. Costs stay behind this
+        gate.
       </p>
-      {configured && !unlocked ? (
+      {unlocked ? (
+        <p className="mt-8 rounded-2xl border border-[var(--spark-line)] bg-white p-4 text-sm text-[var(--spark-ink)]">
+          Already unlocked on this device.
+        </p>
+      ) : (
         <div className="mt-8">
           <PeopleUnlockForm next={nextPath} />
         </div>
-      ) : (
-        <p className="mt-8 rounded-2xl border border-[var(--spark-line)] bg-white p-4 text-sm text-[var(--spark-ink)]">
-          {unlocked
-            ? "Already unlocked on this device."
-            : "The board cannot open until the access secret is set."}
-        </p>
       )}
       {unlocked ? (
         <p className="mt-6">

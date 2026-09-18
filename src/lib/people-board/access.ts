@@ -3,13 +3,10 @@ import { timingSafeEqual } from "node:crypto";
 import {
   PEOPLE_ACCESS_COOKIE,
   expectedPeopleToken,
-  isPeopleGateConfigured,
 } from "./auth";
 
 export async function hasPeopleAccess(): Promise<boolean> {
-  if (!isPeopleGateConfigured()) return false;
   const expected = expectedPeopleToken();
-  if (!expected) return false;
   const jar = await cookies();
   const token = jar.get(PEOPLE_ACCESS_COOKIE)?.value;
   if (!token) return false;
