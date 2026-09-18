@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
+import { LANE_META, LANE_ORDER } from "@/lib/people-board/lanes";
 import { formatEuro, STATUS_LABEL } from "@/lib/people-board/labels";
 import {
   currentFyPeriod,
@@ -10,17 +11,14 @@ import {
   ganttSpan,
   periodLabel,
 } from "@/lib/people-board/periods";
-import type { PeopleSignal, PersonSeat, ValidationStatus } from "@/lib/people-board/schemas";
+import type {
+  LaneId,
+  PeopleSignal,
+  PersonSeat,
+  ValidationStatus,
+} from "@/lib/people-board/schemas";
 
-const TEAM_ORDER = [
-  "Product design",
-  "Co-Design",
-  "B2B Platform",
-  "MyApps (B2O Platform)",
-  "FM squad APMEA",
-] as const;
-
-type TeamFilter = "Product design" | "Co-Design" | "All";
+type AreaFilter = "product" | "codesign" | "all";
 
 const STATUS_BAR: Record<ValidationStatus, string> = {
   pr0: "bg-[var(--spark-os)]",
@@ -36,14 +34,8 @@ const STATUS_DOT: Record<ValidationStatus, string> = {
   external: "bg-[var(--spark-iq)]",
 };
 
-function chainLabel(id: string, seats: PersonSeat[]): string {
-  if (id === "design-system") {
-    const names = ["guillaume-sauvanon", "ismael-casado", "dsm-internal-pt"]
-      .map((seatId) => seats.find((seat) => seat.id === seatId)?.displayName)
-      .filter(Boolean);
-    return names.join(" → ");
-  }
-  return "India B2C / SoEze decision";
+function isInterim(seat: PersonSeat): boolean {
+  return /interim/i.test(seat.role);
 }
 
 export function PeopleBoard({
@@ -53,7 +45,7 @@ export function PeopleBoard({
   seats: PersonSeat[];
   signals: PeopleSignal[];
 }) {
-  const [team, setTeam] = useState<TeamFilter>("Product design");
+  const [area, setArea] = useState<AreaFilter>("product");
   const [selectedId, setSelectedId] = useState<string | null>(
     "dsm-internal-pt",
   );
@@ -61,29 +53,28 @@ export function PeopleBoard({
 
   const visible = useMemo(() => {
     const filtered =
-      team === "All"
+      area === "all"
         ? seats
-        : seats.filter((seat) => seat.team === team);
+        : seats.filter((seat) => LANE_META[seat.lane].area === area);
     return [...filtered].sort((a, b) => {
-      const teamDelta =
-        TEAM_ORDER.indexOf(a.team as (typeof TEAM_ORDER)[number]) -
-        TEAM_ORDER.indexOf(b.team as (typeof TEAM_ORDER)[number]);
-      if (teamDelta !== 0) return teamDelta;
-      if (a.startPeriod !== b.startPeriod) return a.startPeriod - b.startPeriod;
-      return a.displayName.localeCompare(b.displayName);
+      const laneDelta =
+        LANE_ORDER.indexOf(a.lane) - LANE_ORDER.indexOf(b.lane);
+      if (laneDelta !== 0) return laneDelta;
+      return a.sortOrder - b.sortOrder;
     });
-  }, [seats, team]);
+  }, [seats, area]);
 
   const groups = useMemo(() => {
-    const map = new Map<string, PersonSeat[]>();
+    const map = new Map<LaneId, PersonSeat[]>();
     for (const seat of visible) {
-      const list = map.get(seat.team) ?? [];
+      const list = map.get(seat.lane) ?? [];
       list.push(seat);
-      map.set(seat.team, list);
+      map.set(seat.lane, list);
     }
-    return TEAM_ORDER.filter((name) => map.has(name)).map((name) => ({
-      team: name,
-      seats: map.get(name) ?? [],
+    return LANE_ORDER.filter((lane) => map.has(lane)).map((lane) => ({
+      lane,
+      meta: LANE_META[lane],
+      seats: map.get(lane) ?? [],
     }));
   }, [visible]);
 
@@ -99,6 +90,14 @@ export function PeopleBoard({
     .reduce((sum, seat) => sum + seat.annualCostFromStart, 0);
   const pr2Count = visible.filter((seat) => seat.status === "pr2").length;
 
+  function selectSignal(signal: PeopleSignal) {
+    const lane = seats.find((seat) => seat.id === signal.personIds[0])?.lane;
+    if (lane && area !== "all") {
+      setArea(LANE_META[lane].area);
+    }
+    setSelectedId(signal.personIds[signal.personIds.length - 1]);
+  }
+
   return (
     <main className="min-h-[100dvh]">
       <header className="border-b border-[var(--spark-line)] bg-[var(--spark-ink-deep)] text-white">
@@ -113,32 +112,18 @@ export function PeopleBoard({
             FY27 people coverage
           </h1>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[color:color-mix(in_oklab,white,transparent_28%)] md:text-base">
-            Who is in, who is validated to recruit, who still needs a yes, and
-            where cover breaks if a Pr2 seat stays open.
+            Lanes, handoffs, and where cover breaks if a Pr2 seat stays open.
           </p>
         </div>
       </header>
 
       <div className="mx-auto max-w-[1400px] px-4 py-6 md:px-8 md:py-8">
-        <ul className="grid gap-3 lg:grid-cols-2">
+        <ul className="grid gap-3 lg:grid-cols-3">
           {signals.map((signal) => (
             <li key={signal.id}>
               <button
                 type="button"
-                onClick={() => {
-                  const relatedTeams = new Set(
-                    seats
-                      .filter((seat) => signal.personIds.includes(seat.id))
-                      .map((seat) => seat.team),
-                  );
-                  if (
-                    team !== "All" &&
-                    (relatedTeams.size > 1 || !relatedTeams.has(team))
-                  ) {
-                    setTeam("All");
-                  }
-                  setSelectedId(signal.personIds[signal.personIds.length - 1]);
-                }}
+                onClick={() => selectSignal(signal)}
                 className={cn(
                   "w-full rounded-2xl border p-4 text-left outline-none focus-visible:ring-2 focus-visible:ring-[var(--spark-amber)] focus-visible:ring-offset-2",
                   signal.kind === "coverage-risk" && signal.active
@@ -147,7 +132,9 @@ export function PeopleBoard({
                 )}
               >
                 <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-[color:color-mix(in_oklab,var(--spark-ink),transparent_40%)]">
-                  {signal.kind === "coverage-risk" ? "Coverage risk" : "Align / arbitrate"}
+                  {signal.kind === "coverage-risk"
+                    ? "Coverage risk"
+                    : "Align / arbitrate"}
                 </p>
                 <p className="mt-2 font-[var(--font-display)] text-lg tracking-[-0.02em] text-[var(--spark-ink)]">
                   {signal.headline}
@@ -161,28 +148,38 @@ export function PeopleBoard({
         </ul>
 
         <div className="mt-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div className="flex flex-wrap gap-2" role="tablist" aria-label="Team filter">
-            {(["Product design", "Co-Design", "All"] as const).map((value) => (
+          <div
+            className="flex flex-wrap gap-2"
+            role="tablist"
+            aria-label="Area filter"
+          >
+            {(
+              [
+                ["product", "Product design"],
+                ["codesign", "Co-Design"],
+                ["all", "All"],
+              ] as const
+            ).map(([value, label]) => (
               <button
                 key={value}
                 type="button"
                 role="tab"
-                aria-selected={team === value}
-                onClick={() => setTeam(value)}
+                aria-selected={area === value}
+                onClick={() => setArea(value)}
                 className={cn(
                   "rounded-full px-4 py-2 text-sm font-semibold outline-none focus-visible:ring-2 focus-visible:ring-[var(--spark-amber)]",
-                  team === value
+                  area === value
                     ? "bg-[var(--spark-ink)] text-white"
                     : "border border-[var(--spark-line)] bg-white text-[var(--spark-ink)]",
                 )}
               >
-                {value}
+                {label}
               </button>
             ))}
           </div>
           <p className="text-sm text-[color:color-mix(in_oklab,var(--spark-ink),transparent_30%)]">
-            {visible.length} seats · {pr2Count} Pr2 · {formatEuro(inBudgetCost)} in
-            budget from start
+            {visible.length} seats · {pr2Count} Pr2 · {formatEuro(inBudgetCost)}{" "}
+            in budget from start
           </p>
         </div>
 
@@ -196,6 +193,12 @@ export function PeopleBoard({
               {STATUS_LABEL[status]}
             </li>
           ))}
+          <li className="inline-flex items-center gap-2">
+            <span className="rounded-sm border border-[var(--spark-ink)] px-1 text-[10px] font-semibold tracking-wide">
+              INTERNAL
+            </span>
+            Internal hire
+          </li>
         </ul>
 
         <div className="mt-6 overflow-x-auto rounded-2xl border border-[var(--spark-line)] bg-white">
@@ -216,7 +219,9 @@ export function PeopleBoard({
                     )}
                   >
                     P{period.id}
-                    <span className="mt-0.5 block font-medium">{period.month}</span>
+                    <span className="mt-0.5 block font-medium">
+                      {period.month}
+                    </span>
                   </p>
                 ))}
                 <div
@@ -228,17 +233,28 @@ export function PeopleBoard({
             </div>
 
             {groups.map((group) => (
-              <section key={group.team} className="border-t border-[var(--spark-line)]">
-                <h2 className="bg-[color:color-mix(in_oklab,var(--spark-paper),white_40%)] px-4 py-2 text-xs font-semibold tracking-[0.14em] uppercase text-[color:color-mix(in_oklab,var(--spark-ink),transparent_35%)]">
-                  {group.team}
-                </h2>
+              <section
+                key={group.lane}
+                className="border-t border-[var(--spark-line)]"
+              >
+                <div className="bg-[color:color-mix(in_oklab,var(--spark-paper),white_40%)] px-4 py-3">
+                  <h2 className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--spark-ink)]">
+                    {group.meta.label}
+                  </h2>
+                  {group.meta.succession ? (
+                    <p className="mt-1 text-sm font-medium leading-snug text-[var(--spark-ink)]">
+                      {group.meta.succession}
+                    </p>
+                  ) : null}
+                </div>
                 <ul>
                   {group.seats.map((seat) => {
                     const span = ganttSpan(seat);
                     const isSelected = selectedId === seat.id;
                     const inFocus =
                       isSelected ||
-                      (selected?.chainId && selected.chainId === seat.chainId) ||
+                      (selected?.chainId &&
+                        selected.chainId === seat.chainId) ||
                       (selected?.decisionId &&
                         selected.decisionId === seat.decisionId);
                     const left = ((span.start - 1) / 12) * 100;
@@ -251,17 +267,31 @@ export function PeopleBoard({
                           aria-pressed={isSelected}
                           className={cn(
                             "grid w-full grid-cols-[220px_1fr] border-t border-[var(--spark-line)] text-left outline-none hover:bg-[color:color-mix(in_oklab,var(--spark-paper),white_20%)] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--spark-amber)] md:grid-cols-[280px_1fr]",
-                            inFocus ? "bg-[var(--spark-amber-soft)]" : "bg-white",
+                            inFocus
+                              ? "bg-[var(--spark-amber-soft)]"
+                              : "bg-white",
                           )}
                         >
                           <span className="px-4 py-3">
-                            <span className="block text-sm font-semibold text-[var(--spark-ink)]">
-                              {seat.displayName}
+                            <span className="flex flex-wrap items-center gap-1.5">
+                              <span className="text-sm font-semibold text-[var(--spark-ink)]">
+                                {seat.displayName}
+                              </span>
+                              {seat.kind === "internal" ? (
+                                <span className="rounded-sm border border-[var(--spark-ink)] px-1 py-px text-[9px] font-semibold tracking-[0.12em]">
+                                  INTERNAL
+                                </span>
+                              ) : null}
+                              {isInterim(seat) ? (
+                                <span className="rounded-sm bg-[var(--spark-ink)] px-1 py-px text-[9px] font-semibold tracking-[0.12em] text-white">
+                                  INTERIM
+                                </span>
+                              ) : null}
                             </span>
                             <span className="mt-1 block text-xs text-[color:color-mix(in_oklab,var(--spark-ink),transparent_35%)]">
                               {seat.role} · {seat.location}
                             </span>
-                            <span className="mt-1 inline-flex items-center gap-1.5 text-[11px] font-medium">
+                            <span className="mt-1 inline-flex flex-wrap items-center gap-1.5 text-[11px] font-medium">
                               <span
                                 aria-hidden
                                 className={cn(
@@ -270,6 +300,11 @@ export function PeopleBoard({
                                 )}
                               />
                               {STATUS_LABEL[seat.status]}
+                              {seat.budgetGap ? (
+                                <span className="text-[#c23b4a]">
+                                  No budget
+                                </span>
+                              ) : null}
                             </span>
                           </span>
                           <span className="relative min-h-[4.5rem] px-1 py-3">
@@ -287,16 +322,18 @@ export function PeopleBoard({
                             {span.visible ? (
                               <span
                                 className={cn(
-                                  "absolute top-1/2 h-7 -translate-y-1/2 rounded-md",
+                                  "absolute top-1/2 flex h-7 -translate-y-1/2 items-center rounded-md px-2 text-[10px] font-semibold text-white",
                                   STATUS_BAR[seat.status],
-                                  seat.kind === "internal" && seat.status === "pr2"
-                                    ? "opacity-80 [background-image:repeating-linear-gradient(135deg,transparent,transparent_6px,rgba(255,255,255,0.28)_6px,rgba(255,255,255,0.28)_8px)]"
-                                    : "",
+                                  (seat.status === "pr2" || seat.budgetGap) &&
+                                    "opacity-90 [background-image:repeating-linear-gradient(135deg,transparent,transparent_6px,rgba(255,255,255,0.28)_6px,rgba(255,255,255,0.28)_8px)]",
                                 )}
                                 style={{ left: `${left}%`, width: `${width}%` }}
                               >
-                                <span className="sr-only">
-                                  {periodLabel(span.start)} to {periodLabel(span.end)}
+                                <span className="truncate">
+                                  {periodLabel(span.start)}
+                                  {span.end !== span.start
+                                    ? ` to ${periodLabel(span.end)}`
+                                    : ""}
                                 </span>
                               </span>
                             ) : (
@@ -321,11 +358,20 @@ export function PeopleBoard({
             aria-live="polite"
           >
             <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-[color:color-mix(in_oklab,var(--spark-ink),transparent_40%)]">
-              {selected.kind === "internal" ? "Internal" : "External"} ·{" "}
-              {selected.funding}
+              {LANE_META[selected.lane].label} · {selected.funding}
             </p>
-            <h2 className="mt-2 font-[var(--font-display)] text-2xl tracking-[-0.03em]">
+            <h2 className="mt-2 flex flex-wrap items-center gap-2 font-[var(--font-display)] text-2xl tracking-[-0.03em]">
               {selected.displayName}
+              {selected.kind === "internal" ? (
+                <span className="rounded-sm border border-[var(--spark-ink)] px-1.5 py-0.5 text-[10px] font-semibold tracking-[0.14em]">
+                  INTERNAL
+                </span>
+              ) : null}
+              {isInterim(selected) ? (
+                <span className="rounded-sm bg-[var(--spark-ink)] px-1.5 py-0.5 text-[10px] font-semibold tracking-[0.14em] text-white">
+                  INTERIM
+                </span>
+              ) : null}
             </h2>
             <p className="mt-1 text-sm text-[color:color-mix(in_oklab,var(--spark-ink),transparent_28%)]">
               {selected.role} · {selected.location} · {selected.costCenter}
@@ -337,6 +383,7 @@ export function PeopleBoard({
                 </dt>
                 <dd className="mt-1 text-sm font-semibold">
                   {STATUS_LABEL[selected.status]}
+                  {selected.budgetGap ? " · no budget" : ""}
                 </dd>
               </div>
               <div>
@@ -344,9 +391,9 @@ export function PeopleBoard({
                   Cover
                 </dt>
                 <dd className="mt-1 text-sm font-semibold">
-                  {selected.inBudget
-                    ? `${periodLabel(selected.startPeriod)} → ${periodLabel(selected.endPeriod)}`
-                    : "Not in budget"}
+                  {selected.startPeriod === 13
+                    ? "Not in budget"
+                    : `${periodLabel(selected.startPeriod)} to ${periodLabel(selected.endPeriod)}`}
                 </dd>
               </div>
               <div>
@@ -373,7 +420,12 @@ export function PeopleBoard({
             ) : null}
             {selectedChain.length > 1 ? (
               <p className="mt-4 text-sm font-medium text-[var(--spark-ink)]">
-                Linked seats: {chainLabel(selected.chainId ?? selected.decisionId ?? "", seats)}
+                Handoff:{" "}
+                {selectedChain
+                  .slice()
+                  .sort((a, b) => a.sortOrder - b.sortOrder)
+                  .map((seat) => seat.displayName)
+                  .join(" → ")}
               </p>
             ) : null}
             {selected.dailyRate ? (

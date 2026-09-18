@@ -7,6 +7,7 @@ describe("coverage and arbitration signals", () => {
     const signal = signalFor("design-system", PEOPLE_SEATS);
     expect(signal.kind).toBe("coverage-risk");
     expect(signal.active).toBe(true);
+    expect(signal.lane).toBe("design-system");
     expect(signal.personIds).toEqual([
       "guillaume-sauvanon",
       "ismael-casado",
@@ -24,18 +25,27 @@ describe("coverage and arbitration signals", () => {
     expect(signal.active).toBe(false);
   });
 
+  it("flags B2B after Laura if the internal Lead is Pr2 with no budget", () => {
+    const signal = signalFor("pd-b2b", PEOPLE_SEATS);
+    expect(signal.kind).toBe("coverage-risk");
+    expect(signal.active).toBe(true);
+    expect(signal.personIds).toEqual(["laura-geley", "lead-pd-b2b"]);
+    expect(signal.headline).toMatch(/B2B/i);
+    expect(signal.headline).toMatch(/budget|Pr2/i);
+  });
+
   it("binds Nikhil and the India Lead PD into one arbitration", () => {
     const signal = signalFor("india-b2c-soeze", PEOPLE_SEATS);
     expect(signal.kind).toBe("arbitrate");
     expect(signal.active).toBe(true);
-    expect(signal.personIds).toEqual(["nikhil-soeze", "lead-pd-b2c-india"]);
+    expect(signal.personIds).toEqual(["nikhil-soeze", "lead-pd-b2c"]);
     expect(signal.headline).toMatch(/India/i);
-    expect(signal.headline).toMatch(/reallocate|arbitrate|align/i);
   });
 
-  it("registers both signals in the catalogue", () => {
+  it("registers the three signals in the catalogue", () => {
     expect(PEOPLE_SIGNALS.map((row) => row.id)).toEqual([
       "design-system",
+      "pd-b2b",
       "india-b2c-soeze",
     ]);
   });

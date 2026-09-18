@@ -56,8 +56,12 @@ export function ganttSpan(seat: {
   startPeriod: number;
   endPeriod: number;
   inBudget: boolean;
+  budgetGap?: boolean;
 }): { start: number; end: number; visible: boolean } {
-  if (!seat.inBudget || seat.startPeriod === 13 || seat.endPeriod === 13) {
+  if (seat.startPeriod === 13 || seat.endPeriod === 13) {
+    return { start: seat.startPeriod, end: seat.endPeriod, visible: false };
+  }
+  if (!seat.inBudget && !seat.budgetGap) {
     return { start: seat.startPeriod, end: seat.endPeriod, visible: false };
   }
   return { start: seat.startPeriod, end: seat.endPeriod, visible: true };

@@ -4,9 +4,20 @@ export const PersonKind = z.enum(["internal", "external"]);
 export const ValidationStatus = z.enum(["pr0", "pr1", "pr2", "external"]);
 export const Funding = z.enum(["BOOST", "ACC", "BAU"]);
 export const SignalKind = z.enum(["coverage-risk", "arbitrate"]);
+export const LaneId = z.enum([
+  "management",
+  "design-system",
+  "pd-b2c",
+  "pd-b2b",
+  "pd-b2o",
+  "pd-data",
+  "codesign",
+]);
 
 export const PersonSeat = z.object({
   id: z.string().min(1),
+  lane: LaneId,
+  sortOrder: z.number().int().nonnegative(),
   team: z.string().min(1),
   costCenter: z.string().min(1),
   role: z.string().min(1),
@@ -28,6 +39,7 @@ export const PersonSeat = z.object({
   vacancyId: z.string().nullable(),
   funding: Funding,
   inBudget: z.boolean(),
+  budgetGap: z.boolean(),
   chainId: z.string().nullable(),
   decisionId: z.string().nullable(),
   notes: z.string().nullable(),
@@ -38,10 +50,12 @@ export type PersonKind = z.infer<typeof PersonKind>;
 export type ValidationStatus = z.infer<typeof ValidationStatus>;
 export type Funding = z.infer<typeof Funding>;
 export type SignalKind = z.infer<typeof SignalKind>;
+export type LaneId = z.infer<typeof LaneId>;
 
 export const PeopleSignal = z.object({
   id: z.string().min(1),
   kind: SignalKind,
+  lane: LaneId,
   headline: z.string().min(1),
   detail: z.string().min(1),
   personIds: z.array(z.string().min(1)).min(1),

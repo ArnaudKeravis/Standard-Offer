@@ -69,4 +69,15 @@ describe("ganttSpan", () => {
       { start: 1, end: 1, visible: true },
     );
   });
+
+  it("still draws a FY bar when the seat is a budget-gap risk", () => {
+    expect(
+      ganttSpan({
+        startPeriod: 4,
+        endPeriod: 12,
+        inBudget: false,
+        budgetGap: true,
+      }),
+    ).toEqual({ start: 4, end: 12, visible: true });
+  });
 });
