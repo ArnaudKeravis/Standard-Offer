@@ -78,5 +78,9 @@ describe("PEOPLE_SEATS seed", () => {
     expect(neha?.lane).toBe("pd-b2c");
     expect(nikhil?.lane).toBe("pd-b2c");
     expect(neha?.kind).toBe("external");
+    expect(neha?.fte).toBe(1);
+    expect(neha?.dailyRate).toBe(450);
+    expect(neha?.endPeriod).toBe(11);
+    expect(neha?.annualCostFromStart).toBe(107550);
   });
 });
