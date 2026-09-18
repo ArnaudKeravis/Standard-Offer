@@ -13,6 +13,7 @@ export default defineConfig({
       "tests/persona-studio/**/*.test.ts",
       "tests/sodexo-labs/**/*.test.ts",
       "tests/newsletters/**/*.test.ts",
+      "tests/people-board/**/*.test.ts",
     ],
     globals: true,
   },
