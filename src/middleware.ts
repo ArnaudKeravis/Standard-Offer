@@ -18,6 +18,6 @@ export default function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next|thales|studio|labs|hub|newsletters|people|api|.*\\..*).*)",
+    "/((?!_next|thales|studio|labs|hub|newsletters|people|workshops|api|.*\\..*).*)",
   ],
 };

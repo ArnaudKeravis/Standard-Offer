@@ -1,0 +1,51 @@
+[data-ws-root] {
+  --ws-navy: #293896;
+  --ws-blue: #1968ff;
+  --ws-paper: #eef1f8;
+  --ws-ink: #141b3a;
+  --ws-muted: #5a6280;
+  --ws-line: color-mix(in srgb, var(--ws-navy) 14%, transparent);
+  --ws-accent: #1968ff;
+  --ws-discover: #915fc8;
+  --ws-define: #ef661a;
+  --ws-cocreate: #34a866;
+  --ws-test: #da558c;
+  --ws-dark: #10162c;
+}
+
+.ws-display {
+  font-family: var(--font-ws-sans), "Open Sans", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.ws-body {
+  font-family: var(--font-ws-sans), "Open Sans", system-ui, sans-serif;
+  letter-spacing: 0;
+  line-height: 1.45;
+}
+
+.ws-kicker {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-ws-root] *,
+  [data-ws-root] *::before,
+  [data-ws-root] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  [data-ws-root] .ws-hud-material {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}

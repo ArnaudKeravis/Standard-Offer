@@ -14,6 +14,7 @@ export default defineConfig({
       "tests/sodexo-labs/**/*.test.ts",
       "tests/newsletters/**/*.test.ts",
       "tests/people-board/**/*.test.ts",
+      "tests/workshops/**/*.test.ts",
     ],
     globals: true,
   },

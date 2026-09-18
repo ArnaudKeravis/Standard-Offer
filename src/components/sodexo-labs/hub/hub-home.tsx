@@ -19,6 +19,19 @@ type HubArtefact = {
 
 const ARTEFACTS: HubArtefact[] = [
   {
+    id: "tech-ambition",
+    label: "Tech Ambition workshop",
+    description:
+      "Live 16:9 room runner for Chantilly, 22 September: agenda, timers, Proud of, AI Clinics and One Hour Back.",
+    href: "/workshops/tech-ambition",
+    cta: "Open workshop",
+    image: {
+      src: "/labs/elements/space-collage.png",
+      alt: "CoDesign workshop space",
+    },
+    accent: "bg-[var(--spark-os)]",
+  },
+  {
     id: "labs",
     label: "Sodexo Labs",
     description:
