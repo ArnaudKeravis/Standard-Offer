@@ -45,6 +45,15 @@ const ARTEFACTS: HubArtefact[] = [
     accent: "bg-[var(--spark-iq)]",
   },
   {
+    id: "people",
+    label: "FY27 people coverage",
+    description:
+      "Design seats, start/end, Pr0-Pr2 validation, replacement chains and budget. Password-gated for PMO.",
+    href: "/people",
+    cta: "Open coverage board",
+    accent: "bg-[var(--spark-amber)]",
+  },
+  {
     id: "studio",
     label: "Persona Studio",
     description:
