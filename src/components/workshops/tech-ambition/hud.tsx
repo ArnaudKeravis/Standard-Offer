@@ -28,16 +28,16 @@ export function WorkshopHud({
           "border-white/12 bg-[color-mix(in_srgb,#10162c_58%,transparent)] text-white/80",
         strong: "text-white",
         muted: "text-white/55",
-        dot: "bg-white/30",
-        active: "bg-white",
+        pill: "text-white/70 hover:bg-white/10",
+        pillActive: "bg-white text-[var(--ws-ink)]",
       }
     : {
         shell:
           "border-[color-mix(in_srgb,var(--ws-navy)_12%,transparent)] bg-[color-mix(in_srgb,var(--ws-paper)_78%,white)] text-[var(--ws-muted)]",
         strong: "text-[var(--ws-ink)]",
         muted: "text-[var(--ws-muted)]",
-        dot: "bg-[color-mix(in_srgb,var(--ws-ink)_18%,transparent)]",
-        active: "bg-[var(--ws-accent)]",
+        pill: "text-[var(--ws-navy)] hover:bg-white",
+        pillActive: "bg-[var(--ws-ink)] text-white",
       };
 
   return (
@@ -46,7 +46,7 @@ export function WorkshopHud({
       data-ws-hud
     >
       <div
-        className={`ws-hud-material pointer-events-auto mx-auto flex max-w-[1440px] items-center justify-between gap-3 rounded-2xl border px-4 py-2.5 shadow-[0_8px_28px_rgba(16,22,44,0.08)] backdrop-blur-xl ${tone.shell}`}
+        className={`ws-hud-material pointer-events-auto mx-auto flex max-w-[1440px] items-center justify-between gap-3 rounded-2xl border px-4 py-2 shadow-[0_8px_28px_rgba(16,22,44,0.08)] backdrop-blur-xl ${tone.shell}`}
       >
         <p className="min-w-0 truncate text-sm">
           <span className={`font-semibold ${tone.strong}`}>Tech Ambition</span>
@@ -55,21 +55,21 @@ export function WorkshopHud({
           <span className={`ml-2 ${tone.muted}`}>{start}</span>
         </p>
 
-        <nav aria-label="Workshop blocks" className="hidden items-center gap-1.5 md:flex">
+        <nav
+          aria-label="Workshop blocks"
+          className="hidden flex-wrap items-center justify-end gap-1.5 lg:flex"
+        >
           {BLOCKS.map((block) => (
             <button
               key={block.id}
               type="button"
               onClick={() => onJumpBlock(block.id)}
-              title={block.label}
               aria-current={block.id === blockId ? "true" : undefined}
-              className={`h-2.5 rounded-full transition-all ${
-                block.id === blockId
-                  ? `w-6 ${tone.active}`
-                  : `w-2.5 ${tone.dot} hover:w-4`
+              className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-transform active:scale-95 ${
+                block.id === blockId ? tone.pillActive : tone.pill
               }`}
             >
-              <span className="sr-only">{block.label}</span>
+              {block.short}
             </button>
           ))}
         </nav>

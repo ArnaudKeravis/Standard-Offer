@@ -80,7 +80,7 @@ function DockButton({
       type="button"
       onClick={onClick}
       aria-label={label}
-      className={`flex size-10 items-center justify-center rounded-xl transition-transform active:scale-95 ${
+      className={`flex size-12 items-center justify-center rounded-xl transition-transform active:scale-95 ${
         dark
           ? "bg-white/10 text-white hover:bg-white/16"
           : "bg-[var(--ws-ink)] text-white hover:bg-[var(--ws-navy)]"

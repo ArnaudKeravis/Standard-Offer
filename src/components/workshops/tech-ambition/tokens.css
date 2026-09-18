@@ -43,6 +43,32 @@
   }
 }
 
+@keyframes ws-end-flash {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  18%,
+  38% {
+    opacity: 1;
+  }
+  58%,
+  78% {
+    opacity: 1;
+  }
+}
+
+.ws-end-flash {
+  animation: ws-end-flash 1.1s ease-out 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ws-end-flash {
+    animation: none;
+    opacity: 0.28;
+  }
+}
+
 @media (prefers-reduced-transparency: reduce) {
   [data-ws-root] .ws-hud-material {
     backdrop-filter: none !important;

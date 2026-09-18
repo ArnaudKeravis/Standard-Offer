@@ -3,6 +3,7 @@ import {
   createClock,
   displayedRemaining,
   formatClock,
+  isFreshClock,
   minutesToMs,
   pauseClock,
   resetClock,
@@ -37,6 +38,13 @@ describe("workshop clock", () => {
     expect(done.running).toBe(false);
     expect(done.remainingMs).toBe(0);
     expect(resetClock(done).remainingMs).toBe(5_000);
+  });
+
+  it("treats an unused clock as fresh", () => {
+    const fresh = createClock(10_000);
+    expect(isFreshClock(fresh)).toBe(true);
+    expect(isFreshClock(startClock(fresh, 0))).toBe(false);
+    expect(isFreshClock({ ...fresh, remainingMs: 9_000 })).toBe(false);
   });
 
   it("toggles start and pause", () => {

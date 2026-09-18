@@ -66,6 +66,14 @@ export function toggleClock(clock: Clock, now: number): Clock {
   return clock.running ? pauseClock(clock, now) : startClock(clock, now);
 }
 
+export function justFinished(previousMs: number, nextMs: number): boolean {
+  return previousMs > 0 && nextMs <= 0;
+}
+
+export function isFreshClock(clock: Clock): boolean {
+  return !clock.running && clock.remainingMs === clock.durationMs;
+}
+
 export function formatClock(ms: number): string {
   const total = Math.max(0, Math.ceil(ms / 1000));
   const minutes = Math.floor(total / 60);

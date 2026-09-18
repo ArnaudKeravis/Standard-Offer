@@ -26,15 +26,15 @@ export const HOURBACK_STEP_MS = {
 } as const satisfies Record<HourbackStep, number>;
 
 export const BLOCKS: WorkshopBlock[] = [
-  { id: "open", label: "Open", start: "13:00", durationMin: null, accent: "#1968FF" },
-  { id: "fy26", label: "CoDesign FY26", start: "13:00", durationMin: 20, accent: "#1968FF" },
-  { id: "ai", label: "AI 101", start: "13:20", durationMin: 15, accent: "#915FC8" },
-  { id: "proud", label: "Proud of", start: "13:35", durationMin: 30, accent: "#34A866" },
-  { id: "strategy", label: "Strategy", start: "14:05", durationMin: 30, accent: "#EF661A" },
-  { id: "break", label: "Break", start: "14:35", durationMin: 10, accent: "#5A6280" },
-  { id: "clinics", label: "AI Clinics", start: "14:45", durationMin: 35, accent: "#915FC8" },
-  { id: "hourback", label: "One Hour Back", start: "15:20", durationMin: 60, accent: "#34A866" },
-  { id: "close", label: "What walks out", start: "16:20", durationMin: 10, accent: "#DA558C" },
+  { id: "open", label: "Open", short: "Open", start: "13:00", durationMin: null, accent: "#1968FF" },
+  { id: "fy26", label: "CoDesign FY26", short: "FY26", start: "13:00", durationMin: 20, accent: "#1968FF" },
+  { id: "ai", label: "AI 101", short: "AI", start: "13:20", durationMin: 15, accent: "#915FC8" },
+  { id: "proud", label: "Proud of", short: "Proud", start: "13:35", durationMin: 30, accent: "#34A866" },
+  { id: "strategy", label: "Strategy", short: "Strategy", start: "14:05", durationMin: 30, accent: "#EF661A" },
+  { id: "break", label: "Break", short: "Break", start: "14:35", durationMin: 10, accent: "#5A6280" },
+  { id: "clinics", label: "AI Clinics", short: "Clinics", start: "14:45", durationMin: 35, accent: "#915FC8" },
+  { id: "hourback", label: "One Hour Back", short: "Build", start: "15:20", durationMin: 60, accent: "#34A866" },
+  { id: "close", label: "What walks out", short: "Close", start: "16:20", durationMin: 10, accent: "#DA558C" },
 ];
 
 export const SCREENS: WorkshopScreen[] = [

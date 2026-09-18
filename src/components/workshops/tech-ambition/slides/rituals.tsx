@@ -209,7 +209,7 @@ export function ClinicsRitualSlide({
                 key={item}
                 type="button"
                 onClick={() => onRound(item)}
-                className={`rounded-full px-4 py-2 text-sm font-semibold ${
+                className={`rounded-full px-5 py-3 text-sm font-semibold transition-transform active:scale-95 ${
                   round === item ? "bg-white text-[var(--ws-ink)]" : "bg-white/10 text-white"
                 }`}
               >
@@ -309,7 +309,7 @@ export function HourbackRitualSlide({
             key={item.step}
             type="button"
             onClick={() => onStep(item.step)}
-            className={`rounded-full px-4 py-2 text-sm font-semibold ${
+            className={`rounded-full px-5 py-3 text-sm font-semibold transition-transform active:scale-95 ${
               step === item.step ? "bg-white text-[var(--ws-ink)]" : "bg-white/10"
             }`}
           >
@@ -408,21 +408,21 @@ function ClockButtons({
   resetLabel?: string;
 }) {
   return (
-    <div className="mt-6 flex flex-wrap gap-3">
+    <div className="mt-8 flex flex-wrap gap-3">
       <button
         type="button"
         onClick={running ? onPause : onStart}
-        className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[var(--ws-ink)] transition-transform active:scale-95"
+        className="inline-flex min-h-14 items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-[var(--ws-ink)] transition-transform active:scale-95"
       >
-        {running ? <Pause className="size-4" /> : <Play className="size-4" />}
+        {running ? <Pause className="size-5" /> : <Play className="size-5" />}
         {running ? "Pause" : "Start"}
       </button>
       <button
         type="button"
         onClick={onReset}
-        className="inline-flex items-center gap-2 rounded-full bg-white/12 px-6 py-3 text-sm font-semibold text-white transition-transform active:scale-95"
+        className="inline-flex min-h-14 items-center gap-2 rounded-full bg-white/12 px-8 py-4 text-base font-semibold text-white transition-transform active:scale-95"
       >
-        <RotateCcw className="size-4" />
+        <RotateCcw className="size-5" />
         {resetLabel}
       </button>
     </div>

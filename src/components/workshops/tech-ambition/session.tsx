@@ -15,6 +15,7 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 
+import { HintStrip } from "@/components/workshops/tech-ambition/hint-strip";
 import { WorkshopHud } from "@/components/workshops/tech-ambition/hud";
 import { SlideFrame } from "@/components/workshops/tech-ambition/slide-frame";
 import { renderWorkshopSlide } from "@/components/workshops/tech-ambition/slides";
@@ -22,6 +23,8 @@ import { TimerDock } from "@/components/workshops/tech-ambition/timer-dock";
 import {
   createClock,
   displayedRemaining,
+  isFreshClock,
+  justFinished,
   minutesToMs,
   pauseClock,
   resetClock,
@@ -30,6 +33,13 @@ import {
   toggleClock,
   type Clock,
 } from "@/lib/workshops/tech-ambition/clock";
+import { playEndTone, unlockWorkshopAudio } from "@/lib/workshops/tech-ambition/end-tone";
+import {
+  freezeClock,
+  readSnapshot,
+  thawClock,
+  writeSnapshot,
+} from "@/lib/workshops/tech-ambition/persist";
 import {
   CLINIC_ROUND_MS,
   PROUD_SPEAKER_MS,
@@ -116,6 +126,15 @@ export function WorkshopSession() {
   const setHourClock = hourback.setClock;
   const [clinicRound, setClinicRound] = useState<ClinicRound>(1);
   const [hourStep, setHourStep] = useState<HourbackStep>(1);
+  const [ready, setReady] = useState(false);
+  const [hintDismissed, setHintDismissed] = useState(false);
+  const [ending, setEnding] = useState(false);
+  const remainingPrev = useRef({
+    proud: -1,
+    clinic: -1,
+    hourback: -1,
+    block: -1,
+  });
 
   const screen = SCREENS[index] ?? SCREENS[0];
   const block = blockById(screen.blockId);
@@ -127,6 +146,73 @@ export function WorkshopSession() {
   useEffect(() => {
     indexRef.current = index;
   }, [index]);
+
+  useEffect(() => {
+    const snap = readSnapshot();
+    const now = Date.now();
+    if (snap) {
+      setIndex(Math.min(snap.index, SCREENS.length - 1));
+      setClinicRound(snap.clinicRound);
+      setHourStep(snap.hourStep);
+      setHintDismissed(snap.hintDismissed);
+      setProudClock(thawClock(snap.proud, now));
+      setClinicClock(thawClock(snap.clinic, now));
+      setHourClock(thawClock(snap.hourback, now));
+      const restored: Partial<Record<BlockId, Clock>> = {};
+      for (const [id, clock] of Object.entries(snap.blocks)) {
+        if (clock) restored[id as BlockId] = thawClock(clock, now);
+      }
+      setBlockClocks(restored);
+    }
+    setReady(true);
+  }, [setClinicClock, setHourClock, setProudClock]);
+
+  useEffect(() => {
+    if (!ready) return;
+    writeSnapshot({
+      version: 1,
+      index,
+      clinicRound,
+      hourStep,
+      hintDismissed,
+      proud: freezeClock(proud.clock),
+      clinic: freezeClock(clinic.clock),
+      hourback: freezeClock(hourback.clock),
+      blocks: Object.fromEntries(
+        Object.entries(blockClocks).flatMap(([id, clock]) =>
+          clock ? [[id, freezeClock(clock)]] : [],
+        ),
+      ) as Partial<Record<BlockId, Clock>>,
+    });
+  }, [
+    blockClocks,
+    clinic.clock,
+    clinicRound,
+    hintDismissed,
+    hourStep,
+    hourback.clock,
+    index,
+    proud.clock,
+    ready,
+  ]);
+
+  useEffect(() => {
+    if (!ready) return;
+    const t = Date.now();
+    if (screen.kind === "proud-ritual") {
+      setProudClock((clock) => (isFreshClock(clock) ? startClock(clock, t) : clock));
+    } else if (screen.kind === "clinics-ritual") {
+      setClinicClock((clock) => (isFreshClock(clock) ? startClock(clock, t) : clock));
+    } else if (screen.kind === "hourback-ritual") {
+      setHourClock((clock) => (isFreshClock(clock) ? startClock(clock, t) : clock));
+    } else if (screen.kind === "break") {
+      setBlockClocks((current) => {
+        const existing = current.break ?? createClock(minutesToMs(10));
+        if (!isFreshClock(existing)) return current;
+        return { ...current, break: startClock(existing, t) };
+      });
+    }
+  }, [ready, screen.kind, setClinicClock, setHourClock, setProudClock]);
 
   useEffect(() => {
     const id = window.setInterval(() => {
@@ -170,6 +256,7 @@ export function WorkshopSession() {
       bumpEdge(-1);
       return;
     }
+    setHintDismissed(true);
     setDirection(1);
     setIndex(current + 1);
   }, [bumpEdge, slideCount]);
@@ -185,6 +272,7 @@ export function WorkshopSession() {
   }, [bumpEdge]);
 
   const goTo = useCallback((next: number) => {
+    setHintDismissed(true);
     setIndex((current) => {
       const clamped = Math.max(0, Math.min(next, slideCount - 1));
       setDirection(clamped >= current ? 1 : -1);
@@ -262,6 +350,7 @@ export function WorkshopSession() {
         case "t":
         case "T":
           event.preventDefault();
+          unlockWorkshopAudio();
           toggleActive();
           break;
         case "r":
@@ -297,6 +386,7 @@ export function WorkshopSession() {
 
   function onPointerDown(event: ReactPointerEvent<HTMLDivElement>) {
     if (event.button !== 0) return;
+    unlockWorkshopAudio();
     if (isInteractiveTarget(event.target)) return;
     pointerIdRef.current = event.pointerId;
     startXRef.current = event.clientX;
@@ -371,12 +461,12 @@ export function WorkshopSession() {
 
   const changeClinicRound = (round: ClinicRound) => {
     setClinicRound(round);
-    setClinicClock(createClock(clinicDuration(round)));
+    setClinicClock(startClock(createClock(clinicDuration(round)), Date.now()));
   };
 
   const changeHourStep = (step: HourbackStep) => {
     setHourStep(step);
-    setHourClock(createClock(hourbackDuration(step)));
+    setHourClock(startClock(createClock(hourbackDuration(step)), Date.now()));
   };
 
   const showDock = Boolean(screen.timed && !RITUAL_KINDS.has(screen.kind) && blockClock);
@@ -386,15 +476,44 @@ export function WorkshopSession() {
     ? displayedRemaining(blockClock, blockNow)
     : 0;
 
+  useEffect(() => {
+    if (!ready) return;
+    const next = {
+      proud: proud.remainingMs,
+      clinic: clinic.remainingMs,
+      hourback: hourback.remainingMs,
+      block: blockRemaining,
+    };
+    const prev = remainingPrev.current;
+    const crossed =
+      (prev.proud >= 0 && justFinished(prev.proud, next.proud)) ||
+      (prev.clinic >= 0 && justFinished(prev.clinic, next.clinic)) ||
+      (prev.hourback >= 0 && justFinished(prev.hourback, next.hourback)) ||
+      (prev.block >= 0 && justFinished(prev.block, next.block));
+    remainingPrev.current = next;
+    if (!crossed) return;
+    playEndTone();
+    setEnding(true);
+    const id = window.setTimeout(() => setEnding(false), 1100);
+    return () => window.clearTimeout(id);
+  }, [blockRemaining, clinic.remainingMs, hourback.remainingMs, proud.remainingMs, ready]);
+
   const clockApi = (pack: ReturnType<typeof useTickingClock>) => ({
     clock: pack.clock,
     now: pack.now,
     remainingMs: pack.remainingMs,
     running: pack.running,
-    onStart: () => pack.setClock((c) => startClock(c, Date.now())),
+    onStart: () => {
+      unlockWorkshopAudio();
+      pack.setClock((c) => startClock(c, Date.now()));
+    },
     onPause: () => pack.setClock((c) => pauseClock(c, Date.now())),
     onReset: () => pack.setClock((c) => resetClock(c)),
   });
+
+  if (!ready) {
+    return <div className="ws-body h-svh w-screen bg-[var(--ws-dark)]" />;
+  }
 
   return (
     <div
@@ -438,6 +557,19 @@ export function WorkshopSession() {
         dark={dark}
         onJumpBlock={jumpBlock}
       />
+
+      {!hintDismissed && index === 0 ? (
+        <div className="pointer-events-none absolute inset-x-0 top-[7.8vh] z-20 px-[3vw]">
+          <HintStrip dark={dark} onDismiss={() => setHintDismissed(true)} />
+        </div>
+      ) : null}
+
+      {ending ? (
+        <div
+          aria-hidden
+          className="ws-end-flash pointer-events-none absolute inset-0 z-40 bg-[#e24b4b]/40"
+        />
+      ) : null}
 
       {showDock && blockClock ? (
         <div className="pointer-events-none absolute bottom-[3.2vh] right-[3vw] z-20">

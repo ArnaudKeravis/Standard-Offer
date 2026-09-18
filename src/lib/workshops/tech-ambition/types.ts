@@ -38,6 +38,7 @@ export type HourbackStep = 1 | 2 | 3;
 export type WorkshopBlock = {
   id: BlockId;
   label: string;
+  short: string;
   start: string;
   durationMin: number | null;
   accent: string;
