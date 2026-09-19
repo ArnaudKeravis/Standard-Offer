@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { PeopleDetail } from "@/components/people-board/people-detail";
+import { PeopleRecs } from "@/components/people-board/people-recs";
 import { PeopleTable } from "@/components/people-board/people-table";
 import {
   COLLAPSED_LANES_KEY,
@@ -39,10 +40,13 @@ import {
 } from "@/lib/people-board/query";
 import type {
   LaneId,
-  PeopleSignal,
   PersonSeat,
   ValidationStatus,
 } from "@/lib/people-board/schemas";
+import {
+  recommendations,
+  type Recommendation,
+} from "@/lib/people-board/recommend";
 import { applyScenarios, type ScenarioId } from "@/lib/people-board/scenarios";
 import { peopleSignals } from "@/lib/people-board/signals";
 import { cn } from "@/lib/utils";
@@ -234,6 +238,7 @@ export function PeopleBoard({
     [seats, scenarios],
   );
   const signals = useMemo(() => peopleSignals(derived), [derived]);
+  const recs = useMemo(() => recommendations(derived), [derived]);
   const handoffs = useMemo(() => leadHandoffs(derived), [derived]);
   const holes = useMemo(() => coverageHoles(derived), [derived]);
 
@@ -308,7 +313,7 @@ export function PeopleBoard({
     }, 50);
   }
 
-  function selectSignal(signal: PeopleSignal) {
+  function selectSignal(signal: Recommendation) {
     const seatId = signal.personIds[signal.personIds.length - 1];
     focusLane(signal.lane, seatId);
   }
@@ -346,54 +351,26 @@ export function PeopleBoard({
   return (
     <main className="min-h-[100dvh]">
       <header className="border-b border-[var(--spark-line)] bg-[var(--spark-ink-deep)] text-white">
-        <div className="mx-auto max-w-[1600px] px-4 py-8 md:px-8">
+        <div className="mx-auto max-w-[1600px] px-4 py-5 md:px-8">
           <Link
             href="/"
-            className="mb-6 inline-flex text-xs font-semibold tracking-[0.18em] text-[color:color-mix(in_oklab,white,transparent_35%)] hover:text-white"
+            className="mb-3 inline-flex text-xs font-semibold tracking-[0.18em] text-[color:color-mix(in_oklab,white,transparent_35%)] hover:text-white"
           >
             ← Hub
           </Link>
-          <h1 className="font-[var(--font-display)] text-3xl tracking-[-0.03em] md:text-4xl">
+          <h1 className="font-[var(--font-display)] text-2xl tracking-[-0.03em] md:text-3xl">
             FY27 people coverage
           </h1>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[color:color-mix(in_oklab,white,transparent_28%)] md:text-base">
-            Lanes, handoffs, money, and where cover breaks if a Pr2 seat stays
-            open.
-          </p>
         </div>
       </header>
 
       <div className="mx-auto max-w-[1600px] px-4 py-6 md:px-8 md:py-8 lg:grid lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start lg:gap-6">
         <div>
-          <ul className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-            {signals.map((signal) => (
-              <li key={signal.id}>
-                <button
-                  type="button"
-                  onClick={() => selectSignal(signal)}
-                  className={cn(
-                    "w-full rounded-2xl border p-4 text-left outline-none focus-visible:ring-2 focus-visible:ring-[var(--spark-amber)] focus-visible:ring-offset-2",
-                    signal.kind === "coverage-risk" && signal.active
-                      ? "border-[#c23b4a]/40 bg-[#c23b4a]/8"
-                      : "border-[var(--spark-line)] bg-white",
-                    !signal.active && "opacity-60",
-                  )}
-                >
-                  <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-[color:color-mix(in_oklab,var(--spark-ink),transparent_40%)]">
-                    {signal.kind === "coverage-risk"
-                      ? "Coverage risk"
-                      : "Align / arbitrate"}
-                  </p>
-                  <p className="mt-2 font-[var(--font-display)] text-lg tracking-[-0.02em] text-[var(--spark-ink)]">
-                    {signal.headline}
-                  </p>
-                  <p className="mt-2 text-sm leading-relaxed text-[color:color-mix(in_oklab,var(--spark-ink),transparent_30%)]">
-                    {signal.detail}
-                  </p>
-                </button>
-              </li>
-            ))}
-          </ul>
+          <PeopleRecs
+            recs={recs}
+            selectedId={selectedId}
+            onSelect={selectSignal}
+          />
 
           <div className="mt-6 flex flex-wrap gap-2">
             <button
