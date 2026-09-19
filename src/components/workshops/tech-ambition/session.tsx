@@ -22,16 +22,20 @@ import { SlideFrame } from "@/components/workshops/tech-ambition/slide-frame";
 import { renderWorkshopSlide } from "@/components/workshops/tech-ambition/slides";
 import { TimeFlash } from "@/components/workshops/tech-ambition/time-flash";
 import { TimerDock } from "@/components/workshops/tech-ambition/timer-dock";
+import { resolveActiveTimer } from "@/lib/workshops/tech-ambition/active-timer";
 import {
   createClock,
   displayedRemaining,
   isFreshClock,
+  jumpClock,
+  justCrossedMark,
   justFinished,
   minutesToMs,
   pauseClock,
   resetClock,
   startClock,
   syncClock,
+  timerTone,
   toggleClock,
   type Clock,
 } from "@/lib/workshops/tech-ambition/clock";
@@ -141,7 +145,7 @@ export function WorkshopSession() {
 
   const screen = SCREENS[index] ?? SCREENS[0];
   const block = blockById(screen.blockId);
-  const showHeaderTimer = screen.blockId === "fy26" && Boolean(screen.durationSec);
+  const fy26Header = screen.blockId === "fy26" && Boolean(screen.durationSec);
   const headerTimer = useTimer({
     durationSec: screen.durationSec ?? 20 * 60,
     resetKey: screen.id,
@@ -328,7 +332,7 @@ export function WorkshopSession() {
   const resetHeaderTimer = headerTimer.reset;
 
   const toggleActive = useCallback(() => {
-    if (showHeaderTimer) {
+    if (fy26Header) {
       toggleHeaderTimer();
       return;
     }
@@ -343,12 +347,12 @@ export function WorkshopSession() {
     setClinicClock,
     setHourClock,
     setProudClock,
-    showHeaderTimer,
+    fy26Header,
     toggleHeaderTimer,
   ]);
 
   const resetActive = useCallback(() => {
-    if (showHeaderTimer) {
+    if (fy26Header) {
       resetHeaderTimer();
       return;
     }
@@ -363,8 +367,31 @@ export function WorkshopSession() {
     setClinicClock,
     setHourClock,
     setProudClock,
-    showHeaderTimer,
+    fy26Header,
   ]);
+
+  const jumpActive = useCallback(
+    (deltaSec: number) => {
+      if (fy26Header) {
+        headerTimer.jump(deltaSec);
+        return;
+      }
+      const t = Date.now();
+      if (activeRitual === "proud") setProudClock((c) => jumpClock(c, deltaSec, t));
+      else if (activeRitual === "clinic") setClinicClock((c) => jumpClock(c, deltaSec, t));
+      else if (activeRitual === "hourback") setHourClock((c) => jumpClock(c, deltaSec, t));
+      else if (activeRitual === "block") patchBlock((c) => jumpClock(c, deltaSec, t));
+    },
+    [
+      activeRitual,
+      fy26Header,
+      headerTimer,
+      patchBlock,
+      setClinicClock,
+      setHourClock,
+      setProudClock,
+    ],
+  );
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -396,6 +423,16 @@ export function WorkshopSession() {
           event.preventDefault();
           resetActive();
           break;
+        case "+":
+        case "=":
+          event.preventDefault();
+          jumpActive(60);
+          break;
+        case "-":
+        case "_":
+          event.preventDefault();
+          jumpActive(-60);
+          break;
         case "f":
         case "F":
           event.preventDefault();
@@ -420,7 +457,7 @@ export function WorkshopSession() {
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [goNext, goPrev, goTo, resetActive, slideCount, toggleActive]);
+  }, [goNext, goPrev, goTo, jumpActive, resetActive, slideCount, toggleActive]);
 
   function onPointerDown(event: ReactPointerEvent<HTMLDivElement>) {
     if (event.button !== 0) return;
@@ -507,17 +544,63 @@ export function WorkshopSession() {
     setHourClock(startClock(createClock(hourbackDuration(step)), Date.now()));
   };
 
+  const dark = screen.tone === "dark";
+  const progress = ((index + 1) / slideCount) * 100;
+  const blockRemaining = blockClock
+    ? displayedRemaining(blockClock, blockNow)
+    : 0;
+  const roomTimer = resolveActiveTimer({
+    kind: screen.kind,
+    timed: screen.timed,
+    proud: {
+      remainingMs: proud.remainingMs,
+      durationMs: proud.clock.durationMs,
+      running: proud.running,
+    },
+    clinic: {
+      remainingMs: clinic.remainingMs,
+      durationMs: clinic.clock.durationMs,
+      running: clinic.running,
+    },
+    hourback: {
+      remainingMs: hourback.remainingMs,
+      durationMs: hourback.clock.durationMs,
+      running: hourback.running,
+    },
+    block: blockClock
+      ? {
+          remainingMs: blockRemaining,
+          durationMs: blockClock.durationMs,
+          running: Boolean(blockClock.running && blockRemaining > 0),
+        }
+      : null,
+  });
+  const headerView = fy26Header
+    ? {
+        remainingMs: headerTimer.remainingMs,
+        durationSec: headerTimer.durationSec,
+        running: headerTimer.running,
+        tone: headerTimer.tone,
+      }
+    : roomTimer
+      ? {
+          remainingMs: roomTimer.remainingMs,
+          durationSec: Math.round(roomTimer.durationMs / 1000),
+          running: roomTimer.running,
+          tone: timerTone(
+            Math.max(0, Math.ceil(roomTimer.remainingMs / 1000)),
+            Math.round(roomTimer.durationMs / 1000),
+            roomTimer.running,
+          ),
+        }
+      : null;
+  const showHeaderTimer = Boolean(headerView);
   const showDock = Boolean(
     screen.timed &&
       !RITUAL_KINDS.has(screen.kind) &&
       blockClock &&
       !showHeaderTimer,
   );
-  const dark = screen.tone === "dark";
-  const progress = ((index + 1) / slideCount) * 100;
-  const blockRemaining = blockClock
-    ? displayedRemaining(blockClock, blockNow)
-    : 0;
 
   useEffect(() => {
     if (!ready) return;
@@ -533,11 +616,27 @@ export function WorkshopSession() {
       (prev.clinic >= 0 && justFinished(prev.clinic, next.clinic)) ||
       (prev.hourback >= 0 && justFinished(prev.hourback, next.hourback)) ||
       (prev.block >= 0 && justFinished(prev.block, next.block));
+    const swapped =
+      roomTimer?.swapAtSec &&
+      prev.hourback >= 0 &&
+      justCrossedMark(prev.hourback, next.hourback, roomTimer.swapAtSec);
     remainingPrev.current = next;
+    if (swapped) {
+      playEndTone();
+      setFlash("SWAP");
+      return;
+    }
     if (!crossed) return;
     playEndTone();
     setFlash("TIME");
-  }, [blockRemaining, clinic.remainingMs, hourback.remainingMs, proud.remainingMs, ready]);
+  }, [
+    blockRemaining,
+    clinic.remainingMs,
+    hourback.remainingMs,
+    proud.remainingMs,
+    ready,
+    roomTimer?.swapAtSec,
+  ]);
 
   useEffect(() => {
     if (!flash) return;
@@ -606,28 +705,28 @@ export function WorkshopSession() {
         onJumpBlock={jumpBlock}
       />
 
-      {showHeaderTimer ? (
+      {headerView ? (
         <div className="pointer-events-none absolute right-[3vw] top-[2.2vh] z-20">
           <HeaderClock
-            remainingMs={headerTimer.remainingMs}
-            durationSec={headerTimer.durationSec}
-            running={headerTimer.running}
-            tone={headerTimer.tone}
+            remainingMs={headerView.remainingMs}
+            durationSec={headerView.durationSec}
+            running={headerView.running}
+            tone={headerView.tone}
             dark={dark}
             onToggle={() => {
               unlockWorkshopAudio();
-              headerTimer.toggle();
+              toggleActive();
             }}
           />
         </div>
       ) : null}
 
-      {showHeaderTimer ? (
+      {headerView ? (
         <div className="absolute inset-x-0 top-[calc(2.2vh+7.45rem)] z-30">
           <TimerRail
-            remainingMs={headerTimer.remainingMs}
-            durationSec={headerTimer.durationSec}
-            tone={headerTimer.tone}
+            remainingMs={headerView.remainingMs}
+            durationSec={headerView.durationSec}
+            tone={headerView.tone}
           />
         </div>
       ) : null}

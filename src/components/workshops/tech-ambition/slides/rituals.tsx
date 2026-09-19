@@ -4,7 +4,7 @@ import { Pause, Play, RotateCcw } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { StaggerIn, staggerItem } from "@/components/workshops/tech-ambition/slide-frame";
-import { formatClock, type Clock } from "@/lib/workshops/tech-ambition/clock";
+import type { Clock } from "@/lib/workshops/tech-ambition/clock";
 import {
   CLINIC_ROUND_COPY,
   CLINIC_TABLES,
@@ -195,7 +195,6 @@ export function ClinicsRitualSlide({
         <div className="flex flex-col">
           <p className="ws-kicker text-white/50">AI Clinics</p>
           <h1 className="ws-display mt-3 text-[clamp(2.2rem,4vw,3.4rem)]">{copy.title}</h1>
-          <GiantClock remainingMs={remainingMs} />
           <ClockButtons
             running={running}
             onStart={onStart}
@@ -320,7 +319,6 @@ export function HourbackRitualSlide({
       <div className="relative z-10 mt-8 flex flex-1 flex-col">
         <p className="ws-kicker text-white/50">{current.who}</p>
         <h1 className="ws-display mt-3 text-[clamp(2.4rem,5vw,4rem)]">{current.title}</h1>
-        <GiantClock remainingMs={remainingMs} />
         <ClockButtons
           running={running}
           onStart={onStart}
@@ -367,7 +365,6 @@ function RitualStage({
       <div className="relative z-10">
         <p className="ws-kicker text-white/50">{kicker}</p>
         <h1 className="ws-display mt-3 text-[clamp(2.4rem,5vw,4.2rem)]">{title}</h1>
-        <GiantClock remainingMs={remainingMs} />
         <ClockButtons
           running={running}
           onStart={onStart}
@@ -378,19 +375,6 @@ function RitualStage({
         <p className="mt-8 max-w-3xl text-[1.25rem] text-white/68">{note}</p>
       </div>
     </div>
-  );
-}
-
-function GiantClock({ remainingMs }: { remainingMs: number }) {
-  const urgent = remainingMs > 0 && remainingMs <= 30_000;
-  return (
-    <p
-      className={`ws-display mt-8 text-[clamp(6rem,16vw,12rem)] leading-none tabular-nums ${
-        urgent ? "text-[#ff6b6b]" : ""
-      }`}
-    >
-      {formatClock(remainingMs)}
-    </p>
   );
 }
 
