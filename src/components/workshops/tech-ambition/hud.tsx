@@ -10,6 +10,7 @@ type WorkshopHudProps = {
   index: number;
   total: number;
   dark: boolean;
+  reserveClock?: boolean;
   onJumpBlock: (blockId: BlockId) => void;
 };
 
@@ -20,6 +21,7 @@ export function WorkshopHud({
   index,
   total,
   dark,
+  reserveClock = false,
   onJumpBlock,
 }: WorkshopHudProps) {
   const tone = dark
@@ -42,7 +44,9 @@ export function WorkshopHud({
 
   return (
     <header
-      className="pointer-events-none absolute inset-x-0 top-0 z-20 px-[3vw] pt-[2.2vh]"
+      className={`pointer-events-none absolute inset-x-0 top-0 z-20 px-[3vw] pt-[2.2vh] ${
+        reserveClock ? "pr-[min(22rem,34vw)]" : ""
+      }`}
       data-ws-hud
     >
       <div
