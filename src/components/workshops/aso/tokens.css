@@ -1,0 +1,112 @@
+[data-aso-root] {
+  --aso-jaune: #ffe500;
+  --aso-jaune-deep: #f2c200;
+  --aso-noir: #0e0e0e;
+  --aso-papier: #f4f1ea;
+  --aso-blanc: #ffffff;
+  --aso-hair: #d9d4c8;
+  --aso-pois: #e2231a;
+  --aso-vert: #00a651;
+  --aso-bleu: #123c7a;
+  --aso-gris: #7c776c;
+  --aso-ink: #0e0e0e;
+  --aso-muted: #7c776c;
+}
+
+.aso-display {
+  font-family: var(--font-aso-display), "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.aso-body {
+  font-family: var(--font-aso-sans), Inter, system-ui, sans-serif;
+  letter-spacing: 0;
+  line-height: 1.4;
+}
+
+.aso-quote {
+  font-family: var(--font-aso-serif), "Source Serif 4", Georgia, serif;
+  font-style: italic;
+}
+
+.aso-kicker {
+  font-family: var(--font-aso-sans), Inter, system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.aso-timer {
+  font-family: var(--font-aso-display), "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.aso-stripes {
+  background-color: var(--aso-noir);
+  background-image: repeating-linear-gradient(
+    -18deg,
+    #ffe500 0 18px,
+    #0e0e0e 18px 36px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-aso-root] *,
+  [data-aso-root] *::before,
+  [data-aso-root] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes aso-timer-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.aso-timer-pulse {
+  animation: aso-timer-pulse 1.05s ease-in-out infinite;
+}
+
+@keyframes aso-time-flash {
+  0% {
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.aso-time-flash {
+  animation: aso-time-flash 1.6s ease-out 1;
+}
+
+@keyframes aso-col-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+.aso-col-pulse {
+  animation: aso-col-pulse 1.4s ease-in-out infinite;
+  transform-origin: center;
+}

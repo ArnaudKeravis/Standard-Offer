@@ -19,6 +19,19 @@ type HubArtefact = {
 
 const ARTEFACTS: HubArtefact[] = [
   {
+    id: "aso",
+    label: "ASO · Tour de France workshop",
+    description:
+      "Live 16:9 room runner for the Labs, 13–14 October: stage profile, co-creation phases, timers and table rules.",
+    href: "/workshops/aso",
+    cta: "Open workshop",
+    image: {
+      src: "/labs/elements/space-collage.png",
+      alt: "Sodexo Labs workshop space",
+    },
+    accent: "bg-[var(--spark-amber)]",
+  },
+  {
     id: "tech-ambition",
     label: "Tech Ambition workshop",
     description:
