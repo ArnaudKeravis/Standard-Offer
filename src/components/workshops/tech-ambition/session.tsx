@@ -15,12 +15,10 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 
-import { HeaderClock, TimerRail } from "@/components/workshops/tech-ambition/header-clock";
 import { HintStrip } from "@/components/workshops/tech-ambition/hint-strip";
 import { WorkshopHud } from "@/components/workshops/tech-ambition/hud";
 import { SlideFrame } from "@/components/workshops/tech-ambition/slide-frame";
 import { renderWorkshopSlide } from "@/components/workshops/tech-ambition/slides";
-import { TimeFlash } from "@/components/workshops/tech-ambition/time-flash";
 import { TimerDock } from "@/components/workshops/tech-ambition/timer-dock";
 import {
   createClock,
@@ -50,7 +48,6 @@ import {
   clinicDuration,
   hourbackDuration,
 } from "@/lib/workshops/tech-ambition/run-of-show";
-import { useTimer } from "@/lib/workshops/tech-ambition/use-timer";
 import {
   labsSpringChrome,
   labsSpringMomentum,
@@ -131,7 +128,7 @@ export function WorkshopSession() {
   const [hourStep, setHourStep] = useState<HourbackStep>(1);
   const [ready, setReady] = useState(false);
   const [hintDismissed, setHintDismissed] = useState(false);
-  const [flash, setFlash] = useState<"TIME" | "SWAP" | null>(null);
+  const [ending, setEnding] = useState(false);
   const remainingPrev = useRef({
     proud: -1,
     clinic: -1,
@@ -141,14 +138,6 @@ export function WorkshopSession() {
 
   const screen = SCREENS[index] ?? SCREENS[0];
   const block = blockById(screen.blockId);
-  const showHeaderTimer = screen.blockId === "fy26" && Boolean(screen.durationSec);
-  const headerTimer = useTimer({
-    durationSec: screen.durationSec ?? 20 * 60,
-    resetKey: screen.id,
-    swapAtSec: screen.swapAtSec,
-    onZero: () => setFlash("TIME"),
-    onMark: () => setFlash("SWAP"),
-  });
   const blockClock =
     block.durationMin != null
       ? (blockClocks[block.id] ?? createClock(minutesToMs(block.durationMin)))
@@ -324,47 +313,20 @@ export function WorkshopSession() {
     }
   }, [screen.kind, screen.timed]);
 
-  const toggleHeaderTimer = headerTimer.toggle;
-  const resetHeaderTimer = headerTimer.reset;
-
   const toggleActive = useCallback(() => {
-    if (showHeaderTimer) {
-      toggleHeaderTimer();
-      return;
-    }
     const t = Date.now();
     if (activeRitual === "proud") setProudClock((c) => toggleClock(c, t));
     else if (activeRitual === "clinic") setClinicClock((c) => toggleClock(c, t));
     else if (activeRitual === "hourback") setHourClock((c) => toggleClock(c, t));
     else if (activeRitual === "block") patchBlock((c) => toggleClock(c, t));
-  }, [
-    activeRitual,
-    patchBlock,
-    setClinicClock,
-    setHourClock,
-    setProudClock,
-    showHeaderTimer,
-    toggleHeaderTimer,
-  ]);
+  }, [activeRitual, patchBlock, setClinicClock, setHourClock, setProudClock]);
 
   const resetActive = useCallback(() => {
-    if (showHeaderTimer) {
-      resetHeaderTimer();
-      return;
-    }
     if (activeRitual === "proud") setProudClock((c) => resetClock(c));
     else if (activeRitual === "clinic") setClinicClock((c) => resetClock(c));
     else if (activeRitual === "hourback") setHourClock((c) => resetClock(c));
     else if (activeRitual === "block") patchBlock((c) => resetClock(c));
-  }, [
-    activeRitual,
-    patchBlock,
-    resetHeaderTimer,
-    setClinicClock,
-    setHourClock,
-    setProudClock,
-    showHeaderTimer,
-  ]);
+  }, [activeRitual, patchBlock, setClinicClock, setHourClock, setProudClock]);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -507,12 +469,7 @@ export function WorkshopSession() {
     setHourClock(startClock(createClock(hourbackDuration(step)), Date.now()));
   };
 
-  const showDock = Boolean(
-    screen.timed &&
-      !RITUAL_KINDS.has(screen.kind) &&
-      blockClock &&
-      !showHeaderTimer,
-  );
+  const showDock = Boolean(screen.timed && !RITUAL_KINDS.has(screen.kind) && blockClock);
   const dark = screen.tone === "dark";
   const progress = ((index + 1) / slideCount) * 100;
   const blockRemaining = blockClock
@@ -536,14 +493,10 @@ export function WorkshopSession() {
     remainingPrev.current = next;
     if (!crossed) return;
     playEndTone();
-    setFlash("TIME");
-  }, [blockRemaining, clinic.remainingMs, hourback.remainingMs, proud.remainingMs, ready]);
-
-  useEffect(() => {
-    if (!flash) return;
-    const id = window.setTimeout(() => setFlash(null), 1600);
+    setEnding(true);
+    const id = window.setTimeout(() => setEnding(false), 1100);
     return () => window.clearTimeout(id);
-  }, [flash]);
+  }, [blockRemaining, clinic.remainingMs, hourback.remainingMs, proud.remainingMs, ready]);
 
   const clockApi = (pack: ReturnType<typeof useTickingClock>) => ({
     clock: pack.clock,
@@ -602,35 +555,8 @@ export function WorkshopSession() {
         index={index}
         total={slideCount}
         dark={dark}
-        reserveClock={showHeaderTimer}
         onJumpBlock={jumpBlock}
       />
-
-      {showHeaderTimer ? (
-        <div className="pointer-events-none absolute right-[3vw] top-[2.2vh] z-20">
-          <HeaderClock
-            remainingMs={headerTimer.remainingMs}
-            durationSec={headerTimer.durationSec}
-            running={headerTimer.running}
-            tone={headerTimer.tone}
-            dark={dark}
-            onToggle={() => {
-              unlockWorkshopAudio();
-              headerTimer.toggle();
-            }}
-          />
-        </div>
-      ) : null}
-
-      {showHeaderTimer ? (
-        <div className="absolute inset-x-0 top-[calc(2.2vh+7.45rem)] z-30">
-          <TimerRail
-            remainingMs={headerTimer.remainingMs}
-            durationSec={headerTimer.durationSec}
-            tone={headerTimer.tone}
-          />
-        </div>
-      ) : null}
 
       {!hintDismissed && index === 0 ? (
         <div className="pointer-events-none absolute inset-x-0 top-[7.8vh] z-20 px-[3vw]">
@@ -638,7 +564,12 @@ export function WorkshopSession() {
         </div>
       ) : null}
 
-      <TimeFlash word={flash} />
+      {ending ? (
+        <div
+          aria-hidden
+          className="ws-end-flash pointer-events-none absolute inset-0 z-40 bg-[#e24b4b]/40"
+        />
+      ) : null}
 
       {showDock && blockClock ? (
         <div className="pointer-events-none absolute bottom-[3.2vh] right-[3vw] z-20">

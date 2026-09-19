@@ -51,6 +51,4 @@ export type WorkshopScreen = {
   label: string;
   tone: ScreenTone;
   timed?: boolean;
-  durationSec?: number;
-  swapAtSec?: number;
 };

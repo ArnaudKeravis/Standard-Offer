@@ -33,13 +33,6 @@
   text-transform: uppercase;
 }
 
-.ws-timer {
-  font-family: var(--font-ws-mono), ui-monospace, "IBM Plex Mono", monospace;
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum" 1;
-  letter-spacing: -0.04em;
-}
-
 @media (prefers-reduced-motion: reduce) {
   [data-ws-root] *,
   [data-ws-root] *::before,
@@ -67,36 +60,6 @@
 
 .ws-end-flash {
   animation: ws-end-flash 1.1s ease-out 1;
-}
-
-@keyframes ws-timer-pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.42;
-  }
-}
-
-.ws-timer-pulse {
-  animation: ws-timer-pulse 1.05s ease-in-out infinite;
-}
-
-@keyframes ws-time-flash {
-  0% {
-    opacity: 0;
-  }
-  8% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.ws-time-flash {
-  animation: ws-time-flash 1.6s ease-out 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
