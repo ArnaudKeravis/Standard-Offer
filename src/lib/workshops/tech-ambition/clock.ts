@@ -80,3 +80,43 @@ export function formatClock(ms: number): string {
   const seconds = total % 60;
   return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 }
+
+export type TimerTone = "idle" | "running" | "amber" | "red";
+
+export function jumpClock(clock: Clock, deltaSec: number, now: number): Clock {
+  const remaining = displayedRemaining(clock, now);
+  const next = Math.min(
+    clock.durationMs,
+    Math.max(0, remaining + Math.round(deltaSec * 1000)),
+  );
+  if (!clock.running) {
+    return { ...clock, remainingMs: next, epochMs: null };
+  }
+  return { ...clock, remainingMs: next, epochMs: now };
+}
+
+export function setClockDuration(durationMs: number): Clock {
+  return createClock(durationMs);
+}
+
+export function timerTone(
+  leftSec: number,
+  durationSec: number,
+  running: boolean,
+): TimerTone {
+  if (leftSec <= 0) return "red";
+  if (!running && leftSec >= durationSec) return "idle";
+  if (leftSec < 60) return "red";
+  if (durationSec > 0 && leftSec / durationSec < 0.2) return "amber";
+  return "running";
+}
+
+export function justCrossedMark(
+  previousMs: number,
+  nextMs: number,
+  markSec: number,
+): boolean {
+  if (markSec <= 0) return false;
+  const markMs = markSec * 1000;
+  return previousMs > markMs && nextMs <= markMs;
+}
