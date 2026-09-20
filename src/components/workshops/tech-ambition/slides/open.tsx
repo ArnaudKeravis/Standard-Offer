@@ -61,19 +61,19 @@ export function AgendaSlide() {
             <h1 className="ws-display mt-4 max-w-[12ch] text-[clamp(2.6rem,5vw,4.6rem)] text-[var(--ws-ink)]">
               Three and a half hours
             </h1>
-            <p className="mt-6 max-w-[28ch] text-[clamp(1.05rem,1.5vw,1.25rem)] text-[var(--ws-muted)]">
+            <p className="mt-6 max-w-[30ch] text-[clamp(1.05rem,1.5vw,1.25rem)] text-[var(--ws-muted)]">
               We open on what the practice delivered, level everyone up on AI,
-              then work.
+              hear the agents strategy from leaders, then build.
             </p>
           </div>
           <p className="text-sm text-[var(--ws-muted)]">13:00 to 16:30</p>
         </div>
-        <StaggerIn className="grid content-center gap-2">
+        <StaggerIn className="grid content-center gap-1">
           {AGENDA.map((item) => (
             <motion.article
               key={item.time}
               variants={staggerItem}
-              className="grid grid-cols-[5.2rem_3.2rem_minmax(0,1fr)] items-baseline gap-4 border-t border-[var(--ws-line)] py-2.5 first:border-t-0"
+              className="grid grid-cols-[5.2rem_3.2rem_minmax(0,1fr)] items-baseline gap-4 border-t border-[var(--ws-line)] py-2 first:border-t-0"
             >
               <p className="ws-display text-[1.15rem] text-[var(--ws-navy)]">
                 {item.time}

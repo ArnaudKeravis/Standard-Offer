@@ -5,7 +5,7 @@ import type {
   HourbackStep,
 } from "@/lib/workshops/tech-ambition/types";
 
-export const WORKSHOP_STORAGE_KEY = "ws-tech-ambition-v1";
+export const WORKSHOP_STORAGE_KEY = "ws-tech-ambition-v2";
 
 export type WorkshopSnapshot = {
   version: 1;

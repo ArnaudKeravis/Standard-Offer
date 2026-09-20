@@ -27,7 +27,7 @@ describe("resolveActiveTimer", () => {
     });
   });
 
-  it("drives Clinics and Hour Back from their ritual clocks, with SWAP on the 30-minute build", () => {
+  it("drives Clinics and Hour Back from their ritual clocks, with SWAP halfway through the 20-minute build", () => {
     expect(
       resolveActiveTimer({
         kind: "clinics-ritual",
@@ -50,15 +50,15 @@ describe("resolveActiveTimer", () => {
         timed: true,
         proud: pack(120_000, 120_000, false),
         clinic: pack(15 * 60_000, 15 * 60_000, false),
-        hourback: pack(22 * 60_000, 30 * 60_000, true),
+        hourback: pack(12 * 60_000, 20 * 60_000, true),
         block: null,
       }),
     ).toEqual({
-      remainingMs: 22 * 60_000,
-      durationMs: 30 * 60_000,
+      remainingMs: 12 * 60_000,
+      durationMs: 20 * 60_000,
       running: true,
       source: "hourback",
-      swapAtSec: 900,
+      swapAtSec: 600,
     });
   });
 

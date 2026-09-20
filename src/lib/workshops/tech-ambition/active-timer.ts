@@ -28,7 +28,7 @@ export function resolveActiveTimer(input: {
       return {
         ...input.hourback,
         source: "hourback",
-        ...(input.hourback.durationMs >= 30 * 60_000 ? { swapAtSec: 900 } : {}),
+        ...(input.hourback.durationMs === 20 * 60_000 ? { swapAtSec: 600 } : {}),
       };
     case "break":
       return input.block ? { ...input.block, source: "block" } : null;

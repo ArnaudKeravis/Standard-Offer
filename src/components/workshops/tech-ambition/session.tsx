@@ -226,8 +226,14 @@ export function WorkshopSession() {
         if (!isFreshClock(existing)) return current;
         return { ...current, break: startClock(existing, t) };
       });
+    } else if (screen.blockId === "roadmap" && screen.timed) {
+      setBlockClocks((current) => {
+        const existing = current.roadmap ?? createClock(minutesToMs(20));
+        if (!isFreshClock(existing)) return current;
+        return { ...current, roadmap: startClock(existing, t) };
+      });
     }
-  }, [ready, screen.kind, setClinicClock, setHourClock, setProudClock]);
+  }, [ready, screen.blockId, screen.kind, screen.timed, setClinicClock, setHourClock, setProudClock]);
 
   useEffect(() => {
     const id = window.setInterval(() => {
@@ -677,7 +683,7 @@ export function WorkshopSession() {
     >
       <motion.div className="relative h-full w-full" style={{ x: dragX }} aria-live="polite">
         <SlideFrame key={screen.id} direction={direction}>
-          {renderWorkshopSlide(screen.kind, screen.blockId, {
+          {renderWorkshopSlide(screen.kind, screen.blockId, screen.id, {
             proud: clockApi(proud),
             clinic: { ...clockApi(clinic), round: clinicRound, onRound: changeClinicRound },
             hourback: { ...clockApi(hourback), step: hourStep, onStep: changeHourStep },

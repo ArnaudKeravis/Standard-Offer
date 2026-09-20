@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  AGENDA,
   BLOCKS,
   CLINIC_TABLES,
   MATURITY,
@@ -30,8 +31,33 @@ describe("tech ambition run of show", () => {
     expect(blockById("proud").durationMin).toBe(30);
     expect(clinicDuration(1)).toBe(15 * 60_000);
     expect(clinicDuration("report")).toBe(3 * 60_000);
-    expect(hourbackDuration(1)).toBe(20 * 60_000);
-    expect(hourbackDuration(2)).toBe(10 * 60_000);
-    expect(hourbackDuration(3)).toBe(30 * 60_000);
+    expect(hourbackDuration(1)).toBe(15 * 60_000);
+    expect(hourbackDuration(2)).toBe(5 * 60_000);
+    expect(hourbackDuration(3)).toBe(20 * 60_000);
+  });
+
+  it("puts a 20-minute leader strategy sharing session before a 40-minute build", () => {
+    expect(blockById("roadmap").start).toBe("15:20");
+    expect(blockById("roadmap").durationMin).toBe(20);
+    expect(blockById("roadmap").label).toBe("AI agents strategy sharing");
+    expect(blockById("hourback").start).toBe("15:40");
+    expect(blockById("hourback").durationMin).toBe(40);
+    expect(AGENDA.map((item) => item.title)).toEqual([
+      "CoDesign FY26",
+      "What you need to know about AI",
+      "Proud of",
+      "AI Strategy & Agentic Platform",
+      "Break",
+      "AI Clinics",
+      "AI agents strategy sharing",
+      "Hands-on",
+      "What walks out",
+    ]);
+    expect(AGENDA.find((item) => item.time === "15:20")).toMatchObject({
+      mins: "20'",
+      title: "AI agents strategy sharing",
+    });
+    expect(SCREENS.some((screen) => screen.kind === "roadmap-roster")).toBe(true);
+    expect(SCREENS.filter((screen) => screen.kind === "roadmap-track")).toHaveLength(6);
   });
 });

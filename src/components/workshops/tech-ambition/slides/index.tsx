@@ -8,7 +8,8 @@ import type {
   ScreenKind,
 } from "@/lib/workshops/tech-ambition/types";
 
-import { AiBuyingSlide, AiLayersSlide, AiWallSlide } from "./ai";
+import { AiBuyingSlide, AiLayersSlide, AiPhilosophySlide, AiWallSlide } from "./ai";
+import { RoadmapRosterSlide, RoadmapTrackSlide } from "./roadmap";
 import { Fy26QuestionsSlide, Fy26ResultsSlide } from "./fy26";
 import { IntercalaireSlide } from "./intercalaire";
 import { AgendaSlide, CoverSlide } from "./open";
@@ -37,6 +38,7 @@ export type SlideClockApi = {
 export function renderWorkshopSlide(
   kind: ScreenKind,
   blockId: BlockId,
+  screenId: string,
   api: {
     proud: SlideClockApi;
     clinic: SlideClockApi & {
@@ -63,6 +65,8 @@ export function renderWorkshopSlide(
       return <Fy26QuestionsSlide />;
     case "ai-wall":
       return <AiWallSlide />;
+    case "ai-philosophy":
+      return <AiPhilosophySlide />;
     case "ai-layers":
       return <AiLayersSlide />;
     case "ai-buying":
@@ -81,6 +85,10 @@ export function renderWorkshopSlide(
       return <ClinicsTablesSlide />;
     case "clinics-ritual":
       return <ClinicsRitualSlide {...api.clinic} />;
+    case "roadmap-roster":
+      return <RoadmapRosterSlide />;
+    case "roadmap-track":
+      return <RoadmapTrackSlide screenId={screenId} />;
     case "hourback-overview":
       return <HourbackOverviewSlide />;
     case "hourback-ritual":

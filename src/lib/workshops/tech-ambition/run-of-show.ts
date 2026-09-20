@@ -20,9 +20,9 @@ export const PROUD_SPEAKER_MS = minutesToMs(2);
 export const CLINIC_ROUND_MS = minutesToMs(15);
 export const CLINIC_REPORT_MS = minutesToMs(3);
 export const HOURBACK_STEP_MS = {
-  1: minutesToMs(20),
-  2: minutesToMs(10),
-  3: minutesToMs(30),
+  1: minutesToMs(15),
+  2: minutesToMs(5),
+  3: minutesToMs(20),
 } as const satisfies Record<HourbackStep, number>;
 
 export const BLOCKS: WorkshopBlock[] = [
@@ -33,8 +33,9 @@ export const BLOCKS: WorkshopBlock[] = [
   { id: "strategy", label: "Strategy", short: "Strategy", start: "14:05", durationMin: 30, accent: "#EF661A" },
   { id: "break", label: "Break", short: "Break", start: "14:35", durationMin: 10, accent: "#5A6280" },
   { id: "clinics", label: "AI Clinics", short: "Clinics", start: "14:45", durationMin: 35, accent: "#915FC8" },
-  { id: "hourback", label: "One Hour Back", short: "Build", start: "15:20", durationMin: 60, accent: "#34A866" },
-  { id: "close", label: "What walks out", short: "Close", start: "16:20", durationMin: 10, accent: "#DA558C" },
+  { id: "roadmap", label: "AI agents strategy sharing", short: "Share", start: "15:20", durationMin: 20, accent: "#199CDA" },
+  { id: "hourback", label: "Hands-on", short: "Build", start: "15:40", durationMin: 40, accent: "#228085" },
+  { id: "close", label: "What walks out", short: "Close", start: "16:20", durationMin: 10, accent: "#B28B4E" },
 ];
 
 export const SCREENS: WorkshopScreen[] = [
@@ -44,7 +45,8 @@ export const SCREENS: WorkshopScreen[] = [
   { id: "fy26-results", blockId: "fy26", kind: "fy26-results", label: "Results", tone: "light", timed: true, durationSec: 20 * 60 },
   { id: "fy26-questions", blockId: "fy26", kind: "fy26-questions", label: "Three questions", tone: "light", timed: true, durationSec: 20 * 60 },
   { id: "ai-open", blockId: "ai", kind: "intercalaire", label: "AI 101", tone: "dark" },
-  { id: "ai-wall", blockId: "ai", kind: "ai-wall", label: "Hit a wall?", tone: "dark", timed: true },
+  { id: "ai-wall", blockId: "ai", kind: "ai-wall", label: "Hit a wall?", tone: "light", timed: true },
+  { id: "ai-philosophy", blockId: "ai", kind: "ai-philosophy", label: "Philosophy", tone: "light", timed: true },
   { id: "ai-layers", blockId: "ai", kind: "ai-layers", label: "Model product harness", tone: "light", timed: true },
   { id: "ai-buying", blockId: "ai", kind: "ai-buying", label: "Buying AI", tone: "light", timed: true },
   { id: "proud-open", blockId: "proud", kind: "intercalaire", label: "Proud of", tone: "dark" },
@@ -57,7 +59,15 @@ export const SCREENS: WorkshopScreen[] = [
   { id: "clinics-scores", blockId: "clinics", kind: "clinics-scores", label: "Scores", tone: "light", timed: true },
   { id: "clinics-tables", blockId: "clinics", kind: "clinics-tables", label: "Six tables", tone: "light", timed: true },
   { id: "clinics-ritual", blockId: "clinics", kind: "clinics-ritual", label: "Rounds", tone: "dark", timed: true },
-  { id: "hourback-open", blockId: "hourback", kind: "intercalaire", label: "One Hour Back", tone: "dark" },
+  { id: "roadmap-open", blockId: "roadmap", kind: "intercalaire", label: "Strategy sharing", tone: "dark" },
+  { id: "roadmap-roster", blockId: "roadmap", kind: "roadmap-roster", label: "Leaders", tone: "light", timed: true },
+  { id: "roadmap-sales", blockId: "roadmap", kind: "roadmap-track", label: "Sales", tone: "light", timed: true },
+  { id: "roadmap-supply", blockId: "roadmap", kind: "roadmap-track", label: "Supply", tone: "light", timed: true },
+  { id: "roadmap-ops", blockId: "roadmap", kind: "roadmap-track", label: "Ops", tone: "light", timed: true },
+  { id: "roadmap-labor", blockId: "roadmap", kind: "roadmap-track", label: "Labor", tone: "light", timed: true },
+  { id: "roadmap-fm", blockId: "roadmap", kind: "roadmap-track", label: "FM", tone: "light", timed: true },
+  { id: "roadmap-gbs", blockId: "roadmap", kind: "roadmap-track", label: "GBS", tone: "light", timed: true },
+  { id: "hourback-open", blockId: "hourback", kind: "intercalaire", label: "Hands-on", tone: "dark" },
   { id: "hourback-overview", blockId: "hourback", kind: "hourback-overview", label: "Three steps", tone: "light", timed: true },
   { id: "hourback-ritual", blockId: "hourback", kind: "hourback-ritual", label: "Build", tone: "dark", timed: true },
   { id: "close-open", blockId: "close", kind: "intercalaire", label: "Close", tone: "dark" },
@@ -67,7 +77,7 @@ export const SCREENS: WorkshopScreen[] = [
 
 export const INTERCALAIRES: Record<
   string,
-  { number: string; title: string; detail: string }
+  { number: string; title: string; detail: string; portrait?: { src: string; alt: string } }
 > = {
   fy26: {
     number: "01",
@@ -78,6 +88,10 @@ export const INTERCALAIRES: Record<
     number: "02",
     title: "What you need to know about AI",
     detail: "Henri. The vocabulary for the business conversation",
+    portrait: {
+      src: "/workshops/tech-ambition/maxime.png",
+      alt: "Maxime",
+    },
   },
   proud: {
     number: "03",
@@ -94,13 +108,18 @@ export const INTERCALAIRES: Record<
     title: "AI Clinics",
     detail: "Six dimensions. Round one defines, round two solves",
   },
-  hourback: {
+  roadmap: {
     number: "06",
-    title: "One Hour Back",
-    detail: "Build the agent that gives you your week back",
+    title: "AI agents strategy sharing",
+    detail: "Six leaders. What is live, what is next, what is blocked. Three minutes each.",
+  },
+  hourback: {
+    number: "07",
+    title: "Hands-on",
+    detail: "Forty minutes. Chief of staff, then one real thing that runs",
   },
   close: {
-    number: "07",
+    number: "08",
     title: "What walks out",
     detail: "Owners, dates, and the hours we got back",
   },
@@ -113,7 +132,8 @@ export const AGENDA = [
   { time: "14:05", mins: "30'", title: "AI Strategy & Agentic Platform", who: "Henri & Kevin. Vision, trends, maturity" },
   { time: "14:35", mins: "10'", title: "Break", who: "" },
   { time: "14:45", mins: "35'", title: "AI Clinics", who: "Six dimensions. Define, then solve" },
-  { time: "15:20", mins: "60'", title: "One Hour Back", who: "Chief of staff, skills & projects, your own agent" },
+  { time: "15:20", mins: "20'", title: "AI agents strategy sharing", who: "Sales, Supply, Ops, Labor, FM, GBS. Six leaders, three minutes each" },
+  { time: "15:40", mins: "40'", title: "Hands-on", who: "Chief of staff, then one real thing that runs" },
   { time: "16:20", mins: "10'", title: "What walks out", who: "Owners, dates, and the hours we got back" },
 ] as const;
 
@@ -327,21 +347,21 @@ export const HOURBACK_STEPS = [
   {
     step: 1 as HourbackStep,
     title: "Build your chief of staff",
-    mins: "20'",
+    mins: "15'",
     who: "Arnaud",
     body: "Everyone creates or upgrades a real one. It knows your OKRs, your team, your stakeholders, your rhythm.",
   },
   {
     step: 2 as HourbackStep,
     title: "Skills & projects",
-    mins: "10'",
+    mins: "5'",
     who: "Henri",
     body: "The difference between a prompt, a skill and a project, and when each one is the right container.",
   },
   {
     step: 3 as HourbackStep,
     title: "Pick your pain point",
-    mins: "30'",
+    mins: "20'",
     who: "Everyone",
     body: "One real pain point or one live project. Build the agent, skill or project context that takes it off your plate.",
   },
@@ -352,6 +372,101 @@ export const HOURBACK_CONTAINERS = [
   { title: "Skill", body: "A repeatable task, done the same way, every time." },
   { title: "Project", body: "A durable context. You stop re-explaining." },
 ] as const;
+
+export const ROADMAP_TRACKS = [
+  {
+    id: "sales",
+    title: "Sales AI Agents",
+    host: "Alexandra Montgomery",
+    stage: "Live, POC and planned",
+    lede: "A portfolio across bid, enablement and Salesforce. Not one agent.",
+    filled: true as const,
+  },
+  {
+    id: "supply",
+    title: "Supply AI Agents",
+    host: "Kevin Albrand",
+    stage: "Discovery · scale inside two months",
+    lede: "Protect Boost NorAm savings. Take human-intensive supply work off the plate.",
+    filled: true as const,
+  },
+  {
+    id: "ops",
+    title: "AI Agents for Ops",
+    host: "Luis Marques",
+    stage: "Luis walks this",
+    lede: "What is live, what is next, what is blocked. Three minutes.",
+    filled: false as const,
+  },
+  {
+    id: "labor",
+    title: "Labor AI Agents",
+    host: "Kevin Albrand",
+    stage: "Kevin walks this",
+    lede: "What is live, what is next, what is blocked. Three minutes.",
+    filled: false as const,
+  },
+  {
+    id: "fm",
+    title: "AI for FM / Command Center",
+    host: "Samuel",
+    stage: "Samuel walks this",
+    lede: "What is live, what is next, what is blocked. Three minutes.",
+    filled: false as const,
+  },
+  {
+    id: "gbs",
+    title: "AI for GBS & Tech",
+    host: "Anshul Bhardwaj",
+    stage: "If there is a track",
+    lede: "What is live, what is next, what is blocked. Three minutes. Skip if nothing to show.",
+    filled: false as const,
+  },
+] as const;
+
+export const SUPPLY_ROADMAP = {
+  what: "Supply AI agents are essential to scale Boost NorAm and protect $10M+ in annual savings. They raise productivity on human-intensive work — PI / MI / SI mapping, General Manager exposure requests.",
+  stage: "Discovery, with a need to scale within two months",
+  values: [
+    { value: ">$10M", label: "annual savings at risk" },
+    { value: "1,000", label: "sites targeted by FY-end for Boost" },
+    { value: "50%", label: "time-saving ambition" },
+  ],
+  next: [
+    "Identify the relevant processes",
+    "Onboard tech-savvy business people",
+    "Launch simple agents on easy processes",
+    "Prove value, then scale at pace",
+  ],
+  blocked: [
+    "L1 support network — agentic-aware people who can support newly identified business builders",
+    "L2 expert network — proven specialists who can share strong use cases and good practice",
+    "Delivery capacity — external AI builders close to SMEs in Bogota to add bandwidth and sustain pace",
+  ],
+} as const;
+
+export const SALES_ROADMAP = {
+  live: [
+    { name: "ChatGPT NorAm Sales Enablement", value: "80% user confidence · 60% weekly usage" },
+    { name: "SoPro proposal drafting", value: "15% less GP drafting time" },
+    { name: "BRIT Healthcare POC", value: "Planning from 4–8 hours to ~30 min / account" },
+  ],
+  building: [
+    { name: "Athena · Schools / Universities bids", value: "Claimed $5–10M incremental · 30–50% analyst time" },
+    { name: "Campus Benchmarking", value: "POC / building" },
+    { name: "SORA · India RFPs", value: "10–30% efficiency · ~300 RFPs / year" },
+  ],
+  planned: [
+    { name: "Agentforce BRIT", value: "4–8 hours to under 1 hour per account" },
+    { name: "Agentforce Opportunity Scoring", value: "Higher-fidelity signals. Design session with Salesforce." },
+  ],
+  closed: "GSA no-code agent was closed after ideation.",
+} as const;
+
+export function roadmapTrackByScreenId(screenId: string) {
+  const id = screenId.replace("roadmap-", "");
+  return ROADMAP_TRACKS.find((track) => track.id === id) ?? ROADMAP_TRACKS[0];
+}
 
 export const WALKOUTS = [
   {

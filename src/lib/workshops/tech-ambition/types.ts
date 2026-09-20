@@ -6,6 +6,7 @@ export type BlockId =
   | "strategy"
   | "break"
   | "clinics"
+  | "roadmap"
   | "hourback"
   | "close";
 
@@ -16,6 +17,7 @@ export type ScreenKind =
   | "fy26-results"
   | "fy26-questions"
   | "ai-wall"
+  | "ai-philosophy"
   | "ai-layers"
   | "ai-buying"
   | "proud-brief"
@@ -25,6 +27,8 @@ export type ScreenKind =
   | "clinics-scores"
   | "clinics-tables"
   | "clinics-ritual"
+  | "roadmap-roster"
+  | "roadmap-track"
   | "hourback-overview"
   | "hourback-ritual"
   | "close-walkout"
