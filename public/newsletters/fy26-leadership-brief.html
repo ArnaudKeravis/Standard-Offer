@@ -585,947 +585,14 @@ h1 .yr-big{display:block;font-size:clamp(64px,8.5vw,112px);font-weight:700;color
 .vbar-num{position:absolute;top:-24px;left:50%;transform:translateX(-50%);font-family:'Open Sans',sans-serif;font-weight:700;font-size:14px;color:var(--text);white-space:nowrap;}
 .vbar-label{position:absolute;bottom:-28px;left:0;right:0;font-size:10px;color:var(--muted);text-align:center;line-height:1.3;font-family:'Space Mono',monospace;letter-spacing:.06em;text-transform:uppercase;}
 
-/* ── POST-IT WALL ── */
-.qa-section{background:linear-gradient(135deg,#FFF9E6 0%,#FFF3D6 100%);padding:64px;border-bottom:1px solid var(--border);}
-.qa-section .stitle{color:var(--text);}
-.qa-board{background:#FAEDC4;padding:32px;border-radius:10px;border:2px solid #E8D08A;position:relative;overflow:hidden;min-height:380px;}
-.qa-board::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20px 20px,rgba(0,0,0,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;}
-.qa-board-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;position:relative;z-index:2;}
-.qa-board-title h3{font-family:'Open Sans',sans-serif;font-size:20px;font-weight:600;color:var(--text);}
-.qa-input-row{display:flex;gap:8px;align-items:center;}
-.qa-input{padding:10px 14px;font-size:13px;font-family:'Open Sans',sans-serif;border:2px solid #E8D08A;background:#fff;border-radius:4px;width:280px;transition:border-color .2s;}
-.qa-input:focus{outline:none;border-color:var(--blue);}
-.qa-color-pick{display:flex;gap:4px;}
-.qa-color{width:24px;height:24px;border-radius:4px;cursor:pointer;border:2px solid transparent;transition:all .15s;}
-.qa-color.active{border-color:var(--text);transform:scale(1.15);}
-.qa-add-btn{background:var(--text);color:#fff;border:none;padding:10px 18px;font-size:12px;font-family:'Space Mono',monospace;letter-spacing:.1em;text-transform:uppercase;font-weight:700;cursor:pointer;border-radius:4px;transition:all .15s;}
-.qa-add-btn:hover{background:var(--blue);transform:translateY(-1px);}
-.qa-tip{font-size:11px;color:var(--text2);margin-bottom:18px;font-style:italic;position:relative;z-index:2;}
-
-.postits{display:flex;flex-wrap:wrap;gap:18px;position:relative;z-index:2;min-height:200px;}
-.postit{
-  width:200px;min-height:140px;padding:18px 16px;
-  font-family:'Open Sans',sans-serif;font-size:13px;line-height:1.45;color:#1a1a1a;
-  position:relative;cursor:default;
-  box-shadow:2px 4px 8px rgba(0,0,0,.12);
-  transition:all .25s cubic-bezier(.2,.8,.2,1);
-  font-weight:500;
-  word-wrap:break-word;
-}
-.postit::before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:48px;height:14px;background:rgba(0,0,0,.15);border-radius:2px;}
-.postit:hover{transform:translateY(-3px) rotate(0deg);box-shadow:4px 8px 14px rgba(0,0,0,.15);}
-.postit:nth-child(odd){transform:rotate(-2deg);}
-.postit:nth-child(even){transform:rotate(1.5deg);}
-.postit:nth-child(3n){transform:rotate(-1deg);}
-.postit:nth-child(4n){transform:rotate(2.5deg);}
-.postit-author{font-size:10px;color:rgba(0,0,0,.55);margin-top:10px;font-style:italic;font-family:'Space Mono',monospace;letter-spacing:.04em;}
-.postit-tag{position:absolute;top:8px;right:8px;font-size:9px;font-family:'Space Mono',monospace;letter-spacing:.1em;text-transform:uppercase;font-weight:700;background:rgba(0,0,0,.12);padding:2px 6px;border-radius:2px;}
-.postit-delete{position:absolute;top:6px;left:6px;width:18px;height:18px;border-radius:50%;border:none;background:rgba(0,0,0,.1);cursor:pointer;font-size:11px;color:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;}
-.postit:hover .postit-delete{display:flex;}
-.postit-delete:hover{background:rgba(232,90,14,.25);color:var(--orange);}
-
-.pi-yellow{background:linear-gradient(135deg,#FFE89C 0%,#FFD96B 100%);}
-.pi-pink{background:linear-gradient(135deg,#FFB3D9 0%,#FF8FCB 100%);}
-.pi-blue{background:linear-gradient(135deg,#A8D5FF 0%,#7AB8F5 100%);}
-.pi-green{background:linear-gradient(135deg,#A8E6B0 0%,#7CD088 100%);}
-.pi-orange{background:linear-gradient(135deg,#FFC894 0%,#FFA866 100%);}
-.pi-purple{background:linear-gradient(135deg,#D4B5F5 0%,#B98DEB 100%);}
-
-@keyframes postitDrop{
-  0%{opacity:0;transform:translateY(-30px) rotate(-8deg) scale(.8);}
-  60%{opacity:1;transform:translateY(4px) rotate(2deg) scale(1.02);}
-  100%{opacity:1;transform:rotate(var(--final-rot,0deg)) scale(1);}
-}
-.postit.new{animation:postitDrop .55s cubic-bezier(.2,.8,.2,1) both;}
-
-.qa-stats{display:flex;justify-content:space-between;margin-top:18px;padding-top:18px;border-top:1px dashed rgba(0,0,0,.15);font-size:11px;color:var(--text2);font-family:'Space Mono',monospace;letter-spacing:.06em;text-transform:uppercase;position:relative;z-index:2;}
-
-@media(max-width:760px){
-  .analytics-grid,.analytics-grid.three,.practice-pies,.seg-grid{grid-template-columns:1fr;}
-  .qa-input{width:100%;}
-  .qa-input-row{flex-direction:column;align-items:stretch;}
-  .postits{justify-content:center;}
-}
-
-/* ── FOOTER ── */
-footer{background:#0A0D1A;padding:36px 64px;display:flex;justify-content:space-between;align-items:center;}
-.fb-foot{font-family:'Open Sans',sans-serif;font-size:15px;font-weight:300;color:#EEF2FF;letter-spacing:.02em;}
-.fb-foot span{color:#6EA8FF;font-weight:600;}
-.fn-foot{font-size:10px;color:rgba(255,255,255,.3);font-family:'Space Mono',monospace;letter-spacing:.08em;}
-
-@media(max-width:1100px){
-  .impact-grid{grid-template-columns:repeat(3,1fr);}
-  .insights-band{grid-template-columns:repeat(3,1fr);}
-  .hero-kpi{grid-template-columns:repeat(2,1fr);}
-  .ci-grid,.fb-hero{grid-template-columns:1fr;}
-  .ev-tabs,.cred-grid,.testimonials,.inno-grid,.next-grid,.budget-grid{grid-template-columns:1fr 1fr;}
-}
-@media(max-width:760px){
-  header,.exec-summary,.section,.ci-section,.next-section,.hero-kpi,footer{padding:36px 24px;}
-  header{grid-template-columns:1fr;gap:18px;}
-  .hright{text-align:left;}
-  .impact-grid,.insights-band,.hero-kpi,.es-pillars{grid-template-columns:repeat(2,1fr);}
-  .ev-tabs,.cred-grid,.testimonials,.inno-grid,.next-grid,.budget-grid,.sc-grid,.scale-map{grid-template-columns:1fr;}
-  .countries-chips{gap:8px;}
-  footer{flex-direction:column;gap:10px;text-align:center;}
-}
-::-webkit-scrollbar{width:6px;}
-::-webkit-scrollbar-track{background:var(--bg);}
-::-webkit-scrollbar-thumb{background:#C0C8E0;border-radius:3px;}
-
-.newsletters-back{
-  position:fixed;top:16px;left:16px;z-index:50;
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;
-  text-transform:uppercase;text-decoration:none;font-weight:700;
-  color:#fff;background:rgba(15,18,32,.55);backdrop-filter:blur(8px);
-  border:1px solid rgba(255,255,255,.28);padding:8px 12px;border-radius:4px;
-  transition:background .2s,transform .2s;
-}
-.newsletters-back:hover{background:rgba(15,18,32,.75);transform:translateY(-1px);}
-
-/* ── DECK SHELL · 16:9 click-through ── */
-html,body{height:100%;margin:0;overflow:hidden;background:#070A14;}
-body{font-family:'Open Sans',sans-serif;}
-.newsletters-back{top:12px;left:12px;z-index:80;}
-.deck-shell{height:100svh;width:100vw;display:flex;align-items:center;justify-content:center;position:relative;}
-.stage-frame{
-  aspect-ratio:16/9;
-  width:min(100vw - 8px, calc(100svh * 16 / 9));
-  height:min(100svh - 8px, calc((100vw - 8px) * 9 / 16));
-  position:relative;overflow:hidden;background:var(--bg);
-  box-shadow:0 24px 80px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.06);
-  border-radius:4px;
-}
-.slide{
-  position:absolute;inset:0;opacity:0;visibility:hidden;pointer-events:none;
-  overflow:hidden;display:flex;flex-direction:column;
-  transform:translateY(18px) scale(.985);
-  transition:opacity .45s cubic-bezier(.2,.8,.2,1),transform .45s cubic-bezier(.2,.8,.2,1),visibility 0s linear .45s;
-}
-.slide.is-active{
-  opacity:1;visibility:visible;pointer-events:auto;
-  transform:translateY(0) scale(1);
-  transition:opacity .45s cubic-bezier(.2,.8,.2,1),transform .45s cubic-bezier(.2,.8,.2,1),visibility 0s;
-}
-.slide-scroll{
-  flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;
-  -webkit-overflow-scrolling:touch;
-}
-.slide .section,.slide .ci-section,.slide .next-section,.slide .qa-section,
-.slide .exec-summary,.slide .hero-kpi,.slide header,.slide footer{
-  padding:clamp(18px,3.2vh,36px) clamp(28px,4.5vw,56px) !important;
-  border-bottom:none !important;
-  min-height:100%;
-  box-sizing:border-box;
-}
-.slide header{min-height:100% !important;display:grid;align-content:center;}
-.slide .hero-kpi{min-height:100%;align-content:center;}
-.slide .sec-hdr{margin-bottom:clamp(12px,2vh,24px);}
-.slide .sec-intro{margin-bottom:clamp(12px,2vh,20px);font-size:13px;}
-.slide .stitle{font-size:clamp(22px,2.8vw,30px);}
-.slide .es-headline{font-size:clamp(22px,2.6vw,34px);margin-bottom:16px;}
-.slide .es-body{font-size:13px;line-height:1.55;}
-.slide .es-pillars{margin-top:18px;gap:12px;}
-.slide .es-pill{padding:14px 16px;}
-.slide .hk{padding:clamp(14px,2.5vh,28px) clamp(14px,2vw,24px);}
-.slide .hk-num{font-size:clamp(28px,3.2vw,48px);}
-.slide .wins-banner{padding:22px 26px;margin-bottom:0;gap:20px;}
-.slide .wb-clients{gap:8px;}
-.slide .fb-hero{gap:16px;}
-.slide .testimonials{gap:10px;}
-.slide .t-card{padding:14px 16px;}
-.slide .next-grid{gap:10px;}
-.slide .next-card{padding:16px 16px;}
-.slide .qa-board{max-height:42%;}
-.slide .postits{min-height:120px;max-height:180px;overflow:auto;}
-.slide .scroll-hint{display:none;}
-.slide .labs-pagenum{display:none;}
-
-/* Left menu — Standard Offer style */
-.deck-nav{
-  position:fixed;left:14px;top:50%;transform:translateY(-50%);z-index:70;
-  pointer-events:none;
-}
-.deck-nav-inner{
-  pointer-events:auto;
-  background:rgba(255,255,255,.92);backdrop-filter:blur(12px);
-  border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:8px;
-  box-shadow:0 18px 50px rgba(15,18,32,.12);
-  max-height:min(78svh,640px);overflow:auto;
-}
-.deck-nav ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;}
-.deck-nav button{
-  display:flex;align-items:center;gap:10px;width:100%;
-  border:0;background:transparent;cursor:pointer;text-align:left;
-  padding:8px 10px;border-radius:12px;
-  font-family:'Open Sans',sans-serif;font-size:11px;font-weight:600;
-  letter-spacing:.06em;text-transform:uppercase;color:rgba(15,18,32,.45);
-  transition:color .2s,background .2s;
-}
-.deck-nav button:hover{color:var(--text);background:rgba(26,105,255,.06);}
-.deck-nav button[aria-current="true"]{color:var(--text);}
-.deck-nav .dot{
-  width:6px;height:6px;border-radius:50%;flex-shrink:0;
-  border:1px solid rgba(15,18,32,.2);background:transparent;transition:all .2s;
-}
-.deck-nav button[aria-current="true"] .dot{
-  background:var(--blue);border-color:var(--blue);transform:scale(1.15);
-}
-.deck-nav .lab{max-width:9.5rem;line-height:1.25;}
-
-.deck-progress{
-  position:fixed;right:18px;bottom:16px;z-index:70;
-  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;
-  color:rgba(255,255,255,.55);background:rgba(15,18,32,.55);
-  border:1px solid rgba(255,255,255,.18);padding:6px 10px;border-radius:4px;
-  backdrop-filter:blur(8px);
-}
-.deck-hint{
-  position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:70;
-  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;
-  color:rgba(255,255,255,.4);pointer-events:none;
-}
-
-@media (max-width:900px){
-  .deck-nav{display:none;}
-  .deck-nav-mobile{
-    display:flex !important;position:fixed;left:50%;bottom:12px;transform:translateX(-50%);
-    z-index:70;gap:6px;padding:8px 10px;border-radius:999px;
-    background:rgba(255,255,255,.92);backdrop-filter:blur(10px);
-    border:1px solid rgba(0,0,0,.08);box-shadow:0 10px 30px rgba(0,0,0,.12);
-  }
-  .deck-hint{display:none;}
-  .deck-progress{bottom:58px;right:12px;}
-}
-.deck-nav-mobile{display:none;}
-.deck-nav-mobile button{
-  width:22px;height:22px;border-radius:50%;border:1px solid rgba(15,18,32,.15);
-  background:transparent;padding:0;cursor:pointer;font-size:0;
-}
-.deck-nav-mobile button[aria-current="true"]{background:var(--blue);border-color:var(--blue);}
-
-</style>
-</head>
-<body>
-<a class="newsletters-back" href="/newsletters" data-deck-nav>← Newsletters</a>
-
-<nav class="deck-nav" aria-label="Brief sections" data-deck-nav>
-  <div class="deck-nav-inner">
-    <ul>
-      <li><button type="button" data-deck-nav data-nav-item="0" aria-current="true"><span class="dot" aria-hidden="true"></span><span class="lab">Cover</span></button></li>
-      <li><button type="button" data-deck-nav data-nav-item="1" aria-current="false"><span class="dot" aria-hidden="true"></span><span class="lab">The year in numbers</span></button></li>
-      <li><button type="button" data-deck-nav data-nav-item="2" aria-current="false"><span class="dot" aria-hidden="true"></span><span class="lab">Executive summary</span></button></li>
-      <li><button type="button" data-deck-nav data-nav-item="3" aria-current="false"><span class="dot" aria-hidden="true"></span><span class="lab">Annual impact</span></button></li>
-      <li><button type="button" data-deck-nav data-nav-item="4" aria-current="false"><span class="dot" aria-hidden="true"></span><span class="lab">Commercial impact</span></button></li>
-      <li><button type="button" data-deck-nav data-nav-item="5" aria-current="false"><span class="dot" aria-hidden="true"></span><span class="lab">FY26 wins</span></button></li>
-      <li><button type="button" data-deck-nav data-nav-item="6" aria-current="false"><span class="dot" aria-hidden="true"></span><span class="lab">Projects & Labs</span></button></li>
-      <li><button type="button" data-deck-nav data-nav-item="7" aria-current="false"><span class="dot" aria-hidden="true"></span><span class="lab">Voice</span></button></li>
-      <li><button type="button" data-deck-nav data-nav-item="8" aria-current="false"><span class="dot" aria-hidden="true"></span><span class="lab">Scaling</span></button></li>
-      <li><button type="button" data-deck-nav data-nav-item="9" aria-current="false"><span class="dot" aria-hidden="true"></span><span class="lab">FY27 priorities</span></button></li>
-      <li><button type="button" data-deck-nav data-nav-item="10" aria-current="false"><span class="dot" aria-hidden="true"></span><span class="lab">Feedback & Q&A</span></button></li>
-    </ul>
-  </div>
-</nav>
-<nav class="deck-nav-mobile" aria-label="Brief sections mobile" data-deck-nav>
-    <button type="button" data-deck-nav data-nav-item="0" aria-label="Cover" aria-current="true"></button>
-    <button type="button" data-deck-nav data-nav-item="1" aria-label="The year in numbers" aria-current="false"></button>
-    <button type="button" data-deck-nav data-nav-item="2" aria-label="Executive summary" aria-current="false"></button>
-    <button type="button" data-deck-nav data-nav-item="3" aria-label="Annual impact" aria-current="false"></button>
-    <button type="button" data-deck-nav data-nav-item="4" aria-label="Commercial impact" aria-current="false"></button>
-    <button type="button" data-deck-nav data-nav-item="5" aria-label="FY26 wins" aria-current="false"></button>
-    <button type="button" data-deck-nav data-nav-item="6" aria-label="Projects & Labs" aria-current="false"></button>
-    <button type="button" data-deck-nav data-nav-item="7" aria-label="Voice" aria-current="false"></button>
-    <button type="button" data-deck-nav data-nav-item="8" aria-label="Scaling" aria-current="false"></button>
-    <button type="button" data-deck-nav data-nav-item="9" aria-label="FY27 priorities" aria-current="false"></button>
-    <button type="button" data-deck-nav data-nav-item="10" aria-label="Feedback & Q&A" aria-current="false"></button>
-</nav>
-
-<div class="deck-shell">
-  <div class="stage-frame" id="stage-frame" role="presentation">
-  <section class="slide is-active" data-slide="cover" data-index="0" aria-hidden="false">
-    <div class="slide-scroll">
-<header>
-  <div class="particles" aria-hidden="true">
-    <svg viewBox="0 0 1440 480" preserveAspectRatio="xMidYMid slice">
-      <!-- Big glowing dots -->
-      <circle class="particle big" cx="80" cy="60" r="4" style="animation-delay:0s"/>
-      <circle class="particle big" cx="220" cy="120" r="5" style="animation-delay:.6s"/>
-      <circle class="particle big" cx="380" cy="40" r="3.5" style="animation-delay:1.2s"/>
-      <circle class="particle big" cx="540" cy="160" r="4.5" style="animation-delay:.3s"/>
-      <circle class="particle big" cx="720" cy="80" r="5" style="animation-delay:1.5s"/>
-      <circle class="particle big" cx="880" cy="200" r="4" style="animation-delay:.9s"/>
-      <circle class="particle big" cx="1060" cy="50" r="4.5" style="animation-delay:.2s"/>
-      <circle class="particle big" cx="1240" cy="140" r="5" style="animation-delay:1.7s"/>
-      <circle class="particle big" cx="1380" cy="80" r="3.5" style="animation-delay:.5s"/>
-
-      <!-- Medium dots -->
-      <circle class="particle" cx="40" cy="180" r="2.5" style="animation-delay:.4s"/>
-      <circle class="particle" cx="140" cy="240" r="2" style="animation-delay:1.1s"/>
-      <circle class="particle" cx="260" cy="60" r="2.5" style="animation-delay:.8s"/>
-      <circle class="particle" cx="320" cy="320" r="2" style="animation-delay:.1s"/>
-      <circle class="particle" cx="440" cy="280" r="3" style="animation-delay:1.4s"/>
-      <circle class="particle" cx="500" cy="60" r="2" style="animation-delay:.7s"/>
-      <circle class="particle" cx="600" cy="240" r="2.5" style="animation-delay:.2s"/>
-      <circle class="particle" cx="660" cy="380" r="2" style="animation-delay:1.6s"/>
-      <circle class="particle" cx="780" cy="280" r="2.5" style="animation-delay:.5s"/>
-      <circle class="particle" cx="840" cy="60" r="2" style="animation-delay:1.3s"/>
-      <circle class="particle" cx="940" cy="320" r="2.5" style="animation-delay:.6s"/>
-      <circle class="particle" cx="1000" cy="120" r="2" style="animation-delay:1.0s"/>
-      <circle class="particle" cx="1120" cy="220" r="3" style="animation-delay:.4s"/>
-      <circle class="particle" cx="1180" cy="380" r="2" style="animation-delay:1.8s"/>
-      <circle class="particle" cx="1280" cy="280" r="2.5" style="animation-delay:.7s"/>
-      <circle class="particle" cx="1340" cy="40" r="2" style="animation-delay:1.5s"/>
-      <circle class="particle" cx="1410" cy="240" r="2.5" style="animation-delay:.3s"/>
-
-      <!-- Tiny scattered dots for density -->
-      <circle class="particle tiny" cx="20" cy="100" r="1.2" style="animation-delay:.2s"/>
-      <circle class="particle tiny" cx="100" cy="280" r="1" style="animation-delay:1.1s"/>
-      <circle class="particle tiny" cx="170" cy="380" r="1.5" style="animation-delay:.6s"/>
-      <circle class="particle tiny" cx="280" cy="180" r="1" style="animation-delay:1.4s"/>
-      <circle class="particle tiny" cx="350" cy="220" r="1.2" style="animation-delay:.3s"/>
-      <circle class="particle tiny" cx="420" cy="100" r="1.5" style="animation-delay:.9s"/>
-      <circle class="particle tiny" cx="480" cy="380" r="1" style="animation-delay:1.7s"/>
-      <circle class="particle tiny" cx="560" cy="320" r="1.2" style="animation-delay:.5s"/>
-      <circle class="particle tiny" cx="620" cy="120" r="1" style="animation-delay:1.2s"/>
-      <circle class="particle tiny" cx="700" cy="200" r="1.5" style="animation-delay:.4s"/>
-      <circle class="particle tiny" cx="760" cy="40" r="1.2" style="animation-delay:1.0s"/>
-      <circle class="particle tiny" cx="820" cy="380" r="1" style="animation-delay:.7s"/>
-      <circle class="particle tiny" cx="900" cy="120" r="1.2" style="animation-delay:1.6s"/>
-      <circle class="particle tiny" cx="980" cy="240" r="1" style="animation-delay:.2s"/>
-      <circle class="particle tiny" cx="1040" cy="380" r="1.5" style="animation-delay:1.3s"/>
-      <circle class="particle tiny" cx="1100" cy="50" r="1.2" style="animation-delay:.8s"/>
-      <circle class="particle tiny" cx="1160" cy="160" r="1" style="animation-delay:1.5s"/>
-      <circle class="particle tiny" cx="1220" cy="60" r="1.5" style="animation-delay:.6s"/>
-      <circle class="particle tiny" cx="1300" cy="180" r="1" style="animation-delay:1.1s"/>
-      <circle class="particle tiny" cx="1360" cy="340" r="1.2" style="animation-delay:.4s"/>
-
-      <!-- White glow accents -->
-      <circle class="particle glow" cx="180" cy="80" r="1.8" style="animation-delay:.5s"/>
-      <circle class="particle glow" cx="460" cy="220" r="2" style="animation-delay:1.2s"/>
-      <circle class="particle glow" cx="680" cy="60" r="1.5" style="animation-delay:.8s"/>
-      <circle class="particle glow" cx="920" cy="180" r="2" style="animation-delay:.3s"/>
-      <circle class="particle glow" cx="1140" cy="340" r="1.5" style="animation-delay:1.4s"/>
-      <circle class="particle glow" cx="1320" cy="120" r="1.8" style="animation-delay:.7s"/>
-    </svg>
-  </div>
-  <div>
-    <div class="wm fade-in">Leadership brief · 15 minutes</div>
-    <h1 class="fade-in delay-1">CoDesign<br>& Labs<br><em>FY26 → FY27</em>
-      <span class="yr-big">Brief</span>
-    </h1>
-  </div>
-  <div class="hright fade-in delay-2">
-    <div class="hbadge">15-min brief</div>
-    <div class="h-fy">Then feedback + Q&amp;A</div>
-    <p class="hsub">Impact, proof and FY27 priorities — then your sponsorship and questions. Full retrospective linked at the end.</p>
-  </div>
-  <div class="scroll-hint">▾ scroll</div>
-</header>
-    </div>
-  </section>
-  <section class="slide" data-slide="kpis" data-index="1" aria-hidden="true">
-    <div class="slide-scroll">
-<div class="hero-kpi">
-  <div class="hk fade-in delay-1">
-    <div class="hk-label">FY26 Active Impact</div>
-    <div class="hk-num"><span class="accent">€1.1B</span></div>
-    <div class="hk-sub">Annualised contract value actively progressed via CoDesign this year — across won, run and proposition stages</div>
-  </div>
-  <div class="hk fade-in delay-2">
-    <div class="hk-label">Wins Closed</div>
-    <div class="hk-num"><span class="accent">8</span></div>
-    <div class="hk-sub">Strategic bids &amp; renewals where CoDesign supported the win</div>
-  </div>
-  <div class="hk fade-in delay-3">
-    <div class="hk-label">Lab Bookings</div>
-    <div class="hk-num"><span class="accent">102</span></div>
-    <div class="hk-sub">Workshops, events and visits hosted at the Labs since opening</div>
-  </div>
-  <div class="hk fade-in delay-4">
-    <div class="hk-label">Net Promoter Score</div>
-    <div class="hk-num"><span class="accent">+53</span></div>
-    <div class="hk-sub">Excellent — based on 43 client & internal participant surveys</div>
-  </div>
-</div>
-    </div>
-  </section>
-  <section class="slide" data-slide="summary" data-index="2" aria-hidden="true">
-    <div class="slide-scroll">
-<div class="exec-summary labs-bg labs-dots-tr" style="position:relative;">
-  <div class="labs-banner-full" style="max-width:fit-content;margin:0 0 22px;">— Co-creating the future of experiences —</div>
-  <div class="es-tag reveal">Executive Summary</div>
-  <h2 class="es-headline reveal">CoDesign & Labs is no longer a pilot. It is a <em>commercial engine</em> — embedded in major sales cycles, generating measurable uplift, and scaling globally.</h2>
-  <p class="es-body reveal">In FY26 we moved from proving the concept to delivering against it. CoDesign actively progressed <strong>~€1.1B of annualised contract value this year</strong>, across <strong>8 confirmed wins</strong> and <strong>13 strategic projects</strong> in delivery. The Sodexo Labs in Paris hosted <strong>102 sessions</strong> — roughly half generated by client-facing CoDesign engagements (we bring clients in to anchor commitment), half by internal teams using the Labs to align on growth, sustainability and innovation. Workshops scored 4.37/5 average with an NPS of +53 across 43 surveyed participants, producing 1,000+ ideas, 50+ concepts and 20 client roadmaps. The model is now requested by 4 regions, with 2 US sites in framing.</p>
-  <div class="es-pillars reveal-stagger">
-    <div class="es-pill">
-      <div class="es-pill-num">€1.1B</div>
-      <div class="es-pill-label">FY26 Active Commercial Impact</div>
-      <div class="es-pill-desc">Contract value actively progressed this year through CoDesign engagements — won, in delivery, or in active proposition.</div>
-    </div>
-    <div class="es-pill">
-      <div class="es-pill-num">8 Wins</div>
-      <div class="es-pill-label">New Bids & Renewals Closed</div>
-      <div class="es-pill-desc">Edinburgh Zoo, Newcastle United, Total Link, American Airlines, JDA, Lilly, Abeille, Roland-Garros — wins where CoDesign supported the outcome.</div>
-    </div>
-    <div class="es-pill">
-      <div class="es-pill-num">93%</div>
-      <div class="es-pill-label">Workshop Satisfaction</div>
-      <div class="es-pill-desc">Of participants rated workshops 4 stars or higher. NPS +53 across client and internal sessions.</div>
-    </div>
-  </div>
-  <div class="labs-pagenum">01</div>
-</div>
-    </div>
-  </section>
-  <section class="slide" data-slide="impact" data-index="3" aria-hidden="true">
-    <div class="slide-scroll">
-<div class="section">
-  <div class="sec-hdr reveal">
-    <span class="stag" style="color:var(--blue)">01</span>
-    <h2 class="stitle">Annual <em>impact</em> in numbers</h2>
-    <span class="sbadge sb-both">● CoDesign & Labs</span>
-  </div>
-  <div class="impact-grid reveal-stagger">
-    <div class="ic"><div class="ic-num" style="color:var(--blue)">30</div><div class="ic-label">Strategic<br>Clients Engaged</div><div class="ic-bar" style="background:var(--blue)"></div></div>
-    <div class="ic"><div class="ic-num" style="color:var(--orange)">8</div><div class="ic-label">Wins<br>FY26</div><div class="ic-bar" style="background:var(--orange)"></div></div>
-    <div class="ic"><div class="ic-num" style="color:var(--green)">13</div><div class="ic-label">Active CoDesign<br>Projects</div><div class="ic-bar" style="background:var(--green)"></div></div>
-    <div class="ic"><div class="ic-num" style="color:var(--purple)">102</div><div class="ic-label">Lab Sessions<br>Hosted</div><div class="ic-bar" style="background:var(--purple)"></div></div>
-    <div class="ic"><div class="ic-num" style="color:var(--teal);font-size:30px;padding-top:6px;">€1.1B</div><div class="ic-label">FY26 Active<br>Impact</div><div class="ic-bar" style="background:var(--teal)"></div></div>
-  </div>
-  <div class="countries-band reveal">
-    <div class="countries-band-label">Countries &amp; territories covered · 6</div>
-    <div class="countries-chips">
-      <span class="country-chip"><span class="flag">🇫🇷</span><span class="cname">France</span></span>
-      <span class="country-chip"><span class="flag">🇬🇧</span><span class="cname">UK&I</span></span>
-      <span class="country-chip"><span class="flag">🇺🇸</span><span class="cname">USA</span></span>
-      <span class="country-chip"><span class="flag">🇪🇸</span><span class="cname">Spain (COEU)</span></span>
-      <span class="country-chip"><span class="flag">🇳🇱</span><span class="cname">Netherlands</span></span>
-      <span class="country-chip"><span class="flag">🌍</span><span class="cname">Global GSA</span></span>
-    </div>
-  </div>
-</div>
-    </div>
-  </section>
-  <section class="slide" data-slide="commercial" data-index="4" aria-hidden="true">
-    <div class="slide-scroll">
-<div class="ci-section">
-  <div class="sec-hdr reveal">
-    <span class="stag">02</span>
-    <h2 class="stitle">Commercial <em>impact</em> — proven at scale</h2>
-  </div>
-  <div class="ci-grid">
-    <div class="reveal">
-      <h3 class="ci-headline">From methodology<br>to <em>measurable revenue uplift</em>.</h3>
-      <p class="ci-desc">CoDesign is no longer experimental. It is embedded in major commercial cycles — converting strategic conversations into renewals, new bids and contract extensions. Performance metrics consolidated across 25+ accounts demonstrate consistent uplift on every deal type.</p>
-      <div class="ci-uplift">
-        <div class="cu"><div class="cu-num">+3%</div><div class="cu-label">Renewal Uplift</div></div>
-        <div class="cu"><div class="cu-num">+1.5%</div><div class="cu-label">Cross-sell Uplift</div></div>
-        <div class="cu"><div class="cu-num">+3%</div><div class="cu-label">New Bid Uplift</div></div>
-        <div class="cu"><div class="cu-num">10%</div><div class="cu-label">Average Margin</div></div>
-      </div>
-    </div>
-    <div class="donut-wrap reveal">
-      <div class="donut" id="portfolio-donut">
-        <svg viewBox="0 0 200 200">
-          <circle class="track" cx="100" cy="100" r="90"/>
-          <circle class="seg-renew" cx="100" cy="100" r="90"/>
-          <circle class="seg-bid" cx="100" cy="100" r="90"/>
-        </svg>
-        <div class="donut-center">
-          <div class="donut-num">€1.1B</div>
-          <div class="donut-label">FY26 Mix</div>
-        </div>
-      </div>
-      <div class="donut-legend">
-        <div class="dl"><span class="dl-dot" style="background:#6EA8FF"></span>Maintain & Retention 75%</div>
-        <div class="dl"><span class="dl-dot" style="background:#A37AE0"></span>New Bids 25%</div>
-      </div>
-    </div>
-  </div>
-</div>
-    </div>
-  </section>
-  <section class="slide" data-slide="wins" data-index="5" aria-hidden="true">
-    <div class="slide-scroll">
-<div class="section" style="background:var(--surface);">
-  <div class="sec-hdr reveal">
-    <span class="stag" style="color:var(--orange)">03</span>
-    <h2 class="stitle">FY26 <em>wins</em> — the year we delivered</h2>
-    <span class="sbadge sb-win">🏆 Closed Deals</span>
-  </div>
-  <div class="wins-banner reveal">
-    <div class="wb-icon">🏆</div>
-    <div class="wb-content">
-      <h3><em>Eight strategic wins</em> where CoDesign supported the outcome</h3>
-      <div class="wb-stat">From new bids to renewals and extensions — commercial outcomes CoDesign helped shape across FY26.</div>
-      <div class="wb-clients">
-        <div class="wb-client">
-          <img src="https://logo.clearbit.com/edinburghzoo.org.uk" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
-          <span class="wfi" style="display:none">EZ</span>
-          Edinburgh Zoo
-          <span class="wb-amount">£4M/yr</span>
-        </div>
-        <div class="wb-client">
-          <span class="wfi">NU</span>
-          Newcastle United
-          <span class="wb-amount">£20M/yr</span>
-        </div>
-        <div class="wb-client">
-          <span class="wfi">TL</span>
-          Total Link
-          <span class="wb-amount">FR · New Bid</span>
-        </div>
-        <div class="wb-client">
-          <img src="https://logo.clearbit.com/aa.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
-          <span class="wfi" style="display:none">AA</span>
-          American Airlines
-          <span class="wb-amount">$70M/yr</span>
-        </div>
-        <div class="wb-client">
-          <span class="wfi">JDA</span>
-          JDA
-          <span class="wb-amount">Win</span>
-        </div>
-        <div class="wb-client">
-          <img src="https://logo.clearbit.com/lilly.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
-          <span class="wfi" style="display:none">Li</span>
-          Eli Lilly
-          <span class="wb-amount">€70M/yr</span>
-        </div>
-        <div class="wb-client">
-          <span class="wfi">Ab</span>
-          Abeille
-          <span class="wb-amount">FR · Win</span>
-        </div>
-        <div class="wb-client">
-          <img src="https://logo.clearbit.com/rolandgarros.com" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" alt="">
-          <span class="wfi" style="display:none">RG</span>
-          Roland-Garros
-          <span class="wb-amount">€50M/yr</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    </div>
-  </section>
-  <section class="slide" data-slide="field" data-index="6" aria-hidden="true">
-    <div class="slide-scroll">
-<div class="section" style="background:var(--surface);padding-top:0;">
-  <div class="sec-hdr reveal">
-    <span class="stag" style="color:var(--green)">04</span>
-    <h2 class="stitle">Projects &amp; Labs <em>in action</em></h2>
-    <span class="sbadge sb-both">● CoDesign & Labs</span>
-  </div>
-  <p class="sec-intro reveal">A compact leadership sample — strategic CoDesign engagements alongside how the Paris Labs ran this year. Full detail in the yearly retrospective.</p>
-
-  <div class="reveal" style="margin-bottom:22px;">
-    <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:12px;">Key CoDesign projects</div>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
-      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--green);">
-        <div><div style="font-size:13px;font-weight:600;">Eli Lilly</div><div style="font-size:11px;color:var(--muted);">Giga Factory · GSA</div></div>
-        <div style="font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;">€70M/yr</div>
-      </div>
-      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--green);">
-        <div><div style="font-size:13px;font-weight:600;">AstraZeneca</div><div style="font-size:11px;color:var(--muted);">Cambridge campus · GSA / UK&amp;I</div></div>
-        <div style="font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;">€76M/yr</div>
-      </div>
-      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--green);">
-        <div><div style="font-size:13px;font-weight:600;">Microsoft</div><div style="font-size:11px;color:var(--muted);">Workplace &amp; community · GSA</div></div>
-        <div style="font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;">€55M/yr</div>
-      </div>
-      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--blue);">
-        <div><div style="font-size:13px;font-weight:600;">Roland-Garros</div><div style="font-size:11px;color:var(--muted);">F&amp;B experience · FR Live!</div></div>
-        <div style="font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;">€50M/yr</div>
-      </div>
-      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--blue);">
-        <div><div style="font-size:13px;font-weight:600;">Clariane</div><div style="font-size:11px;color:var(--muted);">Care dining · COEU</div></div>
-        <div style="font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;">€140M/yr</div>
-      </div>
-      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--orange);">
-        <div><div style="font-size:13px;font-weight:600;">Edinburgh Zoo · Won</div><div style="font-size:11px;color:var(--muted);">Visitor XP · UK&amp;I</div></div>
-        <div style="font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;">£4M/yr</div>
-      </div>
-      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--orange);">
-        <div><div style="font-size:13px;font-weight:600;">Newcastle United · Won</div><div style="font-size:11px;color:var(--muted);">Fan XP · UK&amp;I Live!</div></div>
-        <div style="font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;">£20M/yr</div>
-      </div>
-      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--orange);">
-        <div><div style="font-size:13px;font-weight:600;">Tour de France</div><div style="font-size:11px;color:var(--muted);">Hospitality · FR Live!</div></div>
-        <div style="font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;">€6M + €3M</div>
-      </div>
-      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--teal);">
-        <div><div style="font-size:13px;font-weight:600;">Cooper University Hospital</div><div style="font-size:11px;color:var(--muted);">Caregiver XP · USA HC</div></div>
-        <div style="font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;">$16M/yr</div>
-      </div>
-      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;background:var(--surface2);border-left:3px solid var(--purple);">
-        <div><div style="font-size:13px;font-weight:600;">École Lenôtre · SoAppro</div><div style="font-size:11px;color:var(--muted);">Strategy reviews · FR</div></div>
-        <div style="font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;">€80M · €140M</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="reveal">
-    <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:12px;">102 Lab sessions hosted</div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px;">
-      <div style="background:var(--bg);border:1px solid var(--border);border-top:3px solid var(--green);padding:16px 18px;">
-        <div style="font-size:28px;font-weight:300;color:var(--green);line-height:1;letter-spacing:-.02em;">27</div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:8px;">CoDesign workshops</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:6px;line-height:1.45;">Client sessions tied to live engagements</div>
-      </div>
-      <div style="background:var(--bg);border:1px solid var(--border);border-top:3px solid var(--purple);padding:16px 18px;">
-        <div style="font-size:28px;font-weight:300;color:var(--purple);line-height:1;letter-spacing:-.02em;">31</div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:8px;">Events &amp; showcases</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:6px;line-height:1.45;">Inspiration, partners, internal alignment</div>
-      </div>
-      <div style="background:var(--bg);border:1px solid var(--border);border-top:3px solid var(--blue);padding:16px 18px;">
-        <div style="font-size:28px;font-weight:300;color:var(--blue);line-height:1;letter-spacing:-.02em;">44</div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:8px;">Account visits</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:6px;line-height:1.45;">Credibility plays that open CoDesign doors</div>
-      </div>
-    </div>
-    <div style="font-size:12px;color:var(--text2);line-height:1.55;">~70% of client visits come from an active CoDesign engagement · ~30% are discovery-led and feed the next conversation. <a href="/newsletters/fy26-yearly-retrospective.html" style="color:var(--blue);font-weight:600;text-decoration:none;">Full session list →</a></div>
-  </div>
-</div>
-    </div>
-  </section>
-  <section class="slide" data-slide="voice" data-index="7" aria-hidden="true">
-    <div class="slide-scroll">
-<div class="section fb-section">
-  <div class="sec-hdr reveal">
-    <span class="stag" style="color:var(--green)">05</span>
-    <h2 class="stitle">Voice of the <em>participants</em></h2>
-    <span class="sbadge sb-cd">● Live Survey Data</span>
-  </div>
-  <p class="sec-intro reveal">43 participants surveyed across client workshops and internal sessions in FY26. Quantitative results below; qualitative themes follow.</p>
-
-  <div class="fb-hero reveal">
-    <div class="fb-score">
-      <div><span class="fb-big-num">+53</span></div>
-      <div class="fb-big-label">Net Promoter Score</div>
-      <div class="nps-gauge">
-        <div class="nps-cell det"><div class="nps-pct">7%</div><div class="nps-name">Detractors</div><div class="nps-sub">0–6 · 3 people</div></div>
-        <div class="nps-cell pas"><div class="nps-pct">33%</div><div class="nps-name">Passives</div><div class="nps-sub">7–8 · 14 people</div></div>
-        <div class="nps-cell pro"><div class="nps-pct">60%</div><div class="nps-name">Promoters</div><div class="nps-sub">9–10 · 26 people</div></div>
-      </div>
-    </div>
-    <div class="fb-stats">
-      <div class="fb-row" data-w="87"><div class="fb-row-label">Average rating</div><div class="fb-row-bar"><div class="fb-row-fill" style="--w:87%;background:var(--green);"></div></div><div class="fb-row-val">4.37/5</div></div>
-      <div class="fb-row" data-w="91"><div class="fb-row-label">Rated 4★ or higher</div><div class="fb-row-bar"><div class="fb-row-fill" style="--w:91%;background:var(--green);"></div></div><div class="fb-row-val">91%</div></div>
-      <div class="fb-row" data-w="47"><div class="fb-row-label">Rated 5★ (top score)</div><div class="fb-row-bar"><div class="fb-row-fill" style="--w:47%;background:var(--blue);"></div></div><div class="fb-row-val">47%</div></div>
-      <div class="fb-row" data-w="87"><div class="fb-row-label">Average willingness to recommend</div><div class="fb-row-bar"><div class="fb-row-fill" style="--w:87%;background:var(--blue);"></div></div><div class="fb-row-val">8.7/10</div></div>
-      <div class="fb-row" data-w="100"><div class="fb-row-label">Would attend another workshop</div><div class="fb-row-bar"><div class="fb-row-fill" style="--w:100%;background:var(--green);"></div></div><div class="fb-row-val">100%</div></div>
-    </div>
-  </div>
-
-  <div style="margin-top:32px;">
-    <h3 style="font-family:'Open Sans';font-weight:300;font-size:22px;margin-bottom:18px;letter-spacing:-.01em;" class="reveal">In their own <em style="font-style:italic;font-weight:600;color:var(--blue);">words</em></h3>
-    <div class="testimonials reveal-stagger">
-<div class="t-card">
-        <p class="t-text">The team's energy, the understanding of our challenge, the quality of the prep work, the coordination… The workshop was very well prepared.</p>
-        <div class="t-meta"><span class="t-source">Client workshop participant</span><span class="t-rating">4/5 · 9/10</span></div>
-      </div>
-<div class="t-card">
-        <p class="t-text">The design-thinking method lets ideas emerge and grow through collective intelligence. The approach is highly effective.</p>
-        <div class="t-meta"><span class="t-source">Senior stakeholder</span><span class="t-rating">5/5 · 10/10</span></div>
-      </div>
-<div class="t-card">
-        <p class="t-text">It was very interesting to brainstorm with Sodexo and be inspired by what is happening in other companies. The "out of the box" mindset for creativity was great.</p>
-        <div class="t-meta"><span class="t-source">International client</span><span class="t-rating">5/5 · 10/10</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- What we're improving -->
-  <div style="margin-top:36px;background:var(--surface2);padding:28px 32px;border-radius:6px;border-left:3px solid var(--orange);" class="reveal">
-    <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--orange);font-weight:700;margin-bottom:10px;">▶ WHAT WE'RE IMPROVING — based on participant feedback</div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;font-size:13px;color:var(--text2);line-height:1.6;">
-      <div><strong style="color:var(--text);">More time per workshop.</strong> Recurring ask: lengthen the deep-dive phase, especially the prioritization step.</div>
-      <div><strong style="color:var(--text);">Better client onboarding.</strong> Add an embedded intro and pre-read so external participants engage faster.</div>
-      <div><strong style="color:var(--text);">More digital tools.</strong> Several participants found post-it methods too "classroom-like" — moving toward more digital co-creation in v2.</div>
-    </div>
-  </div>
-</div>
-    </div>
-  </section>
-  <section class="slide" data-slide="scaling" data-index="8" aria-hidden="true">
-    <div class="slide-scroll">
-<div class="section" style="background:var(--surface);">
-  <div class="sec-hdr reveal">
-    <span class="stag" style="color:var(--pink)">06</span>
-    <h2 class="stitle">Scaling CoDesign &amp; Labs <em>globally</em></h2>
-    <span class="sbadge sb-labs">● FY27 Roadmap</span>
-  </div>
-  <p class="sec-intro reveal">This is not “prepare the Philadelphia session.” The ambition is higher: make our CoDesign method <strong>transferable and deployable in regions</strong> — by teams who are not designers (including IT). We bring 5 years of proven method, a CoDesign OS with 23 agents, Persona Studio, an Experience Catalogue, and credentials across a ~€2B perimeter. The year’s challenge: turn that into an <strong>acculturation and upskilling system</strong> others can own. Philadelphia (9 Sept · US Tech team) is our first pilot — not the endgame.</p>
-
-  <!-- Two horizons -->
-  <div class="analytics-grid reveal-stagger" style="margin-bottom:24px;">
-    <div style="background:var(--lab-blue-bg);border:1px solid rgba(26,105,255,.2);padding:26px 28px;border-radius:6px;border-top:3px solid var(--blue);">
-      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:10px;">Horizon 1 · Now → 9 Sept</div>
-      <div style="font-size:18px;font-weight:600;color:var(--navy);margin-bottom:10px;letter-spacing:-.01em;">The pilot</div>
-      <div style="font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:14px;">Finite scope — finish cleanly, without drowning it:</div>
-      <div class="si" style="border-bottom:1px solid rgba(26,105,255,.12);"><span class="arr">→</span>Restructured Miro training</div>
-      <div class="si" style="border-bottom:1px solid rgba(26,105,255,.12);"><span class="arr">→</span>Pre-read pack</div>
-      <div class="si" style="border-bottom:1px solid rgba(26,105,255,.12);"><span class="arr">→</span>Session design</div>
-      <div class="si" style="border-bottom:1px solid rgba(26,105,255,.12);"><span class="arr">→</span>Facilitator guide</div>
-      <div class="si"><span class="arr">→</span>Workbook</div>
-    </div>
-    <div style="background:var(--surface2);border:1px solid var(--border);padding:26px 28px;border-radius:6px;border-top:3px solid var(--purple);">
-      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--purple);font-weight:700;margin-bottom:10px;">Horizon 2 · The year</div>
-      <div style="font-size:18px;font-weight:600;color:var(--text);margin-bottom:10px;letter-spacing:-.01em;">The full regional system</div>
-      <div style="font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:14px;">Frame now; build after the pilot teaches us:</div>
-      <div class="si"><span class="arr">→</span><strong>Blueprint</strong> for regional rollout</div>
-      <div class="si"><span class="arr">→</span><strong>Capability levels 0→4</strong></div>
-      <div class="si"><span class="arr">→</span><strong>Documentation</strong> &amp; playbooks</div>
-      <div class="si"><span class="arr">→</span><strong>SharePoint / Miro / OS</strong> architecture</div>
-      <div class="si"><span class="arr">→</span><strong>Adoption measurement</strong></div>
-    </div>
-  </div>
-
-  <!-- Ecosystem -->
-  <div class="ana-card reveal">
-    <div class="ana-card-title">The ecosystem — one canonical home per asset</div>
-    <div class="ana-card-sub">We do not put everything in Miro · zero duplication · link everywhere else</div>
-    <div class="analytics-grid three" style="margin-top:18px;margin-bottom:0;">
-      <div style="background:var(--surface2);padding:16px 18px;border-radius:4px;border-left:3px solid var(--blue);">
-        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px;">SharePoint</div>
-        <div style="font-size:12px;color:var(--text2);line-height:1.55;">Source of truth for documents &amp; templates — pre-reads, visit playbooks, discovery reports, examples, credentials.</div>
-      </div>
-      <div style="background:var(--surface2);padding:16px 18px;border-radius:4px;border-left:3px solid var(--orange);">
-        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px;">Miro</div>
-        <div style="font-size:12px;color:var(--text2);line-height:1.55;">Navigation, training &amp; facilitation. The training board is our hero asset for Philadelphia.</div>
-      </div>
-      <div style="background:var(--surface2);padding:16px 18px;border-radius:4px;border-left:3px solid var(--purple);">
-        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px;">CoDesign OS</div>
-        <div style="font-size:12px;color:var(--text2);line-height:1.55;">Execution accelerator — every method card points to its agent. 23 agents ready to scale the practice.</div>
-      </div>
-      <div style="background:var(--surface2);padding:16px 18px;border-radius:4px;border-left:3px solid var(--green);">
-        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px;">Persona Studio · XP Catalogue · Figma</div>
-        <div style="font-size:12px;color:var(--text2);line-height:1.55;">Specialised tools, linked from the relevant method card — not duplicated into Miro.</div>
-      </div>
-      <div style="background:var(--surface2);padding:16px 18px;border-radius:4px;border-left:3px solid var(--teal);">
-        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px;">Credentials</div>
-        <div style="font-size:12px;color:var(--text2);line-height:1.55;">The proof — surfaced in Presales and in a living library across ~€2B of perimeter.</div>
-      </div>
-      <div style="background:linear-gradient(135deg,#E8EFFE,#D0DCFF);padding:16px 18px;border-radius:4px;border-left:3px solid var(--navy);">
-        <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px;">🇺🇸 First pilot · Philadelphia</div>
-        <div style="font-size:12px;color:var(--navy);opacity:.8;line-height:1.55;">9 Sept · US Tech team — prove the method can travel before we industrialise the regional system.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Regional footprint + Paris Labs space -->
-  <div class="sc-grid reveal-stagger" style="margin-top:24px;">
-    <div class="scard">
-      <div class="scardtitle">Global Expansion Roadmap</div>
-      <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:16px;">Four regions actively engaged on replicating the Labs model. The first US satellite is moving from framing to delivery; Brazil and UK&amp;I are in scoping; Australia is in early APAC talks.</p>
-      <div class="scale-map">
-        <div class="smc"><span class="smc-flag">🇺🇸</span><span class="smc-name">USA · 2 sites</span><div class="smc-status">Active framing · Philly pilot</div></div>
-        <div class="smc discuss"><span class="smc-flag">🇧🇷</span><span class="smc-name">Brazil</span><div class="smc-status">Scoping</div></div>
-        <div class="smc discuss"><span class="smc-flag">🇬🇧</span><span class="smc-name">UK&I</span><div class="smc-status">In discussion</div></div>
-        <div class="smc discuss"><span class="smc-flag">🇦🇺</span><span class="smc-name">Australia · APAC</span><div class="smc-status">Potential · early talks</div></div>
-      </div>
-    </div>
-    <div class="scard">
-      <div class="scardtitle">Paris Labs · Space Design v2</div>
-      <div class="si"><span class="arr">→</span>More immersion, sound and information layers</div>
-      <div class="si"><span class="arr">→</span>Sound experience with <strong>IRCAM</strong> partnership</div>
-      <div class="si"><span class="arr">→</span>E-ink rollout — Samsung &amp; Philips signage</div>
-      <div class="si"><span class="arr">→</span>Glocal Catalog implemented</div>
-      <div class="si"><span class="arr">→</span>Neat Frame 65" interactive display deployed</div>
-      <div class="si"><span class="arr">→</span>Hub reorg in progress</div>
-    </div>
-  </div>
-</div>
-    </div>
-  </section>
-  <section class="slide" data-slide="fy27" data-index="9" aria-hidden="true">
-    <div class="slide-scroll">
-<div class="next-section">
-  <div class="sec-hdr reveal">
-    <span class="stag">07</span>
-    <h2 class="stitle">FY27 — what's <em>next</em></h2>
-  </div>
-  <div class="next-grid reveal-stagger">
-    <div class="next-card">
-      <div class="next-tag">▶ 01 · Scale</div>
-      <div class="next-name">First Satellite Labs</div>
-      <div class="next-desc">Transferable CoDesign system for regions — Philadelphia pilot as the start, not the end.</div>
-    </div>
-    <div class="next-card">
-      <div class="next-tag">▶ 02 · Train</div>
-      <div class="next-name">Upskill non-designer teams</div>
-      <div class="next-desc">Documentation, Miro training, playbooks and CoDesign OS — so IT and regions can run the method.</div>
-    </div>
-    <div class="next-card">
-      <div class="next-tag">▶ 03 · Sponsorship</div>
-      <div class="next-name">Default on must-retain &amp; renew</div>
-      <div class="next-desc">Visible leadership support in major deals — CoDesign as the standard on strategic cycles.</div>
-    </div>
-    <div class="next-card">
-      <div class="next-tag">▶ 04 · More value</div>
-      <div class="next-name">Measured commercial uplift</div>
-      <div class="next-desc">Push renewals, new bids and extensions — turn every engagement into proof leadership can track.</div>
-    </div>
-    <div class="next-card">
-      <div class="next-tag">▶ 05 · Longer-term delivery</div>
-      <div class="next-name">Tech + account ownership</div>
-      <div class="next-desc">Staff projects with teams who can run the work beyond the workshop — continuity in-region.</div>
-    </div>
-  </div>
-</div>
-    </div>
-  </section>
-  <section class="slide" data-slide="qa" data-index="10" aria-hidden="true">
-    <div class="slide-scroll">
-<div class="qa-section">
-  <div class="sec-hdr reveal">
-    <span class="stag" style="color:var(--orange);">08</span>
-    <h2 class="stitle">Your turn — <em>Q&A and improvements</em></h2>
-    <span class="sbadge sb-win">📌 Live wall</span>
-  </div>
-  <p class="sec-intro reveal">After the brief: written feedback (form placeholder below), then oral Q&amp;A. Use the live wall for questions and ideas during the discussion.</p>
-
-  <div class="reveal" style="display:grid;grid-template-columns:1.1fr 1fr;gap:16px;margin-bottom:22px;">
-    <div style="background:#fff;border:1px solid rgba(232,90,14,.25);padding:22px 24px;border-radius:6px;">
-      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);font-weight:700;margin-bottom:8px;">Written feedback</div>
-      <div style="font-size:15px;font-weight:600;margin-bottom:6px;">Share what landed and where you can sponsor FY27</div>
-      <div style="font-size:13px;color:var(--text2);line-height:1.55;margin-bottom:14px;">2–3 minutes. Form URL placeholder — replace before the session.</div>
-      <a href="#feedback-form-placeholder" id="feedback-form-link" style="display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;text-decoration:none;font-weight:700;font-size:13px;padding:10px 16px;border-radius:4px;">Open feedback form →</a>
-      <div id="feedback-form-placeholder" style="margin-top:10px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);">Form URL placeholder</div>
-    </div>
-    <div style="background:#fff;border:1px solid var(--border);padding:22px 24px;border-radius:6px;">
-      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:8px;">Oral Q&amp;A</div>
-      <div style="font-size:15px;font-weight:600;margin-bottom:6px;">Open floor after the brief</div>
-      <div style="font-size:13px;color:var(--text2);line-height:1.55;margin-bottom:14px;">Challenge the priorities, ask for proof, tell us where sponsorship is hardest.</div>
-      <a href="/newsletters/fy26-yearly-retrospective.html" style="display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border2);color:var(--blue);text-decoration:none;font-weight:700;font-size:13px;padding:10px 16px;border-radius:4px;">Open full retrospective ↗</a>
-    </div>
-  </div>
-
-  <div class="qa-board reveal">
-    <div class="qa-board-title">
-      <h3>📌 Q&A · Ideas · Feedback wall</h3>
-      <div class="qa-input-row">
-        <input type="text" id="qa-text" class="qa-input" placeholder="Type a question, idea or suggestion..." maxlength="180">
-        <div class="qa-color-pick" id="qa-colors">
-          <div class="qa-color pi-yellow active" data-c="pi-yellow" title="Question"></div>
-          <div class="qa-color pi-pink" data-c="pi-pink" title="Idea"></div>
-          <div class="qa-color pi-blue" data-c="pi-blue" title="Improvement"></div>
-          <div class="qa-color pi-green" data-c="pi-green" title="Praise"></div>
-          <div class="qa-color pi-orange" data-c="pi-orange" title="Concern"></div>
-          <div class="qa-color pi-purple" data-c="pi-purple" title="Other"></div>
-        </div>
-        <button class="qa-add-btn" id="qa-add">+ Add</button>
-      </div>
-    </div>
-    <p class="qa-tip">💡 Yellow = question · Pink = idea · Blue = improvement · Green = praise · Orange = concern · Purple = other. Drag-free, your data stays in this session only.</p>
-
-    <div class="postits" id="postits">
-      <div class="postit pi-yellow"><span class="postit-tag">Q</span><div>How do we accelerate the Lab → CoDesign opp conversion above 62%?</div><div class="postit-author">— Seed example</div></div>
-      <div class="postit pi-pink"><span class="postit-tag">Idea</span><div>Could we replicate the Lab format inside one of the GSA client sites for offsite immersion?</div><div class="postit-author">— Seed example</div></div>
-      <div class="postit pi-blue"><span class="postit-tag">Improve</span><div>Add a digital co-creation toolkit to address the "classroom-like" feedback from participants.</div><div class="postit-author">— Seed example</div></div>
-      <div class="postit pi-green"><span class="postit-tag">Praise</span><div>NPS +53 with 100% retention intent — exceptional benchmark for a year-1 program.</div><div class="postit-author">— Seed example</div></div>
-    </div>
-
-    <div class="qa-stats">
-      <span>📊 <span id="qa-count">4</span> notes on the wall</span>
-      <span>🎯 Open until end of meeting</span>
-      <span>📥 Export with browser print → PDF</span>
-    </div>
-  </div>
-</div>
-    </div>
-  </section>
-  </div>
-</div>
-
-<div class="deck-progress" id="deck-progress">01 / 11</div>
-<div class="deck-hint">Click or → · F fullscreen</div>
-
-<script>
-
-/* ── DONUT animation ── */
-const donutObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('in');
-      donutObs.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.3 });
-const donut = document.getElementById('portfolio-donut');
-if (donut) donutObs.observe(donut);
-
-/* ── FEEDBACK BAR animation ── */
-const fbObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('in');
-      fbObs.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.4 });
-document.querySelectorAll('.fb-row').forEach(el => fbObs.observe(el));
-
-/* ── LOGO LOADER ── */
-function initials(n){return n.replace(/[^a-zA-Z0-9& ]/g,'').trim().split(/\s+/).map(w=>w[0]||'').join('').slice(0,3).toUpperCase()||'??';}
-function buildChip(el, domain) {
-  const name = el.textContent.trim();
-  el.innerHTML = '';
-  const wrap = document.createElement('span');
-  wrap.style.cssText = 'display:inline-flex;align-items:center;gap:6px;';
-  const fb = document.createElement('span');
-  fb.className = 'fi';
-  fb.textContent = initials(name);
-  if (domain) {
-    const img = document.createElement('img');
-    img.src = 'https://logo.clearbit.com/' + domain;
-    img.alt = '';
-    img.width = 15;
-    img.height = 15;
-    img.style.cssText = 'object-fit:contain;border-radius:2px;flex-shrink:0;display:none;';
-    img.onload = () => { img.style.display = 'inline-block'; fb.style.display = 'none'; };
-    img.onerror = () => { img.style.display = 'none'; fb.style.display = 'inline-flex'; };
-    wrap.appendChild(img);
-    wrap.appendChild(fb);
-  } else { wrap.appendChild(fb); }
-  const lbl = document.createElement('span');
-  lbl.textContent = name;
-  wrap.appendChild(lbl);
-  el.appendChild(wrap);
-}
-document.querySelectorAll('.lc[data-logo]').forEach(el => buildChip(el, el.dataset.logo));
-
-/* ── ANALYTICS CARDS - trigger reveal animation on .ana-card ── */
-const anaObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('in');
-      anaObs.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.25 });
-document.querySelectorAll('.ana-card').forEach(el => anaObs.observe(el));
-
-/* Fallback: if any analytics card is already in viewport at load (e.g. short pages, fast scroll), trigger .in immediately */
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.querySelectorAll('.ana-card:not(.in)').forEach(el => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        el.classList.add('in');
-      }
-    });
-  }, 200);
-});
-
-/* ── POST-IT WALL ── */
+/* ── POST-IT WALL (optional — only if live wall exists) ── */
+(function () {
 const qaText = document.getElementById('qa-text');
 const qaAdd = document.getElementById('qa-add');
 const qaColors = document.getElementById('qa-colors');
 const postits = document.getElementById('postits');
 const qaCount = document.getElementById('qa-count');
+if (!qaText || !qaAdd || !qaColors || !postits || !qaCount) return;
 let activeColor = 'pi-yellow';
 
 const tagMap = {
@@ -1581,9 +648,9 @@ postits.addEventListener('click', (e) => {
 function updateCount() {
   qaCount.textContent = postits.querySelectorAll('.postit').length;
 }
+})();
 
-
-/* ── DECK NAVIGATION ── */
+/* ── DECK NAVIGATION + FIT-TO-SLIDE ── */
 (function () {
   const slides = Array.from(document.querySelectorAll(".slide"));
   const navBtns = Array.from(document.querySelectorAll("[data-nav-item]"));
@@ -1608,11 +675,42 @@ function updateCount() {
     });
   }
 
+  function fitSlide(slide) {
+    const viewport = slide.querySelector(".slide-fit");
+    const inner = slide.querySelector(".slide-fit-inner");
+    if (!viewport || !inner) return;
+    inner.style.transform = "scale(1)";
+    inner.style.width = "100%";
+    // Force layout at natural size
+    void inner.offsetHeight;
+    const availW = viewport.clientWidth;
+    const availH = viewport.clientHeight;
+    if (!availW || !availH) return;
+    const contentW = Math.max(inner.scrollWidth, inner.offsetWidth);
+    const contentH = Math.max(inner.scrollHeight, inner.offsetHeight);
+    const scale = Math.min(1, availW / contentW, availH / contentH);
+    inner.style.transformOrigin = "top left";
+    // Expand width so scaled result fills the stage width when shrinking
+    if (scale < 1) {
+      inner.style.width = (100 / scale) + "%";
+      // remeasure height after width expand for denser text wrap
+      void inner.offsetHeight;
+      const contentH2 = Math.max(inner.scrollHeight, inner.offsetHeight);
+      const scale2 = Math.min(1, availH / contentH2);
+      inner.style.transform = "scale(" + scale2 + ")";
+      inner.style.width = (100 / scale2) + "%";
+    } else {
+      inner.style.transform = "scale(1)";
+      inner.style.width = "100%";
+    }
+  }
+
   function goTo(n) {
     if (locked) return;
     const next = Math.max(0, Math.min(n, slides.length - 1));
     if (next === index && slides[next].classList.contains("is-active")) {
       activateReveals(slides[next]);
+      requestAnimationFrame(() => fitSlide(slides[next]));
       return;
     }
     locked = true;
@@ -1627,8 +725,10 @@ function updateCount() {
       btn.setAttribute("aria-current", on ? "true" : "false");
     });
     if (progress) progress.textContent = String(index + 1).padStart(2, "0") + " / " + String(slides.length).padStart(2, "0");
-    const sc = slides[index].querySelector(".slide-scroll");
-    if (sc) sc.scrollTop = 0;
+    requestAnimationFrame(() => {
+      fitSlide(slides[index]);
+      requestAnimationFrame(() => fitSlide(slides[index]));
+    });
     setTimeout(() => { locked = false; }, 420);
   }
 
@@ -1663,7 +763,6 @@ function updateCount() {
     });
   });
 
-  // swipe
   let sx = 0, sy = 0, dragging = false;
   const stage = document.getElementById("stage-frame");
   stage.addEventListener("pointerdown", (e) => {
@@ -1681,6 +780,18 @@ function updateCount() {
       if (dy < 0) goNext(); else goPrev();
     }
   });
+
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => fitSlide(slides[index]), 80);
+  });
+  document.addEventListener("fullscreenchange", () => {
+    setTimeout(() => fitSlide(slides[index]), 80);
+  });
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => fitSlide(slides[index]));
+  }
 
   goTo(0);
 })();
