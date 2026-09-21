@@ -3,7 +3,7 @@ import { PEOPLE_SEATS } from "@/lib/people-board/seed";
 import { PEOPLE_SIGNALS, signalFor } from "@/lib/people-board/signals";
 
 describe("coverage and arbitration signals", () => {
-  it("flags Design System uncovered from December while the internal seat is Pr2", () => {
+  it("flags Design System while DSM is a full-year external vacancy", () => {
     const signal = signalFor("design-system", PEOPLE_SEATS);
     expect(signal.kind).toBe("coverage-risk");
     expect(signal.active).toBe(true);
@@ -11,15 +11,22 @@ describe("coverage and arbitration signals", () => {
     expect(signal.personIds).toEqual([
       "guillaume-sauvanon",
       "ismael-casado",
-      "dsm-internal-pt",
+      "vacancy-dsm",
     ]);
-    expect(signal.headline).toMatch(/December/i);
-    expect(signal.headline).toMatch(/Pr2/i);
+    expect(signal.headline).toMatch(/vacancy/i);
+    expect(signal.headline).toMatch(/year/i);
   });
 
-  it("clears the Design System risk once the internal seat is Pr1", () => {
+  it("clears the Design System risk once the DSM vacancy is hired", () => {
     const seats = PEOPLE_SEATS.map((seat) =>
-      seat.id === "dsm-internal-pt" ? { ...seat, status: "pr1" as const } : seat,
+      seat.id === "vacancy-dsm"
+        ? {
+            ...seat,
+            displayName: "DSM",
+            budgetGap: false,
+            inBudget: true,
+          }
+        : seat,
     );
     const signal = signalFor("design-system", seats);
     expect(signal.active).toBe(false);
@@ -38,7 +45,11 @@ describe("coverage and arbitration signals", () => {
     const signal = signalFor("india-b2c-soeze", PEOPLE_SEATS);
     expect(signal.kind).toBe("arbitrate");
     expect(signal.active).toBe(true);
-    expect(signal.personIds).toEqual(["nikhil-soeze", "lead-pd-b2c"]);
+    expect(signal.personIds).toEqual([
+      "nikhil-soeze",
+      "vacancy-b2c-india",
+      "lead-pd-b2c",
+    ]);
     expect(signal.headline).toMatch(/India/i);
   });
 
@@ -63,12 +74,13 @@ describe("coverage and arbitration signals", () => {
     expect(signal.headline).toMatch(/P11|July/i);
   });
 
-  it("flags the Data AI vacancy from P2", () => {
+  it("clears the Data AI risk once Neha sits on the seat", () => {
     const signal = signalFor("data-vacancy", PEOPLE_SEATS);
     expect(signal.kind).toBe("coverage-risk");
-    expect(signal.active).toBe(true);
+    expect(signal.active).toBe(false);
     expect(signal.lane).toBe("pd-data");
-    expect(signal.personIds).toEqual(["vacancy-ai-products"]);
+    expect(signal.personIds).toEqual(["neha-b2c"]);
+    expect(signal.headline).toMatch(/Neha/i);
     expect(signal.headline).toMatch(/AI/i);
   });
 

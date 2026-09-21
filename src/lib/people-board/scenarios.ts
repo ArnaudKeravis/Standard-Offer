@@ -8,8 +8,17 @@ export function applyScenarios(
   on: ReadonlySet<ScenarioId>,
 ): PersonSeat[] {
   return seats.map((seat) => {
-    if (on.has("validate-dsm") && seat.id === "dsm-internal-pt") {
-      return { ...seat, status: "pr1" };
+    if (on.has("validate-dsm") && seat.id === "vacancy-dsm") {
+      const cost = seat.theoreticalAnnualCost ?? 0;
+      return {
+        ...seat,
+        displayName: "DSM",
+        inBudget: true,
+        budgetGap: false,
+        annualCostFromStart: cost,
+        opex: Math.round(cost * (1 - seat.capexRatio)),
+        capex: Math.round(cost * seat.capexRatio),
+      };
     }
     if (on.has("validate-b2b-lead") && seat.id === "lead-pd-b2b") {
       const cost = seat.theoreticalAnnualCost ?? 0;

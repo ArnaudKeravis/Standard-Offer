@@ -15,14 +15,15 @@ describe("applyScenarios", () => {
     expect(signalFor("pd-b2b", seats).active).toBe(false);
   });
 
-  it("validates the Design System Manager without inventing extra cost", () => {
+  it("hires the DSM vacancy from the theoretical cost", () => {
     const seats = applyScenarios(PEOPLE_SEATS, new Set(["validate-dsm"]));
-    const dsm = seats.find((seat) => seat.id === "dsm-internal-pt");
-    expect(dsm?.status).toBe("pr1");
-    expect(dsm?.annualCostFromStart).toBe(
-      PEOPLE_SEATS.find((seat) => seat.id === "dsm-internal-pt")
-        ?.annualCostFromStart,
-    );
+    const dsm = seats.find((seat) => seat.id === "vacancy-dsm");
+    expect(dsm?.displayName).toBe("DSM");
+    expect(dsm?.inBudget).toBe(true);
+    expect(dsm?.budgetGap).toBe(false);
+    expect(dsm?.annualCostFromStart).toBe(190530);
+    expect(dsm?.opex).toBe(95265);
+    expect(dsm?.capex).toBe(95265);
     expect(signalFor("design-system", seats).active).toBe(false);
   });
 });

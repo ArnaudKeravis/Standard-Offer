@@ -223,7 +223,7 @@ export function PeopleBoard({
     return LANE_META[initialQuery.lane].area;
   });
   const [selectedId, setSelectedId] = useState<string | null>(
-    initialQuery.seat ?? "dsm-internal-pt",
+    initialQuery.seat ?? "vacancy-dsm",
   );
   const [collapsed, setCollapsed] = useState<Set<LaneId>>(new Set());
   const [filters, setFilters] = useState<Set<SeatFilter>>(initialQuery.filters);
@@ -384,7 +384,7 @@ export function PeopleBoard({
                   : "border border-[var(--spark-line)] bg-white",
               )}
             >
-              If DSM is validated
+              If DSM is hired
             </button>
             <button
               type="button"

@@ -13,7 +13,7 @@ const SIGNAL_DEFS: SignalDef[] = [
     id: "design-system",
     kind: "coverage-risk",
     lane: "design-system",
-    personIds: ["guillaume-sauvanon", "ismael-casado", "dsm-internal-pt"],
+    personIds: ["guillaume-sauvanon", "ismael-casado", "vacancy-dsm"],
   },
   {
     id: "pd-b2b",
@@ -25,7 +25,7 @@ const SIGNAL_DEFS: SignalDef[] = [
     id: "india-b2c-soeze",
     kind: "arbitrate",
     lane: "pd-b2c",
-    personIds: ["nikhil-soeze", "lead-pd-b2c"],
+    personIds: ["nikhil-soeze", "vacancy-b2c-india", "lead-pd-b2c"],
   },
   {
     id: "thomas-exit",
@@ -37,7 +37,7 @@ const SIGNAL_DEFS: SignalDef[] = [
     id: "data-vacancy",
     kind: "coverage-risk",
     lane: "pd-data",
-    personIds: ["vacancy-ai-products"],
+    personIds: ["neha-b2c"],
   },
   {
     id: "b2o-overlap",
@@ -58,8 +58,11 @@ export function signalFor(id: string, seats: PersonSeat[]): PeopleSignal {
   }
 
   if (def.id === "design-system") {
-    const internal = byId(seats, "dsm-internal-pt");
-    const active = internal?.status === "pr2";
+    const vacancy = byId(seats, "vacancy-dsm");
+    const active = Boolean(
+      vacancy &&
+        (vacancy.budgetGap || /vacancy/i.test(vacancy.displayName)),
+    );
     return {
       id: def.id,
       kind: def.kind,
@@ -67,17 +70,17 @@ export function signalFor(id: string, seats: PersonSeat[]): PeopleSignal {
       personIds: def.personIds,
       active,
       headline: active
-        ? "Design System uncovered from December if the internal seat stays Pr2"
-        : "Design System internal seat is validated. December cover is planned.",
+        ? "DSM is an external vacancy for the full year. Not hired yet."
+        : "DSM external seat is filled for the year.",
       detail: active
-        ? "Guillaume left in September. Ismael covers until P4-Dec. Michael stays on the squad. The internal Design System Manager is not validated. If it stays Pr2, there is no Design System lead after December."
-        : "Guillaume left in September. Ismael covers until P4-Dec. The internal Design System Manager is validated to take over.",
+        ? "Guillaume left in September. Ismael covers through P4-Dec. The DSM line is a full-year external vacancy, not an internal Pr2 hire."
+        : "The DSM external seat is filled. Ismael remains the named cover through December.",
     };
   }
 
   if (def.id === "pd-b2b") {
-    const internal = byId(seats, "lead-pd-b2b");
-    const active = internal?.status === "pr2" || internal?.budgetGap === true;
+    const lead = byId(seats, "lead-pd-b2b");
+    const active = lead?.status === "pr2" || lead?.budgetGap === true;
     return {
       id: def.id,
       kind: def.kind,
@@ -85,11 +88,11 @@ export function signalFor(id: string, seats: PersonSeat[]): PeopleSignal {
       personIds: def.personIds,
       active,
       headline: active
-        ? "B2B uncovered after November: no budget and Lead PD recruitment not validated"
-        : "B2B internal Lead is validated and funded after Laura.",
+        ? "B2B Lead replacement is a full-year line: no budget, not validated"
+        : "B2B Lead replacement is validated and funded.",
       detail: active
-        ? "Laura is interim Lead through P3-Nov. The internal Lead Product Design B2B is Pr2, with no budget. If it is not validated, there is no B2B lead after November."
-        : "Laura is interim Lead through P3-Nov. The internal Lead Product Design B2B is validated to take over.",
+        ? "Laura is interim through P3-Nov. Vacancy - Lead B2B runs P1–P12 as her replacement. Pr2, no budget."
+        : "Laura is interim through P3-Nov. The Lead B2B replacement is validated to take over.",
     };
   }
 
@@ -109,17 +112,20 @@ export function signalFor(id: string, seats: PersonSeat[]): PeopleSignal {
   }
 
   if (def.id === "data-vacancy") {
-    const vacancy = byId(seats, "vacancy-ai-products");
-    const active = Boolean(vacancy && vacancy.displayName.toLowerCase().includes("vacancy"));
+    const neha = byId(seats, "neha-b2c");
+    const active = Boolean(neha && /vacancy/i.test(neha.displayName));
     return {
       id: def.id,
       kind: def.kind,
       lane: def.lane,
       personIds: def.personIds,
       active,
-      headline: "Data AI products seat is still a vacancy from P2-Oct.",
-      detail:
-        "Javier is on Data / Power BI. The New Products / AI seat is an open external from October.",
+      headline: active
+        ? "Data AI products seat is still a vacancy."
+        : "Neha is on Data / AI products.",
+      detail: active
+        ? "The New Products / AI seat is still open."
+        : "Neha moved from B2C India onto Product designer New Products / AI products. Vacancy - Product Designer B2C India is her replacement.",
     };
   }
 
@@ -151,7 +157,7 @@ export function signalFor(id: string, seats: PersonSeat[]): PeopleSignal {
     headline:
       "India B2C / SoEze: full-year budget to align, convert, or reallocate",
     detail:
-      "Nikhil and Neha are already in. The internal Lead Product Design B2C is Pr1. Leftover India budget can move to another profile.",
+      "Nikhil is already in. Vacancy - Product Designer B2C India replaces Neha. The internal Lead is Pr1.",
   };
 }
 

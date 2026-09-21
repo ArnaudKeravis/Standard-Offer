@@ -48,13 +48,6 @@ describe("leadHandoffs", () => {
     expect(pairs).toEqual(
       expect.arrayContaining([
         {
-          id: "lead-ds",
-          lane: "design-system",
-          fromId: "ismael-casado",
-          toId: "dsm-internal-pt",
-          atPeriod: 4,
-        },
-        {
           id: "lead-b2c",
           lane: "pd-b2c",
           fromId: "aron",
@@ -77,7 +70,8 @@ describe("leadHandoffs", () => {
         },
       ]),
     );
-    expect(pairs).toHaveLength(4);
+    expect(pairs).toHaveLength(3);
+    expect(pairs.some((row) => row.id === "lead-ds")).toBe(false);
   });
 
   it("does not put Jessica on the B2O lead pair", () => {

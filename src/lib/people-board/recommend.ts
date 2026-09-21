@@ -22,14 +22,14 @@ export type Recommendation = {
 
 const COPY: Record<string, { verb: RecVerb; action: string; why: string }> = {
   "design-system": {
-    verb: "Validate",
-    action: "Validate the internal DSM",
-    why: "Cover breaks in December if the seat stays Pr2.",
+    verb: "Hire",
+    action: "Hire the DSM vacancy",
+    why: "Full-year external DSM line. Ismael covers through December.",
   },
   "pd-b2b": {
     verb: "Fund",
-    action: "Fund Lead PD B2B",
-    why: "Laura ends November. The internal seat has no budget.",
+    action: "Fund the Lead B2B replacement",
+    why: "Full-year line. Laura ends November. No budget.",
   },
   "thomas-exit": {
     verb: "Cover",
@@ -39,12 +39,12 @@ const COPY: Record<string, { verb: RecVerb; action: string; why: string }> = {
   "data-vacancy": {
     verb: "Hire",
     action: "Fill the Data AI seat",
-    why: "Vacancy from October, next to Javier.",
+    why: "Neha is already on New Products / AI products.",
   },
   "india-b2c-soeze": {
     verb: "Arbitrate",
     action: "Arbitrate leftover India B2C",
-    why: "Nikhil and Neha are already in. Lead is Pr1.",
+    why: "Nikhil is already in. Vacancy backfills Neha on B2C India. Lead is Pr1.",
   },
   "b2o-overlap": {
     verb: "Cut",

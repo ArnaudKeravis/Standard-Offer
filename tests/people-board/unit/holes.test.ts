@@ -4,17 +4,10 @@ import { applyScenarios } from "@/lib/people-board/scenarios";
 import { PEOPLE_SEATS } from "@/lib/people-board/seed";
 
 describe("coverageHoles", () => {
-  it("marks Design System and B2B uncovered from P4 when the internal seat is open", () => {
+  it("marks B2B uncovered from P4 when the Lead replacement stays open", () => {
     const holes = coverageHoles(PEOPLE_SEATS);
     expect(holes).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({
-          id: "hole-lead-ds",
-          lane: "design-system",
-          afterId: "ismael-casado",
-          start: 4,
-          end: 12,
-        }),
         expect.objectContaining({
           id: "hole-lead-b2b",
           lane: "pd-b2b",
@@ -31,6 +24,7 @@ describe("coverageHoles", () => {
         }),
       ]),
     );
+    expect(holes.some((hole) => hole.id === "hole-lead-ds")).toBe(false);
     expect(holes.some((hole) => hole.id === "hole-lead-b2c")).toBe(false);
   });
 

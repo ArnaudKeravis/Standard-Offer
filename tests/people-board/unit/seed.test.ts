@@ -49,13 +49,18 @@ describe("PEOPLE_SEATS seed", () => {
     expect(b2b?.chainId).toBe("pd-b2b");
   });
 
-  it("keeps the Portugal internalization seat as Design System Manager", () => {
-    const seat = PEOPLE_SEATS.find((row) => row.id === "dsm-internal-pt");
+  it("keeps DSM as a full-year external vacancy", () => {
+    const seat = PEOPLE_SEATS.find((row) => row.id === "vacancy-dsm");
     expect(seat?.role).toBe("Design System Manager");
-    expect(seat?.status).toBe("pr2");
-    expect(seat?.startPeriod).toBe(4);
-    expect(seat?.chainId).toBe("design-system");
-    expect(seat?.lane).toBe("design-system");
+    expect(seat?.kind).toBe("external");
+    expect(seat?.startPeriod).toBe(1);
+    expect(seat?.endPeriod).toBe(12);
+    expect(seat?.budgetGap).toBe(true);
+    expect(seat?.inBudget).toBe(false);
+    expect(seat?.annualCostFromStart).toBe(0);
+    expect(seat?.theoreticalAnnualCost).toBe(190530);
+    expect(seat?.displayName).toMatch(/vacancy/i);
+    expect(PEOPLE_SEATS.some((row) => row.id === "dsm-internal-pt")).toBe(false);
   });
 
   it("places Aron as named B2C interim lead, not a vacancy", () => {
@@ -64,6 +69,7 @@ describe("PEOPLE_SEATS seed", () => {
     expect(seat?.role).toMatch(/interim/i);
     expect(seat?.lane).toBe("pd-b2c");
     expect(seat?.displayName).not.toMatch(/vacancy/i);
+    expect(seat?.endPeriod).toBe(4);
   });
 
   it("ends Thomas Didier in July in Management", () => {
@@ -72,16 +78,24 @@ describe("PEOPLE_SEATS seed", () => {
     expect(seat?.lane).toBe("management");
   });
 
-  it("includes Neha on B2C with Nikhil", () => {
+  it("places Neha on Data / AI products and backfills B2C India", () => {
     const neha = PEOPLE_SEATS.find((row) => row.id === "neha-b2c");
     const nikhil = PEOPLE_SEATS.find((row) => row.id === "nikhil-soeze");
-    expect(neha?.lane).toBe("pd-b2c");
-    expect(nikhil?.lane).toBe("pd-b2c");
+    const backfill = PEOPLE_SEATS.find((row) => row.id === "vacancy-b2c-india");
+    expect(neha?.lane).toBe("pd-data");
+    expect(neha?.role).toMatch(/AI/i);
+    expect(neha?.displayName).toBe("Neha");
     expect(neha?.kind).toBe("external");
-    expect(neha?.fte).toBe(1);
     expect(neha?.dailyRate).toBe(450);
     expect(neha?.endPeriod).toBe(11);
     expect(neha?.annualCostFromStart).toBe(107550);
+    expect(nikhil?.lane).toBe("pd-b2c");
+    expect(backfill?.lane).toBe("pd-b2c");
+    expect(backfill?.displayName).toMatch(/vacancy/i);
+    expect(backfill?.role).toMatch(/B2C India/i);
+    expect(PEOPLE_SEATS.some((row) => row.id === "vacancy-ai-products")).toBe(
+      false,
+    );
   });
 
   it("puts supplier on named externals and strips firm prefixes from names", () => {
@@ -107,7 +121,7 @@ describe("PEOPLE_SEATS seed", () => {
   it("wires lead intern/extern pairs and keeps Jessica off the B2O lead chain", () => {
     const byId = Object.fromEntries(PEOPLE_SEATS.map((row) => [row.id, row]));
     expect(byId["ismael-casado"]?.handoffId).toBe("lead-ds");
-    expect(byId["dsm-internal-pt"]?.handoffId).toBe("lead-ds");
+    expect(byId["vacancy-dsm"]?.handoffId).toBeNull();
     expect(byId["michael-watzke"]?.handoffId).toBeNull();
     expect(byId["aron"]?.handoffId).toBe("lead-b2c");
     expect(byId["lead-pd-b2c"]?.handoffId).toBe("lead-b2c");
@@ -117,7 +131,7 @@ describe("PEOPLE_SEATS seed", () => {
     expect(byId["lead-pd-b2o"]?.handoffId).toBe("lead-b2o");
     expect(byId["jessica-ciat"]?.handoffId).toBeNull();
     expect(byId["jessica-ciat"]?.chainId).toBeNull();
-    expect(byId["dsm-internal-pt"]?.sortOrder).toBeLessThan(
+    expect(byId["vacancy-dsm"]?.sortOrder).toBeLessThan(
       byId["michael-watzke"]?.sortOrder ?? 99,
     );
   });

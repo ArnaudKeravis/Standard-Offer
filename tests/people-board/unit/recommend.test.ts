@@ -10,14 +10,21 @@ describe("people recommendations", () => {
       "design-system",
       "pd-b2b",
       "thomas-exit",
+      "india-b2c-soeze",
+      "b2o-overlap",
       "data-vacancy",
+    ]);
+    expect(recs.filter((row) => row.active).map((row) => row.id)).toEqual([
+      "design-system",
+      "pd-b2b",
+      "thomas-exit",
       "india-b2c-soeze",
       "b2o-overlap",
     ]);
-    expect(recs.every((row) => row.active)).toBe(true);
+    expect(recs.find((row) => row.id === "data-vacancy")?.active).toBe(false);
     expect(recs[0]).toMatchObject({
-      verb: "Validate",
-      action: "Validate the internal DSM",
+      verb: "Hire",
+      action: "Hire the DSM vacancy",
     });
     expect(recs[0]?.why).toMatch(/December/i);
     expect(recs.find((row) => row.id === "pd-b2b")?.verb).toBe("Fund");
@@ -32,13 +39,13 @@ describe("people recommendations", () => {
     );
     expect(recs.filter((row) => row.active).map((row) => row.id)).toEqual([
       "thomas-exit",
-      "data-vacancy",
       "india-b2c-soeze",
       "b2o-overlap",
     ]);
     expect(recs.filter((row) => !row.active).map((row) => row.id)).toEqual([
       "design-system",
       "pd-b2b",
+      "data-vacancy",
     ]);
   });
 });

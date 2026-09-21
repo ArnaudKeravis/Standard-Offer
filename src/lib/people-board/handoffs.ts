@@ -24,15 +24,22 @@ export function leadHandoffs(seats: PersonSeat[]): LeadHandoff[] {
 
   return [...groups.entries()]
     .map(([id, group]) => {
-      const from = group.find((seat) => seat.kind === "external");
-      const to = group.find((seat) => seat.kind === "internal");
-      if (!from || !to) return null;
+      if (group.length < 2) return null;
+      const from = group.reduce((earliest, seat) =>
+        seat.endPeriod < earliest.endPeriod ? seat : earliest,
+      );
+      const to = group.find((seat) => seat.id !== from.id);
+      if (!to) return null;
+      const atPeriod =
+        to.startPeriod <= from.startPeriod && from.endPeriod < to.endPeriod
+          ? from.endPeriod + 1
+          : to.startPeriod;
       return {
         id,
         lane: to.lane,
         fromId: from.id,
         toId: to.id,
-        atPeriod: to.startPeriod,
+        atPeriod,
       };
     })
     .filter((row): row is LeadHandoff => row !== null);
