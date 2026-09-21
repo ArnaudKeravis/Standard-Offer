@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CoDesign & Labs · FY26 Leadership Brief</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --blue:#1A69FF;--navy:#1E2D8A;--green:#1E9E58;--orange:#E85A0E;
@@ -14,7 +14,7 @@
   --border:rgba(0,0,0,.08);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-html,body{height:100%;overflow:hidden;background:#070A14;font-family:'Open Sans',sans-serif;color:var(--text);}
+html,body{height:100%;overflow:hidden;background:#070A14;font-family:'Sora',sans-serif;color:var(--text);}
 
 .back{
   position:fixed;top:14px;left:14px;z-index:80;
@@ -36,11 +36,11 @@ html,body{height:100%;overflow:hidden;background:#070A14;font-family:'Open Sans'
 }
 .nav button{
   border:0;background:transparent;cursor:pointer;border-radius:999px;
-  padding:6px 9px;font-family:'Open Sans',sans-serif;font-size:10px;font-weight:600;
+  padding:6px 9px;font-family:'Sora',sans-serif;font-size:10px;font-weight:600;
   letter-spacing:.04em;text-transform:uppercase;color:rgba(15,18,32,.4);white-space:nowrap;
 }
 .nav button:hover{color:var(--text);background:rgba(26,105,255,.08);}
-.nav button[aria-current="true"]{color:var(--text);background:rgba(26,105,255,.14);}
+.nav button[aria-current="page"]{color:var(--text);background:rgba(26,105,255,.14);}
 .nav-m{display:none;}
 
 .progress{
@@ -95,43 +95,30 @@ html,body{height:100%;overflow:hidden;background:#070A14;font-family:'Open Sans'
 .slide.active .d4{animation-delay:.32s;}
 .slide.active .d5{animation-delay:.4s;}
 
-.pad{padding:clamp(28px,4.2vh,48px) clamp(32px,4.5vw,56px);height:100%;display:flex;flex-direction:column;}
-.tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;}
-.h{font-size:clamp(28px,3.4vw,42px);font-weight:300;letter-spacing:-.02em;line-height:1.1;margin-bottom:10px;}
+.pad{padding:clamp(30px,4.5vh,52px) clamp(36px,5vw,64px);height:100%;display:flex;flex-direction:column;}
+.tag{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;font-weight:700;}
+.h{font-size:clamp(32px,3.8vw,48px);font-weight:300;letter-spacing:-.025em;line-height:1.08;margin-bottom:12px;}
 .h em{font-style:italic;font-weight:600;color:var(--blue);}
-.lead{font-size:clamp(14px,1.35vw,17px);color:var(--text2);line-height:1.5;max-width:720px;margin-bottom:22px;}
+.lead{font-size:clamp(16px,1.5vw,19px);color:var(--text2);line-height:1.48;max-width:800px;margin-bottom:22px;}
 
-/* COVER */
+/* COVER + IMPACT */
 .s-cover{background:linear-gradient(135deg,#1A4FCC 0%,#2666E6 40%,#1A69FF 75%,#0F4FBF 100%);color:#fff;}
 .s-cover .tag{color:rgba(255,255,255,.65);}
-.s-cover .h{font-size:clamp(36px,5vw,64px);color:#fff;margin-bottom:14px;}
+.s-cover .h{font-size:clamp(36px,4.7vw,60px);color:#fff;margin-bottom:10px;}
 .s-cover .h em{
-  background:linear-gradient(90deg,#A5F0F0,#fff,#A5F0F0);background-size:200% auto;
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-  animation:shine 4s ease-in-out infinite;
+  color:#D8FFFF;
 }
-@keyframes shine{0%{background-position:-200% center;}100%{background-position:200% center;}}
-.s-cover .lead{color:rgba(255,255,255,.82);max-width:560px;}
-.thesis{
-  margin-top:auto;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);
-  border-radius:10px;padding:18px 20px;backdrop-filter:blur(6px);
-}
-.thesis strong{display:block;font-size:clamp(18px,2vw,24px);font-weight:600;margin-bottom:6px;}
-.thesis span{font-size:13px;color:rgba(255,255,255,.75);line-height:1.45;}
-
-/* IMPACT */
-.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;flex:1;align-content:stretch;}
+.s-cover .lead{color:rgba(255,255,255,.82);max-width:720px;margin-bottom:18px;}
+.cover-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:auto;}
 .kpi{
-  background:linear-gradient(180deg,#0F4FBF,#0A2D80);color:#fff;border-radius:10px;
-  padding:clamp(16px,2.5vh,28px) 18px;display:flex;flex-direction:column;justify-content:center;
-  min-height:0;
+  background:rgba(8,34,105,.42);color:#fff;border-radius:10px;
+  border:1px solid rgba(255,255,255,.13);padding:16px 17px;
+  display:flex;flex-direction:column;justify-content:center;backdrop-filter:blur(6px);
 }
 .kpi-l{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:10px;}
-.kpi-n{font-size:clamp(32px,4vw,52px);font-weight:300;line-height:1;letter-spacing:-.02em;margin-bottom:10px;}
-.kpi-n b{font-weight:700;background:linear-gradient(135deg,#A5F0F0,#fff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-.kpi-s{font-size:12px;color:rgba(255,255,255,.68);line-height:1.4;}
-.countries{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
-.chip{background:var(--surface);border:1px solid var(--border);padding:7px 12px;border-radius:999px;font-size:12px;font-weight:600;color:var(--text2);}
+.kpi-n{font-size:clamp(30px,3.6vw,48px);font-weight:300;line-height:1;letter-spacing:-.02em;margin-bottom:8px;}
+.kpi-n b{font-weight:700;color:#D8FFFF;}
+.kpi-s{font-size:12px;color:rgba(255,255,255,.68);line-height:1.38;}
 
 /* COMMERCIAL */
 .s-dark{background:linear-gradient(135deg,#0F1429,#1A2052);color:#fff;}
@@ -139,7 +126,7 @@ html,body{height:100%;overflow:hidden;background:#070A14;font-family:'Open Sans'
 .s-dark .h{color:#fff;}
 .s-dark .h em{color:#A5F0F0;}
 .s-dark .lead{color:rgba(255,255,255,.72);}
-.ci{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;flex:1;align-items:center;}
+.ci{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:28px;flex:1;align-items:center;}
 .mix{display:flex;flex-direction:column;gap:10px;margin-top:18px;}
 .mix row,.mix-row{display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,.78);}
 .mix-row{display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,.78);}
@@ -161,61 +148,113 @@ html,body{height:100%;overflow:hidden;background:#070A14;font-family:'Open Sans'
 .donut-num{font-size:clamp(28px,3.2vw,40px);font-weight:700;line-height:1;}
 .donut-lbl{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:4px;}
 
+/* BENCHMARK */
+.benchmark-models{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:4px 0 14px;}
+.bm-model{background:#fff;border:1px solid var(--border);padding:14px 16px;border-radius:10px;min-width:0;overflow-wrap:anywhere;}
+.bm-model:nth-child(1){background:#FFF7F2;}
+.bm-model:nth-child(2){background:#F7F3FC;}
+.bm-model.ours{background:#E8EFFE;border-color:rgba(26,105,255,.3);}
+.bm-k{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.bm-model.ours .bm-k{color:var(--blue);font-weight:700;}
+.bm-t{font-size:16px;font-weight:700;margin-bottom:3px;}
+.bm-s{font-size:12px;color:var(--muted);}
+.bm-who{font-size:12px;font-weight:700;color:var(--blue);margin-top:8px;}
+.bm-table{display:grid;grid-template-columns:minmax(0,1.2fr) repeat(4,minmax(0,1fr));border:1px solid var(--border);border-radius:10px;overflow:hidden;background:#fff;}
+.bm-cell{min-width:0;padding:9px 10px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);font-size:12px;text-align:center;display:flex;align-items:center;justify-content:center;}
+.bm-cell:nth-child(5n){border-right:0;}
+.bm-cell:nth-last-child(-n+5){border-bottom:0;}
+.bm-head{font-family:'Space Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700;background:#F7F8FC;}
+.bm-row{justify-content:flex-start;text-align:left;font-weight:700;color:var(--text);}
+.bm-good{color:var(--green);font-weight:700;}
+.bm-mid{color:var(--purple);font-weight:700;}
+.bm-low{color:var(--orange);font-weight:700;}
+.bm-us{background:#E8EFFE;color:var(--blue);font-weight:800;}
+
 /* WINS */
-.wins{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;flex:1;align-content:center;}
+.wins{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;flex:1;align-content:center;}
 .win{
   background:#FFF7F2;border:1px solid rgba(232,90,14,.2);border-radius:10px;
-  padding:18px 16px;display:flex;flex-direction:column;gap:6px;
+  padding:16px;display:flex;flex-direction:column;gap:6px;min-height:120px;min-width:0;overflow-wrap:anywhere;
 }
-.win-n{font-size:15px;font-weight:700;}
-.win-a{font-family:'Space Mono',monospace;font-size:12px;color:var(--orange);font-weight:700;}
-.win-m{font-size:11px;color:var(--muted);}
+.win-top{display:flex;align-items:center;gap:10px;margin-bottom:2px;}
+.brand-logo{width:38px;height:38px;border-radius:8px;background:#fff;border:1px solid var(--border);object-fit:contain;padding:4px;flex-shrink:0;}
+.brand-fb{width:38px;height:38px;border-radius:8px;background:#fff;border:1px solid var(--border);display:none;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:var(--navy);flex-shrink:0;}
+.win-n{font-size:16px;font-weight:700;line-height:1.2;}
+.win-a{font-family:'Space Mono',monospace;font-size:13px;color:var(--orange);font-weight:700;margin-top:auto;}
+.win-m{font-size:12px;color:var(--muted);}
 
-/* FIELD */
-.field{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;flex:1;min-height:0;}
-.list{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-content:start;}
+/* VALUE CREATED */
+.value-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:18px;flex:1;min-height:0;}
+.list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;align-content:start;}
 .row{
   display:flex;justify-content:space-between;gap:10px;align-items:baseline;
-  background:var(--surface);border-left:3px solid var(--blue);padding:10px 12px;border-radius:0 8px 8px 0;
+  background:var(--surface);border:1px solid var(--border);padding:11px 13px;border-radius:8px;
 }
-.row b{font-size:13px;}
-.row i{font-style:normal;font-size:11px;color:var(--muted);display:block;margin-top:2px;}
-.row em{font-style:normal;font-size:12px;font-weight:700;color:var(--blue);white-space:nowrap;}
+.row b{font-size:14px;}
+.row i{font-style:normal;font-size:12px;color:var(--muted);display:block;margin-top:2px;}
+.row em{font-style:normal;font-size:13px;font-weight:700;color:var(--blue);white-space:nowrap;}
 .labs{display:grid;grid-template-rows:repeat(3,1fr);gap:8px;}
-.labc{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--blue);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;}
-.labc:nth-child(1){border-top-color:var(--green);}
-.labc:nth-child(2){border-top-color:var(--purple);}
+.labc{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;}
 .labc .n{font-size:28px;font-weight:300;line-height:1;}
 .labc .l{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
 .labc .s{font-size:12px;color:var(--text2);margin-top:4px;}
 
+/* TOPICS */
+.topics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;flex:1;align-content:center;}
+.topic{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px;min-width:0;overflow-wrap:anywhere;}
+.topic-mark{width:34px;height:4px;border-radius:999px;background:var(--blue);margin-bottom:13px;}
+.topic:nth-child(2) .topic-mark{background:var(--orange);}
+.topic:nth-child(3) .topic-mark{background:var(--green);}
+.topic:nth-child(4) .topic-mark{background:var(--purple);}
+.topic-h{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:12px;min-height:28px;}
+.topic:nth-child(2) .topic-h{color:var(--orange);}
+.topic:nth-child(3) .topic-h{color:var(--green);}
+.topic:nth-child(4) .topic-h{color:var(--purple);}
+.topic-r{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--text2);}
+.topic-r:last-child{border-bottom:0;}
+.topic-r b{font-size:15px;color:var(--text);}
+
 /* VOICE */
-.voice{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px;flex:1;min-height:0;}
-.nps{
-  background:linear-gradient(180deg,#0F4FBF,#0A2D80);color:#fff;border-radius:12px;
-  padding:24px;display:flex;flex-direction:column;justify-content:center;
-}
-.nps .big{font-size:clamp(56px,7vw,84px);font-weight:700;line-height:1;
-  background:linear-gradient(135deg,#A5F0F0,#fff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-.nps .lbl{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);margin:8px 0 14px;}
-.nps .meta{font-size:13px;color:rgba(255,255,255,.75);line-height:1.45;}
-.quotes{display:flex;flex-direction:column;gap:10px;}
-.q{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;flex:1;}
-.q p{font-size:13px;color:var(--text2);line-height:1.45;margin-bottom:8px;}
+.voice-top{display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);gap:16px;margin-bottom:12px;}
+.nps{background:linear-gradient(180deg,#0F4FBF,#0A2D80);color:#fff;border-radius:12px;padding:20px;display:flex;flex-direction:column;justify-content:center;}
+.nps .big{font-size:clamp(52px,6vw,76px);font-weight:700;line-height:1;color:#D8FFFF;}
+.nps .lbl{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);margin:7px 0 12px;}
+.nps-gauge{display:grid;grid-template-columns:7fr 33fr 60fr;height:7px;border-radius:999px;overflow:hidden;margin-top:2px;}
+.nps-gauge span:nth-child(1){background:#E85A0E}.nps-gauge span:nth-child(2){background:#D4A017}.nps-gauge span:nth-child(3){background:#1E9E58}
+.nps-meta{display:flex;justify-content:space-between;margin-top:7px;font-size:10px;color:rgba(255,255,255,.6);}
+.voice-stats{display:flex;flex-direction:column;justify-content:center;gap:10px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 18px;}
+.vs{display:grid;grid-template-columns:minmax(110px,140px) minmax(0,1fr) 54px;align-items:center;gap:10px;font-size:12px;color:var(--text2);}
+.vs-bar{height:8px;border-radius:999px;background:#E8EBF3;overflow:hidden;}
+.vs-fill{height:100%;width:var(--w);background:var(--green);border-radius:999px;animation:barGrow .9s cubic-bezier(.2,.8,.2,1) both;}
+@keyframes barGrow{from{width:0}to{width:var(--w)}}
+.vs b{text-align:right;font-size:13px;color:var(--text);}
+.quotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+.q{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:13px 15px;min-width:0;overflow-wrap:anywhere;}
+.q p{font-size:13px;color:var(--text2);line-height:1.42;margin-bottom:8px;}
 .q span{font-size:11px;color:var(--muted);}
 
-/* SCALING + FY27 */
-.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1;align-content:stretch;}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 18px;border-top:3px solid var(--blue);}
-.card:nth-child(2){border-top-color:var(--purple);}
-.card h3{font-size:16px;margin-bottom:8px;}
-.card p,.card li{font-size:13px;color:var(--text2);line-height:1.45;}
+/* SCALING */
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:12px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 18px;min-width:0;overflow-wrap:anywhere;}
+.card h3{font-size:18px;margin-bottom:8px;}
+.card p,.card li{font-size:13px;color:var(--text2);line-height:1.42;}
 .card ul{margin:8px 0 0 16px;}
-.prio{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;flex:1;align-content:center;}
-.pc{background:#0F1429;color:#fff;border-radius:10px;padding:16px 14px;min-height:0;display:flex;flex-direction:column;}
-.pc .n{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;color:#6EA8FF;margin-bottom:8px;}
-.pc .t{font-size:15px;font-weight:700;margin-bottom:8px;}
-.pc .d{font-size:12px;color:rgba(255,255,255,.7);line-height:1.4;}
+.eco-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:8px;}
+.ecosystem{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;}
+.eco{background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px 12px;min-width:0;overflow-wrap:anywhere;}
+.eco:nth-child(1){background:#F1F5FF}.eco:nth-child(2){background:#FFF7F2}.eco:nth-child(3){background:#F7F3FC}.eco:nth-child(4){background:#F0FAF5}.eco:nth-child(5){background:#EFFAFA}
+.eco b{display:block;font-size:13px;margin-bottom:3px;}
+.eco span{font-size:11px;color:var(--muted);line-height:1.35;}
+
+/* FY27 PRIORITIES */
+.prio{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;flex:1;align-content:center;}
+.pc{grid-column:span 2;background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px;display:flex;flex-direction:column;min-width:0;overflow-wrap:anywhere;}
+.pc:nth-child(4),.pc:nth-child(5){grid-column:span 3;}
+.pc-icon{width:42px;height:42px;border-radius:10px;background:rgba(110,168,255,.16);display:grid;place-items:center;color:#A5F0F0;margin-bottom:12px;}
+.pc-icon svg{width:23px;height:23px;}
+.pc .n{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;color:#6EA8FF;margin-bottom:6px;}
+.pc .t{font-size:18px;font-weight:700;margin-bottom:7px;}
+.pc .d{font-size:13px;color:rgba(255,255,255,.72);line-height:1.42;}
 
 /* ASK */
 .s-ask{background:#fff;display:grid !important;grid-template-columns:1.35fr .75fr;padding:0;}
@@ -232,7 +271,7 @@ html,body{height:100%;overflow:hidden;background:#070A14;font-family:'Open Sans'
 .ask-note{margin-top:12px;background:#F3EDE3;border-radius:8px;padding:12px 16px;font-size:12px;font-style:italic;color:#4A5370;}
 .ask-qr{background:#E8F0FF;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;}
 .ask-qr-l{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#C4A574;font-weight:700;margin-bottom:14px;}
-.ask-qr-f{background:#fff;border-radius:16px;padding:14px;box-shadow:0 8px 28px rgba(21,32,74,.08);}
+.ask-qr-f{background:#fff;border:1px solid var(--border);border-radius:16px;padding:14px;}
 .ask-qr-f img{width:min(210px,28vh);height:auto;display:block;border-radius:8px;}
 .ask-qr-n{margin-top:14px;font-size:12px;color:#5A6280;line-height:1.5;max-width:220px;}
 
@@ -240,10 +279,10 @@ html,body{height:100%;overflow:hidden;background:#070A14;font-family:'Open Sans'
   .nav{display:none;}
   .nav-m{display:flex;position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:70;gap:6px;padding:8px 10px;border-radius:999px;background:rgba(255,255,255,.92);}
   .nav-m button{width:22px;height:22px;border-radius:50%;border:1px solid rgba(15,18,32,.15);background:transparent;padding:0;}
-  .nav-m button[aria-current="true"]{background:var(--blue);border-color:var(--blue);}
+  .nav-m button[aria-current="page"]{background:var(--blue);border-color:var(--blue);}
   .hint{display:none;}
-  .kpi-grid,.wins,.prio{grid-template-columns:repeat(2,1fr);}
-  .ci,.field,.voice,.two,.s-ask{grid-template-columns:1fr;}
+  .cover-kpis,.wins,.topics,.ecosystem{grid-template-columns:repeat(2,1fr);}
+  .ci,.value-grid,.voice-top,.two,.s-ask{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -258,57 +297,61 @@ html,body{height:100%;overflow:hidden;background:#070A14;font-family:'Open Sans'
 <div class="shell">
   <div class="stage" id="stage" role="presentation">
 
-    <!-- 0 COVER -->
+    <!-- 0 COVER + IMPACT -->
     <section class="slide s-cover active" data-i="0">
       <div class="pad">
         <div class="tag a">Leadership brief · 15 minutes</div>
         <h1 class="h a d1">CoDesign &amp; Labs<br><em>FY26 → FY27</em></h1>
-        <p class="lead a d2">What we delivered, why it matters commercially, and where we need your sponsorship next.</p>
-        <div class="thesis a d3">
-          <strong>No longer a pilot — a commercial engine.</strong>
-          <span>Embedded in major sales cycles, generating measurable uplift, and ready to scale with the right sponsorship.</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- 1 IMPACT -->
-    <section class="slide" data-i="1">
-      <div class="pad">
-        <div class="tag a">01 · The year in numbers</div>
-        <h2 class="h a d1">Annual <em>impact</em></h2>
-        <div class="kpi-grid">
+        <p class="lead a d2">A commercial capability with proven reach, measurable value and a clear path to scale.</p>
+        <div class="cover-kpis">
           <div class="kpi a d1"><div class="kpi-l">Active impact</div><div class="kpi-n"><b>€1.1B</b></div><div class="kpi-s">Annualised contract value progressed via CoDesign</div></div>
-          <div class="kpi a d2"><div class="kpi-l">Wins supported</div><div class="kpi-n"><b>8</b></div><div class="kpi-s">Bids &amp; renewals where CoDesign supported the outcome</div></div>
-          <div class="kpi a d3"><div class="kpi-l">Lab sessions</div><div class="kpi-n"><b>102</b></div><div class="kpi-s">Workshops, events and visits hosted in Paris</div></div>
-          <div class="kpi a d4"><div class="kpi-l">NPS</div><div class="kpi-n"><b>+53</b></div><div class="kpi-s">Excellent · 4.37/5 · 43 surveys</div></div>
-        </div>
-        <div class="countries a d5">
-          <span class="chip">🇫🇷 France</span><span class="chip">🇬🇧 UK&amp;I</span><span class="chip">🇺🇸 USA</span>
-          <span class="chip">🇪🇸 Spain</span><span class="chip">🇳🇱 Netherlands</span><span class="chip">🌍 Global GSA</span>
-          <span class="chip">30 strategic clients · 13 active projects</span>
+          <div class="kpi a d2"><div class="kpi-l">Wins supported</div><div class="kpi-n"><b>8</b></div><div class="kpi-s">Bids and renewals where CoDesign supported the outcome</div></div>
+          <div class="kpi a d3"><div class="kpi-l">Lab sessions</div><div class="kpi-n"><b>102</b></div><div class="kpi-s">Workshops, events and account visits hosted in Paris</div></div>
+          <div class="kpi a d4"><div class="kpi-l">Participant voice</div><div class="kpi-n"><b>+53</b></div><div class="kpi-s">NPS · 4.37/5 average · 43 surveys</div></div>
         </div>
       </div>
     </section>
 
-    <!-- 2 COMMERCIAL -->
-    <section class="slide s-dark" data-i="2">
+    <!-- 1 COMMERCIAL -->
+    <section class="slide s-dark" data-i="1">
       <div class="pad">
-        <div class="tag a">02 · Commercial proof</div>
+        <div class="tag a">01 · Commercial proof</div>
         <div class="ci">
           <div>
-            <h2 class="h a d1">From methodology<br>to <em>measurable revenue uplift</em>.</h2>
+            <h2 class="h a d1">From method<br>to <em>measurable value</em>.</h2>
             <p class="lead a d2">Embedded in major commercial cycles — renewals, new bids and extensions across 25+ accounts.</p>
             <div class="mix a d3">
-              <div class="mix-row"><span class="dot" style="background:#6EA8FF"></span><b>Maintain &amp; Retention</b><span>75%</span></div>
+              <div class="mix-row"><span class="dot" style="background:#6EA8FF"></span><b>Maintain &amp; retention</b><span>75%</span></div>
               <div class="mix-row"><span class="dot" style="background:#A37AE0"></span><b>Strategic wins &amp; new bids</b><span>25%</span></div>
             </div>
           </div>
           <div class="donut-wrap a d2">
             <div class="donut" aria-hidden="true">
               <div class="donut-ring"></div>
-              <div class="donut-center"><div><div class="donut-num">€1.1B</div><div class="donut-lbl">FY26 mix</div></div></div>
+              <div class="donut-center"><div><div class="donut-num">€1.1B</div><div class="donut-lbl">FY26 active impact</div></div></div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 BENCHMARK -->
+    <section class="slide" data-i="2">
+      <div class="pad">
+        <div class="tag a" style="color:var(--teal)">02 · External benchmark</div>
+        <h2 class="h a d1">Where Sodexo Labs <em>sits</em></h2>
+        <p class="lead a d2">Four reference labs reveal three models. Our differentiator is operational co-creation: produce, test and deliver.</p>
+        <div class="benchmark-models">
+          <div class="bm-model a d1"><div class="bm-k">Model 1</div><div class="bm-t">Showroom &amp; demo</div><div class="bm-s">Convince · demonstrate · standardise</div><div class="bm-who">Intermarché · PwC partial</div></div>
+          <div class="bm-model a d2"><div class="bm-k">Model 2</div><div class="bm-t">Acculturation &amp; storytelling</div><div class="bm-s">Inspire · raise awareness · narrate</div><div class="bm-who">PwC · EY v1</div></div>
+          <div class="bm-model ours a d3"><div class="bm-k">Model 3 · our position</div><div class="bm-t">Operational co-creation</div><div class="bm-s">Produce · test · deliver</div><div class="bm-who">Frog · ✦ Sodexo Labs</div></div>
+        </div>
+        <div class="bm-table a d4">
+          <div class="bm-cell bm-head">Criterion</div><div class="bm-cell bm-head">Intermarché</div><div class="bm-cell bm-head">PwC / EY</div><div class="bm-cell bm-head">Frog</div><div class="bm-cell bm-head bm-us">Sodexo Labs</div>
+          <div class="bm-cell bm-row">Production</div><div class="bm-cell bm-low">Low</div><div class="bm-cell bm-mid">Low–medium</div><div class="bm-cell bm-good">Strong</div><div class="bm-cell bm-us">Very strong</div>
+          <div class="bm-cell bm-row">Modularity</div><div class="bm-cell bm-low">Low</div><div class="bm-cell bm-mid">Medium</div><div class="bm-cell bm-mid">Medium</div><div class="bm-cell bm-us">Very strong</div>
+          <div class="bm-cell bm-row">Scalability</div><div class="bm-cell bm-low">Low</div><div class="bm-cell bm-mid">Low–medium</div><div class="bm-cell bm-mid">Medium</div><div class="bm-cell bm-us">Strong</div>
+          <div class="bm-cell bm-row">Operating model</div><div class="bm-cell bm-low">High CAPEX</div><div class="bm-cell bm-low">High OPEX</div><div class="bm-cell bm-mid">Medium</div><div class="bm-cell bm-us">Measured</div>
         </div>
       </div>
     </section>
@@ -316,111 +359,128 @@ html,body{height:100%;overflow:hidden;background:#070A14;font-family:'Open Sans'
     <!-- 3 WINS -->
     <section class="slide" data-i="3">
       <div class="pad">
-        <div class="tag a" style="color:var(--orange)">03 · Proof</div>
-        <h2 class="h a d1">Eight strategic <em>wins</em></h2>
-        <p class="lead a d2">Where CoDesign supported the commercial outcome — not sole attribution.</p>
+        <div class="tag a" style="color:var(--orange)">03 · Commercial proof</div>
+        <h2 class="h a d1">Eight strategic <em>wins supported</em></h2>
+        <p class="lead a d2">CoDesign strengthened propositions, alignment and client confidence — supporting the outcome, not claiming sole attribution.</p>
         <div class="wins">
-          <div class="win a d1"><div class="win-n">Edinburgh Zoo</div><div class="win-a">£4M/yr</div><div class="win-m">UK&amp;I · New bid</div></div>
-          <div class="win a d1"><div class="win-n">Newcastle United</div><div class="win-a">£20M/yr</div><div class="win-m">UK&amp;I Live!</div></div>
-          <div class="win a d2"><div class="win-n">American Airlines</div><div class="win-a">$70M/yr</div><div class="win-m">USA</div></div>
-          <div class="win a d2"><div class="win-n">Eli Lilly</div><div class="win-a">€70M/yr</div><div class="win-m">GSA</div></div>
-          <div class="win a d3"><div class="win-n">Roland-Garros</div><div class="win-a">€50M/yr</div><div class="win-m">FR Live!</div></div>
-          <div class="win a d3"><div class="win-n">Abeille</div><div class="win-a">FR · Win</div><div class="win-m">France</div></div>
-          <div class="win a d4"><div class="win-n">Total Link</div><div class="win-a">FR · New bid</div><div class="win-m">France</div></div>
-          <div class="win a d4"><div class="win-n">JDA</div><div class="win-a">Win</div><div class="win-m">Strategic</div></div>
+          <div class="win a d1"><div class="win-top"><img class="brand-logo" src="https://icons.duckduckgo.com/ip3/edinburghzoo.org.uk.ico" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="brand-fb">EZ</span><div class="win-n">Edinburgh Zoo</div></div><div class="win-a">£4M/yr</div><div class="win-m">UK&amp;I · New bid</div></div>
+          <div class="win a d1"><div class="win-top"><img class="brand-logo" src="https://icons.duckduckgo.com/ip3/nufc.co.uk.ico" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="brand-fb">NU</span><div class="win-n">Newcastle United</div></div><div class="win-a">£20M/yr</div><div class="win-m">UK&amp;I Live!</div></div>
+          <div class="win a d2"><div class="win-top"><img class="brand-logo" src="https://icons.duckduckgo.com/ip3/aa.com.ico" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="brand-fb">AA</span><div class="win-n">American Airlines</div></div><div class="win-a">$70M/yr</div><div class="win-m">USA</div></div>
+          <div class="win a d2"><div class="win-top"><img class="brand-logo" src="https://icons.duckduckgo.com/ip3/lilly.com.ico" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="brand-fb">EL</span><div class="win-n">Eli Lilly</div></div><div class="win-a">€70M/yr</div><div class="win-m">GSA</div></div>
+          <div class="win a d3"><div class="win-top"><img class="brand-logo" src="https://icons.duckduckgo.com/ip3/rolandgarros.com.ico" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="brand-fb">RG</span><div class="win-n">Roland-Garros</div></div><div class="win-a">€50M/yr</div><div class="win-m">France Live!</div></div>
+          <div class="win a d3"><div class="win-top"><img class="brand-logo" src="https://icons.duckduckgo.com/ip3/abeille-assurances.fr.ico" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="brand-fb">AA</span><div class="win-n">Abeille Assurances</div></div><div class="win-a">Win</div><div class="win-m">France</div></div>
+          <div class="win a d4"><div class="win-top"><span class="brand-fb" style="display:flex">TL</span><div class="win-n">Total Link</div></div><div class="win-a">New bid</div><div class="win-m">France</div></div>
+          <div class="win a d4"><div class="win-top"><span class="brand-fb" style="display:flex">JDA</span><div class="win-n">JDA</div></div><div class="win-a">Win</div><div class="win-m">Strategic</div></div>
         </div>
       </div>
     </section>
 
-    <!-- 4 FIELD -->
+    <!-- 4 VALUE CREATED -->
     <section class="slide" data-i="4">
       <div class="pad">
-        <div class="tag a" style="color:var(--green)">04 · In the field</div>
-        <h2 class="h a d1">Projects &amp; Labs <em>together</em></h2>
-        <div class="field">
-          <div>
-            <div class="tag a d1" style="color:var(--green);margin-bottom:8px;">Key engagements</div>
-            <div class="list a d2">
-              <div class="row"><div><b>Eli Lilly</b><i>Giga Factory · GSA</i></div><em>€70M</em></div>
-              <div class="row"><div><b>AstraZeneca</b><i>Cambridge · GSA/UK&amp;I</i></div><em>€76M</em></div>
-              <div class="row"><div><b>Microsoft</b><i>Workplace · GSA</i></div><em>€55M</em></div>
-              <div class="row"><div><b>Clariane</b><i>Care dining · COEU</i></div><em>€140M</em></div>
-              <div class="row"><div><b>Tour de France</b><i>Hospitality · FR</i></div><em>€6M+€3M</em></div>
-              <div class="row"><div><b>Cooper Hospital</b><i>Caregiver XP · USA</i></div><em>$16M</em></div>
-            </div>
+        <div class="tag a" style="color:var(--green)">04 · Value in the field</div>
+        <h2 class="h a d1">Where value became <em>tangible</em></h2>
+        <p class="lead a d2">High-stakes engagements shaped propositions, experiences and commercial confidence — while Labs created the space to move faster.</p>
+        <div class="value-grid">
+          <div class="list a d2">
+            <div class="row"><div><b>Eli Lilly</b><i>Giga Factory · GSA</i></div><em>€70M</em></div>
+            <div class="row"><div><b>AstraZeneca</b><i>Cambridge · GSA/UK&amp;I</i></div><em>€76M</em></div>
+            <div class="row"><div><b>Microsoft</b><i>Workplace · GSA</i></div><em>€55M</em></div>
+            <div class="row"><div><b>Clariane</b><i>Care dining · COEU</i></div><em>€140M</em></div>
+            <div class="row"><div><b>Tour de France</b><i>Hospitality · France</i></div><em>€6M+€3M</em></div>
+            <div class="row"><div><b>Cooper Hospital</b><i>Caregiver XP · USA</i></div><em>$16M</em></div>
           </div>
           <div class="labs a d3">
             <div class="labc"><div class="n" style="color:var(--green)">27</div><div class="l">CoDesign workshops</div><div class="s">Client sessions on live engagements</div></div>
-            <div class="labc"><div class="n" style="color:var(--purple)">31</div><div class="l">Events &amp; showcases</div><div class="s">Inspiration, partners, alignment</div></div>
-            <div class="labc"><div class="n" style="color:var(--blue)">44</div><div class="l">Account visits</div><div class="s">Credibility plays → next CoDesign</div></div>
+            <div class="labc"><div class="n" style="color:var(--purple)">31</div><div class="l">Events &amp; showcases</div><div class="s">Inspiration, partners and alignment</div></div>
+            <div class="labc"><div class="n" style="color:var(--blue)">44</div><div class="l">Account visits</div><div class="s">Credibility plays leading to next steps</div></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 5 VOICE -->
+    <!-- 5 TOPICS -->
     <section class="slide" data-i="5">
       <div class="pad">
-        <div class="tag a" style="color:var(--green)">05 · Voice</div>
-        <h2 class="h a d1">Participants <em>felt it</em></h2>
-        <div class="voice">
-          <div class="nps a d1">
-            <div class="big">+53</div>
-            <div class="lbl">Net Promoter Score</div>
-            <div class="meta">4.37/5 average · 91% rated 4★+ · 100% would attend again · 43 surveys</div>
-          </div>
-          <div class="quotes">
-            <div class="q a d2"><p>“The design-thinking method lets ideas emerge through collective intelligence. Highly effective.”</p><span>Senior stakeholder · 5/5</span></div>
-            <div class="q a d3"><p>“Outstanding preparation. The small-group format was especially effective.”</p><span>Strategic partner · 4/5</span></div>
-            <div class="q a d4"><p>“Useful, dynamic and enjoyable — tools that helped us co-create concrete solutions.”</p><span>Workshop attendee · 5/5</span></div>
-          </div>
+        <div class="tag a">05 · Portfolio signals</div>
+        <h2 class="h a d1">What we actually <em>worked on</em></h2>
+        <p class="lead a d2">FY26 engagement topics by category — showing where client demand and design effort concentrated.</p>
+        <div class="topics">
+          <div class="topic a d1"><div class="topic-mark"></div><div class="topic-h">🏢 Workplace &amp; Campus XP</div><div class="topic-r"><span>Employee XP design</span><b>26</b></div><div class="topic-r"><span>Hybrid work &amp; campus</span><b>11</b></div><div class="topic-r"><span>On-site F&amp;B strategy</span><b>9</b></div></div>
+          <div class="topic a d2"><div class="topic-mark"></div><div class="topic-h">🏟️ Fan &amp; Visitor XP</div><div class="topic-r"><span>Sport venue XP</span><b>8</b></div><div class="topic-r"><span>Culture, zoo &amp; tourism</span><b>4</b></div><div class="topic-r"><span>Premium lounge &amp; events</span><b>3</b></div></div>
+          <div class="topic a d3"><div class="topic-mark"></div><div class="topic-h">🌱 Sustainability &amp; ESG</div><div class="topic-r"><span>ESG &amp; low-carbon roadmap</span><b>9</b></div><div class="topic-r"><span>Waste &amp; sourcing</span><b>6</b></div><div class="topic-r"><span>Sustainable food services</span><b>5</b></div></div>
+          <div class="topic a d4"><div class="topic-mark"></div><div class="topic-h">🚀 Innovation Strategy</div><div class="topic-r"><span>Innovation &amp; tech framing</span><b>14</b></div><div class="topic-r"><span>Digital &amp; AI enablement</span><b>7</b></div><div class="topic-r"><span>Care &amp; senior living</span><b>6</b></div></div>
         </div>
       </div>
     </section>
 
-    <!-- 6 SCALING -->
+    <!-- 6 VOICE -->
     <section class="slide" data-i="6">
       <div class="pad">
-        <div class="tag a" style="color:var(--purple)">06 · Scale</div>
-        <h2 class="h a d1">Make the method <em>travel</em></h2>
-        <p class="lead a d2">Not “prepare one session” — build a transferable system regions can own.</p>
-        <div class="two">
-          <div class="card a d2">
-            <h3>Horizon 1 · Pilot</h3>
-            <p>Philadelphia · US Tech team — Miro training, pre-read, facilitator guide, workbook.</p>
+        <div class="tag a" style="color:var(--green)">06 · Voice of participants</div>
+        <h2 class="h a d1">The experience <em>landed</em></h2>
+        <div class="voice-top">
+          <div class="nps a d1">
+            <div class="big">+53</div>
+            <div class="lbl">Net Promoter Score · 43 surveys</div>
+            <div class="nps-gauge"><span></span><span></span><span></span></div>
+            <div class="nps-meta"><span>7% detractors</span><span>33% passive</span><span>60% promoters</span></div>
           </div>
-          <div class="card a d3">
-            <h3>Horizon 2 · System</h3>
-            <ul>
-              <li>Regional rollout blueprint</li>
-              <li>Capability levels 0→4</li>
-              <li>SharePoint / Miro / CoDesign OS</li>
-              <li>USA · Brazil · UK&amp;I · Australia in motion</li>
-            </ul>
+          <div class="voice-stats a d2">
+            <div class="vs"><span>Average rating</span><div class="vs-bar"><div class="vs-fill" style="--w:87%"></div></div><b>4.37/5</b></div>
+            <div class="vs"><span>Rated 4★ or higher</span><div class="vs-bar"><div class="vs-fill" style="--w:91%"></div></div><b>91%</b></div>
+            <div class="vs"><span>Willingness to recommend</span><div class="vs-bar"><div class="vs-fill" style="--w:87%;background:var(--blue)"></div></div><b>8.7/10</b></div>
+            <div class="vs"><span>Would attend again</span><div class="vs-bar"><div class="vs-fill" style="--w:100%"></div></div><b>100%</b></div>
           </div>
+        </div>
+        <div class="quotes">
+          <div class="q a d2"><p>“The design-thinking method lets ideas emerge and grow through collective intelligence. Highly effective.”</p><span>Senior stakeholder · 5/5</span></div>
+          <div class="q a d3"><p>“Outstanding preparation. The small-group format was especially effective, and the materials were very useful.”</p><span>Strategic partner · 4/5</span></div>
+          <div class="q a d4"><p>“Useful, dynamic and enjoyable — tools that helped us co-create concrete solutions.”</p><span>Workshop attendee · 5/5</span></div>
         </div>
       </div>
     </section>
 
-    <!-- 7 FY27 -->
-    <section class="slide s-dark" data-i="7">
+    <!-- 7 SCALING -->
+    <section class="slide" data-i="7">
       <div class="pad">
-        <div class="tag a">07 · FY27</div>
-        <h2 class="h a d1">Five priorities for <em>sponsorship</em></h2>
-        <div class="prio">
-          <div class="pc a d1"><div class="n">01</div><div class="t">Scale</div><div class="d">First Satellite Labs — transferable system, Philly as start not end.</div></div>
-          <div class="pc a d2"><div class="n">02</div><div class="t">Train</div><div class="d">Upskill non-designer teams with playbooks, Miro and CoDesign OS.</div></div>
-          <div class="pc a d3"><div class="n">03</div><div class="t">Sponsorship</div><div class="d">Default CoDesign on must-retain and renew cycles.</div></div>
-          <div class="pc a d4"><div class="n">04</div><div class="t">More value</div><div class="d">Measured uplift on renewals, bids and extensions.</div></div>
-          <div class="pc a d5"><div class="n">05</div><div class="t">Delivery</div><div class="d">Tech + account ownership beyond the workshop.</div></div>
+        <div class="tag a" style="color:var(--purple)">07 · Scale</div>
+        <h2 class="h a d1">Make the method <em>travel</em></h2>
+        <p class="lead a d2">Not one more facilitated session — a transferable system that regional teams can own.</p>
+        <div class="two">
+          <div class="card a d2"><h3>Horizon 1 · Prove the pilot</h3><p>Philadelphia · US Tech team. Miro training, pre-read, session design, facilitator guide and workbook.</p></div>
+          <div class="card a d3"><h3>Horizon 2 · Build the system</h3><p>Regional blueprint · capability levels 0→4 · playbooks · adoption measures · USA, Brazil, UK&amp;I and Australia in motion.</p></div>
+        </div>
+        <div class="eco-label a d3">One ecosystem · one canonical home per asset</div>
+        <div class="ecosystem a d4">
+          <div class="eco"><b>SharePoint</b><span>Source of truth for documents and templates.</span></div>
+          <div class="eco"><b>Miro</b><span>Training, navigation and facilitation.</span></div>
+          <div class="eco"><b>CoDesign OS</b><span>23 agents accelerating execution.</span></div>
+          <div class="eco"><b>Persona Studio + XP</b><span>Specialist tools linked to methods.</span></div>
+          <div class="eco"><b>Credentials</b><span>Proof library across a ~€2B perimeter.</span></div>
         </div>
       </div>
     </section>
 
-    <!-- 8 ASK -->
-    <section class="slide s-ask" data-i="8">
+    <!-- 8 FY27 -->
+    <section class="slide s-dark" data-i="8">
+      <div class="pad">
+        <div class="tag a">08 · FY27 sponsorship</div>
+        <h2 class="h a d1">Five priorities to <em>unlock scale</em></h2>
+        <div class="prio">
+          <div class="pc a d1"><div class="pc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 18V8l8-4 8 4v10"/><path d="M8 20v-7h8v7"/></svg></div><div class="n">01</div><div class="t">Scale</div><div class="d">Launch the first Satellite Labs as a repeatable system — Philadelphia is the start, not the end.</div></div>
+          <div class="pc a d2"><div class="pc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v12H4z"/><path d="M8 21h8M12 17v4"/><path d="m9 10 2 2 4-4"/></svg></div><div class="n">02</div><div class="t">Train</div><div class="d">Upskill non-designer teams with playbooks, Miro and CoDesign OS.</div></div>
+          <div class="pc a d3"><div class="pc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18M7 7h8.5a3.5 3.5 0 0 1 0 7H8.5a3.5 3.5 0 0 0 0 7H17"/></svg></div><div class="n">03</div><div class="t">Sponsor</div><div class="d">Make CoDesign the default on must-retain, renewal and strategic bid cycles.</div></div>
+          <div class="pc a d4"><div class="pc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m4 16 5-5 4 4 7-8"/><path d="M14 7h6v6"/></svg></div><div class="n">04</div><div class="t">Measure more value</div><div class="d">Track uplift on renewals, bids and extensions — from workshop output to delivered business result.</div></div>
+          <div class="pc a d5"><div class="pc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></div><div class="n">05</div><div class="t">Own delivery</div><div class="d">Secure technology and account ownership beyond the workshop so concepts become outcomes.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 ASK -->
+    <section class="slide s-ask" data-i="9">
       <div class="ask-main">
-        <div class="ask-eye a">01 · CoDesign FY26</div>
+        <div class="ask-eye a">09 · Leadership discussion</div>
         <h2 class="ask-h a d1">What I need from you,<br>in three questions</h2>
         <p class="ask-sub a d2">Scan the code and answer while we talk — your answers write the FY27 plan for the practice</p>
         <div class="ask-qs">
@@ -449,12 +509,12 @@ html,body{height:100%;overflow:hidden;background:#070A14;font-family:'Open Sans'
   </div>
 </div>
 
-<div class="progress" id="progress">01 / 09</div>
+<div class="progress" id="progress">01 / 10</div>
 <div class="hint">Click or → · F fullscreen</div>
 
 <script>
 (function () {
-  const labels = ["Cover","Impact","Commercial","Wins","Field","Voice","Scale","FY27","Ask"];
+  const labels = ["Impact","Commercial","Benchmark","Wins","Value","Topics","Voice","Scale","FY27","Ask"];
   const slides = Array.from(document.querySelectorAll(".slide"));
   const stage = document.getElementById("stage");
   const progress = document.getElementById("progress");
@@ -465,12 +525,12 @@ html,body{height:100%;overflow:hidden;background:#070A14;font-family:'Open Sans'
   labels.forEach((lab, i) => {
     const b = document.createElement("button");
     b.type = "button"; b.textContent = lab; b.dataset.i = i;
-    b.setAttribute("aria-current", i === 0 ? "true" : "false");
+    if (i === 0) b.setAttribute("aria-current", "page");
     b.addEventListener("click", (e) => { e.stopPropagation(); goTo(i); });
     navDesk.appendChild(b);
     const m = document.createElement("button");
     m.type = "button"; m.dataset.i = i; m.setAttribute("aria-label", lab);
-    m.setAttribute("aria-current", i === 0 ? "true" : "false");
+    if (i === 0) m.setAttribute("aria-current", "page");
     m.addEventListener("click", (e) => { e.stopPropagation(); goTo(i); });
     navMob.appendChild(m);
   });
@@ -482,7 +542,8 @@ html,body{height:100%;overflow:hidden;background:#070A14;font-family:'Open Sans'
   function syncNav() {
     document.querySelectorAll("[data-i]").forEach((btn) => {
       if (!btn.closest(".nav, .nav-m")) return;
-      btn.setAttribute("aria-current", Number(btn.dataset.i) === index ? "true" : "false");
+      if (Number(btn.dataset.i) === index) btn.setAttribute("aria-current", "page");
+      else btn.removeAttribute("aria-current");
     });
     progress.textContent = String(index + 1).padStart(2, "0") + " / " + String(slides.length).padStart(2, "0");
   }
