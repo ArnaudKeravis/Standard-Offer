@@ -77,6 +77,6 @@ describe("tech ambition run of show", () => {
       "Kevin Albrand",
     ]);
     expect(SCREENS.some((screen) => screen.kind === "fy26-brief")).toBe(true);
-    expect(SCREENS.some((screen) => screen.kind === "fy26-results")).toBe(false);
+    expect(SCREENS.some((screen) => screen.id === "fy26-results")).toBe(false);
   });
 });

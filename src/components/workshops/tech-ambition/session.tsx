@@ -115,7 +115,7 @@ export function WorkshopSession() {
   const reduceMotion = useReducedMotion();
   const slideCount = SCREENS.length;
   const [index, setIndex] = useState(0);
-  const [direction, setDirection] = useState(1);
+  const [direction, setDirection] = useState<1 | -1>(1);
   const indexRef = useRef(0);
   const dragX = useMotionValue(0);
   const stageRef = useRef<HTMLDivElement>(null);
