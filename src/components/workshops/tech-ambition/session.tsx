@@ -743,7 +743,7 @@ export function WorkshopSession() {
         </div>
       ) : null}
 
-      {headerView ? (
+      {headerView && screen.kind !== "fy26-brief" ? (
         <div className="absolute inset-x-0 top-[calc(2.2vh+7.45rem)] z-30">
           <TimerRail
             remainingMs={headerView.remainingMs}
