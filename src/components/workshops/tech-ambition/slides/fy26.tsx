@@ -6,7 +6,7 @@ import {
   useRef,
 } from "react";
 
-export const FY26_BRIEF_LAST = 9;
+export const FY26_BRIEF_LAST = 7;
 
 export type Fy26BriefHandle = {
   next: () => boolean;
