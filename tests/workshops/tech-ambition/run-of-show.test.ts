@@ -4,7 +4,9 @@ import {
   BLOCKS,
   CLINIC_TABLES,
   MATURITY,
+  ROADMAP_TRACKS,
   SCREENS,
+  WORKSHOP,
   blockById,
   clinicDuration,
   hourbackDuration,
@@ -59,5 +61,22 @@ describe("tech ambition run of show", () => {
     });
     expect(SCREENS.some((screen) => screen.kind === "roadmap-roster")).toBe(true);
     expect(SCREENS.filter((screen) => screen.kind === "roadmap-track")).toHaveLength(6);
+  });
+
+  it("opens with Arnaud and Henri, and only uses Albrand when others have last names", () => {
+    expect(WORKSHOP.hosts).toEqual(["Arnaud Keravis", "Henri Abt"]);
+    const clinicNames = CLINIC_TABLES.flatMap((table) => [
+      table.round1,
+      table.round2,
+    ]).join(" · ");
+    expect(clinicNames).not.toContain("Algrain");
+    expect(clinicNames).not.toContain("Albrand");
+    expect(clinicNames).toContain("Kevin");
+    expect(ROADMAP_TRACKS.filter((track) => track.host.startsWith("Kevin")).map((track) => track.host)).toEqual([
+      "Kevin Albrand",
+      "Kevin Albrand",
+    ]);
+    expect(SCREENS.some((screen) => screen.kind === "fy26-brief")).toBe(true);
+    expect(SCREENS.some((screen) => screen.kind === "fy26-results")).toBe(false);
   });
 });

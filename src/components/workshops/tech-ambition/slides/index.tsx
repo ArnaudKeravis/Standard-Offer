@@ -1,5 +1,7 @@
 "use client";
 
+import type { RefObject } from "react";
+
 import type { Clock } from "@/lib/workshops/tech-ambition/clock";
 import type {
   BlockId,
@@ -10,7 +12,7 @@ import type {
 
 import { AiBuyingSlide, AiLayersSlide, AiPhilosophySlide, AiWallSlide } from "./ai";
 import { RoadmapRosterSlide, RoadmapTrackSlide } from "./roadmap";
-import { Fy26QuestionsSlide, Fy26ResultsSlide } from "./fy26";
+import { Fy26BriefSlide, type Fy26BriefHandle } from "./fy26";
 import { IntercalaireSlide } from "./intercalaire";
 import { AgendaSlide, CoverSlide } from "./open";
 import {
@@ -50,6 +52,7 @@ export function renderWorkshopSlide(
       onStep: (step: HourbackStep) => void;
     };
     block: SlideClockApi;
+    fy26BriefRef: RefObject<Fy26BriefHandle | null>;
   },
 ) {
   switch (kind) {
@@ -59,10 +62,8 @@ export function renderWorkshopSlide(
       return <AgendaSlide />;
     case "intercalaire":
       return <IntercalaireSlide blockId={blockId} />;
-    case "fy26-results":
-      return <Fy26ResultsSlide />;
-    case "fy26-questions":
-      return <Fy26QuestionsSlide />;
+    case "fy26-brief":
+      return <Fy26BriefSlide ref={api.fy26BriefRef} />;
     case "ai-wall":
       return <AiWallSlide />;
     case "ai-philosophy":

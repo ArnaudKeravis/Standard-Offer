@@ -65,7 +65,7 @@ describe("resolveActiveTimer", () => {
   it("uses the block clock on timed briefing slides and hides on cover", () => {
     expect(
       resolveActiveTimer({
-        kind: "fy26-results",
+        kind: "fy26-brief",
         timed: true,
         proud: pack(120_000, 120_000, false),
         clinic: pack(15 * 60_000, 15 * 60_000, false),

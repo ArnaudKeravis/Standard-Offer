@@ -9,7 +9,7 @@ import type {
 export const WORKSHOP = {
   title: "CoDesign & AI Workshop",
   subtitle: "Three and a half hours to turn AI topics into decisions",
-  hosts: ["Arnaud Keravis", "Henri Abt", "Kevin Albrand"],
+  hosts: ["Arnaud Keravis", "Henri Abt"],
   when: "22 September 2026",
   where: "Chantilly",
   window: "13:00-16:30",
@@ -42,8 +42,7 @@ export const SCREENS: WorkshopScreen[] = [
   { id: "cover", blockId: "open", kind: "cover", label: "Cover", tone: "dark" },
   { id: "agenda", blockId: "open", kind: "agenda", label: "Agenda", tone: "light" },
   { id: "fy26-open", blockId: "fy26", kind: "intercalaire", label: "FY26", tone: "dark" },
-  { id: "fy26-results", blockId: "fy26", kind: "fy26-results", label: "Results", tone: "light", timed: true, durationSec: 20 * 60 },
-  { id: "fy26-questions", blockId: "fy26", kind: "fy26-questions", label: "Three questions", tone: "light", timed: true, durationSec: 20 * 60 },
+  { id: "fy26-brief", blockId: "fy26", kind: "fy26-brief", label: "Leadership brief", tone: "light", timed: true, durationSec: 20 * 60 },
   { id: "ai-open", blockId: "ai", kind: "intercalaire", label: "AI 101", tone: "dark" },
   { id: "ai-wall", blockId: "ai", kind: "ai-wall", label: "Hit a wall?", tone: "light", timed: true },
   { id: "ai-philosophy", blockId: "ai", kind: "ai-philosophy", label: "Philosophy", tone: "light", timed: true },
@@ -82,7 +81,7 @@ export const INTERCALAIRES: Record<
   fy26: {
     number: "01",
     title: "CoDesign FY26",
-    detail: "What the practice delivered, and what I need from you",
+    detail: "The FY26 leadership brief. Proof, scale, and three questions",
   },
   ai: {
     number: "02",
@@ -126,7 +125,7 @@ export const INTERCALAIRES: Record<
 };
 
 export const AGENDA = [
-  { time: "13:00", mins: "20'", title: "CoDesign FY26", who: "Results, outputs, and what I need from you" },
+  { time: "13:00", mins: "20'", title: "CoDesign FY26", who: "Leadership brief. Proof, scale, and what I need from you" },
   { time: "13:20", mins: "15'", title: "What you need to know about AI", who: "Henri. The vocabulary for the business conversation" },
   { time: "13:35", mins: "30'", title: "Proud of", who: "Everyone. One agent or use case you built this year" },
   { time: "14:05", mins: "30'", title: "AI Strategy & Agentic Platform", who: "Henri & Kevin. Vision, trends, maturity" },
@@ -272,8 +271,8 @@ export const CLINIC_TABLES = [
     score: "3.00",
     host: "Anshul Bhardwaj",
     question: "Why do use cases stall between PoC and scale?",
-    round1: "Tarun · Kevin Albrand · Sophie",
-    round2: "Gabriel · Mark · Kevin Algrain",
+    round1: "Tarun · Kevin · Sophie",
+    round2: "Gabriel · Mark · Kevin",
   },
   {
     n: 2,
@@ -300,7 +299,7 @@ export const CLINIC_TABLES = [
     host: "Vincent Pelletier",
     question: "What decision are we waiting on, and from whom?",
     round1: "Gabriel · Jamie · Eric",
-    round2: "Yida · Kevin Albrand · Samuel",
+    round2: "Yida · Kevin · Samuel",
   },
   {
     n: 5,
@@ -317,7 +316,7 @@ export const CLINIC_TABLES = [
     score: "3.50",
     host: "Maxime Marembaud",
     question: "Does the strategy survive contact with a region?",
-    round1: "Kevin Algrain · Charlotte",
+    round1: "Kevin · Charlotte",
     round2: "Sophie · Thomas",
   },
 ] as const;

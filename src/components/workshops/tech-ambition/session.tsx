@@ -9,6 +9,7 @@ import {
 import {
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -20,6 +21,7 @@ import { HintStrip } from "@/components/workshops/tech-ambition/hint-strip";
 import { WorkshopHud } from "@/components/workshops/tech-ambition/hud";
 import { SlideFrame } from "@/components/workshops/tech-ambition/slide-frame";
 import { renderWorkshopSlide } from "@/components/workshops/tech-ambition/slides";
+import type { Fy26BriefHandle } from "@/components/workshops/tech-ambition/slides/fy26";
 import { TimeFlash } from "@/components/workshops/tech-ambition/time-flash";
 import { TimerDock } from "@/components/workshops/tech-ambition/timer-dock";
 import { resolveActiveTimer } from "@/lib/workshops/tech-ambition/active-timer";
@@ -136,6 +138,7 @@ export function WorkshopSession() {
   const [ready, setReady] = useState(false);
   const [hintDismissed, setHintDismissed] = useState(false);
   const [flash, setFlash] = useState<"TIME" | "SWAP" | null>(null);
+  const fy26BriefRef = useRef<Fy26BriefHandle>(null);
   const remainingPrev = useRef({
     proud: -1,
     clinic: -1,
@@ -273,6 +276,10 @@ export function WorkshopSession() {
 
   const goNext = useCallback(() => {
     const current = indexRef.current;
+    if (SCREENS[current]?.kind === "fy26-brief" && fy26BriefRef.current?.next()) {
+      setHintDismissed(true);
+      return;
+    }
     if (current >= slideCount - 1) {
       bumpEdge(-1);
       return;
@@ -284,6 +291,9 @@ export function WorkshopSession() {
 
   const goPrev = useCallback(() => {
     const current = indexRef.current;
+    if (SCREENS[current]?.kind === "fy26-brief" && fy26BriefRef.current?.prev()) {
+      return;
+    }
     if (current <= 0) {
       bumpEdge(1);
       return;
@@ -291,6 +301,11 @@ export function WorkshopSession() {
     setDirection(-1);
     setIndex(current - 1);
   }, [bumpEdge]);
+
+  useLayoutEffect(() => {
+    if (screen.kind !== "fy26-brief") return;
+    fy26BriefRef.current?.enterFrom(direction);
+  }, [direction, screen.id, screen.kind]);
 
   const goTo = useCallback((next: number) => {
     setHintDismissed(true);
@@ -696,6 +711,7 @@ export function WorkshopSession() {
               onPause: () => patchBlock((c) => pauseClock(c, Date.now())),
               onReset: () => patchBlock((c) => resetClock(c)),
             },
+            fy26BriefRef,
           })}
         </SlideFrame>
       </motion.div>
