@@ -16,7 +16,7 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 
-import { HeaderClock, TimerRail } from "@/components/workshops/tech-ambition/header-clock";
+import { HeaderClock } from "@/components/workshops/tech-ambition/header-clock";
 import { HintStrip } from "@/components/workshops/tech-ambition/hint-strip";
 import { WorkshopHud } from "@/components/workshops/tech-ambition/hud";
 import { SlideFrame } from "@/components/workshops/tech-ambition/slide-frame";
@@ -739,16 +739,6 @@ export function WorkshopSession() {
               unlockWorkshopAudio();
               toggleActive();
             }}
-          />
-        </div>
-      ) : null}
-
-      {headerView && screen.kind !== "fy26-brief" ? (
-        <div className="absolute inset-x-0 top-[calc(2.2vh+7.45rem)] z-30">
-          <TimerRail
-            remainingMs={headerView.remainingMs}
-            durationSec={headerView.durationSec}
-            tone={headerView.tone}
           />
         </div>
       ) : null}
