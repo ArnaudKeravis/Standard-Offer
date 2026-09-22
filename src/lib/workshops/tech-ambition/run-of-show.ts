@@ -704,11 +704,11 @@ export const ROADMAP_TRACKS = [
   },
   {
     id: "fm",
-    title: "AI for FM / Command Center",
+    title: "AI4FM Program – C54",
     host: "Samuel",
-    stage: "Samuel walks this",
-    lede: "What is live, what is next, what is blocked. Three minutes.",
-    filled: false as const,
+    stage: "Five AI-enabled capabilities for FM operations",
+    lede: "Increase competitiveness by supporting FM Next Gen Operations (Shift & Grow chapter): Epics C53 & C54.",
+    filled: true as const,
   },
   {
     id: "gbs",

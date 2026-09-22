@@ -46,7 +46,21 @@ export function RoadmapTrackSlide({ screenId }: { screenId: string }) {
   const track = roadmapTrackByScreenId(screenId);
   if (track.id === "supply") return <SupplyRoadmapSlide />;
   if (track.id === "sales") return <SalesRoadmapSlide />;
+  if (track.id === "fm") return <FmProgramSlide />;
   return <SpeakerRoadmapSlide track={track} />;
+}
+
+function FmProgramSlide() {
+  return (
+    <div className="relative flex h-full w-full flex-col bg-white px-[1.4vw] pb-[1.6vh] pt-[10vh]">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/workshops/tech-ambition/ai4fm-program.png"
+        alt="AI4FM Program – C54. Five AI-enabled capabilities for FM operations."
+        className="h-full w-full object-contain object-center"
+      />
+    </div>
+  );
 }
 
 function SupplyRoadmapSlide() {

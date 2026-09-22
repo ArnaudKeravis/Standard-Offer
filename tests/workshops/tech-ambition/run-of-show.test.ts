@@ -85,6 +85,12 @@ describe("tech ambition run of show", () => {
     expect(SCREENS.some((screen) => screen.kind === "fy26-brief")).toBe(true);
     expect(SCREENS.some((screen) => screen.id === "fy26-results")).toBe(false);
     expect(SCREENS.some((screen) => screen.id === "ai-philosophy")).toBe(false);
+    const fm = ROADMAP_TRACKS.find((track) => track.id === "fm");
+    expect(fm).toMatchObject({
+      host: "Samuel",
+      filled: true,
+      title: "AI4FM Program – C54",
+    });
     const gbs = ROADMAP_TRACKS.find((track) => track.id === "gbs");
     expect(gbs).toMatchObject({
       host: "Anshul Bhardwaj",
