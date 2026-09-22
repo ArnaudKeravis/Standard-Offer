@@ -187,42 +187,58 @@ export function ClinicsScoresSlide() {
         Self-assessment · DDI leads · three questions per dimension on a 1 to 5
         scale.
       </p>
-      <StaggerIn className="mt-6 grid grid-cols-7 items-end gap-3">
+      <StaggerIn className="mt-5 grid min-h-0 flex-1 grid-cols-7 grid-rows-[auto_minmax(0,1fr)_auto] gap-x-3">
         {rows.map((row) => {
           const off = row.table === null;
-          const pct = (Number(row.score) / 5) * 100;
           return (
-            <motion.article
-              key={row.id}
+            <motion.div
+              key={`${row.id}-icon`}
               variants={staggerItem}
-              className="flex flex-col"
+              className="flex justify-center pb-2"
             >
               <div
-                className={`mx-auto flex h-9 w-9 items-center justify-center rounded-full ${
+                className={`flex h-9 w-9 items-center justify-center rounded-full ${
                   off ? "bg-[#c5c9d4] text-white" : "bg-[var(--ws-blue)] text-white"
                 }`}
               >
                 <ScoreIcon id={row.id as (typeof SCORE_ORDER)[number]} />
               </div>
-              <div className="relative mt-4 h-[32vh] overflow-hidden bg-[#f3f5fa]">
-                <div
-                  className={`absolute inset-x-0 bottom-0 ${
-                    off ? "bg-[#c8ccd6]" : "bg-[var(--ws-blue)]"
-                  }`}
-                  style={{ height: `${pct}%` }}
-                />
-                <p
-                  className={`absolute inset-x-0 text-center text-[1.35rem] font-semibold tabular-nums ${
-                    off ? "text-[var(--ws-muted)]" : "text-[var(--ws-navy)]"
-                  }`}
-                  style={{ bottom: `calc(${pct}% + 0.45rem)` }}
-                >
-                  {row.score}
-                </p>
-              </div>
+            </motion.div>
+          );
+        })}
+        {rows.map((row) => {
+          const off = row.table === null;
+          const pct = (Number(row.score) / 5) * 100;
+          return (
+            <motion.div
+              key={`${row.id}-bar`}
+              variants={staggerItem}
+              className="relative min-h-[28vh]"
+            >
+              <div
+                className={`absolute inset-x-0 bottom-0 ${
+                  off ? "bg-[#c8ccd6]" : "bg-[var(--ws-blue)]"
+                }`}
+                style={{ height: `${pct}%` }}
+              />
+              <p
+                className={`absolute inset-x-0 text-center text-[1.35rem] font-semibold tabular-nums ${
+                  off ? "text-[var(--ws-muted)]" : "text-[var(--ws-navy)]"
+                }`}
+                style={{ bottom: `calc(${pct}% + 0.4rem)` }}
+              >
+                {row.score}
+              </p>
+            </motion.div>
+          );
+        })}
+        {rows.map((row) => {
+          const off = row.table === null;
+          return (
+            <motion.div key={`${row.id}-label`} variants={staggerItem}>
               <div className="h-px bg-[var(--ws-ink)]" />
               <p
-                className={`mt-3 text-center text-[0.82rem] font-semibold leading-snug ${
+                className={`mt-3 min-h-[2.6em] text-center text-[0.82rem] font-semibold leading-snug ${
                   off ? "text-[var(--ws-muted)]" : "text-[var(--ws-navy)]"
                 }`}
               >
@@ -231,7 +247,7 @@ export function ClinicsScoresSlide() {
               <p className="mt-1 text-center text-[0.72rem] text-[var(--ws-muted)]">
                 FY25 {row.fy25}
               </p>
-            </motion.article>
+            </motion.div>
           );
         })}
       </StaggerIn>
