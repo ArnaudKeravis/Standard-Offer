@@ -7,7 +7,7 @@ const TOKEN_PAYLOAD = "sandbox-v1";
  * var when you want to rotate.
  */
 const FALLBACK_DIGEST =
-  "5dd95be675f359330c44005cdaa820919688946d7e4327bc5bda06b13bd52004";
+  "95e4085c923a0a022cbbbdffefbe520c8db25db21deddd874d51d50fd21d9c7b";
 
 const SKIP_INTL = [
   "/thales",
