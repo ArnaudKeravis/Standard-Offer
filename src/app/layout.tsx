@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   title: "Sodexo Spark — Internal Catalogue",
   description:
     "Sodexo Spark internal catalogue for Tech, Data, Digital & Innovation solutions.",
+  robots: { index: false, follow: false },
 };
 
 export default function RootLayout({

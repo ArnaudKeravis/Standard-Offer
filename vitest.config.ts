@@ -15,6 +15,7 @@ export default defineConfig({
       "tests/newsletters/**/*.test.ts",
       "tests/people-board/**/*.test.ts",
       "tests/workshops/**/*.test.ts",
+      "tests/sandbox/**/*.test.ts",
     ],
     globals: true,
   },
