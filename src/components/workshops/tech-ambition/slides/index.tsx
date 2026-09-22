@@ -11,6 +11,7 @@ import type {
 } from "@/lib/workshops/tech-ambition/types";
 
 import { AiBuyingSlide, AiLayersSlide, AiWallSlide } from "./ai";
+import { GbsDeckSlide } from "./gbs";
 import { RoadmapRosterSlide, RoadmapTrackSlide } from "./roadmap";
 import { Fy26BriefSlide, type Fy26BriefHandle } from "./fy26";
 import { IntercalaireSlide } from "./intercalaire";
@@ -91,6 +92,8 @@ export function renderWorkshopSlide(
       return <RoadmapRosterSlide />;
     case "roadmap-track":
       return <RoadmapTrackSlide screenId={screenId} />;
+    case "gbs-deck":
+      return <GbsDeckSlide screenId={screenId} />;
     case "hourback-overview":
       return <HourbackOverviewSlide />;
     case "hourback-ritual":

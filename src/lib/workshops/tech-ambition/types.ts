@@ -28,6 +28,7 @@ export type ScreenKind =
   | "clinics-ritual"
   | "roadmap-roster"
   | "roadmap-track"
+  | "gbs-deck"
   | "hourback-overview"
   | "hourback-ritual"
   | "close-walkout"

@@ -71,7 +71,11 @@ export const SCREENS: WorkshopScreen[] = [
   { id: "roadmap-ops", blockId: "roadmap", kind: "roadmap-track", label: "Ops", tone: "light", timed: true },
   { id: "roadmap-labor", blockId: "roadmap", kind: "roadmap-track", label: "Labor", tone: "light", timed: true },
   { id: "roadmap-fm", blockId: "roadmap", kind: "roadmap-track", label: "FM", tone: "light", timed: true },
-  { id: "roadmap-gbs", blockId: "roadmap", kind: "roadmap-track", label: "GBS", tone: "light", timed: true },
+  { id: "roadmap-gbs-scope", blockId: "roadmap", kind: "gbs-deck", label: "GBS scope", tone: "light", timed: true },
+  { id: "roadmap-gbs-status", blockId: "roadmap", kind: "gbs-deck", label: "GBS status", tone: "light", timed: true },
+  { id: "roadmap-gbs-sut", blockId: "roadmap", kind: "gbs-deck", label: "GBS SUT", tone: "light", timed: true },
+  { id: "roadmap-gbs-workflow", blockId: "roadmap", kind: "gbs-deck", label: "GBS workflow", tone: "light", timed: true },
+  { id: "roadmap-gbs-pipeline", blockId: "roadmap", kind: "gbs-deck", label: "GBS pipeline", tone: "light", timed: true },
   { id: "hourback-open", blockId: "hourback", kind: "intercalaire", label: "Hands-on", tone: "dark" },
   { id: "hourback-overview", blockId: "hourback", kind: "hourback-overview", label: "Three steps", tone: "light", timed: true },
   { id: "hourback-ritual", blockId: "hourback", kind: "hourback-ritual", label: "Build", tone: "dark", timed: true },
@@ -755,39 +759,386 @@ export const SALES_ROADMAP = {
   closed: "GSA no-code agent was closed after ideation.",
 } as const;
 
-export const GBS_ROADMAP = {
-  what: "APMEA GBS AI. Three tracks Anshul can walk: a reporting POC, tax compliance waiting on money, and FP&A still in discovery.",
-  values: [
-    { value: "1,600", label: "NorAm SUT filings a month, run by ~14 people" },
-    { value: "550+", label: "hours a month on the four SUT cases if approved" },
-    { value: "4", label: "SUT use cases submitted, value accepted" },
-  ],
-  tracks: [
-    {
-      status: "POC",
-      title: "Talk to data",
-      body: "Conversational layer over Power BI. Low-code Copilot agent and a code-first path. Demo.",
+export const GBS_DECK = {
+  scope: {
+    title: "Original Scope, for Reference",
+    foot: "Digital & AI roadmap — update to SLT — May 2024",
+    themes: [
+      {
+        name: "P2P",
+        count: "6 UCs",
+        accent: "#0F7B7B",
+        items: [
+          "Manual PO Creation",
+          "Manual 3 Way Match",
+          "Onboarding of vendors is a manual process",
+          "Process Exceptions for invoice booking",
+          "Supplier Payment Queries",
+          "GR/IR Clearing for old unmatched items",
+        ],
+      },
+      {
+        name: "R2R",
+        count: "8 UCs",
+        accent: "#2B5CFF",
+        items: [
+          "Manual account reconciliation involving multiple data sources",
+          "Multiple month end close activities",
+          "Intercompany matching that needs multiple legal entities data",
+          "Intelligent Journal Entry Preparation & Controls",
+          "Variance Analysis for Management accounting",
+          "Anomaly Detection & Continuous Audit",
+          "Statutory & Regulatory Report",
+          "Continuous Accounting & Real-Time Close",
+        ],
+      },
+      {
+        name: "O2C",
+        count: "7 UCs",
+        accent: "#34A866",
+        items: [
+          "Complex and multidimensional billing schedules",
+          "Intelligent Cash Application & Remittance Matching",
+          "Automated Debt Collection & Cash Recovery",
+          "Contract-to-Invoice Reconciliation & Deduction",
+          "Dispute Management & Resolution",
+          "Revenue Forecasting & Leakage Detection",
+          "Order Validation & Billing Setup",
+        ],
+      },
+      {
+        name: "MDM",
+        count: "4 UCs",
+        accent: "#EF661A",
+        items: [
+          "Vendor Master De-duplication",
+          "Customer & Client Master Data Cleansing",
+          "Data Quality Scoring & Continuous Governance",
+          "MDM Change Request Automation & Audit Trail",
+        ],
+      },
+      {
+        name: "Reporting",
+        count: "4 UCs",
+        accent: "#2BB8B3",
+        items: [
+          "Manual data extraction and transformation and business insights",
+          "Narrative & Variance Commentary",
+          "Self-Serve Analytics Chatbot",
+          "Ad-Hoc Report Generation & Data Democratisation",
+        ],
+      },
+      {
+        name: "HRSS",
+        count: "4 UCs",
+        accent: "#DA558C",
+        items: [
+          "Talent Acquisition & High-Volume Screening",
+          "Attrition Prediction & Targeted Retention",
+          "Payroll Anomaly Detection & Compliance Validation",
+          "HR Self-Service (Multi-Language, 24/7)",
+        ],
+      },
+    ],
+  },
+  status: {
+    title: "APMEA GBS AI Initiative Status",
+    rows: [
+      {
+        business: "GBS Finance – NORAM SUT TAX compliance",
+        owners: "Ravi Sankar, Atul Gupta, Anand Gupta",
+        date: "TBD",
+        status: "On-hold for Funding Decision",
+        tone: "risk",
+        detail: [
+          "SUT Compliance (NORAM): ~1,600 filings per month managed by a GBS team of ~14 members.",
+          "4 use cases submitted with detailed cost-benefit analysis, representing 550+ hours of potential monthly savings, while improving end-to-end process visibility, establishing a structured approval mechanism and improving accuracy of the process.",
+        ],
+        next: [
+          "Decision needed: Final approval is pending while there is acceptance on the business value",
+          "Concerns regarding the funding mechanism will be addressed separately. Owner: Anshul",
+        ],
+        risk: "The Alteryx product implementation for one of the use case",
+      },
+      {
+        business: "GBS Finance – FP&A + Forecasting",
+        owners: "Ravi, Atul, Anand",
+        date: "TBD",
+        status: "Discovery",
+        tone: "track",
+        detail: [
+          "Identified - 8+ different sources of data and 8 + areas of work identified including two main personas - Site Operations and Finance. Prioritized these use cases with operations and India FP&A team.",
+          "GRN and Payroll – in discovery",
+        ],
+        next: [
+          "Decision taken: Continue the discovery with the India FP&A team.",
+          "Business Sponsorship: For insights focused on site management and operations, identify a sponsor. Owner: Anshul",
+        ],
+        risk: "",
+      },
+      {
+        business: "GBS Reporting – Capability – Talk to data",
+        owners: "Ravi, Atul, Anand",
+        date: "TBD",
+        status: "POC",
+        tone: "track",
+        detail: [
+          "Talk to data",
+          "Low code approach – copilot agent",
+          "Code first approach",
+        ],
+        next: ["Demo"],
+        risk: "",
+      },
+    ],
+    related: [
+      "Sales RFP Agent – Enablement is in progress for APMEA/India.",
+      "GBS: SOP Chatbot – Aligns with “GBS Self-serve Chatbot” priority in AI for GBS. Once built, it can be extended to include other Knowledge bases beyond SOPs. Ravi is aligned with free 6 week MVP from Microsoft, long term scaling to be determined post evaluating DruidAI alternative.",
+    ],
+  },
+  sut: {
+    title: "NorAM SUT Tax use cases submitted for approval",
+    rows: [
+      {
+        name: "Task Assignment & Tracking",
+        solution:
+          "Power Automate/Teams-based task creation, preparer assignment, due-date capture for state filings.",
+        status: "Active estimation and POC",
+        intangible:
+          "1. End-to-End Visibility of filling progress and due dates. 2. Reduce missed tax deadlines. 3. Bring focus on tax preparation instead of administrative tracking, improving accuracy. 4. Can be easily extended for other tax compliance departments as well.",
+        tangible: "Not quantified. Will save time for Heads of Tax, reviewers and other managers",
+        days: "20",
+        cost: "17,640.00 €",
+      },
+      {
+        name: "Dashboard (status by state)",
+        solution:
+          "Simple 1-2 page Power BI view on top of task-tracker data — pending, by country, by resource.",
+        status: "Active estimation and POC",
+        intangible:
+          "Leadership gains centralized visibility for review, sign-off and filing metrics. Better monitoring reduces missed deadlines. Save cost on penalties, interests and overpayments.",
+        tangible:
+          "Not quantified. But will save time for Heads of Tax, reviewers and other managers. Once team get access to past data they can extract information on penalties and interests.",
+        days: "10",
+        cost: "8,820.00 €",
+      },
+      {
+        name: "PDF Extraction & Initial Excel Preparation",
+        solution:
+          "Automates SAP PDF output into Excel (currently manual copy/paste/calculate per legal entity); output feeds reconciliation & Vertex.",
+        status: "Active estimation and POC",
+        intangible:
+          "1. Reduction in manual effort for updating the excel and reviewing data. 2. Improved accuracy due to removal of copy paste from PDF. 3. Can be extended to be used by any other team needed document intelligence. 4. Sets the foundation for document intelligence AI capabilities which is part of our proposed Agentic Platform.",
+        tangible:
+          "380 hours/month saved across extraction + reconciliation + compliance monitoring — vetted with Abhishek & Puneet on a 20% manual-effort-reduction assumption.",
+        days: "30",
+        cost: "26,460.00 €",
+      },
+      {
+        name: "Reconciliation & Reviewer Exception Assistance",
+        solution:
+          "2-way match (Excel vs PDF), 3-way match (Excel vs Vertex extract), and reviewer exception-handling logic.",
+        status: "Active estimation",
+        intangible:
+          "1. Reduces times reviewing and reconciling various documents. 2. Increase accuracy by automating data extraction and verification. 3. Can be extended to be used for any use case, where team has to compare and reconcile documents. 4. Sets the foundation for document intelligence AI capabilities.",
+        tangible:
+          "Saves approximately 168 hrs/month bundle on recon work. Vetted by Abhishek and Puneet",
+        days: "24",
+        cost: "21,420.00 €",
+      },
+    ],
+  },
+  workflow: {
+    title: "Tax Compliance Workflow Management – End to End Workflow",
+    lede: "Automate. Assign. Track. Approve. Comply.",
+    steps: [
+      "1. Task Creation",
+      "2. Assignment",
+      "3. Preparation",
+      "4. Review & Approval",
+      "5. Filing & Completion",
+      "6. Monitoring & Escalation",
+    ],
+    system: [
+      {
+        title: "Auto-create tasks from tax calendar",
+        items: ["Create records", "Capture deadlines", "Maintain audit history"],
+      },
+      {
+        title: "Auto-assign preparers and reviewers",
+        items: ["Rule-based", "Workload-based", "Skills-based"],
+      },
+      {
+        title: "Status Tracking",
+        items: ["In Progress", "Pending Review", "Pending Approval", "Completed"],
+      },
+      {
+        title: "Deadline Monitoring & Escalation Engine",
+        items: ["Monitor due dates", "Send reminders", "Escalate overdue", "Flag high-risk returns"],
+      },
+    ],
+    preparer: [
+      {
+        title: "Prepare Return",
+        items: ["Complete return", "Attach supporting documents", "Submit for review"],
+      },
+      {
+        title: "File Return & Update Status",
+        items: ["File with authority", "Update status", "Capture filing date", "Store return"],
+      },
+    ],
+    reviewer: [
+      {
+        title: "Review Return",
+        items: ["Validate & review", "Add comments", "Approve / Reject"],
+      },
+      {
+        title: "Approval Decision",
+        items: ["Approve", "Reject", "Add comments"],
+      },
+    ],
+    manager: {
+      title: "Escalation to Managers",
+      items: ["Overdue items", "High-risk returns", "SLA breaches"],
     },
-    {
-      status: "Ready · funding hold",
-      title: "NorAm SUT tax",
-      body: "Task tracking, dashboard, PDF extraction, reconciliation. Alteryx on one case. Decision still open.",
-    },
-    {
-      status: "Discovery",
-      title: "FP&A + forecasting",
-      body: "8+ sources. Site Operations and Finance. GRN and payroll with the India FP&A team.",
-    },
-  ],
-  next: [
-    "Talk-to-data demo",
-    "SOP chatbot — six-week Microsoft MVP, then DruidAI versus scale",
-    "Sales RFP agent enablement in APMEA / India",
-  ],
-  blocked: [
-    "SUT: business value accepted, funding decision still open",
-    "Site-ops insights need a business sponsor",
-  ],
+    outcome: "Return filed & completed",
+    notify: [
+      "Task Assigned (Preparer)",
+      "Task Assigned (Reviewer)",
+      "Due Date Reminder",
+      "Overdue Reminder",
+      "Escalation Notification",
+      "Approval Requested",
+      "Return Filed Confirmation",
+    ],
+  },
+  pipeline: {
+    title: "APMEA GBS AI use cases under consideration",
+    rows: [
+      {
+        track: "AI Capabilities",
+        use: "Talk to Data – conversational agent over Power BI",
+        solution:
+          "Unified conversational layer built over DB or Power BI dashboards (Brand Performance, FP&A, Soeze), replacing the single-product Copilot Studio prototype",
+        area: "Finance and Operations",
+        finance: "",
+        ops: "",
+      },
+      {
+        track: "AI Capabilities",
+        use: "Document intelligence - Agent to pull data from structured and unstructured sources and organised into a customised output.",
+        solution:
+          "Unified agent that allows users to configure the agent to process the input they have into an output that they need.",
+        area: "Finance and Operations",
+        finance: "",
+        ops: "",
+      },
+      {
+        track: "SUT Compliance",
+        use: "SUT Compliance – PDF extraction & reconciliation (NorAm)",
+        solution:
+          "Document Intelligence platform: automated PDF-to-Excel extraction plus deterministic reconciliation/balance validation, going further than Alteryx (which only handles extraction)",
+        area: "Finance",
+        finance: "Very High",
+        ops: "NA",
+      },
+      {
+        track: "Site Ops",
+        use: "Site Manager Insights – Daily Food Cost (DFC) report & procurement chain",
+        solution:
+          "Automate the DFC report and/or build an approval-necessity audit layer across the Trade Agreement to PO to GRN chain",
+        area: "Finance and Operations",
+        finance: "NA",
+        ops: "High",
+      },
+      {
+        track: "FP&A (India)",
+        use: "Annual budgeting",
+        solution:
+          "Systemic/ML-based application UI, replacing the manual back-and-forth with 100+ ops managers across ~1,200 locations",
+        area: "Finance",
+        finance: "Medium",
+        ops: "High",
+      },
+      {
+        track: "FP&A (India)",
+        use: "Quarterly forecasting",
+        solution: "Same systemic/ML-based approach as annual budgeting",
+        area: "Finance Operations",
+        finance: "High",
+        ops: "High",
+      },
+      {
+        track: "FP&A (India)",
+        use: "Rate revision / inflation recovery tracking",
+        solution:
+          "Automated alerts/messages on rate changes (Leads to revenue loss hence high priority for FP&A India )",
+        area: "Finance and Operations",
+        finance: "High",
+        ops: "High",
+      },
+      {
+        track: "FP&A (India)",
+        use: "Supply-chain/spend analytics",
+        solution: "Supply analytics layer built off the existing GRN sheet",
+        area: "Finance and Operations",
+        finance: "High",
+        ops: "High",
+      },
+      {
+        track: "FP&A (India)",
+        use: "Payroll – overtime pattern tracking",
+        solution:
+          "Automated alerts for overtime/rate mismatches + AI-powered reasoning collection from site managers, with system reconciliation + anomaly alerts",
+        area: "Finance and Operations",
+        finance: "High",
+        ops: "Very High",
+      },
+      {
+        track: "FP&A (India)",
+        use: "Food cost / margin analysis",
+        solution:
+          "Alerts for cost-vs-target, wastage %, high-cost ingredient stats, seasonal price swings; an AI agent compiling it all into a leadership food report",
+        area: "Operations",
+        finance: "Medium",
+        ops: "Medium",
+      },
+      {
+        track: "FP&A (India)",
+        use: "Anomaly detection at scale (24 months of data, ~1,500 sites)",
+        solution: "Systemic anomaly-alerting layer replacing manual review",
+        area: "Finance and Operations",
+        finance: "Low",
+        ops: "High",
+      },
+      {
+        track: "FP&A (India)",
+        use: "Monthly 40-50 page MIS deck is filled by hand",
+        solution: "Each segment builds their own PowerPoint deck by hand from the GOP sheet.",
+        area: "Finance",
+        finance: "Low",
+        ops: "NA",
+      },
+      {
+        track: "R2R",
+        use: "Intercompany – Reconciliation between D365 and S4Hana for intercompany transactions",
+        solution:
+          "D365 to S4Hana Intelligent mirroring needed so there is no manual reconciliation needed at the end of the month.",
+        area: "Finance",
+        finance: "Medium",
+        ops: "NA",
+      },
+      {
+        track: "GBS",
+        use: "GBS – business case dashboard",
+        solution:
+          "Give Finance, PMO, Transition Leads, GBS Delivery and executive sponsors one trusted view to prioritize viable transitions, approve investment, track benefits against the business case, identify cost or capacity risks early, and hold owners accountable",
+        area: "Finance",
+        finance: "",
+        ops: "",
+      },
+    ],
+  },
 } as const;
 
 export function roadmapTrackByScreenId(screenId: string) {

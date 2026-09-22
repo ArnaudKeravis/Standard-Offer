@@ -4,7 +4,7 @@ import {
   BLOCKS,
   CLINIC_TABLES,
   FY27_ACCEL,
-  GBS_ROADMAP,
+  GBS_DECK,
   HOURBACK_STEPS,
   MATURITY,
   ROADMAP_TRACKS,
@@ -65,7 +65,8 @@ describe("tech ambition run of show", () => {
       title: "AI agents strategy sharing",
     });
     expect(SCREENS.some((screen) => screen.kind === "roadmap-roster")).toBe(true);
-    expect(SCREENS.filter((screen) => screen.kind === "roadmap-track")).toHaveLength(6);
+    expect(SCREENS.filter((screen) => screen.kind === "roadmap-track")).toHaveLength(5);
+    expect(SCREENS.filter((screen) => screen.kind === "gbs-deck")).toHaveLength(5);
   });
 
   it("opens with Arnaud and Henri, and only uses Albrand when others have last names", () => {
@@ -89,11 +90,16 @@ describe("tech ambition run of show", () => {
       host: "Anshul Bhardwaj",
       filled: true,
     });
-    expect(GBS_ROADMAP.tracks.map((track) => track.title)).toEqual([
-      "Talk to data",
-      "NorAm SUT tax",
-      "FP&A + forecasting",
+    expect(GBS_DECK.scope.themes.map((theme) => theme.name)).toEqual([
+      "P2P",
+      "R2R",
+      "O2C",
+      "MDM",
+      "Reporting",
+      "HRSS",
     ]);
+    expect(GBS_DECK.sut.rows).toHaveLength(4);
+    expect(GBS_DECK.pipeline.rows).toHaveLength(14);
     expect(SCREENS.filter((screen) => screen.kind === "strategy-accel")).toHaveLength(7);
     expect(FY27_ACCEL.priorities.title).toBe(
       "AI Acceleration focuses on three priorities, each with a dedicated delivery model",
