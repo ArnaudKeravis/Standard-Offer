@@ -338,25 +338,75 @@ function AgenticSlide() {
 function FactoriesSlide() {
   const { title, steps, bar, proofs } = FY27_ACCEL.factories;
   return (
-    <Frame title={title}>
-      <div className="grid flex-1 grid-cols-7 gap-2">
-        {steps.map((step) => (
-          <article key={step.n} className="rounded-[18px] bg-[#f5f6f8] px-3 py-4">
-            <p className="text-[0.72rem] font-semibold text-[var(--ws-blue)]">{step.n}</p>
-            <p className="mt-2 font-semibold text-[var(--ws-ink)]">{step.title}</p>
-            <p className="mt-3 text-[0.78rem] leading-snug text-[var(--ws-muted)]">{step.body}</p>
+    <div className="relative flex h-full w-full flex-col bg-white px-[3.4vw] pb-[2.2vh] pt-[10vh]">
+      <h1 className="ws-display max-w-[94%] text-[clamp(2.05rem,3.6vw,2.95rem)] leading-[1.12] text-[var(--ws-ink)]">
+        {title}
+      </h1>
+      <div className="mt-8 grid grid-cols-7">
+        {steps.map((step, index) => (
+          <article
+            key={step.n}
+            className="relative flex flex-col bg-[#f5f7fb] px-3.5 py-6"
+          >
+            <p className="text-[0.95rem] font-semibold text-[var(--ws-blue)]">
+              {step.n}
+            </p>
+            <p className="mt-3 text-[1.28rem] font-semibold leading-tight text-[var(--ws-ink)]">
+              {step.title}
+            </p>
+            <div className="mt-4 flex items-center">
+              <div className="h-px flex-1 bg-[var(--ws-blue)]" />
+              {index < steps.length - 1 ? (
+                <span
+                  aria-hidden
+                  className="absolute -right-1.5 z-10 text-[var(--ws-blue)]"
+                >
+                  <svg width="14" height="14" viewBox="0 0 14 14">
+                    <path
+                      d="M5 2.5 10 7 5 11.5"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+              ) : null}
+            </div>
+            <p className="mt-4 text-[0.98rem] leading-snug text-[var(--ws-muted)]">
+              {step.body}
+            </p>
           </article>
         ))}
       </div>
-      <FooterBar>
-        <p className="text-center">{bar}</p>
-      </FooterBar>
-      <ul className="mt-4 space-y-2 pb-5 text-[1.02rem] text-[var(--ws-ink)]">
+      <div className="mt-2 grid grid-cols-7">
+        {steps.map((step) => (
+          <div key={`${step.n}-arrow`} className="flex justify-center pb-1 pt-3">
+            <svg
+              aria-hidden
+              width="26"
+              height="32"
+              viewBox="0 0 26 32"
+              className="text-[var(--ws-blue)]"
+            >
+              <path
+                d="M13 1 24 15h-6v16H8V15H2z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+        ))}
+      </div>
+      <div className="-mx-[3.4vw] bg-[#0E1428] px-[3.4vw] py-4 text-center text-[1.08rem] font-semibold text-white">
+        {bar}
+      </div>
+      <ul className="mt-5 space-y-2.5 text-[1.12rem] leading-snug text-[var(--ws-ink)]">
         {proofs.map((line) => (
           <li key={line}>{line}</li>
         ))}
       </ul>
-    </Frame>
+    </div>
   );
 }
 

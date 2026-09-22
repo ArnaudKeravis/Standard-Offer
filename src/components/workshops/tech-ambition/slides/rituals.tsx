@@ -104,33 +104,142 @@ export function BreakSlide({
   );
 }
 
+const SCORE_ORDER = [
+  "strategy",
+  "delivery",
+  "data",
+  "talent",
+  "culture",
+  "gov",
+  "responsible",
+] as const;
+
+function ScoreIcon({ id }: { id: (typeof SCORE_ORDER)[number] }) {
+  const common = {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.8,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    className: "h-[1.05rem] w-[1.05rem]",
+  };
+  switch (id) {
+    case "strategy":
+      return (
+        <svg {...common} fill="currentColor" stroke="none">
+          <path d="M12 2.6 14.7 8l6 .9-4.4 4.2 1 5.9L12 16.2 6.7 19l1-5.9L3.3 8.9 9.3 8z" />
+        </svg>
+      );
+    case "delivery":
+      return (
+        <svg {...common}>
+          <path d="M4 12h14M13 6l6 6-6 6" />
+        </svg>
+      );
+    case "data":
+      return (
+        <svg {...common}>
+          <path d="M8 8h8v10H8zM8 8V6h8v2M8 12h8M8 16h8" />
+        </svg>
+      );
+    case "talent":
+      return (
+        <svg {...common}>
+          <path d="M12 3.5 20 8.2v7.6L12 20.5 4 15.8V8.2z" />
+        </svg>
+      );
+    case "culture":
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="7.5" />
+          <circle cx="12" cy="12" r="3.2" />
+        </svg>
+      );
+    case "gov":
+      return (
+        <svg {...common}>
+          <path d="M12 3.8 20.2 12 12 20.2 3.8 12z" />
+        </svg>
+      );
+    case "responsible":
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="2.1" fill="currentColor" stroke="none" />
+          <path d="M12 4.2v2.4M12 17.4v2.4M4.2 12h2.4M17.4 12h2.4M6.4 6.4l1.7 1.7M15.9 15.9l1.7 1.7M17.6 6.4l-1.7 1.7M8.1 15.9l-1.7 1.7" />
+        </svg>
+      );
+  }
+}
+
 export function ClinicsScoresSlide() {
+  const rows = SCORE_ORDER.map(
+    (id) => MATURITY.find((row) => row.id === id) ?? MATURITY[0],
+  );
+
   return (
-    <div className="relative flex h-full w-full flex-col bg-[var(--ws-paper)] px-[5.5vw] pb-[8vh] pt-[12vh]">
-      <p className="ws-kicker text-[var(--ws-discover)]">FY26 self-assessment</p>
-      <h1 className="ws-display mt-3 max-w-4xl text-[clamp(2rem,3.8vw,3.1rem)] text-[var(--ws-ink)]">
+    <div className="relative flex h-full w-full flex-col bg-white px-[4.2vw] pb-[3vh] pt-[11vh]">
+      <p className="ws-kicker text-[var(--ws-blue)]">Why these six tables</p>
+      <h1 className="ws-display mt-2 max-w-5xl text-[clamp(2.1rem,3.8vw,3.15rem)] text-[var(--ws-navy)]">
         Every dimension improved. Most are still below average.
       </h1>
-      <StaggerIn className="mt-8 grid flex-1 grid-cols-4 gap-4">
-        {MATURITY.map((row) => (
-          <motion.article
-            key={row.id}
-            variants={staggerItem}
-            className={`rounded-[24px] px-5 py-5 ${
-              row.table === null
-                ? "bg-[color-mix(in_srgb,var(--ws-muted)_12%,white)] text-[var(--ws-muted)]"
-                : "bg-white text-[var(--ws-ink)]"
-            }`}
-          >
-            <p className="ws-display text-[2.4rem] leading-none">{row.score}</p>
-            <p className="mt-3 text-sm font-semibold">{row.label}</p>
-            <p className="mt-2 text-xs uppercase tracking-[0.12em] opacity-60">
-              FY25 {row.fy25}
-              {row.table === null ? " · platform track" : ""}
-            </p>
-          </motion.article>
-        ))}
+      <p className="mt-2 text-[1.02rem] text-[var(--ws-muted)]">
+        Self-assessment · DDI leads · three questions per dimension on a 1 to 5
+        scale.
+      </p>
+      <StaggerIn className="mt-6 grid grid-cols-7 items-end gap-3">
+        {rows.map((row) => {
+          const off = row.table === null;
+          const pct = (Number(row.score) / 5) * 100;
+          return (
+            <motion.article
+              key={row.id}
+              variants={staggerItem}
+              className="flex flex-col"
+            >
+              <div
+                className={`mx-auto flex h-9 w-9 items-center justify-center rounded-full ${
+                  off ? "bg-[#c5c9d4] text-white" : "bg-[var(--ws-blue)] text-white"
+                }`}
+              >
+                <ScoreIcon id={row.id as (typeof SCORE_ORDER)[number]} />
+              </div>
+              <div className="relative mt-4 h-[32vh] overflow-hidden bg-[#f3f5fa]">
+                <div
+                  className={`absolute inset-x-0 bottom-0 ${
+                    off ? "bg-[#c8ccd6]" : "bg-[var(--ws-blue)]"
+                  }`}
+                  style={{ height: `${pct}%` }}
+                />
+                <p
+                  className={`absolute inset-x-0 text-center text-[1.35rem] font-semibold tabular-nums ${
+                    off ? "text-[var(--ws-muted)]" : "text-[var(--ws-navy)]"
+                  }`}
+                  style={{ bottom: `calc(${pct}% + 0.45rem)` }}
+                >
+                  {row.score}
+                </p>
+              </div>
+              <div className="h-px bg-[var(--ws-ink)]" />
+              <p
+                className={`mt-3 text-center text-[0.82rem] font-semibold leading-snug ${
+                  off ? "text-[var(--ws-muted)]" : "text-[var(--ws-navy)]"
+                }`}
+              >
+                {row.label}
+              </p>
+              <p className="mt-1 text-center text-[0.72rem] text-[var(--ws-muted)]">
+                FY25 {row.fy25}
+              </p>
+            </motion.article>
+          );
+        })}
       </StaggerIn>
+      <p className="mt-5 border border-[var(--ws-line)] bg-[#f7f8fb] px-5 py-3 text-[0.95rem] leading-snug text-[var(--ws-ink)]">
+        Data &amp; Infrastructure is greyed out. It is the one dimension we do
+        not work on this afternoon — it is handled in the platform track. The
+        six remaining dimensions become the six tables of the world café.
+      </p>
     </div>
   );
 }
