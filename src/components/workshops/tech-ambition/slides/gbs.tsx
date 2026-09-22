@@ -158,93 +158,16 @@ function SutSlide() {
   );
 }
 
-function Box({
-  title,
-  items,
-  tone = "system",
-}: {
-  title: string;
-  items: readonly string[];
-  tone?: "system" | "prep" | "review" | "risk";
-}) {
-  const bg =
-    tone === "prep"
-      ? "bg-[#eef8ef] border-[#b7dfb8]"
-      : tone === "review"
-        ? "bg-[#f3f0ff] border-[#c9c0ef]"
-        : tone === "risk"
-          ? "bg-[#fff4e5] border-[#f0c48a]"
-          : "bg-[#e8eefc] border-[#b7c8f0]";
-  return (
-    <div className={`rounded-[12px] border px-3 py-2 ${bg}`}>
-      <p className="text-[0.78rem] font-semibold text-[var(--ws-ink)]">{title}</p>
-      <ul className="mt-1 space-y-0.5 text-[0.7rem] text-[var(--ws-muted)]">
-        {items.map((item) => (
-          <li key={item}>• {item}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
 function WorkflowSlide() {
-  const { title, lede, steps, system, preparer, reviewer, manager, outcome, notify } =
-    GBS_DECK.workflow;
   return (
-    <Stage title={title} kicker={lede}>
-      <div className="grid grid-cols-6 gap-2 text-center text-[0.72rem] font-semibold text-white">
-        {steps.map((step, i) => (
-          <p
-            key={step}
-            className="rounded-md px-1 py-1.5"
-            style={{ background: i === 5 ? "#E24B4B" : "#2B5CFF" }}
-          >
-            {step}
-          </p>
-        ))}
-      </div>
-      <div className="mt-3 grid min-h-0 flex-1 grid-cols-[7rem_minmax(0,1fr)] gap-2 text-[0.72rem]">
-        <div className="flex flex-col justify-between py-1 font-semibold text-white">
-          {["System", "Preparer", "Reviewer", "Manager"].map((lane) => (
-            <p key={lane} className="rounded-md bg-[#16306b] px-2 py-3 text-center">
-              {lane}
-            </p>
-          ))}
-        </div>
-        <div className="grid grid-rows-4 gap-2">
-          <div className="grid grid-cols-4 gap-2">
-            {system.map((box) => (
-              <Box key={box.title} title={box.title} items={box.items} />
-            ))}
-          </div>
-          <div className="grid grid-cols-[1fr_1.2fr_1fr] items-center gap-2">
-            <Box title={preparer[0].title} items={preparer[0].items} tone="prep" />
-            <div />
-            <Box title={preparer[1].title} items={preparer[1].items} tone="prep" />
-          </div>
-          <div className="grid grid-cols-[1fr_1fr_1fr] items-center gap-2">
-            <div />
-            <Box title={reviewer[0].title} items={reviewer[0].items} tone="review" />
-            <Box title={reviewer[1].title} items={reviewer[1].items} tone="review" />
-          </div>
-          <div className="grid grid-cols-[1fr_1fr_1fr] items-center gap-2">
-            <div />
-            <Box title={manager.title} items={manager.items} tone="risk" />
-            <div className="flex items-center justify-center rounded-[12px] border border-[#b7dfb8] bg-[#eef8ef] px-3 py-3 text-center font-semibold text-[#1f7a3a]">
-              {outcome}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="mt-2 flex flex-wrap gap-2 text-[0.68rem] text-[var(--ws-navy)]">
-        <span className="font-semibold">Teams / Email notifications:</span>
-        {notify.map((item) => (
-          <span key={item} className="rounded-full bg-[#f0f3fa] px-2 py-1">
-            {item}
-          </span>
-        ))}
-      </div>
-    </Stage>
+    <div className="relative flex h-full w-full flex-col bg-white px-[2vw] pb-[2.4vh] pt-[10vh]">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/workshops/tech-ambition/gbs-tax-workflow.png"
+        alt="Tax Compliance Workflow Management – End to End Workflow"
+        className="h-full w-full object-contain object-center"
+      />
+    </div>
   );
 }
 
