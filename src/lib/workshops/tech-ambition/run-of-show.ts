@@ -45,7 +45,6 @@ export const SCREENS: WorkshopScreen[] = [
   { id: "fy26-brief", blockId: "fy26", kind: "fy26-brief", label: "Leadership brief", tone: "light", timed: true, durationSec: 20 * 60 },
   { id: "ai-open", blockId: "ai", kind: "intercalaire", label: "AI 101", tone: "dark" },
   { id: "ai-wall", blockId: "ai", kind: "ai-wall", label: "Hit a wall?", tone: "light", timed: true },
-  { id: "ai-philosophy", blockId: "ai", kind: "ai-philosophy", label: "Philosophy", tone: "light", timed: true },
   { id: "ai-layers", blockId: "ai", kind: "ai-layers", label: "Model product harness", tone: "light", timed: true },
   { id: "ai-buying", blockId: "ai", kind: "ai-buying", label: "Buying AI", tone: "light", timed: true },
   { id: "proud-open", blockId: "proud", kind: "intercalaire", label: "Proud of", tone: "dark" },
@@ -53,6 +52,13 @@ export const SCREENS: WorkshopScreen[] = [
   { id: "proud-ritual", blockId: "proud", kind: "proud-ritual", label: "2 minutes", tone: "dark", timed: true },
   { id: "strategy-open", blockId: "strategy", kind: "intercalaire", label: "Strategy", tone: "dark" },
   { id: "strategy-brief", blockId: "strategy", kind: "strategy-brief", label: "Vision", tone: "light", timed: true },
+  { id: "strategy-priorities", blockId: "strategy", kind: "strategy-accel", label: "Three priorities", tone: "light", timed: true },
+  { id: "strategy-everyday", blockId: "strategy", kind: "strategy-accel", label: "Everyday AI", tone: "light", timed: true },
+  { id: "strategy-providers", blockId: "strategy", kind: "strategy-accel", label: "Two providers", tone: "light", timed: true },
+  { id: "strategy-platforms", blockId: "strategy", kind: "strategy-accel", label: "Business platforms", tone: "light", timed: true },
+  { id: "strategy-delivery", blockId: "strategy", kind: "strategy-accel", label: "Delivery models", tone: "light", timed: true },
+  { id: "strategy-agentic", blockId: "strategy", kind: "strategy-accel", label: "Agentic platform", tone: "light", timed: true },
+  { id: "strategy-factories", blockId: "strategy", kind: "strategy-accel", label: "AI-native delivery", tone: "light", timed: true },
   { id: "break", blockId: "break", kind: "break", label: "Break", tone: "dark", timed: true },
   { id: "clinics-open", blockId: "clinics", kind: "intercalaire", label: "Clinics", tone: "dark" },
   { id: "clinics-scores", blockId: "clinics", kind: "clinics-scores", label: "Scores", tone: "light", timed: true },
@@ -181,29 +187,36 @@ export const AI_WALL = [
   { when: "Sep 14", text: "Google announced narrow recursive improvement" },
 ] as const;
 
-export const AI_LAYERS = [
-  {
+export const AI_LAYERS = {
+  model: {
     n: "01",
     title: "Model",
     role: "The intelligence",
-    body: "Generates, predicts and reasons. LLM, SLM, multimodal.",
+    body: "Generates, predicts and reasons",
+    kinds: ["LLM", "SLM", "Multimodal"],
     examples: "GPT-5.2 · Gemini 3.1",
+    accent: "#2BB8B3",
   },
-  {
+  product: {
     n: "02",
     title: "Product",
     role: "The user experience",
-    body: "Turns models into a usable service. Logic, channels, the thing people open.",
+    body: "Turns models into a usable service",
     examples: "ChatGPT · Copilot",
+    channels: "Web · mobile · desktop",
+    accent: "#2B5CFF",
   },
-  {
+  harness: {
     n: "03",
     title: "Harness",
     role: "The capabilities",
-    body: "Connects context, tools and actions. Skills, MCP, APIs, memory, permissions.",
-    examples: "Skills · MCP · APIs",
+    body: "Connects context, tools and actions",
+    nodes: ["Skills", "MCP", "APIs", "Systems"],
+    includes: "Memory · routing · permissions · controls",
+    access: "Skills · MCP servers · APIs · enterprise systems",
+    accent: "#E0B34A",
   },
-] as const;
+} as const;
 
 export const AI_BUYING = [
   {
@@ -253,6 +266,283 @@ export const STRATEGY_SETUP = [
   "A clear line on what the platform will and will not do for a region.",
   "Enough confidence for everyone to contribute in the next block.",
 ] as const;
+
+export const FY27_ACCEL = {
+  priorities: {
+    title: "AI Acceleration focuses on three priorities, each with a dedicated delivery model",
+    what: [
+      {
+        n: "1",
+        title: "Everyday AI",
+        body: "Equip every employee with approved AI generic tools, and coach them",
+        tools: "Copilot, ChatGPT, Claude? …",
+        outcome: "Adoption / self efficiency",
+        share: "~20%",
+        accent: "#2B5CFF",
+      },
+      {
+        n: "2",
+        title: "AI in business platforms (buy) / Integrated into Spark",
+        body: "Embed agents in Spark solutions and core business platforms",
+        tools: "SAP, Salesforce, Kronos, Spark OS, Spark XP, Spark IQ…",
+        outcome: "Business efficiency",
+        share: "~20%",
+        accent: "#2BB8B3",
+      },
+      {
+        n: "3",
+        title: "AI as a differentiator (build) / Integrated into Spark",
+        body: "Build Sodexo IP assets by using AI to accelerate and improve the delivery of AI products",
+        tools: "Client360, Menu & Recipe AI, AI for TOM, Labor AI…",
+        outcome: "Business efficiency / growth",
+        share: "~60%",
+        accent: "#E24B4B",
+      },
+    ],
+    how: [
+      {
+        title: "Central platform and adoption engine",
+        points: [
+          "AI Acceleration selects platforms, sets guardrails and measures usage",
+          "AI Champions + Digital Workplace team scale adoption",
+        ],
+        account: "Accountable  AI Acceleration",
+        accent: "#2B5CFF",
+      },
+      {
+        title: "CoE enablement for Business and Spark XP platforms",
+        points: [
+          "AI Acceleration provides agent fabric, golden paths and expert support",
+          "Spark teams own product roadmap, build, deployment and run",
+        ],
+        account: "Accountable  Business and Spark platform CoEs",
+        accent: "#2BB8B3",
+      },
+      {
+        title: "Prove, codify, then transfer to factories",
+        points: [
+          "Today: AI Acceleration and factories co-deliver lighthouse products",
+          "By FY27 year-end: 100% of delivery in factories; AI Acceleration measures TTM and maintains reusable assets",
+        ],
+        account: "Delivery ownership  AI CoE + factories → 100% factories",
+        accent: "#E24B4B",
+      },
+    ],
+    footer:
+      "AI CoE provides a common model, the agentic platform and expert AI support while pillar 1 and 2 CoEs own delivery",
+  },
+  everyday: {
+    title: "We aim at a broad access to AI tools, but more importantly at sustained adoption",
+    kicker: "HR leadership is sponsoring",
+    columns: [
+      {
+        n: "1.1",
+        title: "Deploy Everyday AI",
+        body: "Put approved AI tools in every employee's flow of work",
+        rows: [
+          { label: "Default access", value: "Copilot Chat for all employees" },
+          { label: "Advanced access", value: "Copilot Premium or ChatGPT Enterprise" },
+          { label: "One enablement model", value: "Onboarding, support, analytics and governance" },
+        ],
+        metrics: ["30k+ WAU", "≥70% PMF"],
+      },
+      {
+        n: "1.2",
+        title: "Activate AI Champions",
+        body: "Turn central capability into local, peer-led adoption",
+        rows: [
+          { label: "Who", value: "Operational influencers close to daily work" },
+          { label: "What they do", value: "Train peers · surface use cases · reuse practices" },
+        ],
+        rollout: "Current rollout — 7 Sep 2026",
+        stats: [
+          { value: "5/7", label: "regions" },
+          { value: "~160", label: "identified" },
+          { value: "3", label: "kick-offs" },
+        ],
+        foot: "100 active champions · 10+ use cases",
+      },
+      {
+        n: "1.3",
+        title: "Relaunch AI learning path",
+        body: "Provide maturity and role-based AI learning specific to Sodexo",
+        rows: [
+          { label: "Now", value: "Available on Access" },
+          { label: "Next", value: "Increase visibility across channels and onboarding" },
+          { label: "v2", value: "Custom Sodexo content, examples and role pathways" },
+        ],
+      },
+    ],
+    also: [
+      "Replace acculturation and GBL / GLT individual coaching",
+      "Hackathons",
+      "Gamification (e.g., Mendo)",
+      "Governance of specific AI solutions (e.g., Synthesia)",
+    ],
+  },
+  providers: {
+    title: "1.1 A balanced two-provider model giving every employee the right AI for the job",
+    rows: [
+      {
+        n: "01",
+        kicker: "Default access",
+        title: "Copilot Chat is the baseline for everyone",
+        body: "Daily productivity, search and standard work in the Microsoft flow",
+        facts: [
+          { value: "30k+", label: "target weekly active users" },
+          { value: "Included", label: "in existing M365" },
+          { value: "Agents", label: "paid on consumption" },
+        ],
+      },
+      {
+        n: "02",
+        kicker: "Advanced users",
+        title: "Allocate paid access by persona and use case",
+        split: [
+          {
+            name: "Copilot Premium",
+            body: "M365 integration + Copilot Studio agents",
+            note: "Either / or. Avoid duplicate paid access.",
+          },
+          {
+            name: "ChatGPT Enterprise",
+            body: "Advanced workflows, coding and transformation",
+            note: "~50 / 50. Target balance of the paid envelope.",
+          },
+        ],
+      },
+      {
+        n: "03",
+        kicker: "Guardrails",
+        title: "Annual capacity: €1.5–1.8m with capped downside",
+      },
+    ],
+  },
+  platforms: {
+    title: "2) We need to reinforce our focus on direct execution of agentic solutions within Business and Spark XP platforms",
+    lede: "This will require a greater collaboration between AI CoE and Business & Spark XP platform teams (Domain leads and CoEs) while keeping a transversal view on all built agents through Sodexo Control Plane",
+    okrs: ["FY27 OKRs", "Active agents", "Adoption by platform", "Value realised", "Control-plane coverage"],
+    pillars: [
+      {
+        n: "2.1",
+        title: "Clear guardrails",
+        body: "Define autonomy levels, permitted actions and human oversight before an agent reaches production.",
+        account: "AI CoE",
+        accent: "#2B5CFF",
+      },
+      {
+        n: "2.2",
+        title: "Partner learning",
+        body: "Continue structured collaboration with key AI and SaaS providers. Test new capabilities and feed lessons into reusable golden paths.",
+        account: "Domain leads",
+        accent: "#2BB8B3",
+      },
+      {
+        n: "2.3",
+        title: "Embedded ownership",
+        body: "Place AI builders in platform teams to manage the use-case development and adoption. The AI CoE supplies the right talent and training.",
+        account: "Business / Spark platform CoEs",
+        accent: "#34A866",
+      },
+      {
+        n: "2.4",
+        title: "Control plane",
+        body: "Use the agentic control plane to inventory and monitor agents across all business platforms.",
+        account: "AI CoE and Business / Spark platform teams",
+        accent: "#E24B4B",
+      },
+    ],
+    next: [
+      "List all agents built in these platforms while inputting the right information with our Sodexo control plane",
+      "Publish autonomy and approval guardrails",
+      "Nominate a dedicated transversal AI lead for Business platform to drive Domain leads and CoEs ownership",
+    ],
+  },
+  delivery: {
+    title: "3) Three AI delivery models to support execution of high value use cases",
+    models: [
+      {
+        n: "3.1",
+        title: "AI developed by business with support of expert teams",
+        body: "Development of agentic capabilities by the business, supported by AI champions and global experts to bring value fast and efficiently",
+        accent: "#2B5CFF",
+        exampleTitle: "AI for Supply",
+        example: "New use cases identified for TOM to reduce the weight of several processes on the critical path (mapping, hypercare, …) and secure the scale",
+      },
+      {
+        n: "3.2",
+        title: "AI as part of the product delivered to the end user",
+        body: "Embedded genAI or agentic solutions within wider product to enrich the value proposition and in particular support deployment",
+        accent: "#E24B4B",
+        exampleTitle: "AI for Food",
+        exampleKicker: "Menu & Recipe AI",
+        example: "Embedding of recipe qualification to ease the deployment workload on the business. Automatic qualification of recipes to enrich menus.",
+      },
+      {
+        n: "3.3",
+        title: "AI to enhance development and product practices",
+        body: "Support in development practices or product management models to enhance delivery teams and multiply their capacity to execute",
+        accent: "#F0A030",
+        exampleTitle: "AI for Commercial",
+        exampleKicker: "Client360",
+        example: "Full leverage of the new practices to be able to deploy a new product in months within several regions",
+      },
+    ],
+  },
+  agentic: {
+    title: "Sodexo agentic platform provides shared control and capabilities across all platforms that support agent building",
+    control: {
+      title: "P0  Control plane",
+      lede: "One transversal governance layer across all (business) platforms",
+      items: [
+        { title: "Inventory & identity", body: "Know every agent, owner, version and environment" },
+        { title: "Policy & permissions", body: "Enforce access, approvals and human-in-the-loop rules" },
+        { title: "Observability & AI FinOps", body: "Monitor quality, cost, latency, risk and performance" },
+        { title: "Audit & response", body: "Trace actions, pause, revoke or investigate an agent" },
+      ],
+    },
+    mid: "AI agents (models + context + capabilities) are designed, built and run in each platform",
+    platforms: ["Copilot", "ChatGPT", "Databricks", "SAP", "Salesforce"],
+    platformPoints: [
+      "Assist users",
+      "Orchestrate workflows",
+      "Invoke models & tools",
+      "Grounded in business context",
+      "Connect to systems of record",
+    ],
+    fabric: {
+      title: "P1  Agent fabric",
+      lede: "A shared capability that gives agents trusted data access and permissioned actions",
+      items: [
+        {
+          title: "Data-centric access",
+          body: "Ground agents in governed data products, semantic definitions and source entitlements, across Sodexo",
+        },
+        {
+          title: "Capabilities & actions",
+          body: "Expose reusable skills, APIs and MCP tools with scoped read/write permissions — e.g., update Excel, create a case or trigger a workflow.",
+        },
+      ],
+    },
+  },
+  factories: {
+    title: "AI Acceleration also incubates a much faster AI-native delivery model, to be progressively rolled-out in the factories",
+    steps: [
+      { n: "01", title: "Listen", body: "Record and transcribe users and business owners" },
+      { n: "02", title: "Frame", body: "Extract needs and refine the intent" },
+      { n: "03", title: "Define", body: "Draft stories and the definition of done" },
+      { n: "04", title: "Design", body: "Agents turn intent into flows and interfaces" },
+      { n: "05", title: "Build", body: "Generate code and iterate on the ask" },
+      { n: "06", title: "Test", body: "Test features, data and interfaces" },
+      { n: "07", title: "Release + learn", body: "Go live, capture feedback and improve" },
+    ],
+    bar: "Agents capture context, sharpen the ask, build, test and learn while teams keep ownership",
+    proofs: [
+      "Client360: From prototype to being live for all NorAm scope in 10 weeks, with a two-person development squad",
+      "Client360 Companion: Answers technical and business questions based on what the code says, not PowerPoints",
+    ],
+  },
+} as const;
 
 export const MATURITY = [
   { id: "strategy", label: "Strategy & Leadership", score: "3.50", fy25: "2.44", table: 6 },
@@ -349,6 +639,7 @@ export const HOURBACK_STEPS = [
     mins: "15'",
     who: "Arnaud",
     body: "Everyone creates or upgrades a real one. It knows your OKRs, your team, your stakeholders, your rhythm.",
+    example: "Drafts your Monday note from last week’s decisions, your 1:1s and the OKRs you actually care about.",
   },
   {
     step: 2 as HourbackStep,
@@ -356,6 +647,7 @@ export const HOURBACK_STEPS = [
     mins: "5'",
     who: "Henri",
     body: "The difference between a prompt, a skill and a project, and when each one is the right container.",
+    example: "A skill that turns a clinic note into owner, action and date. A project that holds the FY27 brief so you stop re-pasting it.",
   },
   {
     step: 3 as HourbackStep,
@@ -363,6 +655,7 @@ export const HOURBACK_STEPS = [
     mins: "20'",
     who: "Everyone",
     body: "One real pain point or one live project. Build the agent, skill or project context that takes it off your plate.",
+    example: "The weekly ops pack. The inbox you answer three times. The follow-up still sitting in your notes.",
   },
 ] as const;
 
@@ -417,9 +710,9 @@ export const ROADMAP_TRACKS = [
     id: "gbs",
     title: "AI for GBS & Tech",
     host: "Anshul Bhardwaj",
-    stage: "If there is a track",
-    lede: "What is live, what is next, what is blocked. Three minutes. Skip if nothing to show.",
-    filled: false as const,
+    stage: "POC, discovery, and a funding hold",
+    lede: "APMEA GBS. Talk to data is in POC. NorAm SUT is ready and waiting on funding. FP&A is in discovery.",
+    filled: true as const,
   },
 ] as const;
 
@@ -460,6 +753,41 @@ export const SALES_ROADMAP = {
     { name: "Agentforce Opportunity Scoring", value: "Higher-fidelity signals. Design session with Salesforce." },
   ],
   closed: "GSA no-code agent was closed after ideation.",
+} as const;
+
+export const GBS_ROADMAP = {
+  what: "APMEA GBS AI. Three tracks Anshul can walk: a reporting POC, tax compliance waiting on money, and FP&A still in discovery.",
+  values: [
+    { value: "1,600", label: "NorAm SUT filings a month, run by ~14 people" },
+    { value: "550+", label: "hours a month on the four SUT cases if approved" },
+    { value: "4", label: "SUT use cases submitted, value accepted" },
+  ],
+  tracks: [
+    {
+      status: "POC",
+      title: "Talk to data",
+      body: "Conversational layer over Power BI. Low-code Copilot agent and a code-first path. Demo.",
+    },
+    {
+      status: "Ready · funding hold",
+      title: "NorAm SUT tax",
+      body: "Task tracking, dashboard, PDF extraction, reconciliation. Alteryx on one case. Decision still open.",
+    },
+    {
+      status: "Discovery",
+      title: "FP&A + forecasting",
+      body: "8+ sources. Site Operations and Finance. GRN and payroll with the India FP&A team.",
+    },
+  ],
+  next: [
+    "Talk-to-data demo",
+    "SOP chatbot — six-week Microsoft MVP, then DruidAI versus scale",
+    "Sales RFP agent enablement in APMEA / India",
+  ],
+  blocked: [
+    "SUT: business value accepted, funding decision still open",
+    "Site-ops insights need a business sponsor",
+  ],
 } as const;
 
 export function roadmapTrackByScreenId(screenId: string) {

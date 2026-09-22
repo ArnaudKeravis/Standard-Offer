@@ -241,7 +241,7 @@ export function ClinicsRitualSlide({
 export function HourbackOverviewSlide() {
   return (
     <div className="relative flex h-full w-full flex-col bg-[var(--ws-paper)] px-[5.5vw] pb-[8vh] pt-[12vh]">
-      <p className="ws-kicker text-[var(--ws-cocreate)]">Hands-on · 60 minutes</p>
+      <p className="ws-kicker text-[var(--ws-cocreate)]">Hands-on · 40 minutes</p>
       <h1 className="ws-display mt-3 max-w-4xl text-[clamp(2.1rem,4vw,3.3rem)] text-[var(--ws-ink)]">
         Everyone leaves with something that runs
       </h1>
@@ -262,6 +262,10 @@ export function HourbackOverviewSlide() {
               {step.mins} · {step.who}
             </p>
             <p className="mt-4 text-[1.02rem] text-[var(--ws-muted)]">{step.body}</p>
+            <p className="mt-auto pt-6 text-[0.98rem] leading-snug text-[var(--ws-ink)]">
+              <span className="font-semibold text-[var(--ws-cocreate)]">Example. </span>
+              {step.example}
+            </p>
           </motion.article>
         ))}
       </StaggerIn>

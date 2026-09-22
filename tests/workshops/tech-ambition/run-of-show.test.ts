@@ -3,6 +3,9 @@ import {
   AGENDA,
   BLOCKS,
   CLINIC_TABLES,
+  FY27_ACCEL,
+  GBS_ROADMAP,
+  HOURBACK_STEPS,
   MATURITY,
   ROADMAP_TRACKS,
   SCREENS,
@@ -36,6 +39,8 @@ describe("tech ambition run of show", () => {
     expect(hourbackDuration(1)).toBe(15 * 60_000);
     expect(hourbackDuration(2)).toBe(5 * 60_000);
     expect(hourbackDuration(3)).toBe(20 * 60_000);
+    expect(blockById("hourback").durationMin).toBe(40);
+    expect(HOURBACK_STEPS.every((step) => step.example.length > 0)).toBe(true);
   });
 
   it("puts a 20-minute leader strategy sharing session before a 40-minute build", () => {
@@ -78,5 +83,21 @@ describe("tech ambition run of show", () => {
     ]);
     expect(SCREENS.some((screen) => screen.kind === "fy26-brief")).toBe(true);
     expect(SCREENS.some((screen) => screen.id === "fy26-results")).toBe(false);
+    expect(SCREENS.some((screen) => screen.id === "ai-philosophy")).toBe(false);
+    const gbs = ROADMAP_TRACKS.find((track) => track.id === "gbs");
+    expect(gbs).toMatchObject({
+      host: "Anshul Bhardwaj",
+      filled: true,
+    });
+    expect(GBS_ROADMAP.tracks.map((track) => track.title)).toEqual([
+      "Talk to data",
+      "NorAm SUT tax",
+      "FP&A + forecasting",
+    ]);
+    expect(SCREENS.filter((screen) => screen.kind === "strategy-accel")).toHaveLength(7);
+    expect(FY27_ACCEL.priorities.title).toBe(
+      "AI Acceleration focuses on three priorities, each with a dedicated delivery model",
+    );
+    expect(FY27_ACCEL.factories.proofs[0]).toContain("Client360");
   });
 });
